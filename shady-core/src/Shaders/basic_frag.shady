@@ -1,0 +1,15 @@
+#version 420 core
+
+out vec4 color;
+uniform sampler2D diffuse;
+
+in VS_OUT
+{
+	vec4 color;
+	vec2 texCoord;
+} fs_in;
+
+void main()
+{
+	color = texture(diffuse, fs_in.texCoord);
+}

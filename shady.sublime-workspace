@@ -1,0 +1,1274 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"m",
+				"mKeyStates"
+			],
+			[
+				"is",
+				"isActive"
+			],
+			[
+				"mM",
+				"mMainWindow"
+			],
+			[
+				"Shady",
+				"ShadyApp"
+			],
+			[
+				"ps",
+				"psGUID"
+			],
+			[
+				"mN",
+				"mNumOfElem-1"
+			],
+			[
+				"mBu",
+				"mBuffer"
+			],
+			[
+				"mBU",
+				"mBufferSize"
+			],
+			[
+				"mB",
+				"mBuffer"
+			],
+			[
+				"mNu",
+				"mNumOfElem"
+			],
+			[
+				"mBuffer",
+				"mBuffer"
+			],
+			[
+				"mBuff",
+				"mBuffer"
+			],
+			[
+				"mNum",
+				"mNumOfElem"
+			],
+			[
+				"sugg",
+				"suggestedFormat"
+			],
+			[
+				"suggested",
+				"suggesedFormatIndex"
+			],
+			[
+				"GLAPI",
+				"GLAPIENTRY"
+			],
+			[
+				"VsInclude",
+				"VsInclude7"
+			],
+			[
+				"mIs",
+				"mIsActive"
+			],
+			[
+				"w",
+				"wParam"
+			],
+			[
+				"mClien",
+				"mClientHeight"
+			],
+			[
+				"mC",
+				"mClientWidth"
+			],
+			[
+				"SH_",
+				"SH_DEFAULT_WINDOW_HEIGHT"
+			],
+			[
+				"SH_DEFA",
+				"SH_DEFAULT_WINDOW_WIDTH"
+			],
+			[
+				"SH",
+				"SH_DEFAULT_WINDOW_TITLE"
+			],
+			[
+				"core",
+				"coreInputLibs"
+			],
+			[
+				"coreI",
+				"coreInputFiles"
+			],
+			[
+				"com_input_",
+				"com_input_libs1"
+			],
+			[
+				"shCommons",
+				"shCommonsDebLib"
+			],
+			[
+				"shCo",
+				"shCommonsRelLib"
+			],
+			[
+				"shC",
+				"shCommonsDebLib"
+			],
+			[
+				"shCom",
+				"shCommons"
+			],
+			[
+				"gl",
+				"glewInclude"
+			],
+			[
+				"st",
+				"startCounting"
+			],
+			[
+				"sto",
+				"storageE"
+			],
+			[
+				"can",
+				"canPickMolecule"
+			],
+			[
+				"Av",
+				"availableA"
+			],
+			[
+				"ex",
+				"expertiseE"
+			],
+			[
+				"expe",
+				"expertiseD"
+			],
+			[
+				"et",
+				"ETA"
+			],
+			[
+				"RANK",
+				"RANK_2_MAX_SAMPLE_COST"
+			],
+			[
+				"isa",
+				"isAtLab"
+			],
+			[
+				"sample",
+				"sampleId"
+			],
+			[
+				"DI",
+				"DIAGSAMPLE"
+			],
+			[
+				"get",
+				"getBestSampleRank"
+			],
+			[
+				"Rank",
+				"RANK_1_MAX_SAMPLE_COST"
+			],
+			[
+				"MAX",
+				"ROBOT_MAX_MOL"
+			],
+			[
+				"GO",
+				"GOTODIAG"
+			],
+			[
+				"GET",
+				"GETSAMPLE"
+			],
+			[
+				"cl",
+				"cloudSamples"
+			],
+			[
+				"stora",
+				"storageB"
+			],
+			[
+				"at",
+				"AT_LAB"
+			],
+			[
+				"AT",
+				"AT_LAB"
+			],
+			[
+				"has",
+				"hasSample"
+			],
+			[
+				"id",
+				"IDLE"
+			],
+			[
+				"AT_",
+				"AT_LAB"
+			],
+			[
+				"plar",
+				"player1"
+			],
+			[
+				"cos",
+				"costA"
+			],
+			[
+				"co",
+				"costA"
+			],
+			[
+				"isAt",
+				"isAtMol"
+			],
+			[
+				"av",
+				"availableA"
+			],
+			[
+				"e",
+				"expertiseC"
+			],
+			[
+				"Ex",
+				"expertiseD"
+			],
+			[
+				"samples",
+				"cloudSamples"
+			],
+			[
+				"MO",
+				"MOVING_TO_MOL"
+			],
+			[
+				"clou",
+				"cloudSampleCount"
+			],
+			[
+				"ROBO",
+				"ROBOT_MAX_SAMPLES"
+			],
+			[
+				"GETTING",
+				"GETTING_RESULT"
+			],
+			[
+				"GETT",
+				"GETTING_MOLECULES"
+			],
+			[
+				"cloudSa",
+				"cloudSampleCount"
+			],
+			[
+				"Mo",
+				"MOLECULES"
+			],
+			[
+				"Dia",
+				"DIAGNOSIS"
+			],
+			[
+				"n",
+				"num"
+			],
+			[
+				"listF",
+				"listFilesWin32"
+			],
+			[
+				"rh",
+				"rhc2"
+			],
+			[
+				"s",
+				"s"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/E/Downloaded projects/glm-0.9.8.4/glm/detail/type_mat4x4.hpp",
+			"settings":
+			{
+				"buffer_size": 6844,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/E/Downloaded projects/glm-0.9.8.4/glm/detail/type_mat4x4.inl",
+			"settings":
+			{
+				"buffer_size": 23142,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "shady-commons/src/Math/Matrix4f.cpp",
+			"settings":
+			{
+				"buffer_size": 2200,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "#ifndef MATRIX_4_F_H\n#define MATRIX_4_F_H\n\n#include \"Vec4.h\"\nnamespace Shady\n{\n\tstruct Matrix4f\n\t{\n\t\tunion\n\t\t{\n\t\t\tfloat elem[4 * 4];\n\t\t\tVec4f rows[4];\n\t\t};\n\t\tMatrix4f();\n\t\tMatrix4f(float diag);\n\t\tMatrix4f(const Matrix4f& other);\n\t\tMatrix4f(Vec4f firstRow, Vec4f secondRow, Vec4f thirdRow, Vec4f fourthRow);\n\t\tMatrix4f& operator=(const Matrix4f& other);\n\t\tVec4f& operator[](int index);\n\t\tMatrix4f operator*(Matrix4f& other);\n\t\tVec4f operator*(Vec4f vec);\n\t\tstatic Matrix4f identity();\n\t\tstatic Matrix4f translation(float x, float y, float z);\n\t\tstatic Matrix4f ortho(float left, float right, float bottom, float top, float near, float far);\n\t};\n}\n\n#endif\n",
+			"file": "shady-commons/include/Matrix4f.h",
+			"file_size": 583,
+			"file_write_time": 131428175706088424,
+			"settings":
+			{
+				"buffer_size": 654,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/E/Downloaded projects/glm-0.9.8.4/glm/gtc/matrix_transform.hpp",
+			"settings":
+			{
+				"buffer_size": 19230,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/E/Downloaded projects/glm-0.9.8.4/glm/gtc/matrix_transform.inl",
+			"settings":
+			{
+				"buffer_size": 17322,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "Shady",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					""
+				],
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					"Run"
+				]
+			],
+			[
+				"Packages/C++/C++ Single File.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					""
+				],
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					"Run"
+				],
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					"Shady"
+				]
+			],
+			[
+				"Packages/C++/C++ Single File.sublime-build",
+				"Shady"
+			]
+		],
+		[
+			[
+				[
+					"Shady",
+					""
+				],
+				[
+					"Shady",
+					"Build All"
+				]
+			],
+			[
+				"Shady",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Shady",
+					""
+				],
+				[
+					"Shady",
+					"Build Core DEBUG"
+				],
+				[
+					"Shady",
+					"Run Core DEBUG VS"
+				],
+				[
+					"Shady",
+					"Run Core DEBUG"
+				],
+				[
+					"Shady",
+					"Build Core RELEASE"
+				],
+				[
+					"Shady",
+					"Run Core RELEASE"
+				],
+				[
+					"Shady",
+					"Run Core RELEASE VS"
+				],
+				[
+					"Shady",
+					"Build Commons DEBUG"
+				],
+				[
+					"Shady",
+					"Build Commons RELEASE"
+				]
+			],
+			[
+				"Shady",
+				"Run Core DEBUG"
+			]
+		],
+		[
+			[
+				[
+					"Shady",
+					""
+				],
+				[
+					"Shady",
+					"Build Core DEBUG"
+				],
+				[
+					"Shady",
+					"Run Core DEBUG VS"
+				],
+				[
+					"Shady",
+					"Run Core DEBUG"
+				],
+				[
+					"Shady",
+					"Build Core RELEASE"
+				],
+				[
+					"Shady",
+					"Run Core RELEASE"
+				],
+				[
+					"Shady",
+					"Run Core RELEASE VS"
+				],
+				[
+					"Shady",
+					"Build Commons DEBUG"
+				],
+				[
+					"Shady",
+					"Build Commons RELEASE"
+				],
+				[
+					"Shady",
+					"Stats"
+				]
+			],
+			[
+				"Shady",
+				"Stats"
+			]
+		],
+		[
+			[
+				[
+					"Shady Build",
+					""
+				],
+				[
+					"Shady Build",
+					"Build Commons DEBUG"
+				],
+				[
+					"Shady Build",
+					"Build Commons RELEASE"
+				]
+			],
+			[
+				"Shady Build",
+				"Build Commons RELEASE"
+			]
+		],
+		[
+			[
+				[
+					"Shady Build",
+					""
+				],
+				[
+					"Shady Build",
+					"Build Commons DEBUG"
+				],
+				[
+					"Shady Build",
+					"Build Commons RELEASE"
+				],
+				[
+					"Shady Build",
+					"Build Core DEBUG"
+				],
+				[
+					"Shady Build",
+					"Build Core RELEASE"
+				]
+			],
+			[
+				"Shady Build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "packa",
+		"selected_items":
+		[
+			[
+				"packa",
+				"Package Control: Remove Package"
+			],
+			[
+				"open",
+				"PackageResourceViewer: Open Resource"
+			],
+			[
+				"pa",
+				"Package Control: Install Package"
+			],
+			[
+				"ope",
+				"PackageResourceViewer: Open Resource"
+			],
+			[
+				"op",
+				"PackageResourceViewer: Open Resource"
+			],
+			[
+				"package",
+				"Package Control: List Packages"
+			],
+			[
+				"",
+				"Build: New Build System"
+			],
+			[
+				"pack",
+				"PackageResourceViewer: Open Resource"
+			],
+			[
+				"prv",
+				"PackageResourceViewer: Open Resource"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"package res",
+				"Package Control: Upgrade/Overwrite All Packages"
+			]
+		],
+		"width": 400.0
+	},
+	"console":
+	{
+		"height": 335.0,
+		"history":
+		[
+			"--a",
+			"-a",
+			"command echo {\"foo\": 100 }",
+			"command echo {\\\"foo\\\": 100 }",
+			"command 'echo {\\\"foo\\\": 100 }'",
+			"--command 'echo {\\\"foo\\\": 100 }'",
+			"subl --command 'echo {\\\"foo\\\": 100 }'",
+			"--add",
+			"--ad",
+			"view.run_command(\"insertCharacters\", \"acdv\")",
+			"insertCharacters \"abcd\\n\"",
+			"run",
+			"scripts\\stats.bat",
+			"scripts\\stats",
+			"scripts/stats",
+			"stats",
+			"sublime.log_result_regex()",
+			"sublime.log_result_regex(True)",
+			"sublime",
+			"sublime.log_commands(True)",
+			"view.run_command(\"log_result_regex\", {\"flag\": true})",
+			"view.run_command(\"log_result_regex\", {\"flag\": 10})",
+			"next_view",
+			"test.cpp",
+			"open",
+			"--help",
+			"help",
+			"open help",
+			"open",
+			"open test.cpp",
+			"open",
+			"test.cpp",
+			"import urllib.request,os,hashlib; h = 'df21e130d211cfc94d9b0905775a7c0f' + '1e3d39e33b79698005270310898eea76'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/D/workspace/Shady",
+		"/D/workspace/Shady/shady-core",
+		"/D/workspace/Shady/shady-core/include",
+		"/D/workspace/Shady/shady-core/src",
+		"/D/workspace/Shady/shady-core/src/Graphics"
+	],
+	"file_history":
+	[
+		"/D/workspace/Shady/shady-core/src/Utils/Win32Window.cpp",
+		"/D/workspace/Shady/shady-core/src/Utils/ShadyApp.cpp",
+		"/D/workspace/Shady/shady-core/src/Utils/ShMouse.cpp",
+		"/D/workspace/Shady/shady-core/src/Utils/ShKeyboard.cpp",
+		"/D/workspace/Shady/shady-core/src/shady-core.cpp",
+		"/d/workspace/shady/shady-core/src/main.cpp",
+		"/D/workspace/Shady/shady-core/include/ShMouse.h",
+		"/D/workspace/Shady/shady-core/include/ShKeyboard.h",
+		"/D/workspace/Shady/shady-core/include/ShadyApp.h",
+		"/D/workspace/Shady/shady-core/include/Window.h",
+		"/D/workspace/Shady/shady-core/include/Win32Window.h",
+		"/E/Downloaded projects/glm-0.9.8.4/glm/mat4x4.hpp",
+		"/D/workspace/Shady/scripts/shady-core.bat",
+		"/D/workspace/Shady/scripts/sh_build.bat",
+		"/D/workspace/Shady/shady-commons/include/ShArray.h",
+		"/D/workspace/Shady/shady-commons/src/shady-commons.cpp",
+		"/D/workspace/Shady/shady-commons/src/Containers/ShString.cpp",
+		"/D/workspace/Shady/shady-commons/src/StringUtils/StringUtils.cpp",
+		"/D/workspace/Shady/shady-commons/include/StringUtils.h",
+		"/C/Program Files (x86)/Windows Kits/8.1/Include/um/dinput.h",
+		"/D/workspace/Shady/shady-commons/include/ShString.h",
+		"/D/workspace/Shady/shady-commons/include/Commons.h",
+		"/D/workspace/Shady/shady-commons/src/Containers/ShArray.cpp",
+		"/D/workspace/Shady/scripts/shady-commons.bat",
+		"/D/workspace/Shady/shady-commons/include/Math.h",
+		"/D/workspace/Shady/shady.sublime-project",
+		"/D/workspace/Shady/shady-commons/src/Math/ShadyMath.cpp",
+		"/D/workspace/Shady/shady-commons/include/ShadyMath.h",
+		"/c/program files (x86)/microsoft visual studio 14.0/vc/include/cstring",
+		"/c/program files (x86)/windows kits/8.1/include/um/propidl.h",
+		"/c/program files (x86)/windows kits/8.1/include/shared/guiddef.h",
+		"/D/workspace/Shady/shady-core/include/ShString.h",
+		"/d/workspace/shady/shady-core/include/shader.h",
+		"/D/workspace/Shady/shady-core/src/Graphics/VertexData.h",
+		"/D/workspace/Shady/shady-core/src/Utils/Win32Gl.cpp",
+		"/d/workspace/shady/shady-core/include/shadygl.h",
+		"/D/workspace/Shady/shady-core/include/Texture.h",
+		"/D/workspace/Shady/shady-core/include/Mesh.h",
+		"/D/workspace/Shady/Dep/GLEW/include/GL/wglew.h",
+		"/D/workspace/Shady/Dep/GLEW/include/GL/glew.h",
+		"/D/workspace/Shady/shady-core/include/ShadyGL.h",
+		"/D/workspace/Shady/shady-core/src/Utils/ShadyGL.h",
+		"/c/program files (x86)/windows kits/8.1/include/shared/minwindef.h",
+		"/D/workspace/Shady/shady-core/src/Utils/Win32Window.h",
+		"/D/workspace/Shady/shady-core/src/Utils/Window.h",
+		"/c/program files (x86)/windows kits/8.1/include/um/gl/gl.h",
+		"/D/workspace/Shady/shady-core/src/Graphics/Mesh.cpp",
+		"/D/workspace/Shady/shady-core/src/Graphics/Shader.cpp",
+		"/D/workspace/Shady/shady-core/src/Graphics/Shader.h",
+		"/D/workspace/Shady/shady-core/src/Graphics/Texture.cpp",
+		"/D/workspace/Shady/shady-core/src/Graphics/Texture.h",
+		"/C/Program Files (x86)/Windows Kits/8.1/Include/um/gl/GL.h",
+		"/D/workspace/Shady/shady-core/src/include/Mesh.h",
+		"/D/workspace/Shady/shady-core/src/Graphics/Mesh.h",
+		"/C/Program Files (x86)/Windows Kits/8.1/Include/um/gl/GLU.h",
+		"/D/workspace/Shady/scripts/stats.bat",
+		"/d/workspace/shady/shady-core/src/utils/win32window.cpp",
+		"/d/workspace/shady/shady-commons/include/commons.h",
+		"/D/workspace/Shady/shady-commons/src/Commons.cpp",
+		"/D/workspace/Shady/shady-core/sh_debug/shady-core.sln",
+		"/C/Program Files (x86)/Microsoft Visual Studio/2017/Professional/Common7/IDE/VC/Linux/include/usr/include/stdint.h",
+		"/D/workspace/Shady/shady-core/src/Utils/Timer.cpp",
+		"/D/workspace/Shady/shady-core/src/Utils/Timer.h",
+		"/D/workspace/Shady/shady-commons/src/FileUtils/FileUtils.cpp",
+		"/D/workspace/Shady/Dep/GLEW/include/GL/eglew.h",
+		"/C/Autodesk/WI/Autodesk Entertainment Creation Suite Ultimate 2016/x64/MotionBuilder/ADSK/MB/OpenRealitySDK/include/boost-1.55.0/boost/cstdint.hpp",
+		"/C/Users/ALIN/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup/startup.bat",
+		"/D/workspace/Shady/shady-commons/include/Vec4.h",
+		"/d/workspace/shady/shady-core/src/shady-core.cpp",
+		"/D/workspace/Shady/sh_build.bat",
+		"/D/workspace/Shady/shady-core/shady-core.bat",
+		"/D/workspace/Shady/shady-commons/shady-commons.bat",
+		"/d/workspace/shady/dep/glfw/include/glfw/glfw3.h",
+		"/D/workspace/Shady/shady-commons/include/FileUtils.h",
+		"/d/workspace/shady/shady-core/src/graphics/window.h",
+		"/d/workspace/shady/shady-core/src/graphics/window.cpp",
+		"/d/workspace/shady/shady-commons/src/commons.cpp",
+		"/d/workspace/shady/shady-core/src/graphics/mesh.h",
+		"/d/workspace/shady/shady-core/src/graphics/mesh.cpp",
+		"/d/workspace/shady/shady-core/src/graphics/shader.h",
+		"/d/workspace/shady/shady-core/src/graphics/shader.cpp",
+		"/D/workspace/Shady/shady-commons/include/Matrix3f.h",
+		"/c/program files (x86)/microsoft visual studio 14.0/vc/include/vector",
+		"/D/workspace/Shady/Shady.cpp",
+		"/C/Program Files (x86)/Windows Kits/8.1/Include/um/Windows.h",
+		"/d/workspace/shady/shady-commons/StringUtils/StringUtils.cpp",
+		"/D/workspace/Shady/Test.cpp",
+		"/D/workspace/Shady/include/Test.h",
+		"/D/workspace/Shady/shady-core/Main.cpp",
+		"/D/workspace/Shady/shady-core/shady-core.cpp",
+		"/C/Users/ALIN/Desktop/first.bat",
+		"/C/Users/ALIN/Desktop/second.bat",
+		"/C/Users/ALIN/AppData/Roaming/Sublime Text 3/Packages/Default/exec.py",
+		"/C/Users/ALIN/AppData/Roaming/Sublime Text 3/Packages/C++/C++ Single File.sublime-build",
+		"/D/workspace/Shady/shady-commons/Math/Matrix3f.cpp",
+		"/D/workspace/Shady/shady-commons/Math/Matrix4f.cpp",
+		"/D/Program Files/Sublime Text 3/sublime_plugin.py",
+		"/D/Program Files/Sublime Text 3/sublime.py",
+		"/D/workspace/Shady/shady-commons/shady-commons.cpp",
+		"/c/users/alin/desktop/shady/shady-commons/StringUtils/StringUtils.cpp",
+		"/C/Users/ALIN/AppData/Roaming/Sublime Text 3/Packages/C++/Comments (C++).tmPreferences",
+		"/C/Users/ALIN/AppData/Roaming/Sublime Text 3/Packages/C++/C++.sublime-syntax",
+		"/C/Users/ALIN/Desktop/Shady/shady-commons/Commons.cpp",
+		"/C/Users/ALIN/AppData/Roaming/Sublime Text 3/Packages/Highlight Build Errors/HighlightBuildErrors.py",
+		"/C/Users/ALIN/AppData/Roaming/Sublime Text 3/Packages/Highlight Build Errors/Context.sublime-menu",
+		"/C/Users/ALIN/AppData/Roaming/Sublime Text 3/Packages/Default/side_bar.py",
+		"/C/Users/ALIN/AppData/Roaming/Sublime Text 3/Packages/Default/goto_line.py",
+		"/C/Users/ALIN/AppData/Roaming/Sublime Text 3/Packages/Default/transform.py",
+		"/c/users/alin/desktop/shady/shady-commons/Commons.cpp(",
+		"/C/Users/ALIN/AppData/Roaming/Sublime Text 3/Packages/Package Control/Package Control.sublime-settings",
+		"/C/Users/ALIN/AppData/Roaming/Sublime Text 3/Packages/Default/settings.py",
+		"/C/Users/ALIN/AppData/Roaming/Sublime Text 3/Packages/Default/Regex Widget.sublime-settings",
+		"/C/Users/ALIN/AppData/Roaming/Sublime Text 3/Packages/Default/Default.sublime-commands",
+		"/c/users/alin/desktop/shady/shady-commons/Commons.cpp(3):",
+		"/d/workspace/shady/shady-commons/Commons.cpp(3)",
+		"/D/workspace/Shady/Microsoft (R) C/C++ Optimizing Compiler Version 19.00.24215.1 for",
+		"/D/workspace/Shady/include/Commons.h",
+		"/C/Users/ALIN/AppData/Roaming/Sublime Text 3/Packages/C++/C++.sublime-settings",
+		"/C/Users/ALIN/AppData/Roaming/Sublime Text 3/Packages/C++/Snippets/#ifndef-#define-#endif.sublime-snippet",
+		"/D/workspace/ShadyVS/Commons/Commons.h",
+		"/D/workspace/Shady/shady-core/Graphics/Window.h",
+		"/D/workspace/Shady/shady-core/Graphics/Shader.h",
+		"/D/workspace/Shady/shady-core/Graphics/Mesh.cpp",
+		"/C/Users/ALIN/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/C/Users/ALIN/AppData/Roaming/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/C/Users/ALIN/Desktop/Sparky-master/Sparky-master/Sparky-core/src/sp/system/Memory.h",
+		"/C/Users/ALIN/Desktop/Sparky-master/Sparky-master/Sparky-core/src/sp/Scene2D.h",
+		"/C/Users/ALIN/Desktop/Sparky-master/Sparky-master/Sparky-core/src/sp/Scene2D.cpp"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 90.0,
+		"where_history":
+		[
+			"<project>,-Dep",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"DIDC",
+			"glDC",
+			"pfNum",
+			"#include <GL",
+			"glClampColor",
+			"__cplusplus",
+			"__glewClampColor",
+			"glClampColor",
+			"COMMONS_H",
+			">\n",
+			"char",
+			"uint32",
+			"char",
+			"uint32",
+			"int32",
+			"uint32",
+			"int32",
+			"uint32",
+			"int32",
+			"uint32",
+			"int32",
+			"RELEASE",
+			"SH_DEBUG",
+			"Mesh",
+			"config_opt",
+			"self.append_string(proc, self.debug_text)",
+			"settings()",
+			"output_view",
+			"class",
+			"class Object",
+			"Command",
+			"WindowCommand",
+			"output_view",
+			"file_regex",
+			"DIM",
+			"__debugbreak",
+			"molIdices",
+			"A",
+			"continue",
+			"v 0.04617318 0.5688779 0.52323706351z=-0.046924",
+			"PVEAllow",
+			"cl"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/E/Downloaded projects/glm-0.9.8.4/glm/detail/type_mat4x4.hpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6844,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1158,
+								1158
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 270.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/E/Downloaded projects/glm-0.9.8.4/glm/detail/type_mat4x4.inl",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 23142,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								118,
+								95
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "shady-commons/src/Math/Matrix4f.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2200,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1169,
+								1169
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "shady-commons/include/Matrix4f.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 654,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								541,
+								541
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 4,
+					"file": "/E/Downloaded projects/glm-0.9.8.4/glm/gtc/matrix_transform.hpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 19230,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 3564.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/E/Downloaded projects/glm-0.9.8.4/glm/gtc/matrix_transform.inl",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 17322,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								14838,
+								14838
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 7938.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 34.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.5,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 237.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.unsaved_changes":
+	{
+		"height": 118.0
+	},
+	"pinned_build_system": "Shady",
+	"project": "shady.sublime-project",
+	"replace":
+	{
+		"height": 48.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"ma",
+				"shady-commons\\include\\Matrix4f.h"
+			],
+			[
+				"m",
+				"shady-commons\\src\\Math\\Matrix4f.cpp"
+			],
+			[
+				"win32",
+				"shady-core\\include\\Win32Window.h"
+			],
+			[
+				"shap",
+				"shady-core\\src\\Utils\\ShadyApp.cpp"
+			],
+			[
+				"shapp",
+				"shady-core\\include\\ShadyApp.h"
+			],
+			[
+				"sh_",
+				"scripts\\sh_build.bat"
+			],
+			[
+				"shady-core",
+				"scripts\\shady-core.bat"
+			],
+			[
+				"sh_bu",
+				"scripts\\sh_build.bat"
+			],
+			[
+				"shady-",
+				"scripts\\shady-commons.bat"
+			],
+			[
+				"",
+				"shady.sublime-project"
+			],
+			[
+				"strinu",
+				"shady-commons\\src\\StringUtils\\StringUtils.cpp"
+			],
+			[
+				"strin",
+				"shady-commons\\include\\StringUtils.h"
+			],
+			[
+				"shady-commo",
+				"shady-commons\\src\\shady-commons.cpp"
+			],
+			[
+				"co",
+				"shady-commons\\include\\Commons.h"
+			],
+			[
+				"shs",
+				"shady-commons\\include\\ShString.h"
+			],
+			[
+				"sh-core",
+				"scripts\\shady-core.bat"
+			],
+			[
+				"comm",
+				"shady-commons\\include\\Commons.h"
+			],
+			[
+				"window",
+				"shady-core\\include\\Window.h"
+			],
+			[
+				"sh_bui",
+				"scripts\\sh_build.bat"
+			],
+			[
+				"vertex",
+				"shady-core\\src\\Graphics\\VertexData.h"
+			],
+			[
+				"texture",
+				"shady-core\\src\\Graphics\\Texture.h"
+			],
+			[
+				"shader",
+				"shady-core\\src\\Graphics\\Shader.h"
+			],
+			[
+				"mesh",
+				"shady-core\\src\\Graphics\\Mesh.cpp"
+			],
+			[
+				"common",
+				"shady-commons\\include\\Commons.h"
+			],
+			[
+				"sh_buil",
+				"scripts\\sh_build.bat"
+			],
+			[
+				"win32win",
+				"shady-core\\src\\Utils\\Win32Window.cpp"
+			],
+			[
+				"stat",
+				"scripts\\stats.bat"
+			],
+			[
+				"sta",
+				"scripts\\stats.bat"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 263.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

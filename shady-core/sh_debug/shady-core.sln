@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{911E67C6-3D85-4FCE-B560-20A9C3E3FF48}") = "shady-core", "shady-core.exe", "{4597CD9C-769C-4AF1-996C-242FDF6F02E9}"
+	ProjectSection(DebuggerProjectSystem) = preProject
+		PortSupplier = 00000000-0000-0000-0000-000000000000
+		Executable = D:\workspace\Shady\shady-core\sh_debug\shady-core.exe
+		RemoteMachine = DESKTOP-2TP1QGK
+		StartingDirectory = D:\workspace\Shady\shady-core\sh_debug
+		Environment = Default
+		LaunchingEngine = 00000000-0000-0000-0000-000000000000
+		UseLegacyDebugEngines = No
+		LaunchSQLEngine = No
+		AttachLaunchAction = No
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A64F7CF9-EE5E-4478-A62C-3AC378BE22B4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9518AE55-13C6-4B6F-9A87-9A3CC1AA8FE3}"
+	ProjectSection(SolutionItems) = preProject
+		..\src\Main.cpp = ..\src\Main.cpp
+		..\include\Mesh.h = ..\include\Mesh.h
+		..\src\Graphics\Shader.cpp = ..\src\Graphics\Shader.cpp
+		..\include\Shader.h = ..\include\Shader.h
+		..\src\shady-core.cpp = ..\src\shady-core.cpp
+		..\include\ShadyGL.h = ..\include\ShadyGL.h
+		..\src\Graphics\Texture.cpp = ..\src\Graphics\Texture.cpp
+		..\include\Texture.h = ..\include\Texture.h
+		..\src\Utils\Timer.cpp = ..\src\Utils\Timer.cpp
+		..\include\Timer.h = ..\include\Timer.h
+		..\include\VertexData.h = ..\include\VertexData.h
+		..\src\Utils\Win32Gl.cpp = ..\src\Utils\Win32Gl.cpp
+		..\src\Utils\Win32Window.cpp = ..\src\Utils\Win32Window.cpp
+		..\include\Win32Window.h = ..\include\Win32Window.h
+		..\include\Window.h = ..\include\Window.h
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4597CD9C-769C-4AF1-996C-242FDF6F02E9}.Release|x86.ActiveCfg = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9518AE55-13C6-4B6F-9A87-9A3CC1AA8FE3} = {A64F7CF9-EE5E-4478-A62C-3AC378BE22B4}
+	EndGlobalSection
+EndGlobal
