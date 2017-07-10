@@ -2,7 +2,10 @@
 
 #include <glew.h>
 #include "ShadyApp.h"
-
+#include "ShString.h"
+#include "FileUtils.h"
+#include "ModelLoader.h"
+#include "ShadyMath.h"
 using namespace Shady;
 
 using namespace Utils;
@@ -10,7 +13,6 @@ using namespace Utils;
 
 int main(int argc, const char* argv[])
 {
-	const GLubyte* glstr = glGetString(GL_EXTENSIONS);
 	
 	ShadyApp app = ShadyApp::getInstance();
 	app.start();

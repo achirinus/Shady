@@ -1,12 +1,14 @@
 
-//#include "Graphics/Mesh.cpp"
-//#include "Graphics/Shader.cpp"
+#include "Graphics/Mesh.cpp"
+#include "Graphics/Shader.cpp"
+#include "Graphics/Sprite.cpp"
 //#include "Graphics/Texture.cpp"
 #include "Utils/Win32GL.cpp"
 #include "Utils/Win32Window.cpp"
 #include "Utils/Timer.cpp"
 #include "Utils/ShMouse.cpp"
 #include "Utils/ShKeyboard.cpp"
+#include "Utils/ModelLoader.cpp"
 #include "Utils/ShadyApp.cpp"
 
 #include "Main.cpp"

@@ -119,6 +119,8 @@ struct PerfCounter
 	}
 };
 
+void zeroMemory(void* mem, u64 size);
+
 
 #if defined (SHADY_DEBUG) || (SHADY_DEBUG_RELEASE)
 	#if defined (_MSC_VER)

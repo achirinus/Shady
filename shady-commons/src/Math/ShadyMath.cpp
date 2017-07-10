@@ -12,6 +12,11 @@ namespace Shady
 		return a;	
 	}
 
+	f32 toRadians(f32 angle)
+	{
+		return (angle * SH_PI)/180;
+	}
+
 	float clamp(float value, float upperLimit)
 	{
 		return (value > upperLimit) ? upperLimit : value;

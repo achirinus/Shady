@@ -1,50 +1,42 @@
 #ifndef MESH_H
 #define MESH_H
 
-#include "Vec3.h"
-
+#include "Vertex.h"
+#include "ShArray.h"
 #include <glew.h>
+
 namespace Shady
 {
-	namespace Graphics
+	
+	class Mesh
 	{
-
-		class Vertex
-		{
+	public:
 		
-		public:
-			Vec3f mPos;
-			Vec2f mTexCoord;
+		Mesh(Array<Vertex> verts);
+		Mesh() = default;
 
-			Vertex(const Vec3f& pos,const Vec2f texCoord)
-			{
-				mPos = pos;
-				mTexCoord = texCoord;
-			}
-		};
+		void draw();
+		void bind();
+		void unbind();
+		Array<Vertex> mVertices;
+		~Mesh();
+	private:
 
-		class Mesh
+		enum
 		{
-		public:
-			Mesh(Vertex* vertices, unsigned int numVertices);
+			POSITION_VB = 0,
+			//NORMAL_VB,				
+			//TEXCOORD_VB,
 
-			void draw();
-			void bind();
-			void unbind();
-			~Mesh();
-		private:
-
-			enum
-			{
-				POSITION_VB = 0,
-				TEXCOORD_VB,
-				NUM_BUFFERS
-			};
-			GLuint mVAO;
-			GLuint mVBO[NUM_BUFFERS];
-			unsigned int mDrawCount;
+			NUM_BUFFERS
 		};
-	}
+
+		
+		GLuint mVAO;
+		GLuint mVBO[NUM_BUFFERS];
+		
+	};
+
 }
 
 #endif

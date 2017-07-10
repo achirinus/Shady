@@ -64,6 +64,26 @@ namespace Shady
 				return rez * fact;
 			};
 
+			String win32ReadTextFile(const char* fileName)
+			{
+				//TODO optimize this shit
+				OFSTRUCT ofstr{};
+				HANDLE fileHandle = CreateFileA(fileName,
+												GENERIC_READ, 
+												FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE,
+												NULL,
+												OPEN_EXISTING,
+												FILE_ATTRIBUTE_NORMAL,
+												NULL);
+				SH_ASSERT(fileHandle != INVALID_HANDLE_VALUE);
+				DWORD fileSize = GetFileSize(fileHandle, NULL);
+				DWORD bytesRead = 0;
+				c8* str = new c8[fileSize + 1];
+				ReadFile(fileHandle, (void*)str, fileSize, &bytesRead, NULL);
+				str[fileSize] = '\0';
+				return String(str);
+			}
+
 		}
 	
 }

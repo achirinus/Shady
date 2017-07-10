@@ -1,22 +1,21 @@
 #version 420 core
 
-in vec3 position;
-in vec2 texCoord;
+in vec3 pos;
 
 
+uniform mat4 modelMat = mat4(1);
 uniform mat4 projMat;
 
 out VS_OUT
 {
 	vec4 color;
-	vec2 texCoord;
+	
 } vs_out;
 
 
 void main()
 {
-
-	gl_Position = projMat * vec4(position, 1) ;
-	//vs_out.color = vec4(gl_Position);
-	vs_out.texCoord = texCoord;
+	gl_Position = modelMat * vec4(pos, 1.0);
+	vs_out.color = vec4(gl_Position);
+	
 }

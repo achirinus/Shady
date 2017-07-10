@@ -8,6 +8,7 @@ namespace Shady
 	{
 		Texture::Texture(const char* fileName)
 		{
+			SH_ASSERT(fileName);
 			int width, height, numComponents;
 			//TODO write my own image loader
 			unsigned char* imageData = stbi_load(fileName, &width, &height, &numComponents, 4);
@@ -15,7 +16,7 @@ namespace Shady
 			if (!imageData)
 			{
 				//TODO better log
-				printf("Failed to load texture");
+				DEBUG_OUT_ERR("Failed to load texture");
 			}
 
 			glGenTextures(1, &mTexture);
@@ -38,7 +39,8 @@ namespace Shady
 
 		void Texture::bind(GLuint unit)
 		{
-			//TODO assert 0 > unit < 31
+			SH_ASSERT(( 0 > unit) &&  (unit < 31));
+
 			glActiveTexture(GL_TEXTURE0 + unit);
 			glBindTexture(GL_TEXTURE_2D, mTexture);
 		}

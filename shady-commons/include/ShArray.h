@@ -67,7 +67,7 @@ namespace Shady
 				mBuffer = new T[size];
 			}
 		}
-		void size() const
+		u32 size() const
 		{
 			return mNumOfElem;
 		}
@@ -165,12 +165,13 @@ namespace Shady
 
 		T& operator[](s32 index)
 		{
-			SH_ASSERT((index > 0) && (index < mNumOfElem));
+			SH_ASSERT((index >= 0) && (index < mNumOfElem));
 			return mBuffer[index];
 		}
-		Array<T>& operator==(const Array<T> other)
+		Array<T>& operator=(const Array<T> other)
 		{
-
+			Array<T> result{other};
+			return result;
 		}
 	};
 }

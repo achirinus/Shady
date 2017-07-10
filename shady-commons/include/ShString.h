@@ -3,10 +3,11 @@
 
 #include <StringUtils.h>
 #include <Commons.h>
+#include <ShArray.h>
 
 namespace Shady
 {
-		
+	#define SH_STRING_ENDED "SHADY_STRING_ENDED"
 	class String
 	{
 	private:
@@ -27,8 +28,20 @@ namespace Shady
 		u32 size() const;
 		c8& operator[](s32 index);
 		b8 operator==(const String& other);
+		b8 operator!=(const String& other);
+		String operator+(const c8* str);
+		String operator+(const String& other);
+		String& operator+=(const c8* str);
+		String& operator+=(const String& other);
 		b8 cmpIgnoreCase(const String& other);
-		String subString(u32 beginIndex, u32 endIndex);
+		String subString(u32 beginIndex, u32 numOfElem);
+		Array<String> split(c8 token);
+		f32 toFloat();
+		f64 toDouble();
+		s32 toInt();
+		String getLine();
+		b8 beginsWith(c8 character);
+		b8 beginsWith(const char* str);
 	};
 	
 }

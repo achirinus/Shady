@@ -8,7 +8,7 @@
 #include "Matrix3f.h"
 #include "Matrix4f.h"
 
-
+#define SH_PI 3.141592f
 namespace Shady
 {	
 	s32 absolute(s32 a);
@@ -20,6 +20,7 @@ namespace Shady
 	f64 floor(f64 value);
 	f32 round(f32 value);
 	f64 round(f64 value);
+	f32 toRadians(f32 angle);
 	s32 clamp(s32 value, s32 upperLimit);
 }
 

@@ -15,6 +15,7 @@ SET shCoreInclude=%shCore%\include
 REM Remove glew after I learn how to load GL functions myself
 SET glewInclude=%depDir%\GLEW\include\GL
 SET stbImage=%depDir%\STB_IMAGE
+
 SET AllDepsInclude=%glewInclude%;%stbImage%
 
 
@@ -81,12 +82,12 @@ REM If no configuration is specified, set default to DEBUG
 if "%configuration%"==""  set configuration=SH_DEBUG
 
 if /I "%configuration%"=="SH_DEBUG" (
-		set config_opt=/Od /ZI
+		set config_opt=/Od /ZI /Ob0
 		set symbols=%symbols% /D_DEBUG /DSHADY_DEBUG 
 		SET LIB=%shCommonsDebLib%
 	) 
 if /I "%configuration%"=="SH_RELEASE" (
-		set config_opt=/O2
+		set config_opt=/Ox
 		set symbols=%symbols% /DNDEBUG /DSHADY_RELEASE
 		SET LIB=%shCommonsRelLib%
 	)

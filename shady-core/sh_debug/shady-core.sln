@@ -17,6 +17,11 @@ Project("{911E67C6-3D85-4FCE-B560-20A9C3E3FF48}") = "shady-core", "shady-core.ex
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A64F7CF9-EE5E-4478-A62C-3AC378BE22B4}"
+	ProjectSection(SolutionItems) = preProject
+		..\src\Graphics\Mesh.cpp = ..\src\Graphics\Mesh.cpp
+		..\src\Utils\ModelLoader.cpp = ..\src\Utils\ModelLoader.cpp
+		..\src\Utils\ShadyApp.cpp = ..\src\Utils\ShadyApp.cpp
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9518AE55-13C6-4B6F-9A87-9A3CC1AA8FE3}"
 	ProjectSection(SolutionItems) = preProject
@@ -26,6 +31,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9518AE55-13C
 		..\include\Shader.h = ..\include\Shader.h
 		..\src\shady-core.cpp = ..\src\shady-core.cpp
 		..\include\ShadyGL.h = ..\include\ShadyGL.h
+		..\..\shady-commons\include\ShArray.h = ..\..\shady-commons\include\ShArray.h
+		..\..\shady-commons\src\Containers\ShString.cpp = ..\..\shady-commons\src\Containers\ShString.cpp
 		..\src\Graphics\Texture.cpp = ..\src\Graphics\Texture.cpp
 		..\include\Texture.h = ..\include\Texture.h
 		..\src\Utils\Timer.cpp = ..\src\Utils\Timer.cpp
