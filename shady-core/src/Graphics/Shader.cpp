@@ -4,14 +4,28 @@
 
 namespace Shady
 {
-	
-	Shader::Shader(const char* vertFileName, const char* fragFileName)
+		
+	Shader::Shader(const char* shaderName, u32 shaderFlags)
 	{
+		String basePath(SHADER_BASE_DIR);
+		basePath +=shaderName;
+		String vertFileName;
+		String fragFileName;
+		if(shaderFlags && SH_VERTEX_SHADER)
+		{
+			vertFileName = basePath + ".vert";
+		}
+		
+		if(shaderFlags && SH_FRAGMENT_SHADER)
+		{
+			fragFileName = basePath + ".frag";
+		}
 
 		String vertSource = File::win32ReadTextFile(vertFileName);
 		int vertLen = vertSource.size();
 		String fragSource = File::win32ReadTextFile(fragFileName);
 		int fragLen = fragSource.size();
+
 		//TODO check if ARB version of functions are better
 		GLuint vert, frag;
 		vert = glCreateShader(GL_VERTEX_SHADER);
@@ -68,7 +82,8 @@ namespace Shady
 			glAttachShader(mProgram, frag);
 
 			glBindAttribLocation(mProgram, 0, "pos");
-			//glBindAttribLocation(mProgram, 1, "texCoord");
+			glBindAttribLocation(mProgram, 1, "texCoord");
+			glBindAttribLocation(mProgram, 2, "vertColor");
 			glLinkProgram(mProgram);
 			
 			GLint isLinked = 0;
@@ -115,47 +130,32 @@ namespace Shady
 	}
 	void Shader::setUniform1f(const char* name, float value)
 	{
-		enable();
 		glUniform1f(glGetUniformLocation(mProgram, name), value);
-		disable();
 	}
 	void Shader::setUniform1i(const char* name, int value)
 	{
-		enable();
 		glUniform1i(glGetUniformLocation(mProgram, name), value);
-		disable();
 	}
 	void Shader::setUniform2f(const char* name, const Vec2f& vec2)
 	{
-		enable();
 		glUniform2f(glGetUniformLocation(mProgram, name), vec2.x, vec2.y);
-		disable();
 	}
 	void Shader::setUniform3f(const char* name, const Vec3f& vec3)
 	{
-		enable();
 		glUniform3f(glGetUniformLocation(mProgram, name), vec3.x, vec3.y, vec3.z);
-		disable();
 	}
 	void Shader::setUniform4f(const char* name, const Vec4f& vec4)
 	{
-		enable();
 		glUniform4f(glGetUniformLocation(mProgram, name), vec4.x, vec4.y, vec4.z, vec4.w);
-		disable();
 	}
 	void Shader::setUniformMat4(const char* name, const Matrix4f& mat4)
 	{
-		enable();
 		glUniformMatrix4fv(glGetUniformLocation(mProgram, name), 1, GL_FALSE,  mat4.elem);
-		disable();
 	}
-
 
 	void Shader::setUniformMat4(const char* name, const f32* mat4)
 	{
-		enable();
 		glUniformMatrix4fv(glGetUniformLocation(mProgram, name), 1, GL_FALSE,  mat4);	
-		disable();
 	}
 
 	Shader::~Shader()

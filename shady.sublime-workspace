@@ -4,12 +4,48 @@
 		"selected_items":
 		[
 			[
-				"SH",
-				"SH_DEFAULT_WINDOW_HEIGHT"
+				"read",
+				"readBytes"
+			],
+			[
+				"size",
+				"sizeInBytes"
+			],
+			[
+				"file",
+				"fileName"
+			],
+			[
+				"tan",
+				"tanHalfFov"
 			],
 			[
 				"mV",
-				"mVertices"
+				"mVAO"
+			],
+			[
+				"glBind",
+				"glBindVertexArray"
+			],
+			[
+				"shader",
+				"shaderName"
+			],
+			[
+				"trans",
+				"translate"
+			],
+			[
+				"mP",
+				"mPitch"
+			],
+			[
+				"ro",
+				"rotate"
+			],
+			[
+				"SH",
+				"SH_DEFAULT_WINDOW_HEIGHT"
 			],
 			[
 				"mv",
@@ -336,79 +372,63 @@
 	"buffers":
 	[
 		{
-			"file": "/S/data/cube.obj",
+			"file": "shady-core/include/Sprite.h",
 			"settings":
 			{
-				"buffer_size": 663,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "shady-core/include/Mesh.h",
-			"settings":
-			{
-				"buffer_size": 438,
+				"buffer_size": 921,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "shady-commons/include/ShArray.h",
+			"file": "shady-core/include/Renderer2D.h",
 			"settings":
 			{
-				"buffer_size": 3433,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "shady-core/include/Vertex.h",
-			"settings":
-			{
-				"buffer_size": 644,
+				"buffer_size": 470,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "shady-commons/include/Matrix4f.h",
+			"file": "shady-core/include/Texture.h",
 			"settings":
 			{
-				"buffer_size": 824,
+				"buffer_size": 291,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "shady-commons/src/Math/Matrix4f.cpp",
+			"file": "shady-core/src/Graphics/Texture.cpp",
 			"settings":
 			{
-				"buffer_size": 3409,
+				"buffer_size": 1259,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "shady-commons/include/FileUtils.h",
+			"settings":
+			{
+				"buffer_size": 676,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "shady-core/include/Shader.h",
+			"file": "shady-commons/include/ShQueue.h",
 			"settings":
 			{
-				"buffer_size": 809,
+				"buffer_size": 979,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "shady-commons/include/Vec4.h",
+			"file": "shady-core/include/Camera2D.h",
 			"settings":
 			{
-				"buffer_size": 1370,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "shady-core/src/Main.cpp",
-			"settings":
-			{
-				"buffer_size": 322,
+				"buffer_size": 456,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -417,24 +437,16 @@
 			"file": "shady-core/src/Utils/ShadyApp.cpp",
 			"settings":
 			{
-				"buffer_size": 1800,
+				"buffer_size": 1717,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "shady-core/src/Shaders/basic_frag.shady",
+			"file": "shady-commons/src/FileUtils/FileUtils.cpp",
 			"settings":
 			{
-				"buffer_size": 111,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "shady-core/src/Shaders/basic_vert.shady",
-			"settings":
-			{
-				"buffer_size": 213,
+				"buffer_size": 3568,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -443,7 +455,52 @@
 			"file": "shady-core/src/Graphics/Shader.cpp",
 			"settings":
 			{
-				"buffer_size": 4360,
+				"buffer_size": 4314,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "shady-core/src/Graphics/Renderer2D.cpp",
+			"settings":
+			{
+				"buffer_size": 1233,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "shady-core/src/Shaders/basic.frag",
+			"settings":
+			{
+				"buffer_size": 476,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "shady-core/src/Shaders/basic.vert",
+			"settings":
+			{
+				"buffer_size": 411,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "shady-core/src/Graphics/Sprite.cpp",
+			"settings":
+			{
+				"buffer_size": 2767,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "shady-core/src/Graphics/Camera2D.cpp",
+			"settings":
+			{
+				"buffer_size": 793,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -452,16 +509,7 @@
 			"file": "shady-core/src/shady-core.cpp",
 			"settings":
 			{
-				"buffer_size": 1425,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "shady-core/src/Graphics/Mesh.cpp",
-			"settings":
-			{
-				"buffer_size": 1189,
+				"buffer_size": 1522,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -611,7 +659,7 @@
 			],
 			[
 				"Shady",
-				"Run Core DEBUG"
+				"Stats"
 			]
 		],
 		[
@@ -663,7 +711,7 @@
 			]
 		]
 	],
-	"build_varint": "Run Core DEBUG",
+	"build_varint": "Stats",
 	"command_palette":
 	{
 		"height": 392.0,
@@ -784,6 +832,48 @@
 	],
 	"file_history":
 	[
+		"/D/workspace/Shady/shady-commons/include/Commons.h",
+		"/D/workspace/Shady/scripts/sh_build.bat",
+		"/D/workspace/Shady/shady-core/src/Graphics/Texture.cpp",
+		"/D/workspace/Shady/shady-commons/include/ShadyMath.h",
+		"/D/workspace/Shady/shady-commons/src/Math/ShadyMath.cpp",
+		"/D/workspace/Shady/shady-commons/src/Math/Matrix4f.cpp",
+		"/E/Downloaded projects/glm-0.9.8.4/glm/gtc/matrix_transform.inl",
+		"/d/workspace/shady/shady-commons/include/matrix4f.h",
+		"/E/Downloaded projects/OrbitCamera/src/OrbitCamera.cpp",
+		"/E/Downloaded projects/OrbitCamera/src/ViewForm.cpp",
+		"/D/workspace/Shady/shady-commons/src/shady-commons.cpp",
+		"/D/workspace/Shady/shady-core/include/Shader.h",
+		"/E/Downloaded projects/OrbitCamera/src/Tokenizer.h",
+		"/D/workspace/Shady/shady-core/src/Utils/ShadyApp.cpp",
+		"/D/workspace/Shady/shady-core/src/Utils/Win32Window.cpp",
+		"/E/Downloaded projects/OrbitCamera/src/animUtils.h",
+		"/D/workspace/Shady/shady-core/src/Utils/Win32Gl.cpp",
+		"/d/workspace/shady/shady-commons/src/math/matrix4f.cpp",
+		"/D/workspace/Shady/shady-commons/src/FileUtils/FileUtils.cpp",
+		"/D/workspace/Shady/shady-commons/include/FileUtils.h",
+		"/D/workspace/Shady/shady-commons/include/Vec3.h",
+		"/D/workspace/Shady/shady-commons/src/Math/Vec3.cpp",
+		"/D/workspace/Shady/shady-commons/src/Containers/ShDQueue.cpp",
+		"/D/workspace/Shady/shady-core/include/Texture.h",
+		"/D/workspace/Shady/shady-commons/include/Matrix4f.h",
+		"/D/workspace/Shady/shady-core/src/Shaders/basic_frag.shady",
+		"/D/workspace/Shady/shady-core/src/Shaders/basic_vert.shady",
+		"/D/workspace/Shady/shady-core/src/Graphics/Shader.cpp",
+		"/D/workspace/Shady/shady-core/src/Graphics/Sprite.cpp",
+		"/E/Downloaded projects/glm-0.9.8.4/glm/detail/func_geometric.inl",
+		"/D/workspace/Shady/shady-commons/include/Vec2.h",
+		"/D/workspace/Shady/shady-commons/include/Vec4.h",
+		"/D/workspace/Shady/shady-commons/src/Math/Vec4.cpp",
+		"/D/workspace/Shady/shady-commons/src/Math/Vec2.cpp",
+		"/D/workspace/Shady/shady-core/include/Vertex.h",
+		"/D/workspace/Shady/shady-core/src/Graphics/Mesh.cpp",
+		"/D/workspace/Shady/shady-commons/src/Commons.cpp",
+		"/D/workspace/Shady/shady-core/src/Main.cpp",
+		"/S/data/cube.obj",
+		"/D/workspace/Shady/shady-core/include/Mesh.h",
+		"/D/workspace/Shady/shady-commons/include/ShArray.h",
+		"/D/workspace/Shady/shady-core/include/ShKeyboard.h",
 		"/E/Downloaded projects/glm-0.9.8.4/glm/mat4x4.hpp",
 		"/E/Downloaded projects/glm-0.9.8.4/glm/detail/func_matrix.hpp",
 		"/E/Downloaded projects/glm-0.9.8.4/glm/detail/func_geometric.hpp",
@@ -795,49 +885,30 @@
 		"/d/workspace/shady/dep/glm/detail/func_integer_simd.inl",
 		"/E/Downloaded projects/glm-0.9.8.4/glm/detail/type_mat4x4.hpp",
 		"/E/Downloaded projects/glm-0.9.8.4/glm/detail/type_mat4x4.inl",
-		"/D/workspace/Shady/shady-core/src/Shaders/basic_vert.shady",
-		"/D/workspace/Shady/shady-core/src/Utils/Win32Window.cpp",
-		"/D/workspace/Shady/scripts/sh_build.bat",
 		"/d/workspace/shady/shady-core/src/utils/modelloader.cpp",
-		"/D/workspace/Shady/shady-commons/src/Math/ShadyMath.cpp",
-		"/D/workspace/Shady/shady-commons/include/ShadyMath.h",
-		"/D/workspace/Shady/shady-commons/src/Math/Matrix4f.cpp",
 		"/D/workspace/CopyEngine/CopyEngine/src/maths/Mat4.cpp",
-		"/D/workspace/Shady/shady-core/src/Graphics/Shader.cpp",
 		"/D/workspace/MakingGamesWithBenTut/libs/glm/glm.hpp",
 		"/D/workspace/MakingGamesWithBenTut/libs/glm/detail/glm.cpp",
 		"/D/workspace/Shady/shady-core/src/Utils/ModelLoader.cpp",
-		"/E/Downloaded projects/glm-0.9.8.4/glm/gtc/matrix_transform.inl",
-		"/D/workspace/Shady/shady-commons/include/ShArray.h",
 		"/D/workspace/Shady/shady-core/include/ModelLoader.h",
 		"/D/workspace/Shady/shady-commons/include/ShString.h",
-		"/D/workspace/Shady/shady-core/src/Shaders/basic_frag.shady",
-		"/D/workspace/Shady/shady-commons/src/FileUtils/FileUtils.cpp",
 		"/D/workspace/Shady/shady-commons/src/Containers/ShString.cpp",
 		"/D/workspace/Shady/shady-commons/include/StringUtils.h",
 		"/E/Downloaded projects/glm-0.9.8.4/glm/packing.hpp",
 		"/E/Downloaded projects/glm-0.9.8.4/glm/gtx/projection.inl",
 		"/E/Downloaded projects/glm-0.9.8.4/glm/gtx/projection.hpp",
-		"/S/data/cube.obj",
 		"/D/workspace/Shady/scripts/shady-core.bat",
-		"/D/workspace/Shady/shady-commons/include/FileUtils.h",
 		"/S/data/adaf.obj",
-		"/D/workspace/Shady/shady-commons/include/Matrix4f.h",
-		"/D/workspace/Shady/shady-commons/include/Vec4.h",
-		"/D/workspace/Shady/shady-core/src/Utils/ShadyApp.cpp",
 		"/D/workspace/Shady/shady-core/src/Utils/ShMouse.cpp",
 		"/D/workspace/Shady/shady-core/src/Utils/ShKeyboard.cpp",
 		"/D/workspace/Shady/shady-core/src/shady-core.cpp",
 		"/d/workspace/shady/shady-core/src/main.cpp",
 		"/D/workspace/Shady/shady-core/include/ShMouse.h",
-		"/D/workspace/Shady/shady-core/include/ShKeyboard.h",
 		"/D/workspace/Shady/shady-core/include/ShadyApp.h",
 		"/D/workspace/Shady/shady-core/include/Window.h",
 		"/D/workspace/Shady/shady-core/include/Win32Window.h",
-		"/D/workspace/Shady/shady-commons/src/shady-commons.cpp",
 		"/D/workspace/Shady/shady-commons/src/StringUtils/StringUtils.cpp",
 		"/C/Program Files (x86)/Windows Kits/8.1/Include/um/dinput.h",
-		"/D/workspace/Shady/shady-commons/include/Commons.h",
 		"/D/workspace/Shady/shady-commons/src/Containers/ShArray.cpp",
 		"/D/workspace/Shady/scripts/shady-commons.bat",
 		"/D/workspace/Shady/shady-commons/include/Math.h",
@@ -848,10 +919,7 @@
 		"/D/workspace/Shady/shady-core/include/ShString.h",
 		"/d/workspace/shady/shady-core/include/shader.h",
 		"/D/workspace/Shady/shady-core/src/Graphics/VertexData.h",
-		"/D/workspace/Shady/shady-core/src/Utils/Win32Gl.cpp",
 		"/d/workspace/shady/shady-core/include/shadygl.h",
-		"/D/workspace/Shady/shady-core/include/Texture.h",
-		"/D/workspace/Shady/shady-core/include/Mesh.h",
 		"/D/workspace/Shady/Dep/GLEW/include/GL/wglew.h",
 		"/D/workspace/Shady/Dep/GLEW/include/GL/glew.h",
 		"/D/workspace/Shady/shady-core/include/ShadyGL.h",
@@ -860,9 +928,7 @@
 		"/D/workspace/Shady/shady-core/src/Utils/Win32Window.h",
 		"/D/workspace/Shady/shady-core/src/Utils/Window.h",
 		"/c/program files (x86)/windows kits/8.1/include/um/gl/gl.h",
-		"/D/workspace/Shady/shady-core/src/Graphics/Mesh.cpp",
 		"/D/workspace/Shady/shady-core/src/Graphics/Shader.h",
-		"/D/workspace/Shady/shady-core/src/Graphics/Texture.cpp",
 		"/D/workspace/Shady/shady-core/src/Graphics/Texture.h",
 		"/C/Program Files (x86)/Windows Kits/8.1/Include/um/gl/GL.h",
 		"/D/workspace/Shady/shady-core/src/include/Mesh.h",
@@ -871,7 +937,6 @@
 		"/D/workspace/Shady/scripts/stats.bat",
 		"/d/workspace/shady/shady-core/src/utils/win32window.cpp",
 		"/d/workspace/shady/shady-commons/include/commons.h",
-		"/D/workspace/Shady/shady-commons/src/Commons.cpp",
 		"/D/workspace/Shady/shady-core/sh_debug/shady-core.sln",
 		"/C/Program Files (x86)/Microsoft Visual Studio/2017/Professional/Common7/IDE/VC/Linux/include/usr/include/stdint.h",
 		"/D/workspace/Shady/shady-core/src/Utils/Timer.cpp",
@@ -894,24 +959,7 @@
 		"/D/workspace/Shady/shady-commons/include/Matrix3f.h",
 		"/c/program files (x86)/microsoft visual studio 14.0/vc/include/vector",
 		"/D/workspace/Shady/Shady.cpp",
-		"/C/Program Files (x86)/Windows Kits/8.1/Include/um/Windows.h",
-		"/d/workspace/shady/shady-commons/StringUtils/StringUtils.cpp",
-		"/D/workspace/Shady/Test.cpp",
-		"/D/workspace/Shady/include/Test.h",
-		"/D/workspace/Shady/shady-core/Main.cpp",
-		"/D/workspace/Shady/shady-core/shady-core.cpp",
-		"/C/Users/ALIN/Desktop/first.bat",
-		"/C/Users/ALIN/Desktop/second.bat",
-		"/C/Users/ALIN/AppData/Roaming/Sublime Text 3/Packages/Default/exec.py",
-		"/C/Users/ALIN/AppData/Roaming/Sublime Text 3/Packages/C++/C++ Single File.sublime-build",
-		"/D/workspace/Shady/shady-commons/Math/Matrix3f.cpp",
-		"/D/workspace/Shady/shady-commons/Math/Matrix4f.cpp",
-		"/D/Program Files/Sublime Text 3/sublime_plugin.py",
-		"/D/Program Files/Sublime Text 3/sublime.py",
-		"/D/workspace/Shady/shady-commons/shady-commons.cpp",
-		"/c/users/alin/desktop/shady/shady-commons/StringUtils/StringUtils.cpp",
-		"/C/Users/ALIN/AppData/Roaming/Sublime Text 3/Packages/C++/Comments (C++).tmPreferences",
-		"/C/Users/ALIN/AppData/Roaming/Sublime Text 3/Packages/C++/C++.sublime-syntax"
+		"/C/Program Files (x86)/Windows Kits/8.1/Include/um/Windows.h"
 	],
 	"find":
 	{
@@ -931,6 +979,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"glBindAttribLocation",
+			"const",
 			"proj",
 			"far",
 			"DIDC",
@@ -992,263 +1042,53 @@
 	"groups":
 	[
 		{
-			"selected": 6,
+			"selected": 4,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/S/data/cube.obj",
+					"file": "shady-core/include/Sprite.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 663,
+						"buffer_size": 921,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								375,
-								375
+								342,
+								342
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"history_list_is_closing": true,
+							"syntax": "Packages/C++/C++.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 13,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "shady-core/include/Mesh.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 438,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								161,
-								161
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 108.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 12,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "shady-commons/include/ShArray.h",
+					"buffer": 1,
+					"file": "shady-core/include/Renderer2D.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3433,
+						"buffer_size": 470,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3017,
-								3017
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 2268.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 14,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "shady-core/include/Vertex.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 644,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								622,
-								622
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 10,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "shady-commons/include/Matrix4f.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 824,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								120,
-								124
-							]
-						],
-						"settings":
-						{
-							"history_list_is_closing": true,
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 53.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "shady-commons/src/Math/Matrix4f.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3409,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2461,
-								2461
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1620.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "shady-core/include/Shader.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 809,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								435,
-								435
-							]
-						],
-						"settings":
-						{
-							"history_list_is_closing": true,
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "shady-commons/include/Vec4.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1370,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								226,
-								226
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 11,
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 4,
-			"sheets":
-			[
-				{
-					"buffer": 8,
-					"file": "shady-core/src/Main.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 322,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								246,
-								246
+								202,
+								202
 							]
 						],
 						"settings":
@@ -1259,24 +1099,172 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 13,
 					"type": "text"
 				},
 				{
-					"buffer": 9,
-					"file": "shady-core/src/Utils/ShadyApp.cpp",
+					"buffer": 2,
+					"file": "shady-core/include/Texture.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1800,
+						"buffer_size": 291,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1395,
-								1395
+								177,
+								177
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "shady-core/src/Graphics/Texture.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1259,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								236,
+								245
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "shady-commons/include/FileUtils.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 676,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								196,
+								196
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "shady-commons/include/ShQueue.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 979,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								224,
+								224
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 108.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "shady-core/include/Camera2D.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 456,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								133,
+								133
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 14,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 4,
+			"sheets":
+			[
+				{
+					"buffer": 7,
+					"file": "shady-core/src/Utils/ShadyApp.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1717,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1153,
+								1153
 							]
 						],
 						"settings":
@@ -1286,35 +1274,94 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 467.0,
+						"translation.y": 287.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
-					"file": "shady-core/src/Shaders/basic_frag.shady",
+					"buffer": 8,
+					"file": "shady-commons/src/FileUtils/FileUtils.cpp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 111,
+						"buffer_size": 3568,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								111,
-								111
+								3568,
+								3568
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1943.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "shady-core/src/Graphics/Shader.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4314,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2215,
+								2215
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1890.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "shady-core/src/Graphics/Renderer2D.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1233,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1184,
+								1184
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 17.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
@@ -1322,24 +1369,52 @@
 				},
 				{
 					"buffer": 11,
-					"file": "shady-core/src/Shaders/basic_vert.shady",
+					"file": "shady-core/src/Shaders/basic.frag",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 213,
+						"buffer_size": 476,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								159,
-								159
+								173,
+								163
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"syntax": "Packages/Shader Syntax (GLSL HLSL Cg)/OpenGL SL.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "shady-core/src/Shaders/basic.vert",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 411,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								325,
+								325
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Shader Syntax (GLSL HLSL Cg)/OpenGL SL.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1349,49 +1424,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 12,
-					"file": "shady-core/src/Graphics/Shader.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4360,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3206,
-								3206
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1007.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
 					"buffer": 13,
-					"file": "shady-core/src/shady-core.cpp",
+					"file": "shady-core/src/Graphics/Sprite.cpp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1425,
+						"buffer_size": 2767,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								30,
-								30
+								808,
+								808
 							]
 						],
 						"settings":
@@ -1400,7 +1446,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 108.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 5,
@@ -1408,19 +1454,47 @@
 				},
 				{
 					"buffer": 14,
-					"file": "shady-core/src/Graphics/Mesh.cpp",
+					"file": "shady-core/src/Graphics/Camera2D.cpp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1189,
+						"buffer_size": 793,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								544,
-								545
+								719,
+								719
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 53.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 15,
+					"file": "shady-core/src/shady-core.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1522,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								190,
+								190
 							]
 						],
 						"settings":
@@ -1432,7 +1506,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 15,
 					"type": "text"
 				}
 			]
@@ -1502,12 +1576,72 @@
 		"selected_items":
 		[
 			[
-				"matri",
+				"tex",
+				"shady-core\\src\\Graphics\\Texture.cpp"
+			],
+			[
+				"sh",
+				"scripts\\sh_build.bat"
+			],
+			[
+				"mat",
 				"shady-commons\\src\\Math\\Matrix4f.cpp"
 			],
 			[
+				"shadymath",
+				"shady-commons\\include\\ShadyMath.h"
+			],
+			[
+				"shadyap",
+				"shady-core\\src\\Utils\\ShadyApp.cpp"
+			],
+			[
+				"win32",
+				"shady-core\\src\\Utils\\Win32Window.cpp"
+			],
+			[
+				"gl",
+				"shady-core\\src\\Utils\\Win32Gl.cpp"
+			],
+			[
+				"win",
+				"shady-core\\src\\Utils\\Win32Window.cpp"
+			],
+			[
+				"basic",
+				"shady-core\\src\\Shaders\\basic.frag"
+			],
+			[
+				"textu",
+				"shady-core\\include\\Texture.h"
+			],
+			[
+				"shady",
+				"shady-commons\\src\\shady-commons.cpp"
+			],
+			[
 				"shader",
-				"shady-core\\src\\Graphics\\Shader.cpp"
+				"shady-core\\include\\Shader.h"
+			],
+			[
+				"sprite",
+				"shady-core\\src\\Graphics\\Sprite.cpp"
+			],
+			[
+				"matri",
+				"shady-commons\\include\\Matrix4f.h"
+			],
+			[
+				"sh_bu",
+				"scripts\\sh_build.bat"
+			],
+			[
+				"common",
+				"shady-commons\\src\\Commons.cpp"
+			],
+			[
+				"key",
+				"shady-core\\include\\ShKeyboard.h"
 			],
 			[
 				"sh_",
@@ -1538,10 +1672,6 @@
 				"scripts\\shady-core.bat"
 			],
 			[
-				"sh_bu",
-				"scripts\\sh_build.bat"
-			],
-			[
 				"shadyapp",
 				"shady-core\\src\\Utils\\ShadyApp.cpp"
 			],
@@ -1552,10 +1682,6 @@
 			[
 				"m",
 				"shady-commons\\src\\Math\\Matrix4f.cpp"
-			],
-			[
-				"win32",
-				"shady-core\\include\\Win32Window.h"
 			],
 			[
 				"shap",
@@ -1620,10 +1746,6 @@
 			[
 				"mesh",
 				"shady-core\\src\\Graphics\\Mesh.cpp"
-			],
-			[
-				"common",
-				"shady-commons\\include\\Commons.h"
 			],
 			[
 				"sh_buil",

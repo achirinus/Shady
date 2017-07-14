@@ -6,18 +6,25 @@
 #include "Vec3.h"
 #include "Vec4.h"
 #include "Matrix4f.h"
-
+#include "ShString.h"
 
 namespace Shady
 {
-
+	#define SHADER_BASE_DIR "..\\src\\Shaders\\"
+	enum
+	{
+		SH_VERTEX_SHADER = 0x01,
+		SH_FRAGMENT_SHADER = 0x02,
+		SH_TESSELATION_SHADER = 0x04,
+		SH_GEOMETRY_SHADER = 0x08
+	};
 	class Shader
 	{
 	private:
 		GLuint mProgram;
 
 	public:
-		Shader(const char* vertFileName, const char* fragFileName);
+		Shader(const char* shaderName, u32 shaderFlags);
 		~Shader();
 		void enable();
 		void disable();

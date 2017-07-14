@@ -2,7 +2,10 @@
 #include "Graphics/Mesh.cpp"
 #include "Graphics/Shader.cpp"
 #include "Graphics/Sprite.cpp"
-//#include "Graphics/Texture.cpp"
+#include "Graphics/Texture.cpp"
+#include "Graphics/Camera2D.cpp"
+#include "Graphics/Renderer2D.cpp"
+#include "Graphics/Graphics.cpp"
 #include "Utils/Win32GL.cpp"
 #include "Utils/Win32Window.cpp"
 #include "Utils/Timer.cpp"
@@ -14,7 +17,7 @@
 #include "Main.cpp"
 
 
-#if 0
+/*
 
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
@@ -60,5 +63,4 @@ void func()
 		ps4->EnumObjects(DIEnumDeviceObjectsCallback, 0, DIDFT_ALL);
 	}
 }
-
-#endif
+*/

@@ -5,6 +5,5 @@
 #include "Math/Matrix4f.cpp"
 #include "Math/Shadymath.cpp"
 #include "Math/Vec2.cpp"
-#include "Math/Vec3.cpp"
 #include "Math/Vec4.cpp"
 #include "FileUtils/FileUtils.cpp"

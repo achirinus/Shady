@@ -156,6 +156,9 @@ namespace Shady
 				glewInit();
 				glClearColor(1.0f, 0.5f, 0.5f, 1.0f);
 				glViewport(0,0, SH_DEFAULT_WINDOW_WIDTH, SH_DEFAULT_WINDOW_HEIGHT);
+				//glEnable(GL_CULL_FACE); 
+				glEnable(GL_BLEND);
+				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 			}
 		}
 		else

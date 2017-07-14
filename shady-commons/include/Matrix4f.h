@@ -29,6 +29,7 @@ namespace Shady
 		static Matrix4f scale(f32 scalar);
 		static Matrix4f distort(const Vec3f&);
 		static Matrix4f ortho(float left, float right, float bottom, float top, float near, float far);
+		static Matrix4f lookAt(const Vec3f& eye, const Vec3f& center, const Vec3f& up);
 		static Matrix4f perspectiveFov(float fov, float aspectRatio, float zNear, float zFar);
 		Matrix4f& rotX(f32 rad);
 		Matrix4f& rotY(f32 rad);

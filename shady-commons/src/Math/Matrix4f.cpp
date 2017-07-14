@@ -73,7 +73,7 @@ namespace Shady
 		return *this;
 	}
 
-	Matrix4f Matrix4f::ortho(float left, float right, float bottom, float top, float nier, float phar) 
+	Matrix4f Matrix4f::ortho(float left, float right, float top, float bottom, float nier, float phar) 
 	{
 		//Had to rename near and far due to some stupid keywords
 		Matrix4f result(1);
@@ -84,6 +84,27 @@ namespace Shady
 		result[3][1] = -(top + bottom) / (top - bottom);
 		result[3][2] = -(phar + nier) / (phar - nier);
 		return result;
+	}
+
+	Matrix4f Matrix4f::lookAt(const Vec3f& eye, const Vec3f& center, const Vec3f& up)
+	{
+		Matrix4f result(1);
+		Vec3f first(normalize(center - eye));
+		Vec3f second(normalize(first.cross(up)));
+		Vec3f third = second.cross(first);
+		result[0][0] = second.x;
+		result[1][0] = second.y;
+		result[2][0] = second.z;
+		result[0][1] = third.x;
+		result[1][1] = third.y;
+		result[2][1] = third.z;
+		result[0][2] = -first.x;
+		result[1][2] = -first.y;
+		result[2][2] = -first.z;
+		result[3][0] = -second.dot(eye);
+		result[3][1] = -third.dot(eye);
+		result[3][2] = -first.dot(eye);
+		return result;		
 	}
 
 	Matrix4f& Matrix4f::rotX(f32 rad)
@@ -171,17 +192,15 @@ namespace Shady
 
 	Matrix4f Matrix4f::perspectiveFov(float fov, float aspectRatio, float zNear, float zFar)
 	{
-		float q = 1.0 / tan(toRadians(0.5f * fov));
-		float a = q / aspectRatio;
-		float b = (zNear + zFar) / (zNear - zFar);
-		float c = (2.0f * zNear * zFar) / (zNear - zFar);
+		f32 tanHalfFov = tan(fov/2);
+		Matrix4f result{};
 
-		Matrix4f result{1};
-		result.elem[0 + 0 * 4] = a;
-		result.elem[1 + 1 * 4] = q;
-		result.elem[2 + 2 * 4] = b;
-		result.elem[3 + 2 * 4] = -1.0f;
-		result.elem[2 + 3 * 4] = c;
+		
+		result[0][0] = 1 / aspectRatio * tanHalfFov;
+		result[1][1] = 1/ tanHalfFov;
+		result[2][2] = -(zFar + zNear) / (zFar - zNear);
+		result[3][2] = -(2 * zFar * zNear) / (zFar - zNear);
+		result[2][3] = -1.0f;
 		return result;
 	}
 

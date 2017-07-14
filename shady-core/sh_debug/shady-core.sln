@@ -18,8 +18,10 @@ Project("{911E67C6-3D85-4FCE-B560-20A9C3E3FF48}") = "shady-core", "shady-core.ex
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A64F7CF9-EE5E-4478-A62C-3AC378BE22B4}"
 	ProjectSection(SolutionItems) = preProject
+		..\src\Graphics\Camera2D.cpp = ..\src\Graphics\Camera2D.cpp
 		..\src\Graphics\Mesh.cpp = ..\src\Graphics\Mesh.cpp
 		..\src\Utils\ModelLoader.cpp = ..\src\Utils\ModelLoader.cpp
+		..\src\Graphics\Renderer2D.cpp = ..\src\Graphics\Renderer2D.cpp
 		..\src\Utils\ShadyApp.cpp = ..\src\Utils\ShadyApp.cpp
 	EndProjectSection
 EndProject
