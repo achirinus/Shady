@@ -125,6 +125,11 @@ namespace Shady
 		{
 			return{ x / scalar, y / scalar, z / scalar };
 		}
+
+		Vec3<T> operator-()
+		{
+			return {-x, -y, -z};
+		}
 		Vec3<T>& operator*=(T scalar)
 		{
 			x *= scalar;

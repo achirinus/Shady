@@ -2,38 +2,33 @@
 #include "Win32Window.h"
 #include "Shader.h"
 #include "Texture.h"
-#include "Camera2D.h"
-#include "Sprite.h"
 #include "ShadyMath.h"
-#include "Renderer2D.h"
 #include "FileUtils.h"
 #include "Graphics.h"
 
-#define STB_TRUETYPE_IMPLEMENTATION
-#include "stb_truetype.h"
 
 namespace Shady
 {
 	ShadyApp* ShadyApp::sInstance = 0;
 
-	inline ShadyApp& ShadyApp::getInstance()
+	ShadyApp* ShadyApp::getInstance()
 	{
 		if(!sInstance)
 		{
 			sInstance = new ShadyApp();
 		}
 
-		return *sInstance;
+		return sInstance;
 	}
 
-	Texture* getGlyphTexture(c8 glyph)
+	Texture* getGlyphTexture(c8 glyph, f32 pixelSize)
 	{
 		BinaryFileContent fileResult = File::win32ReadBinaryFile("c:/windows/fonts/arial.ttf");
 		stbtt_fontinfo fontInfo;
 		stbtt_InitFont(&fontInfo, (u8*)fileResult.contents, 
 						stbtt_GetFontOffsetForIndex((u8*)fileResult.contents, 0));
 		int width, height, xOffset, yOffset;
-		u8* monoBitmap = stbtt_GetCodepointBitmap(&fontInfo, 0, stbtt_ScaleForPixelHeight(&fontInfo, 150.0f),
+		u8* monoBitmap = stbtt_GetCodepointBitmap(&fontInfo, 0, stbtt_ScaleForPixelHeight(&fontInfo, pixelSize),
 													glyph, &width, &height, &xOffset, &yOffset);
 
 		
@@ -45,27 +40,14 @@ namespace Shady
 		return result;
 	}
 
-	Texture* win32GetGlyphTexture(c8 glyph)
-	{
-		static HDC dc = 0;
-		if(!dc)
-		{
-			dc = CreateCompatibleDC(0);
-			HBITMAP bitmap = CreateCompatibleBitmap(dc, 512, 512);
-			SelectObject(dc, bitmap);
-		}
-		c16 cheesePoint = (c16)glyph;
-		TextOutW(dc, 0, 0, &cheesePoint, 1);
-		return 0;
-	}	
-
 	void ShadyApp::start()
 	{
 		mMainWindow = new Win32Window();
 		mMouse = Mouse::getInstance();
 		mKeyboard = Keyboard::getInstance();
 
-		Texture* a = getGlyphTexture('A');
+		Texture* a = getGlyphTexture('N', 250.0f);
+		Texture* b = getGlyphTexture('N', 30.0f);
 		//Texture* b = win32GetGlyphTexture('A');
 		/*
 		ModelLoader mdl{};
@@ -77,31 +59,85 @@ namespace Shady
 		}
 		*/
 		
-		Texture texture("..\\..\\data\\2d_skeleton_idle.png");
-		Texture texture2("..\\..\\data\\2d_skeleton_kinght_idle.png");
+		gameState.camera2d = new Camera2D(Vec3f(-mMainWindow->mWidth/2, -mMainWindow->mHeight/2, 1.0f),
+								mMainWindow->mWidth, mMainWindow->mHeight, 2.0f);
+		gameState.renderer2d = new Renderer2D(gameState.camera2d);
+		gameState.sprite = new Sprite( Vec3f(0.0f, 0.0f, 0.0f) , a->getWidth(), a->getHeight(),a);
 		
+		mMainWindow->disableVSync();
+		setFpsLimit(60);
 		
-		Camera2D camera(Vec3f(), mMainWindow->mWidth, mMainWindow->mHeight, 2.0f);
-		Renderer2D renderer(&camera);
-		Sprite* sprite = new Sprite( Vec3f(20.0f, 100.0f, 0.0f) , a->getWidth(), a->getHeight(), a);
-		Sprite* sprite2 = new Sprite( Vec3f(500, 200, 0.0f) , 78, 83, nullptr, Vec4f(1.0f, 0.0f, 1.0f, 1.0f));
 		while (mMainWindow->isOpen())
 		{
-			sprite->update();
-			sprite2->update();
-			renderer.submit(sprite);
-			renderer.submit(sprite2);
-			mMainWindow->clear();
-			mMainWindow->update();
-			camera.update();
-			//shader.setUniformMat4("viewMat", Matrix4f::lookAt(Vec3f(1.0f, 0.0f, 0.0f), 
-			//												Vec3f(0.0f, 0.0f, 0.0f),
-			//												Vec3f(0.0f, 1.0f, 0.0f) ));
-			renderer.render();
+			DEBUG_OUT_INFO("FPS: %d", mFps);
+			DEBUG_OUT_INFO("UPS: %d", mFps);
+			//IF WE LIMIT BOTH UPDAE() AND RENDER() THE TIME 
+			//WE SLEEP IS ADDED AND WE WILL SLEEP MORE THAN NEEDED
+			DEBUG_OUT_INFO("DT: %f", mFdt);
+			update(mUdt);
 			
-			mMainWindow->swapBuffers();
+			//Do not render if window is minimized
+			render(mFdt);
+			
+			
 		}
 
+	}
+
+	void ShadyApp::limit(f32 time, u32 freq)
+	{
+		if(!freq) return;
+		u32 targetTime = safeRatio((u32)1000, freq);
+		if((u32)time > targetTime) return;
+		
+		Sleep(targetTime - time);
+		
+	}
+
+	void ShadyApp::update(f32 dt)
+	{
+		mUpdateTimer.update();
+
+		mMainWindow->update();
+		gameState.camera2d->update();
+		gameState.sprite->update();
+		gameState.renderer2d->submit(gameState.sprite);
+
+		
+		limit(mUpdateTimer.getElapsedTimeMS(), mUpdateLimit);
+		mUdt = mUpdateTimer.getElapsedTimeMS();
+	}
+
+	void ShadyApp::render(f32 dt)
+	{
+		mFrameTimer.update();
+		countFps(dt);
+		mMainWindow->clear();
+		gameState.renderer2d->render();
+		mMainWindow->swapBuffers();
+
+		limit(mFrameTimer.getElapsedTimeMS(), mFpsLimit);
+		mFdt = mFrameTimer.getElapsedTimeMS();
+	}
+
+	void ShadyApp::countFps(f32 dt)
+	{
+		mFrameCount++;
+		mFps = (u32)safeRatio(1000.0f, dt);
+	}
+
+	void ShadyApp::countUps(f32 dt)
+	{
+		mUps = (u32)safeRatio(1000.0f, dt);
+	}	
+
+	void ShadyApp::setFpsLimit(u32 fps)
+	{
+		mFpsLimit = fps;
+	}
+	void ShadyApp::setUpdateFreq(u32 ups)
+	{
+		mUpdateLimit = ups;
 	}
 
 

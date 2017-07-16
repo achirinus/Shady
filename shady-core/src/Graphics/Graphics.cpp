@@ -1,8 +1,11 @@
 #include "Graphics.h"
 
 
+
 namespace Shady
 {
+
+	
 
 	void clearBitmapToZero(Bitmap* bmp)
 	{

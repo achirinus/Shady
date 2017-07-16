@@ -204,18 +204,28 @@ namespace Shady
 		return result;
 	}
 
+	Matrix4f Matrix4f::perspective(f32 left, f32 right, f32 top, f32 bot, f32 nier, f32 phar)
+	{
+		Matrix4f result{};
+
+		result[0][0] = (2 * nier) /(right - left);
+		result[2][0] = (right - left) / (right - left);
+		result[1][1] = (2 * nier) /(top - bot);
+		result[2][1] = (top + bot) / (top - bot);
+		result[2][2] = -(phar + nier) / (phar - nier);
+		result[3][2] = -(2 * phar * nier) / (phar - nier);
+		result[2][3] = -1;
+
+		return result;
+	}
+
 	Vec4f Matrix4f::operator*(Vec4f vec)
 	{
 		Vec4f result;
-		for (int i = 0; i < MAT4_DIM; i++)
-		{
-			float sum = 0;
-			for (int j = 0; j < MAT4_DIM; j++)
-			{
-				sum += elem[j + MAT4_DIM * i] * vec[j];
-			}
-			result[i] = sum;
-		}
+		result.x = (vec.x * rows[0][0]) + (vec.y * rows[1][0]) + (vec.z * rows[2][0]) + (vec.w * rows[3][0]);
+		result.y = (vec.x * rows[0][1]) + (vec.y * rows[1][1]) + (vec.z * rows[2][1]) + (vec.w * rows[3][1]);
+		result.z = (vec.x * rows[0][2]) + (vec.y * rows[1][2]) + (vec.z * rows[2][2]) + (vec.w * rows[3][2]); 
+		result.w = (vec.x * rows[0][3]) + (vec.y * rows[1][3]) + (vec.z * rows[2][3]) + (vec.w * rows[3][3]);
 		return result;
 	}
 

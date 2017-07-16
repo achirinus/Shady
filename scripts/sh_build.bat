@@ -64,7 +64,7 @@ set action=%3
 
 set symbols=/DWIN32 /DGLEW_STATIC /D_CONSOLE /D_UNICODE /DUNICODE 
 
-set com_opt=/EHa /Oi  
+set com_opt=/EHa /Oi
 set config_opt=
 
 REM those are the libs copied from a VS project--- ?!?!?!??!?

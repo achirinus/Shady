@@ -21,16 +21,18 @@ namespace Shady
 		return a;	
 	}
 
+	
+
 	f32 toRadians(f32 angle)
 	{
 		return (angle * SH_PI)/180;
 	}
 
-	float clamp(float value, float upperLimit)
+	f32 clamp(f32 value, f32 upperLimit)
 	{
 		return (value > upperLimit) ? upperLimit : value;
 	}
-	double clamp(double value, double upperLimit)
+	f64 clamp(f64 value, f64 upperLimit)
 	{
 		return (value > upperLimit) ? upperLimit : value;
 	}
@@ -39,19 +41,25 @@ namespace Shady
 		return (value > upperLimit) ? upperLimit : value;
 	}
 
-	float clamp(float value, float lowerLimit, float upperLimit)
+	f32 clamp(f32 value, f32 lowerLimit, f32 upperLimit)
 	{
-		float result = value;
+		f32 result = value;
 		if (result > upperLimit) result = upperLimit;
 		if (result < lowerLimit) result = lowerLimit;
 		return result;
 	}
-	double clamp(double value, double lowerLimit, double upperLimit)
+	f64 clamp(f64 value, f64 lowerLimit, f64 upperLimit)
 	{
-		double result = value;
+		f64 result = value;
 		if (result > upperLimit) result = upperLimit;
 		if (result < lowerLimit) result = lowerLimit;
 		return result;
+	}
+
+	f32 clampToZero(f32 value)
+	{	
+		if(value < 0.0f) value = 0.0f;
+		return value;
 	}
 	s32 clamp(s32 value, s32 lowerLimit, s32 upperLimit)
 	{

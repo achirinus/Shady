@@ -1,8 +1,10 @@
 #include "Win32Window.h"
 #include <glew.h>
+#include <wglew.h>
 #include "ShMouse.h"
 #include "ShKeyboard.h"
 #include "Windowsx.h"
+
 /*
 	Win32Window is mixed up win OpenGL. Take care of this somehow, sometime...
 	AND DELETE THIS AFTER YOU TAKE CARE OF IT!!!!!
@@ -21,6 +23,9 @@ namespace Shady
 			case WM_CLOSE:
 			{
 				window->mIsOpen = false;
+				wglMakeCurrent(window->mDC, NULL);
+				wglDeleteContext(window->mGlrc);
+				ReleaseDC(window->mHwnd, window->mDC);
 			}break;
 			case WM_DESTROY:
 			{
@@ -29,9 +34,35 @@ namespace Shady
 			case WM_PAINT:
 			{
 				PAINTSTRUCT paint;
+
 				HDC dc = BeginPaint(hwnd, &paint);
 				EndPaint(hwnd, &paint);
+				//ReleaseDC(hwnd, dc);
 
+			}break;
+			
+			case WM_SYSCOMMAND:
+			{
+				switch(wParam)
+				{
+					case SC_MINIMIZE:
+					{
+						window->minimize();
+						//result = DefWindowProc(hwnd, uMsg, wParam, lParam);
+					}break;
+					case SC_MAXIMIZE:
+					{
+						window->maximize();
+						//result = DefWindowProc(hwnd, uMsg, wParam, lParam);
+					}break;
+					default:
+					result = DefWindowProc(hwnd, uMsg, wParam, lParam);
+				}
+			}break;
+
+			case WM_TIMER:
+			{
+				
 			}break;
 			case WM_ACTIVATEAPP:
 			{
@@ -130,8 +161,10 @@ namespace Shady
 		return result;
 	}
 
+
+
 	Win32Window::Win32Window(const c8* title, s16 width, s16 height): Window(title, width, height),
-						mIsOpen(false), mHwnd(NULL), mInstance(NULL), mIsActive(false), mGlDC(NULL)
+						mIsOpen(false), mHwnd(NULL), mInstance(NULL), mIsActive(false), mGlrc(NULL)
 						
 
 	{
@@ -144,21 +177,24 @@ namespace Shady
 
 		if(RegisterClass(&wc))
 		{
-			mHwnd = CreateWindowExA(
-				0, WINDOW_CLASS_NAME, title,  WS_OVERLAPPEDWINDOW|WS_VISIBLE, CW_USEDEFAULT, CW_USEDEFAULT,
-				 SH_DEFAULT_WINDOW_WIDTH, SH_DEFAULT_WINDOW_HEIGHT, NULL, NULL, mInstance, this);
-			mIsOpen = true;	
+			mHwnd = CreateWindowExA(0, WINDOW_CLASS_NAME, title,  WS_OVERLAPPEDWINDOW|WS_VISIBLE,
+									 CW_USEDEFAULT, CW_USEDEFAULT,SH_DEFAULT_WINDOW_WIDTH, 
+									 SH_DEFAULT_WINDOW_HEIGHT, NULL, NULL, mInstance, this);
+			
 
 			if(mHwnd)
 			{
+				mIsOpen = true;	
 				mDC = GetDC(mHwnd);
-				Win32GlInit(mDC);
+				mGlrc = Win32GlInit(mDC);
 				glewInit();
 				glClearColor(1.0f, 0.5f, 0.5f, 1.0f);
 				glViewport(0,0, SH_DEFAULT_WINDOW_WIDTH, SH_DEFAULT_WINDOW_HEIGHT);
 				//glEnable(GL_CULL_FACE); 
 				glEnable(GL_BLEND);
 				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+				
+				
 			}
 		}
 		else
@@ -184,19 +220,21 @@ namespace Shady
 		ShowWindow(mHwnd, SW_HIDE);
 	}
 
-	void Win32Window::minimize()
-	{
-		ShowWindow(mHwnd, SW_MINIMIZE);
-	}
-
 	void Win32Window::clear()
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
+	void Win32Window::minimize()
+	{
+		ShowWindow(mHwnd, SW_MINIMIZE);
+		mFullScreen = false;
+	}
+
 	void Win32Window::maximize()
 	{
 		ShowWindow(mHwnd, SW_MAXIMIZE);
+		mFullScreen = true;
 	}
 
 	void Win32Window::restore()
@@ -207,6 +245,27 @@ namespace Shady
 	bool Win32Window::isActive()
 	{
 		return mIsActive;
+	}
+
+	bool Win32Window::isFullScreen()
+	{
+		return mFullScreen;
+	}
+
+	void Win32Window::setTitle(const c8* title)
+	{
+		SetWindowTextA(mHwnd, title);
+	}
+
+	void Win32Window::enableVSync()
+	{
+		//TODO Move this somewhere where we will check for extensions
+		// and use them accordingly
+		wglSwapIntervalEXT(1);
+	}
+	void Win32Window::disableVSync()
+	{
+		wglSwapIntervalEXT(0);
 	}
 
 	void Win32Window::update()
@@ -231,8 +290,8 @@ namespace Shady
 
 	Win32Window::~Win32Window()
 	{
-		wglMakeCurrent(GetDC(mHwnd), NULL);
-		wglDeleteContext(mGlDC);
+		
+		
 	}
 
 }

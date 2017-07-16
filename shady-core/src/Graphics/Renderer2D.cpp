@@ -14,10 +14,12 @@ namespace Shady
 		Mouse* mouse = Mouse::getInstance();
 		mShader.setUniform2f("mousePos", Vec2f((f32)mouse->xPos, (f32)mouse->yPos));	
 		mShader.setUniformMat4("viewMat", mCamera->getViewMat());
+		mShader.setUniformMat4("projMat", mCamera->getProjMat());
 		while(Sprite* sprite = mSprites.pop())
 		{
 			mShader.setUniform1i("hasTexture", sprite->hasTexture());
 			mShader.setUniformMat4("modelMat", sprite->getModelMat());
+			mShader.setUniformMat4("totalMovedMat", Matrix4f::translation(sprite->getCurrentPos()));
 			Vec4f vertices[]
 			{
 				{sprite->mPos.x, sprite->mPos.y, sprite->mPos.z, 1.0f},

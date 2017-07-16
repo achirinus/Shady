@@ -2,6 +2,7 @@
 #include <cstdio>
 #include "stb_image.c"
 
+
 namespace Shady
 {
 	void Texture::initGlTexture(Bitmap bmp)

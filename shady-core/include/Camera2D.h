@@ -13,6 +13,7 @@ namespace Shady
 	{
 	private:
 		Matrix4f mViewMat;
+		Matrix4f mProjMat;
 		Vec3f mPos;
 		u32 mWidth;
 		u32 mHeight;
@@ -22,6 +23,7 @@ namespace Shady
 		Camera2D(const Vec3f& pos, u32 mWidth, u32 mHeight, f32 speed = 0.2f);
 		~Camera2D() {}
 		Matrix4f getViewMat() { return mViewMat;}
+		Matrix4f getProjMat() {return mProjMat;}
 		void update();
 	};
 }

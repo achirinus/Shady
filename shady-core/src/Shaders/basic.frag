@@ -23,7 +23,7 @@ void main()
 	//float intensity = 1.0f/ length(fs_in.vertPos.xy - mousePos);
 	if(hasTexture)
 	{
-		color =texColor ;
+		color = fs_in.vertColor * texColor;
 	}
 	else
 	{

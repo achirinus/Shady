@@ -10,8 +10,9 @@ namespace Shady
 	// 	glClampColor = (_pfshglClampColor)wglGetProcAddress("glClampColor");
 	// }
 
-	void Win32GlInit(HDC dc)
+	HGLRC Win32GlInit(HDC dc)
 	{
+		HGLRC result;
 		PIXELFORMATDESCRIPTOR pfd = {};
 		pfd.nSize = sizeof(PIXELFORMATDESCRIPTOR);
 		pfd.nVersion = 1;
@@ -21,6 +22,7 @@ namespace Shady
 		pfd.cDepthBits = 24;
 		pfd.cStencilBits = 8;
 		
+		//TODO maybe store this on the first run so the next ones are faster
 		s32 suggesedFormatIndex = ChoosePixelFormat(dc, &pfd);
 
 		PIXELFORMATDESCRIPTOR suggestedFormat;
@@ -28,11 +30,11 @@ namespace Shady
 		
 		if(SetPixelFormat(dc, suggesedFormatIndex, &pfd) == TRUE)
 		{
-			HGLRC glRC = wglCreateContext(dc);
-			if(glRC)
+			result = wglCreateContext(dc);
+			if(result)
 			{
-				wglMakeCurrent(dc, glRC);
-				
+				wglMakeCurrent(dc, result);
+				return result;
 			}
 			else
 			{
@@ -43,7 +45,7 @@ namespace Shady
 		{
 			//TODO log error
 		}
-	
+		return result;
 	}
 
 	

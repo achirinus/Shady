@@ -7,6 +7,9 @@
 #include "String.h"
 #include "ShKeyboard.h"
 #include "Texture.h"
+#include "ShadyMath.h"
+
+
 
 namespace Shady
 {
@@ -33,7 +36,7 @@ namespace Shady
 		GLuint mVAO;
 
 		Texture* mTexture;
-
+		Matrix4f mModelMat;
 		
 		Sprite(const Vec3f& pos, u32 width, u32 height, Texture* texture = nullptr,  
 											const Vec4f& color = {1.0f, 1.0f, 1.0f, 1.0f});
@@ -42,11 +45,13 @@ namespace Shady
 
 		Matrix4f getModelMat();
 		void update();
+		Vec3f getCurrentPos() {return mPos + mMoveAmount;}
 		void setColor(const Vec4f& color);
 		bool hasTexture() {return (bool)mTexture;}
 		void move(const Vec3f& vec);
 		void rotate(f32 pitch, f32 yaw, f32 roll);
 		void scale(f32 scale);
+		f32 getScale() {return mScale;}
 		void draw();
 	};
 }
