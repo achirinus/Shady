@@ -17,6 +17,7 @@ namespace Shady
 	b8 cmpCharsNoCase(c8 c1, b8 c2);
 	int getLine(c8* buffer, int bufferLength, c8* str);
 	bool endsWith(c8* str, c8* end);
+	bool beginsWith(const c8* str, const c8* strToFind)
 	void strCopy(c8* buffer, const c8* str);
 	void strnCopy(c8* buffer, const c8* str);
 	float strToF(c8* str, c8** index = 0);

@@ -154,6 +154,20 @@ namespace Shady
 		return result;
 	}
 
+	bool beginsWith(const c8* str, const c8* strToFind)
+	{
+		b8 result = true;
+		if(str)
+		{
+			c8* temp = str;
+			while(*strToFind)
+			{
+				if(*strToFind++ != *temp++) result = false;
+			}
+		}
+		return result;
+	}
+
 	void strCopy(c8* buffer, const c8* str)
 	{
 		while (*buffer++ = *str++) {}

@@ -1,5 +1,6 @@
 #include "Matrix4f.h"
 #include <math.h>
+#include "MemUtils.h"
 #define MAT4_DIM 4
 
 namespace Shady

@@ -66,14 +66,16 @@ namespace Shady
 		
 		mMainWindow->disableVSync();
 		setFpsLimit(60);
-		
+		char title[250];
 		while (mMainWindow->isOpen())
 		{
-			DEBUG_OUT_INFO("FPS: %d", mFps);
-			DEBUG_OUT_INFO("UPS: %d", mFps);
+			
 			//IF WE LIMIT BOTH UPDAE() AND RENDER() THE TIME 
 			//WE SLEEP IS ADDED AND WE WILL SLEEP MORE THAN NEEDED
-			DEBUG_OUT_INFO("DT: %f", mFdt);
+
+			sprintf_s(title, 250, "FPS: %d", mFps);
+			mMainWindow->setTitle(title);
+			
 			update(mUdt);
 			
 			//Do not render if window is minimized
@@ -103,7 +105,7 @@ namespace Shady
 		gameState.sprite->update();
 		gameState.renderer2d->submit(gameState.sprite);
 
-		
+
 		limit(mUpdateTimer.getElapsedTimeMS(), mUpdateLimit);
 		mUdt = mUpdateTimer.getElapsedTimeMS();
 	}

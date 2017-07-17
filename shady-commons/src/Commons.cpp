@@ -1,75 +1,93 @@
 #include "Commons.h"
 #include <stdarg.h>
 #include <Windows.h>
+#include "StringUtils.h"
 
 namespace Shady
 {
+
 	
-	void _sh_chill_assert(bool cond, const char* str, ...)
+
+	
+	
+	void customFormat(c8* buffer, u32 bufferSize, const c8* format ...)
 	{
 		va_list args;
-		va_start(args, str);
-		if (!cond)
+		va_start(args, format);
+		c8* tempBuffer = buffer;
+
+		while(*format)
 		{
-			_consoleColoredOutput(DebugConsoleColor::PURPLE, "ASSERTION FAILED!!!-----------");
-			__consoleColoredOutput(DebugConsoleColor::PURPLE, str, args);
-			_consoleColoredOutput(DebugConsoleColor::PURPLE, "------------------------------");
+			if(*format == '%')
+			{
+				if(beginsWith(format+1, "mat4"))
+				{
+
+				}
+				else if(beginsWith(format+1, "mat3"))
+				{
+					
+				}	
+				else if(beginsWith(format+1, "vec4f"))
+				{
+
+				}
+				else if(beginsWith(format+1, "vec3f"))
+				{
+					
+				}
+				else if(beginsWith(format+1, "vec2f"))
+				{
+					
+				}
+				else if(beginsWith(format+1, "f32"))
+				{
+					
+				}
+				else if(beginsWith(format+1, "s32"))
+				{
+					
+				}			
+				else if(beginsWith(format+1, "u32"))
+				{
+					
+				}
+				else if(beginsWith(format+1, "f64"))
+				{
+					
+				}
+				else if(beginsWith(format+1, "s64"))
+				{
+					
+				}			
+				else if(beginsWith(format+1, "u64"))
+				{
+					
+				}
+				else if(beginsWith(format+1, "b8"))
+				{
+					
+				}
+						
+				else if(beginsWith(format+1, "u32"))
+				{
+					
+				}
+			}
+			else
+			{
+				*tempBuffer = *format;
+			}
+			tempBuffer++
+			format++;
 		}
-
+		*tempBuffer = '\0';
 		va_end(args);
+		return result;
 	}
+	
+	
 
-	void _consoleColoredOutput(DebugConsoleColor color, const char* str, ...)
-	{
-		va_list args;
-		va_start(args, str);
-		__consoleColoredOutput(color, str, args);
-		va_end(args);
-	}
-
-	void __consoleColoredOutput(DebugConsoleColor color,const char* str, va_list args)
-	{
-		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-		CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
-		GetConsoleScreenBufferInfo(hConsole, &consoleInfo);
-		WORD currentColor = consoleInfo.wAttributes;
-		switch (color)
-		{
-		case DebugConsoleColor::BLUE:
-			SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_INTENSITY);
-			break;
-		case DebugConsoleColor::RED:
-			SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY);
-			break;
-		case DebugConsoleColor::GREEN:
-			SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
-			break;
-		case DebugConsoleColor::CYAN:
-			SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN |
-				FOREGROUND_INTENSITY |
-				FOREGROUND_BLUE);
-			break;
-		case DebugConsoleColor::YELLOW:
-			SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN |
-				FOREGROUND_INTENSITY |
-				FOREGROUND_RED);
-			break;
-		case DebugConsoleColor::PURPLE:
-			SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE |
-				FOREGROUND_INTENSITY |
-				FOREGROUND_RED);
-			break;
-		}
-		vprintf(str, args);
-		printf("\n");
-		SetConsoleTextAttribute(hConsole, currentColor);
-		
-	}
-
-	void zeroMemory(void* mem, u64 size)
-	{
-		c8* tempMem = (c8*)mem;
-		while(size--) *tempMem++ = 0;
-	}
+	
 }
 
