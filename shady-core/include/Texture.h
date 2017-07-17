@@ -3,7 +3,7 @@
 
 #include <glew.h>
 #include "Commons.h"
-#include "Graphics.h"
+#include "Bitmap.h"
 
 
 namespace Shady

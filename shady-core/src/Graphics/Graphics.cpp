@@ -5,7 +5,24 @@
 namespace Shady
 {
 
-	
+	Texture* getGlyphTexture(c8 glyph, f32 pixelSize)
+	{
+		BinaryFileContent fileResult = File::win32ReadBinaryFile("c:/windows/fonts/arial.ttf");
+		stbtt_fontinfo fontInfo;
+		stbtt_InitFont(&fontInfo, (u8*)fileResult.contents, 
+						stbtt_GetFontOffsetForIndex((u8*)fileResult.contents, 0));
+		int width, height, xOffset, yOffset;
+		u8* monoBitmap = stbtt_GetCodepointBitmap(&fontInfo, 0, stbtt_ScaleForPixelHeight(&fontInfo, pixelSize),
+													glyph, &width, &height, &xOffset, &yOffset);
+
+		
+		Bitmap goodBmp = get32bppBitmapFrom8bpp(monoBitmap, width, height);
+
+		Texture* result = new Texture(goodBmp);
+		freeBitmap(goodBmp);
+		stbtt_FreeBitmap(monoBitmap, 0);
+		return result;
+	}	
 
 	void clearBitmapToZero(Bitmap* bmp)
 	{

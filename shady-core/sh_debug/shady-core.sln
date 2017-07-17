@@ -24,6 +24,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\src\Graphics\Renderer2D.cpp = ..\src\Graphics\Renderer2D.cpp
 		..\src\Utils\ShadyApp.cpp = ..\src\Utils\ShadyApp.cpp
 		..\src\Graphics\Sprite.cpp = ..\src\Graphics\Sprite.cpp
+		..\..\shady-commons\src\StringUtils\StringUtils.cpp = ..\..\shady-commons\src\StringUtils\StringUtils.cpp
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9518AE55-13C6-4B6F-9A87-9A3CC1AA8FE3}"
