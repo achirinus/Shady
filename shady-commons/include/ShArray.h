@@ -161,6 +161,7 @@ namespace Shady
 			{
 				mBuffer[firstIndex] = mBuffer[firstIndex + 1];
 			}
+			mNumOfElem--;
 		}
 
 		T& operator[](s32 index)
@@ -168,7 +169,7 @@ namespace Shady
 			SH_ASSERT((index >= 0) && (index < mNumOfElem));
 			return mBuffer[index];
 		}
-		Array<T>& operator=(const Array<T> other)
+		Array<T>& operator=(const Array<T>& other)
 		{
 			Array<T> result{other};
 			return result;

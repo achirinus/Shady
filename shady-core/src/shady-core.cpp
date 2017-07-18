@@ -6,6 +6,7 @@
 #include "Graphics/Camera2D.cpp"
 #include "Graphics/Renderer2D.cpp"
 #include "Graphics/Graphics.cpp"
+#include "Graphics/ShFont.cpp"
 #include "Utils/Win32GL.cpp"
 #include "Utils/Win32Window.cpp"
 #include "Utils/Timer.cpp"

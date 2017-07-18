@@ -17,12 +17,14 @@ namespace Shady
 		ShadyApp():mMainWindow(0), mMouse(0), mKeyboard(0), mFpsLimit(0),
 					mUpdateLimit(0), mFps(0), mUps(0), mFrameCount(0), 
 					mFrameTimer(), mUpdateTimer(), mUdt(0.0f), mFdt(0.0f) {}
+
+		GameState* initGameState();
 	public:
 		
 		Window* mMainWindow;
 		Mouse* mMouse;
 		Keyboard* mKeyboard;
-		GameState gameState;
+		GameState* gameState;
 		Timer mFrameTimer;
 		Timer mUpdateTimer;
 

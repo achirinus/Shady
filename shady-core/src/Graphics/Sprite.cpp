@@ -17,20 +17,8 @@ namespace Shady
 		return result;
 	}
 
-	Sprite::Sprite(const Vec3f& pos, u32 width, u32 height, Texture* texture, const Vec4f& color): 
-	mTexture(texture),
-	mModelMat(1)
+	void Sprite::initGlBuffers(const Vec3f& pos, const Vec4f& color)
 	{
-		mColor = color;
-		mMoveAmount = {};
-		mPos = pos;
-		mWidth = width;
-		mHeight = height;
-		mScale = 1.0f;
-		mPitch = 0.0f;
-		mYaw = 0.0f;
-		mRoll = 0.0f;
-
 		/*
 		Vec3f vertices[] = 
 		{
@@ -44,10 +32,10 @@ namespace Shady
 		// Vertices that set the position in the center of the sprite
 		Vec3f vertices[] = 
 		{
-			{pos.x - width/2, pos.y - height/2, pos.z},
-			{pos.x - width/2, pos.y + height/2, pos.z},
-			{pos.x + width/2, pos.y + height/2, pos.z},
-			{pos.x + width/2, pos.y - height/2, pos.z}
+			{pos.x - mWidth/2, pos.y - mHeight/2, pos.z},
+			{pos.x - mWidth/2, pos.y + mHeight/2, pos.z},
+			{pos.x + mWidth/2, pos.y + mHeight/2, pos.z},
+			{pos.x + mWidth/2, pos.y - mHeight/2, pos.z}
 		};
 		
 		Vec2f texCoords[] = 
@@ -87,14 +75,46 @@ namespace Shady
 		glEnableVertexAttribArray(COL_BUFFER);
 		glVertexAttribPointer(COL_BUFFER, 4, GL_FLOAT, GL_FALSE, 0, 0);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		glBindVertexArray(0);
+		glBindVertexArray(0);	
+	}
+
+	Sprite::Sprite(const Vec3f& pos, u32 width, u32 height, Texture* texture, const Vec4f& color): 
+	mTexture(texture),
+	mModelMat(1)
+	{
+		mColor = color;
+		mMoveAmount = {};
+		mPos = pos;
+		mWidth = width;
+		mHeight = height;
+		mScale = 1.0f;
+		mPitch = 0.0f;
+		mYaw = 0.0f;
+		mRoll = 0.0f;
+
+		initGlBuffers(mPos, mColor);
+		
+	}
+
+	Sprite::Sprite(const Vec3f& pos, Texture* texture): mTexture(texture), mModelMat(1)
+	{
+		mColor = Vec4f(1.0f, 1.0f, 1.0f, 1.0f);
+		mMoveAmount = {};
+		mPos = pos;
+		mWidth = texture->getWidth();
+		mHeight = texture->getHeight();
+		mScale = 1.0f;
+		mPitch = 0.0f;
+		mYaw = 0.0f;
+		mRoll = 0.0f;
+
+		initGlBuffers(mPos, mColor);
 	}
 
 	Sprite::~Sprite()
 	{
 		glDeleteBuffers(2, mVBO);
 		glDeleteVertexArrays(1, &mVAO);
-		
 	}
 
 	void Sprite::move(const Vec3f& vec)
@@ -163,6 +183,11 @@ namespace Shady
 		glBufferData(GL_ARRAY_BUFFER, 4 * sizeof(Vec4f), colors, GL_STATIC_DRAW);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glBindVertexArray(0);
+	}
+
+	void Sprite::setTexture(Texture* tex)
+	{
+		mTexture = tex;
 	}
 
 	

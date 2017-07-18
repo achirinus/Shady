@@ -223,10 +223,10 @@ namespace Shady
 	Vec4f Matrix4f::operator*(Vec4f vec)
 	{
 		Vec4f result;
-		result.x = (vec.x * rows[0][0]) + (vec.y * rows[1][0]) + (vec.z * rows[2][0]) + (vec.w * rows[3][0]);
-		result.y = (vec.x * rows[0][1]) + (vec.y * rows[1][1]) + (vec.z * rows[2][1]) + (vec.w * rows[3][1]);
-		result.z = (vec.x * rows[0][2]) + (vec.y * rows[1][2]) + (vec.z * rows[2][2]) + (vec.w * rows[3][2]); 
-		result.w = (vec.x * rows[0][3]) + (vec.y * rows[1][3]) + (vec.z * rows[2][3]) + (vec.w * rows[3][3]);
+		result.x = (vec.x * rows[0][0]) + (vec.y * rows[0][1]) + (vec.z * rows[0][2]) + (vec.w * rows[0][3]);
+		result.y = (vec.x * rows[1][0]) + (vec.y * rows[1][1]) + (vec.z * rows[1][2]) + (vec.w * rows[1][3]);
+		result.z = (vec.x * rows[2][0]) + (vec.y * rows[2][1]) + (vec.z * rows[2][2]) + (vec.w * rows[2][3]); 
+		result.w = (vec.x * rows[3][0]) + (vec.y * rows[3][1]) + (vec.z * rows[3][2]) + (vec.w * rows[3][3]);
 		return result;
 	}
 

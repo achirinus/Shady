@@ -4,6 +4,9 @@
 #include "Sprite.h"
 #include "Camera2D.h"
 #include "Renderer2D.h"
+#include "ShFont.h"
+
+
 
 namespace Shady
 {
@@ -13,6 +16,7 @@ namespace Shady
 		Sprite* sprite;
 		Camera2D* camera2d;
 		Renderer2D* renderer2d;
+		Font* currentFont;
 	};
 }
 

@@ -40,13 +40,15 @@ namespace Shady
 		
 		Sprite(const Vec3f& pos, u32 width, u32 height, Texture* texture = nullptr,  
 											const Vec4f& color = {1.0f, 1.0f, 1.0f, 1.0f});
-																		 
+		Sprite(const Vec3f& pos, Texture* texture);									 
 		~Sprite();
 
 		Matrix4f getModelMat();
+		void initGlBuffers(const Vec3f& pos, const Vec4f& color);
 		void update();
 		Vec3f getCurrentPos() {return mPos + mMoveAmount;}
 		void setColor(const Vec4f& color);
+		void setTexture(Texture* tex);
 		bool hasTexture() {return (bool)mTexture;}
 		void move(const Vec3f& vec);
 		void rotate(f32 pitch, f32 yaw, f32 roll);

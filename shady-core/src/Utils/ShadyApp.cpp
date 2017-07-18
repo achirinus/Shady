@@ -21,16 +21,13 @@ namespace Shady
 		return sInstance;
 	}
 
-	
-
 	void ShadyApp::start()
 	{
 		mMainWindow = new Win32Window();
 		mMouse = Mouse::getInstance();
 		mKeyboard = Keyboard::getInstance();
+		gameState = initGameState();
 
-		Texture* a = getGlyphTexture('N', 250.0f);
-		Texture* b = getGlyphTexture('N', 30.0f);
 		//Texture* b = win32GetGlyphTexture('A');
 		/*
 		ModelLoader mdl{};
@@ -41,11 +38,6 @@ namespace Shady
 			DEBUG_OUT_INFO(cube->mVertices[vertIndex].toString().cStr());
 		}
 		*/
-		
-		gameState.camera2d = new Camera2D(Vec3f(-mMainWindow->mWidth/2, -mMainWindow->mHeight/2, 1.0f),
-								mMainWindow->mWidth, mMainWindow->mHeight, 2.0f);
-		gameState.renderer2d = new Renderer2D(gameState.camera2d);
-		gameState.sprite = new Sprite( Vec3f(0.0f, 0.0f, 0.0f) , a->getWidth(), a->getHeight(),a);
 		
 		mMainWindow->disableVSync();
 		setFpsLimit(60);
@@ -65,8 +57,6 @@ namespace Shady
 			
 			//Do not render if window is minimized
 			render(mFdt);
-			
-			
 		}
 
 	}
@@ -77,8 +67,8 @@ namespace Shady
 		u32 targetTime = safeRatio((u32)1000, freq);
 		if((u32)time > targetTime) return;
 		
+		//TODO Anything but this.
 		Sleep(targetTime - time);
-		
 	}
 
 	void ShadyApp::update(f32 dt)
@@ -86,9 +76,9 @@ namespace Shady
 		mUpdateTimer.update();
 
 		mMainWindow->update();
-		gameState.camera2d->update();
-		gameState.sprite->update();
-		gameState.renderer2d->submit(gameState.sprite);
+		gameState->camera2d->update();
+		gameState->sprite->update();
+		gameState->renderer2d->submit(gameState->sprite);
 
 
 		limit(mUpdateTimer.getElapsedTimeMS(), mUpdateLimit);
@@ -100,11 +90,23 @@ namespace Shady
 		mFrameTimer.update();
 		countFps(dt);
 		mMainWindow->clear();
-		gameState.renderer2d->render();
+		gameState->renderer2d->render();
 		mMainWindow->swapBuffers();
 
 		limit(mFrameTimer.getElapsedTimeMS(), mFpsLimit);
 		mFdt = mFrameTimer.getElapsedTimeMS();
+	}
+
+	GameState* ShadyApp::initGameState()
+	{
+		//TODO put these in their arena and take care of cleanup
+		GameState* gameState = new GameState();
+		gameState->currentFont =new Font();
+		gameState->camera2d = new Camera2D(Vec3f(-mMainWindow->mWidth/2, -mMainWindow->mHeight/2, 1.0f),
+								mMainWindow->mWidth, mMainWindow->mHeight, 2.0f);
+		gameState->renderer2d = new Renderer2D(gameState->camera2d);
+		gameState->sprite = new Sprite( Vec3f(0.0f, 0.0f, 0.0f), gameState->currentFont->getGlyph('A'));
+		return gameState;
 	}
 
 	void ShadyApp::countFps(f32 dt)
