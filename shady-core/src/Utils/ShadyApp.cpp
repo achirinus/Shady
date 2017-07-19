@@ -75,10 +75,11 @@ namespace Shady
 	{
 		mUpdateTimer.update();
 
+		
+
 		mMainWindow->update();
 		gameState->camera2d->update();
-		gameState->sprite->update();
-		gameState->renderer2d->submit(gameState->sprite);
+		gameState->renderer2d->submit(gameState->text);
 
 
 		limit(mUpdateTimer.getElapsedTimeMS(), mUpdateLimit);
@@ -105,7 +106,9 @@ namespace Shady
 		gameState->camera2d = new Camera2D(Vec3f(-mMainWindow->mWidth/2, -mMainWindow->mHeight/2, 1.0f),
 								mMainWindow->mWidth, mMainWindow->mHeight, 2.0f);
 		gameState->renderer2d = new Renderer2D(gameState->camera2d);
-		gameState->sprite = new Sprite( Vec3f(0.0f, 0.0f, 0.0f), gameState->currentFont->getGlyph('A'));
+		//gameState->sprite = new Sprite( Vec3f(0.0f, 0.0f, 0.0f), gameState->currentFont->getGlyph('A'));
+		gameState->text = gameState->currentFont->getText({-500.0f, 0.0f, 0.0f}, "ALIN + ALEXANDRA", 30.0f);
+
 		return gameState;
 	}
 

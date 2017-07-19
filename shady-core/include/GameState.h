@@ -17,6 +17,7 @@ namespace Shady
 		Camera2D* camera2d;
 		Renderer2D* renderer2d;
 		Font* currentFont;
+		Text2D* text;
 	};
 }
 

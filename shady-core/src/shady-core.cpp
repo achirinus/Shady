@@ -7,6 +7,8 @@
 #include "Graphics/Renderer2D.cpp"
 #include "Graphics/Graphics.cpp"
 #include "Graphics/ShFont.cpp"
+#include "Graphics/Glyph.cpp"
+#include "Graphics/Text2D.cpp"
 #include "Utils/Win32GL.cpp"
 #include "Utils/Win32Window.cpp"
 #include "Utils/Timer.cpp"

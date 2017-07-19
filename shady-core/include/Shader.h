@@ -23,9 +23,13 @@ namespace Shady
 	private:
 		GLuint mProgram;
 
+
 	public:
 		Shader(const char* shaderName, u32 shaderFlags);
+		Shader() = default; 
 		~Shader();
+
+		void init(const char* shaderName, u32 shaderFlags);
 		void enable();
 		void disable();
 		void setUniform1f(const char* name, float value);

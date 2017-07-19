@@ -7,6 +7,11 @@ namespace Shady
 		
 	Shader::Shader(const char* shaderName, u32 shaderFlags)
 	{
+		init(shaderName, shaderFlags);
+	}
+
+	void Shader::init(const char* shaderName, u32 shaderFlags)
+	{
 		String basePath(SHADER_BASE_DIR);
 		basePath +=shaderName;
 		String vertFileName;

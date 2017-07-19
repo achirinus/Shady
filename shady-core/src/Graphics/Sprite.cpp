@@ -17,26 +17,24 @@ namespace Shady
 		return result;
 	}
 
-	void Sprite::initGlBuffers(const Vec3f& pos, const Vec4f& color)
+	void Sprite::initGlBuffers(const Vec3f& pos, const Vec4f& color, b8 posInCenter)
 	{
-		/*
-		Vec3f vertices[] = 
+				
+		Vec3f vertices[4];
+		if(posInCenter)
 		{
-			{pos.x, pos.y, pos.z},
-			{pos.x, pos.y + mHeight, pos.z},
-			{pos.x + mWidth, pos.y + mHeight, pos.z},
-			{pos.x + mWidth, pos.y, pos.z}
-		};
-		*/
-		
-		// Vertices that set the position in the center of the sprite
-		Vec3f vertices[] = 
+			vertices[0] = {pos.x - mWidth/2, pos.y - mHeight/2, pos.z}; 
+			vertices[1] = {pos.x - mWidth/2, pos.y + mHeight/2, pos.z};
+			vertices[2] = {pos.x + mWidth/2, pos.y + mHeight/2, pos.z};
+			vertices[3] = {pos.x + mWidth/2, pos.y - mHeight/2, pos.z};
+		} 
+		else
 		{
-			{pos.x - mWidth/2, pos.y - mHeight/2, pos.z},
-			{pos.x - mWidth/2, pos.y + mHeight/2, pos.z},
-			{pos.x + mWidth/2, pos.y + mHeight/2, pos.z},
-			{pos.x + mWidth/2, pos.y - mHeight/2, pos.z}
-		};
+			vertices[0] = {pos.x, pos.y, pos.z};
+			vertices[1] = {pos.x, pos.y + mHeight, pos.z};
+			vertices[2] = {pos.x + mWidth, pos.y + mHeight, pos.z};
+			vertices[3] = {pos.x + mWidth, pos.y, pos.z};
+		}
 		
 		Vec2f texCoords[] = 
 		{
@@ -78,10 +76,12 @@ namespace Shady
 		glBindVertexArray(0);	
 	}
 
-	Sprite::Sprite(const Vec3f& pos, u32 width, u32 height, Texture* texture, const Vec4f& color): 
-	mTexture(texture),
-	mModelMat(1)
+	Sprite::Sprite(const Vec3f& pos, u32 width, u32 height, Texture* texture,
+					 const Vec4f& color, Shader* shader): 
+	mTexture(texture) 
 	{
+		mShader = shader;
+		mModelMat = Matrix4f(1);
 		mColor = color;
 		mMoveAmount = {};
 		mPos = pos;
@@ -91,13 +91,19 @@ namespace Shady
 		mPitch = 0.0f;
 		mYaw = 0.0f;
 		mRoll = 0.0f;
-
-		initGlBuffers(mPos, mColor);
+		if(!shader)
+		{
+			mShader = new Shader("basic", SH_FRAGMENT_SHADER | SH_VERTEX_SHADER) ;
+		}
+		initGlBuffers(mPos, mColor, true);
 		
 	}
 
-	Sprite::Sprite(const Vec3f& pos, Texture* texture): mTexture(texture), mModelMat(1)
+	Sprite::Sprite(const Vec3f& pos, Texture* texture, b8 posInCenter, Shader* shader):
+	 mTexture(texture)
 	{
+		mShader = shader;
+		mModelMat = Matrix4f(1);
 		mColor = Vec4f(1.0f, 1.0f, 1.0f, 1.0f);
 		mMoveAmount = {};
 		mPos = pos;
@@ -107,14 +113,19 @@ namespace Shady
 		mPitch = 0.0f;
 		mYaw = 0.0f;
 		mRoll = 0.0f;
-
-		initGlBuffers(mPos, mColor);
+		
+		if(!shader)
+		{
+			mShader = new Shader("basic", SH_FRAGMENT_SHADER | SH_VERTEX_SHADER) ;
+		}
+		initGlBuffers(mPos, mColor, posInCenter);
 	}
 
 	Sprite::~Sprite()
 	{
-		glDeleteBuffers(2, mVBO);
+		glDeleteBuffers(NUM_BUFFERS, mVBO);
 		glDeleteVertexArrays(1, &mVAO);
+		delete mShader;
 	}
 
 	void Sprite::move(const Vec3f& vec)
@@ -206,7 +217,12 @@ namespace Shady
 
 	void Sprite::draw()
 	{
+
 		if(mTexture) mTexture->bind(0);
+		mShader->setUniform1i("hasTexture", hasTexture());
+		mShader->setUniformMat4("modelMat", getModelMat());
+		mShader->setUniformMat4("totalMovedMat", Matrix4f::translation(getCurrentPos()));
+			
 		glBindVertexArray(mVAO);
 		glDrawArrays(GL_QUADS, 0, 4);
 		glBindVertexArray(0);

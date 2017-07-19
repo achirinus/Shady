@@ -5,19 +5,19 @@
 #include "ShQueue.h"
 #include "Shader.h"
 #include "Camera2D.h"
+#include "Renderable2D.h"
+
 namespace Shady
 {
 	class Renderer2D
 	{
 	private:
-		Queue<Sprite> mSprites;
-		Shader mShader;
+		Queue<Renderable2D> mSprites;
 		Camera2D* mCamera;
 	public:
-		Renderer2D(Camera2D* camera): mShader("basic", SH_VERTEX_SHADER | SH_FRAGMENT_SHADER),
-									 mCamera(camera), mSprites(){}
+		Renderer2D(Camera2D* camera): mCamera(camera), mSprites(){}
 		
-		void submit(Sprite* sprite);
+		void submit(Renderable2D* sprite);
 		void render();
 		~Renderer2D() {}
 	};

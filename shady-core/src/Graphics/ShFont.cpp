@@ -8,14 +8,17 @@ namespace Shady
 	{
 		for(u32 index = 0; index < mGlyphs.size(); index++)
 		{
-			Texture* tex = mGlyphs[mGlyphs.getKeyByIndex(index)];
+			Texture* tex = mGlyphs[mGlyphs.getKeyByIndex(index)].texture;
 			delete tex;
 		}
+
+		delete mShader;
 	}
 
-	Font::Font(): mGlyphs()
+	Font::Font(): mGlyphs(), mFontSize(30.0f)
 	{
-		STBloadSupportedGlyphs(120.0f);
+		mShader = new Shader("text", SH_FRAGMENT_SHADER | SH_VERTEX_SHADER);
+		STBloadSupportedGlyphs(mFontSize);
 	}
 
 
@@ -43,14 +46,42 @@ namespace Shady
 						stbtt_GetFontOffsetForIndex((u8*)fileResult.contents, 0));
 		f32 scale = stbtt_ScaleForPixelHeight(&fontInfo, sizeInPixels);
 
+		//Advance v position by (ascent - descent + linegap)
+		stbtt_GetFontVMetrics(&fontInfo, &mAscent, &mDescent, &mLineGap);
+
 		for(c8 cp = MIN_ASCII_CODEPOINT; cp <= MAX_ASCII_CODEPOINT; cp++)
 		{
-			mGlyphs.add(cp, STBgetGlyphTexture(&fontInfo, cp, scale));
+			Texture* tex = STBgetGlyphTexture(&fontInfo, cp, scale);
+			s32 advanceW;
+			s32 leftBearing;
+			stbtt_GetCodepointHMetrics(&fontInfo, cp, &advanceW, &leftBearing);
+			mGlyphs.add(cp,  {tex, advanceW, leftBearing});
 		}
 	}
 
+	Text2D* Font::getText(Vec3f pos, const c8* str, f32 size)
+	{
+		f32 scale = size / mFontSize;
+		Text2D* result = new Text2D(mShader);
+		while(*str)
+		{
+			if(*str == ' ')
+			{
+				pos += {mFontSize * scale, 0.0f, 0.0f};
+				str++;
+				continue;	
+			}
+			result->addGlyph(new Glyph(pos, mGlyphs[*str].texture, mShader));
+			pos += {mFontSize * scale, 0.0f, 0.0f};
+			str++;
+		}
+		return result;
+	}
+
+
+
 	Texture* Font::getGlyph(c8 codePoint)
 	{
-		return mGlyphs[codePoint];
+		return mGlyphs[codePoint].texture;
 	}
 }
