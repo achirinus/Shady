@@ -5,7 +5,7 @@
 namespace Shady
 {
 		
-	Shader::Shader(const char* shaderName, u32 shaderFlags)
+	Shader::Shader(const char* shaderName, u32 shaderFlags): mAttribIndex(0)
 	{
 		init(shaderName, shaderFlags);
 	}
@@ -86,9 +86,7 @@ namespace Shady
 			glAttachShader(mProgram, vert);
 			glAttachShader(mProgram, frag);
 
-			glBindAttribLocation(mProgram, 0, "pos");
-			glBindAttribLocation(mProgram, 1, "texCoord");
-			glBindAttribLocation(mProgram, 2, "vertColor");
+			
 			glLinkProgram(mProgram);
 			
 			GLint isLinked = 0;
@@ -123,6 +121,13 @@ namespace Shady
 		delete[] log2;
 		glDetachShader(mProgram,vert);
 		glDetachShader(mProgram,frag);
+	}
+
+	void Shader::bindAttribs()
+	{
+		glBindAttribLocation(mProgram, 0, "pos");
+		glBindAttribLocation(mProgram, 1, "texCoord");
+		glBindAttribLocation(mProgram, 2, "vertColor");
 	}
 
 	void Shader::enable()

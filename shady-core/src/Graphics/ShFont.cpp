@@ -15,7 +15,7 @@ namespace Shady
 		delete mShader;
 	}
 
-	Font::Font(): mGlyphs(), mFontSize(30.0f)
+	Font::Font(): mGlyphs(), mFontSize(60.0f)
 	{
 		mShader = new Shader("text", SH_FRAGMENT_SHADER | SH_VERTEX_SHADER);
 		STBloadSupportedGlyphs(mFontSize);
@@ -24,11 +24,12 @@ namespace Shady
 
 	//TODO Codepoint glyphs are for now stored in video memory,
 	//decide where to keep them.
-	Texture* Font::STBgetGlyphTexture(stbtt_fontinfo* fontInfo, c8 cp, f32 scale)
+	Texture* Font::STBgetGlyphTexture(stbtt_fontinfo* fontInfo, c8 cp,
+										s32* xOffset, s32* yOffset)
 	{
-		int width, height, xOffset, yOffset;
-		u8* monoBitmap = stbtt_GetCodepointBitmap(fontInfo, 0, scale, cp,
-													&width, &height, &xOffset, &yOffset);
+		s32 width, height;
+		u8* monoBitmap = stbtt_GetCodepointBitmap(fontInfo, 0, mScale, cp,
+													&width, &height, xOffset, yOffset);
 		
 		Bitmap goodBmp = get32bppBitmapFrom8bpp(monoBitmap, width, height);
 
@@ -41,44 +42,73 @@ namespace Shady
 	void Font::STBloadSupportedGlyphs(f32 sizeInPixels)
 	{
 		BinaryFileContent fileResult = File::win32ReadBinaryFile("c:/windows/fonts/arial.ttf");
-		stbtt_fontinfo fontInfo;
-		stbtt_InitFont(&fontInfo, (u8*)fileResult.contents, 
+		
+		stbtt_InitFont(&mFontInfo, (u8*)fileResult.contents, 
 						stbtt_GetFontOffsetForIndex((u8*)fileResult.contents, 0));
-		f32 scale = stbtt_ScaleForPixelHeight(&fontInfo, sizeInPixels);
+		mScale = stbtt_ScaleForPixelHeight(&mFontInfo, sizeInPixels);
 
 		//Advance v position by (ascent - descent + linegap)
-		stbtt_GetFontVMetrics(&fontInfo, &mAscent, &mDescent, &mLineGap);
+		stbtt_GetFontVMetrics(&mFontInfo, &mAscent, &mDescent, &mLineGap);
+		mAscent = mAscent * mScale;
+		mDescent = mDescent * mScale;
+		mLineGap = mLineGap * mScale;
 
 		for(c8 cp = MIN_ASCII_CODEPOINT; cp <= MAX_ASCII_CODEPOINT; cp++)
 		{
-			Texture* tex = STBgetGlyphTexture(&fontInfo, cp, scale);
-			s32 advanceW;
-			s32 leftBearing;
-			stbtt_GetCodepointHMetrics(&fontInfo, cp, &advanceW, &leftBearing);
-			mGlyphs.add(cp,  {tex, advanceW, leftBearing});
+			s32 advanceW, leftBearing, xOffset, yOffset;
+			Texture* tex = STBgetGlyphTexture(&mFontInfo, cp, &xOffset, &yOffset);
+			stbtt_GetCodepointHMetrics(&mFontInfo, cp, &advanceW, &leftBearing);
+			mGlyphs.add(cp,  {tex, advanceW * mScale, leftBearing * mScale});
 		}
 	}
 
 	Text2D* Font::getText(Vec3f pos, const c8* str, f32 size)
 	{
+		f32 baseLine = pos.y  + mAscent;
 		f32 scale = size / mFontSize;
+		Vec3f initialRowPos = pos;
+		Vec3f lastCharPos = initialRowPos;
 		Text2D* result = new Text2D(mShader);
+		c8 lastChar = 0;
+		s32 kernAdvance = 0;
+		GlyphData* lastGlyphData = 0;
 		while(*str)
 		{
+			Vec3f thisPos = lastCharPos;
 			if(*str == ' ')
 			{
-				pos += {mFontSize * scale, 0.0f, 0.0f};
+				thisPos += {mFontSize * scale * mScale, 0.0f, 0.0f};
+				Vec3f thisPos = lastCharPos;
+				lastChar = *str;
+				lastGlyphData = 0;
 				str++;
 				continue;	
 			}
-			result->addGlyph(new Glyph(pos, mGlyphs[*str].texture, mShader));
-			pos += {mFontSize * scale, 0.0f, 0.0f};
+			GlyphData* data = &mGlyphs[*str];
+			
+			if(lastGlyphData)
+			{
+				thisPos.x += (lastGlyphData->mAdvanceWidth * 2 * scale) - 
+				lastGlyphData->mLeftSideBearing + 
+				stbtt_GetCodepointKernAdvance(&mFontInfo, lastChar, *str);
+			}
+			else
+			{
+				thisPos.x += size * 2;
+			}
+			thisPos.y =baseLine - data->texture->getHeight();
+			
+			Glyph* glyph = new Glyph(thisPos, data->texture, mShader);
+			glyph->scale(scale);
+			result->addGlyph(glyph);
+			
+			lastCharPos = thisPos;
+			lastChar = *str;
+			lastGlyphData = data;
 			str++;
 		}
 		return result;
 	}
-
-
 
 	Texture* Font::getGlyph(c8 codePoint)
 	{

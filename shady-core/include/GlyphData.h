@@ -9,8 +9,10 @@ namespace Shady
 	struct GlyphData
 	{
 		Texture* texture;
-		s32 mAdvanceWidth;
-		s32 mLeftSideBearing;
+		f32 mAdvanceWidth;
+		f32 mLeftSideBearing;
+		s32 mXOff;
+		s32 mYOff;
 	};
 }
 

@@ -10,7 +10,7 @@
 
 namespace Shady
 {
-	#define SHADER_BASE_DIR "..\\src\\Shaders\\"
+	#define SHADER_BASE_DIR "shady-core\\src\\Shaders\\"
 	enum
 	{
 		SH_VERTEX_SHADER = 0x01,
@@ -20,26 +20,28 @@ namespace Shady
 	};
 	class Shader
 	{
-	private:
+	protected:
 		GLuint mProgram;
 
+		u32 mAttribIndex;
+		virtual void bindAttribs();
 
 	public:
 		Shader(const char* shaderName, u32 shaderFlags);
 		Shader() = default; 
-		~Shader();
+		virtual ~Shader();
 
-		void init(const char* shaderName, u32 shaderFlags);
-		void enable();
-		void disable();
-		void setUniform1f(const char* name, float value);
-		void setUniform1i(const char* name, int value);
-		void setUniform2f(const char* name, const Vec2f& vec2);
-		void setUniform3f(const char* name, const Vec3f& vec3);
-		void setUniform4f(const char* name, const Vec4f& vec4);
-		void setUniformMat4(const char* name, const Matrix4f& mat4);
+		virtual void init(const char* shaderName, u32 shaderFlags);
+		virtual void enable();
+		virtual void disable();
+		virtual void setUniform1f(const char* name, float value);
+		virtual void setUniform1i(const char* name, int value);
+		virtual void setUniform2f(const char* name, const Vec2f& vec2);
+		virtual void setUniform3f(const char* name, const Vec3f& vec3);
+		virtual void setUniform4f(const char* name, const Vec4f& vec4);
+		virtual void setUniformMat4(const char* name, const Matrix4f& mat4);
 
-		void setUniformMat4(const char* name, const f32* mat4);
+		virtual void setUniformMat4(const char* name, const f32* mat4);
 	};
 
 }

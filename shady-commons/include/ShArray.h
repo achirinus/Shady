@@ -156,7 +156,7 @@ namespace Shady
 		}
 		void remove(u32 index)
 		{
-			SH_ASSERT((index > 0) && (index  < mNumOfElem-1));
+			SH_ASSERT((index >= 0) && (index  < mNumOfElem));
 			for(u32 firstIndex = index; firstIndex < mNumOfElem-1; firstIndex++)
 			{
 				mBuffer[firstIndex] = mBuffer[firstIndex + 1];

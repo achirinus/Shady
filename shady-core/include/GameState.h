@@ -5,7 +5,7 @@
 #include "Camera2D.h"
 #include "Renderer2D.h"
 #include "ShFont.h"
-
+#include "Line2D.h"
 
 
 namespace Shady
@@ -18,6 +18,7 @@ namespace Shady
 		Renderer2D* renderer2d;
 		Font* currentFont;
 		Text2D* text;
+		Line2D* line;
 	};
 }
 

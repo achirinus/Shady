@@ -16,8 +16,6 @@ namespace Shady
 		Array<K> mKeys;
 		Array<E> mElem;
 
-		
-
 	public:
 		Map(): mKeys(), mElem() {}
 		

@@ -14,6 +14,7 @@ namespace Shady
 	private:
 		Queue<Renderable2D> mSprites;
 		Camera2D* mCamera;
+		
 	public:
 		Renderer2D(Camera2D* camera): mCamera(camera), mSprites(){}
 		

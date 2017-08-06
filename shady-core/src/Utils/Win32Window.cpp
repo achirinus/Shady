@@ -192,8 +192,8 @@ namespace Shady
 				glViewport(0,0, SH_DEFAULT_WINDOW_WIDTH, SH_DEFAULT_WINDOW_HEIGHT);
 				//glEnable(GL_CULL_FACE); 
 				glEnable(GL_BLEND);
+				glEnable(GL_LINE_SMOOTH); //Antialiasing				
 				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-				
 				
 			}
 		}

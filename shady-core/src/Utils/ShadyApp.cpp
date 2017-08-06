@@ -21,6 +21,11 @@ namespace Shady
 		return sInstance;
 	}
 
+	void testCb()
+	{
+		DEBUG_OUT_INFO("changed");
+	}
+
 	void ShadyApp::start()
 	{
 		mMainWindow = new Win32Window();
@@ -75,15 +80,18 @@ namespace Shady
 	{
 		mUpdateTimer.update();
 
-		
-
 		mMainWindow->update();
+		fileObserver.update();
 		gameState->camera2d->update();
-		gameState->renderer2d->submit(gameState->text);
-
+		//gameState->renderer2d->submit(gameState->text);
+		gameState->renderer2d->submit(gameState->line);
 
 		limit(mUpdateTimer.getElapsedTimeMS(), mUpdateLimit);
 		mUdt = mUpdateTimer.getElapsedTimeMS();
+		if(mKeyboard->isPressed(KEY_0))
+		{
+			fileObserver.remove("data\\abc.txt");
+		}
 	}
 
 	void ShadyApp::render(f32 dt)
@@ -100,6 +108,7 @@ namespace Shady
 
 	GameState* ShadyApp::initGameState()
 	{
+		File::setCwd("..\\..\\");
 		//TODO put these in their arena and take care of cleanup
 		GameState* gameState = new GameState();
 		gameState->currentFont =new Font();
@@ -107,8 +116,10 @@ namespace Shady
 								mMainWindow->mWidth, mMainWindow->mHeight, 2.0f);
 		gameState->renderer2d = new Renderer2D(gameState->camera2d);
 		//gameState->sprite = new Sprite( Vec3f(0.0f, 0.0f, 0.0f), gameState->currentFont->getGlyph('A'));
-		gameState->text = gameState->currentFont->getText({-500.0f, 0.0f, 0.0f}, "ALIN + ALEXANDRA", 30.0f);
-
+		gameState->text = gameState->currentFont->getText({-500.0f, 0.0f, 0.0f}, "ALIN + Alejandra", 60.0f);
+		gameState->line = new Line2D(Vec3f(0.0f, 0.0f, 0.0f), Vec3f(100.0f, 100.0f, 0.0f),
+									 Vec4f(1.0f, 1.0f, 0.0f, 1.0f));
+		fileObserver.add("data\\abc.txt", testCb);
 		return gameState;
 	}
 

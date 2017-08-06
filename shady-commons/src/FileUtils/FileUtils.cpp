@@ -11,6 +11,12 @@ namespace Shady
 	
 		namespace File
 		{
+
+			void setCwd(const char* path)
+			{
+				SetCurrentDirectoryA(path);
+			}
+
 			uint64 getSize(const char* fileName)
 			{
 				uint64 size = 0;

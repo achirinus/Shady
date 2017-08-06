@@ -4,9 +4,11 @@
 #include "Window.h"
 #include "Commons.h"
 #include "ShMouse.h"
+#include "FileUtils.h"
 #include "ShKeyboard.h"
 #include "Timer.h"
 #include "GameState.h"
+#include "FileChangeObserver.h"
 
 namespace Shady
 {
@@ -27,6 +29,7 @@ namespace Shady
 		GameState* gameState;
 		Timer mFrameTimer;
 		Timer mUpdateTimer;
+		FileChangeObserver fileObserver;
 
 		u32 mFpsLimit;
 		u32 mUpdateLimit; //This is expressed in updates/s too

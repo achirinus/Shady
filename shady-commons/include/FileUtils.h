@@ -16,6 +16,7 @@ namespace Shady
 	};
 	namespace File
 	{
+		void setCwd(const char* path);
 		uint64 getSize(const char* fileName);
 		char* readTextFile(const char* fileName);
 		void readObj2(const char* fileName);

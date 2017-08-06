@@ -1,6 +1,7 @@
 #include "Commons.cpp"
 #include "StringUtils/StringUtils.cpp"
 #include "FileUtils/FileUtils.cpp"
+#include "FileUtils/FileChangeObserver.cpp"
 #include "MemUtils/MemUtils.cpp"
 #include "DebugUtils/ConsoleOut.cpp"
 #include "DebugUtils/ShadyAssert.cpp"

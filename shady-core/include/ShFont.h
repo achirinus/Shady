@@ -21,8 +21,10 @@ namespace Shady
 	{
 	private:
 		Map<c8, GlyphData> mGlyphs;
+		stbtt_fontinfo mFontInfo;
 
-		Texture* STBgetGlyphTexture(stbtt_fontinfo* fontInfo, c8 cp, f32 scale);
+		Texture* STBgetGlyphTexture(stbtt_fontinfo* fontInfo, c8 cp,
+									s32* xOffset, s32* yOffset);
 		void STBloadSupportedGlyphs(f32 sizeInPixels);
 
 	public:
@@ -34,6 +36,7 @@ namespace Shady
 		s32 mDescent;
 		s32 mLineGap;
 		f32 mFontSize;
+		f32 mScale;
 
 		Text2D* getText(Vec3f pos, const c8* str, f32 size);
 		Texture* getGlyph(c8 codePoint);
