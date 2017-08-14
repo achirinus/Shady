@@ -8,16 +8,18 @@ namespace Shady
 	{
 
 	}
+	String::String(u32 integer)
+	{
+		u32 size = digitCount(integer, 10);
+		mBufferSize = size + 1;
+		mBuffer = new c8[mBufferSize];
+		s32ToStr(mBuffer, mBufferSize, integer);
+	}
 	String::String(const c8* str)
 	{
 		mBufferSize = strLength(str) + 1;
 		mBuffer = new c8[mBufferSize];
 		strCopy(mBuffer, str);
-	}
-	String::String(u32 size)
-	{
-		mBufferSize = size + 1;
-		mBuffer = new c8[mBufferSize];
 	}
 	String::String(const String& other)
 	{
@@ -229,7 +231,7 @@ namespace Shady
 		return result;
 	}
 
-	f32 String::toFloat()
+	f32 String::tof32()
 	{
 		//TODO replace with own implementation
 		f32 result = 0;
@@ -237,18 +239,16 @@ namespace Shady
 		return result;
 	}
 
-	f64 String::toDouble()
+	f64 String::tof64()
 	{
 		f64 result = 0;
 		sscanf(mBuffer, "%lf", &result);
 		return result;
 	}
 
-	s32 String::toInt()
+	s32 String::tos32()
 	{
-		s32 result = 0;
-		sscanf(mBuffer, "%d", &result);
-		return result;
+		return strTos32(mBuffer);
 	}
 
 	String String::getLine()

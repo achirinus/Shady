@@ -50,6 +50,19 @@ namespace Shady
 			#define S32_MAX (2147483647)
 			#define S64_MIN (-9223372036854775808)
 			#define S64_MAX (9223372036854775807)
+
+			#define C8_CHAR_NUM (4)
+			#define S8_CHAR_NUM (4)
+			#define U8_CHAR_NUM (3)
+			#define C16_CHAR_NUM (6)
+			#define S16_CHAR_NUM (6)
+			#define U16_CHAR_NUM (5)
+			#define S32_CHAR_NUM (11)
+			#define U32_CHAR_NUM (10)
+			#define S64_CHAR_NUM (20)
+			#define U64_CHAR_NUM (19)
+
+			#define INVALID_DIGIT (10)
 		#endif // _MSC_VER
 	#endif //WIN32
 	

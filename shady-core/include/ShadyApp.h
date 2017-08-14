@@ -5,6 +5,7 @@
 #include "Commons.h"
 #include "ShMouse.h"
 #include "FileUtils.h"
+#include "StringUtils.h"
 #include "ShKeyboard.h"
 #include "Timer.h"
 #include "GameState.h"

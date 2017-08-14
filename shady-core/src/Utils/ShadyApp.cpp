@@ -33,6 +33,7 @@ namespace Shady
 		mKeyboard = Keyboard::getInstance();
 		gameState = initGameState();
 
+		
 		//Texture* b = win32GetGlyphTexture('A');
 		/*
 		ModelLoader mdl{};
@@ -43,7 +44,7 @@ namespace Shady
 			DEBUG_OUT_INFO(cube->mVertices[vertIndex].toString().cStr());
 		}
 		*/
-		
+
 		mMainWindow->disableVSync();
 		setFpsLimit(60);
 		char title[250];
@@ -83,14 +84,14 @@ namespace Shady
 		mMainWindow->update();
 		fileObserver.update();
 		gameState->camera2d->update();
-		//gameState->renderer2d->submit(gameState->text);
+		gameState->renderer2d->submit(gameState->sprite);
 		gameState->renderer2d->submit(gameState->line);
 
 		limit(mUpdateTimer.getElapsedTimeMS(), mUpdateLimit);
 		mUdt = mUpdateTimer.getElapsedTimeMS();
 		if(mKeyboard->isPressed(KEY_0))
 		{
-			fileObserver.remove("data\\abc.txt");
+		fileObserver.remove("data\\abc.txt");
 		}
 	}
 
@@ -115,7 +116,7 @@ namespace Shady
 		gameState->camera2d = new Camera2D(Vec3f(-mMainWindow->mWidth/2, -mMainWindow->mHeight/2, 1.0f),
 								mMainWindow->mWidth, mMainWindow->mHeight, 2.0f);
 		gameState->renderer2d = new Renderer2D(gameState->camera2d);
-		//gameState->sprite = new Sprite( Vec3f(0.0f, 0.0f, 0.0f), gameState->currentFont->getGlyph('A'));
+		gameState->sprite = new Sprite( Vec3f(0.0f, 0.0f, 0.0f), gameState->currentFont->getGlyph('A'));
 		gameState->text = gameState->currentFont->getText({-500.0f, 0.0f, 0.0f}, "ALIN + Alejandra", 60.0f);
 		gameState->line = new Line2D(Vec3f(0.0f, 0.0f, 0.0f), Vec3f(100.0f, 100.0f, 0.0f),
 									 Vec4f(1.0f, 1.0f, 0.0f, 1.0f));

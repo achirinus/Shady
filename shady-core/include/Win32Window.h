@@ -2,6 +2,7 @@
 #define SH_WIN32_WINDOW
 
 #include "Window.h"
+#include "ShadyGL.h"
 #include <Windows.h>
 
 namespace Shady
@@ -18,6 +19,7 @@ namespace Shady
 		HINSTANCE mInstance;
 		HGLRC mGlrc;
 		MSG mMessage;
+		
 		Win32Window(const c8* title = SH_DEFAULT_WINDOW_TITLE, 
 				s16 width = SH_DEFAULT_WINDOW_WIDTH,
 				s16 height = SH_DEFAULT_WINDOW_HEIGHT);

@@ -2,6 +2,7 @@
 #define SH_WINDOW
 
 #include <Commons.h>
+#include "ShadyGL.h"
 
 #define SH_DEFAULT_WINDOW_WIDTH 1280
 #define SH_DEFAULT_WINDOW_HEIGHT 720
@@ -13,9 +14,11 @@ namespace Shady
 	{
 		Window(const c8* title = SH_DEFAULT_WINDOW_TITLE, 
 				s16 width = SH_DEFAULT_WINDOW_WIDTH,
-				s16 height = SH_DEFAULT_WINDOW_HEIGHT): mHeight(height), mWidth(width), mXPos(0), 
-														mYPos(0), mClientWidth(0),
-														mClientHeight(0), mFullScreen(0) {}
+				s16 height = SH_DEFAULT_WINDOW_HEIGHT): 
+				mHeight(height), mWidth(width), mXPos(0), 
+				mYPos(0), mClientWidth(0),
+				mClientHeight(0), mFullScreen(0), mOpenglInfo()
+				{}
 
 		s16 mWidth;
 		s16 mHeight;
@@ -24,6 +27,8 @@ namespace Shady
 		s16 mClientWidth;
 		s16 mClientHeight;
 		b8 mFullScreen;
+		OpenglInfo mOpenglInfo;
+		#include "ShadyGL.h"
 
 		virtual void update() = 0;
 		virtual void swapBuffers() = 0;

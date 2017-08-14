@@ -1,4 +1,4 @@
-#version 420 core
+#version 400 core
 
 in vec3 pos;
 in vec2 texCoord;

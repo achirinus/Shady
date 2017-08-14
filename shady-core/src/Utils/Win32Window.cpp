@@ -165,10 +165,9 @@ namespace Shady
 
 	Win32Window::Win32Window(const c8* title, s16 width, s16 height): Window(title, width, height),
 						mIsOpen(false), mHwnd(NULL), mInstance(NULL), mIsActive(false), mGlrc(NULL)
-						
-
 	{
 		mInstance = GetModuleHandle(NULL);
+
 		WNDCLASS wc = {};
 		wc.style = CS_OWNDC;
 		wc.lpfnWndProc = WindowProc;
@@ -186,8 +185,8 @@ namespace Shady
 			{
 				mIsOpen = true;	
 				mDC = GetDC(mHwnd);
-				mGlrc = Win32GlInit(mDC);
-				glewInit();
+				mGlrc = Win32GlInit(mDC, &mOpenglInfo);
+				
 				glClearColor(1.0f, 0.5f, 0.5f, 1.0f);
 				glViewport(0,0, SH_DEFAULT_WINDOW_WIDTH, SH_DEFAULT_WINDOW_HEIGHT);
 				//glEnable(GL_CULL_FACE); 
@@ -199,7 +198,7 @@ namespace Shady
 		}
 		else
 		{
-			//TODO log this
+			DEBUG_OUT_ERR("Window creation failed!");
 		}
 
 		
@@ -259,9 +258,10 @@ namespace Shady
 
 	void Win32Window::enableVSync()
 	{
-		//TODO Move this somewhere where we will check for extensions
-		// and use them accordingly
-		wglSwapIntervalEXT(1);
+		if(mOpenglInfo.swapControl)
+		{
+			wglSwapIntervalEXT(1);
+		}
 	}
 	void Win32Window::disableVSync()
 	{
@@ -284,14 +284,13 @@ namespace Shady
 
 	b8 Win32Window::isOpen()
 	{
-		
 		return mIsOpen;
 	}
 
 	Win32Window::~Win32Window()
 	{
-		
-		
+	
+	
 	}
 
 }

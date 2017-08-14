@@ -16,7 +16,7 @@ namespace Shady
 
 	public:
 		String();
-		String(u32 size);
+		String(u32 integer);
 		String(const c8* str);
 		String(const String& other);
 		String(String&& other);
@@ -36,9 +36,9 @@ namespace Shady
 		b8 cmpIgnoreCase(const String& other);
 		String subString(u32 beginIndex, u32 numOfElem);
 		Array<String> split(c8 token);
-		f32 toFloat();
-		f64 toDouble();
-		s32 toInt();
+		f32 tof32();
+		f64 tof64();
+		s32 tos32();
 		String getLine();
 		b8 beginsWith(c8 character);
 		b8 beginsWith(const char* str);

@@ -20,7 +20,7 @@ namespace Shady
 				Array<String> chunks = line.split(' ');
 				if(chunks.size() == 4)
 				{
-					norm.add({chunks[1].toFloat(), chunks[2].toFloat(), chunks[3].toFloat()});
+					norm.add({chunks[1].tof32(), chunks[2].tof32(), chunks[3].tof32()});
 				}
 			}
 			else if(line.beginsWith("vt"))
@@ -28,7 +28,7 @@ namespace Shady
 				Array<String> chunks = line.split(' ');
 				if(chunks.size() == 3)
 				{
-					texCoord.add({chunks[1].toFloat(), chunks[2].toFloat()});
+					texCoord.add({chunks[1].tof32(), chunks[2].tof32()});
 				}
 			}
 			else if(line.beginsWith('v'))
@@ -36,11 +36,11 @@ namespace Shady
 				Array<String> chunks = line.split(' ');
 				if(chunks.size() == 4)
 				{
-					pos.add({chunks[1].toFloat(), chunks[2].toFloat(), chunks[3].toFloat(), 1.0f});
+					pos.add({chunks[1].tof32(), chunks[2].tof32(), chunks[3].tof32(), 1.0f});
 				}
 				if(chunks.size() == 5)
 				{
-					pos.add({chunks[1].toFloat(), chunks[2].toFloat(), chunks[3].toFloat(), chunks[4].toFloat()});	
+					pos.add({chunks[1].tof32(), chunks[2].tof32(), chunks[3].tof32(), chunks[4].tof32()});	
 				}
 			}
 			else if(line.beginsWith('f'))
@@ -51,25 +51,25 @@ namespace Shady
 					Array<String> indices = chunks[index].split('/');
 					if(indices.size() == 1)
 					{
-						u32 posIndex = (u32)(indices[0].toInt() - 1);
+						u32 posIndex = (u32)(indices[0].tos32() - 1);
 						//vertices.add({pos[posIndex], {}, {}});
 						vertices.add({pos[posIndex]});
 					}
 					if(indices.size() == 2)
 					{
-						u32 posIndex = (u32)(indices[0].toInt() - 1);
-						u32 texIndex = (u32)(indices[1].toInt() - 1);
+						u32 posIndex = (u32)(indices[0].tos32() - 1);
+						u32 texIndex = (u32)(indices[1].tos32() - 1);
 						//vertices.add({pos[posIndex], {}, texCoord[texIndex]});
 						vertices.add({pos[posIndex]});
 					}
 					if(indices.size() == 3)
 					{
-						u32 posIndex = (u32)(indices[0].toInt() - 1);
+						u32 posIndex = (u32)(indices[0].tos32() - 1);
 						
-						u32 normIndex = (u32)(indices[2].toInt() - 1);
+						u32 normIndex = (u32)(indices[2].tos32() - 1);
 						if(indices[1].size() > 0)
 						{
-							u32 texIndex = (u32)(indices[1].toInt() - 1);	
+							u32 texIndex = (u32)(indices[1].tos32() - 1);	
 							//vertices.add({pos[posIndex], norm[normIndex], texCoord[texIndex]});
 							vertices.add({pos[posIndex]});
 						}

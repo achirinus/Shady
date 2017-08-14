@@ -51,17 +51,29 @@ typedef char GLchar;
 
 #endif
 
-typedef void (*_pfshglClampColor) (GLenum target, GLenum clamp);
-_pfshglClampColor glClampColor;
+//typedef void (*_pfshglClampColor) (GLenum target, GLenum clamp);
+//_pfshglClampColor glClampColor;
 #ifdef __cplusplus
 }
 #endif
 namespace Shady
 {
 	void initGl();
+	struct OpenglInfo
+	{
+		u32 majorGlVersion;
+		u32 minorGlVersion;
+		u32 majorShaderVersion;
+		u32 minorShaderVersion;
+		b8 swapControl; //WGL_EXT_swap_control
+	};
+
 	#ifdef _WIN32
-	void Win32GlInit(HDC dc);
+		HGLRC Win32GlInit(HDC dc, OpenglInfo* info = 0);
 	#endif
+
+	void getGlInfo(OpenglInfo* info);
+	OpenglInfo getGlInfo();
 }
 
 #endif

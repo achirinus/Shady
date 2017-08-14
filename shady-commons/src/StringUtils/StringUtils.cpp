@@ -1,27 +1,21 @@
 #include "StringUtils.h"
 #include "ShadyMath.h"
 
+
+
 namespace Shady
 {
+	c8 base2Digits[] = "01";
+	c8 base10Digits[] = "0123456789";
+	c8 base16DigitsUpper[] = "0123456789ABCDEF";
+	c8 base16DigitsLower[] = "0123456789abcdef";
 
-	b8 isLetter(c8 c)
+	c8* skipChars(c8* str, c8 c)
 	{
-		return ((c > 64) && (c < 91)) || ((c > 96) && (c < 123));
+		while(*str && (*str == c)) str++;
+		return str;
 	}
 
-	b8 cmpCharsNoCase(c8 c1, c8 c2)
-	{
-		if (isLetter(c1) && isLetter(c2))
-		{
-			s32 dif = absolute(c1 - c2);
-			if ((dif == 32) || (dif == 0)) return true;
-
-			return false;
-		}
-		else if (c1 == c2) return true;
-		return false;
-	}
-	
 	c8* findChar(c8* str, c8 c)
 	{
 
@@ -33,29 +27,6 @@ namespace Shady
 			temp++;
 		}
 		return nullptr;
-	}
-
-	int getLine(c8* buffer, int bufferLength, c8* str)
-	{
-		int result = 0;
-		for (int i = 0; i < bufferLength; i++)
-		{
-			if (!*str) break;
-			if ((*str == '\r') && (*(str + 1) == '\n'))
-			{
-				result += 2;
-				break;
-			}
-			if (*str == '\n')
-			{
-				result++;
-				break;
-			}
-			*buffer++ = *str++;
-			result++;
-		}
-		*buffer = '\0';
-		return result;
 	}
 
 	c8* findStr(c8* str, c8* strToFind)
@@ -73,7 +44,11 @@ namespace Shady
 				while (*tempStrToFind != '\0')
 				{
 					if (*tempStr == '\0') return value;
-					if (*tempStrToFind != *tempStr) found = false;
+					if (*tempStrToFind != *tempStr) 
+					{
+						found = false;
+						break;
+					}
 					tempStrToFind++;
 					tempStr++;
 				}
@@ -87,6 +62,183 @@ namespace Shady
 		return value;
 	}
 
+	const c8* findFirstDigit(const c8* str)
+	{
+		while(*str)
+		{
+			if(isDigit(*str)) return str;
+			str++;
+		}
+		return 0;
+	}
+
+	c8* findFirstDigit(c8* str)
+	{
+		while(*str)
+		{
+			if(isDigit(*str)) return str;
+			str++;
+		}
+		return 0;
+	}
+
+	c8* strConcat(const c8* first, const c8* second)
+	{
+		u32 firstLen = strLength(first);
+		u32 secondLen = strLength(second);
+		c8* result = new c8[firstLen + secondLen + 1];
+		c8* temp = result;
+		strCopy(temp, first);
+		temp+= firstLen;
+		strCopy(temp, second);
+		temp+= secondLen;
+		*temp = '\0';
+		return result;
+	}
+
+	c8* s32ToStr(s32 num)
+	{
+		c8* result = new c8[S32_CHAR_NUM + 1];
+		s32ToStr(result, S32_CHAR_NUM + 1, num);
+		return result;
+	}
+
+	void s32ToStr(c8* buffer, u32 bufferSize, s32 num)
+	{
+		SH_ASSERT(buffer);
+		SH_ASSERT(bufferSize);
+
+		c8 temp[S32_CHAR_NUM + 1];
+		u32 numbersRead = 0;
+		b8 isNegative = (num < 0);
+		if(isNegative) num = -num;
+		
+		do
+		{
+			temp[numbersRead++] = num % 10;
+			num /= 10;
+		} while(num);
+		u32 counter = 0;
+
+		if(isNegative) buffer[counter++] = '-';
+
+		while(numbersRead)
+		{
+			if(counter < bufferSize - 1)
+			{
+				buffer[counter++] = base10Digits[temp[--numbersRead]];
+			}
+			else
+			{
+				break;
+			}
+		}
+		buffer[counter] = 0;
+	}
+
+	s64 strTos64(c8* str)
+	{
+		s64 result = 0;
+		b8 digitStarted = false;
+		b8 isNegative = false;
+		while(*str)
+		{
+			if(!isDigit(*str))
+			{
+				if(digitStarted) break;
+				if(*str != '-')
+				{
+					str++;
+				}
+				else
+				{
+					if(isDigit(*++str))
+					{
+						isNegative = true;
+						digitStarted = true;	
+					}
+				} 
+			}
+			else //is Digit
+			{
+				digitStarted = true;
+				result *= 10;
+				result += *str++ - '0';
+			}
+		}
+		if(isNegative) result = -result;
+		return result;
+	}
+
+	s32 strTos32(c8* str)
+	{
+		return (s32)strTos64(str);
+	}
+
+	u64 strTou64(c8* str)
+	{
+		SH_ASSERT(str);
+		u64 result = 0;
+		b8 digitStarted = false;
+		while(*str)
+		{
+			if(!isDigit(*str))
+			{
+				if(digitStarted) break;
+				str++;
+			}
+			else //is Digit
+			{
+				digitStarted = true;
+				result *= 10;
+				result += *str++ - '0';
+			}
+		}
+		SH_ASSERT(digitStarted); 
+
+		return result;
+	}
+
+	u32 strTou32(c8* str)
+	{
+		return (u32)strTou64(str);
+	}
+
+	//TODO replace this with own implementation
+	float strTof32(c8* str, c8** index)
+	{
+		return strtof(str, index);
+	}
+
+	//TODO replace this with own implementation
+	double strTof64(c8* str, c8** index)
+	{
+		return strtod(str, index);
+	}
+
+	s32 charToDigit(c8 c)
+	{
+		s32 result = INVALID_DIGIT;
+		if(isDigit(c)) result = (c - '0');
+		return result;
+	}
+
+	u32 digitCount(s32 num, s32 base)
+	{
+		u32 result = 0;
+		b8 isNegative = (num < 0);
+		
+		if(isNegative) num = - num;
+		do
+		{	
+			result++;
+			num /= base;
+		}while(num);
+
+		return result;
+	}
+
+	
 	bool strCompare(const c8* str1, const c8* str2)
 	{
 		
@@ -119,12 +271,25 @@ namespace Shady
 		if (strLength(str1) != strLength(str2)) return false;
 		while (*str1 || *str2)
 		{
-			if (!cmpCharsNoCase(*str1, *str2)) return false;
+			if (!charCompareNoCase(*str1, *str2)) return false;
 			str1++;
 			str2++;
 		}
 
 		return true;
+	}
+
+	b8 charCompareNoCase(c8 c1, c8 c2)
+	{
+		if (isLetter(c1) && isLetter(c2))
+		{
+			s32 dif = absolute(c1 - c2);
+			if ((dif == 32) || (dif == 0)) return true;
+
+			return false;
+		}
+		else if (c1 == c2) return true;
+		return false;
 	}
 
 	u32 strLength(const c8 *str)
@@ -143,6 +308,40 @@ namespace Shady
 		return result;
 	}
 
+	b8 isLetter(c8 c)
+	{
+		return ((c > 64) && (c < 91)) || ((c > 96) && (c < 123));
+	}
+
+	b8 isDigit(c8 c)
+	{
+		return ((c >= '0') &&(c <= '9'));
+	}
+
+	
+	
+	int getLine(c8* buffer, int bufferLength, c8* str)
+	{
+		int result = 0;
+		for (int i = 0; i < bufferLength; i++)
+		{
+			if (!*str) break;
+			if ((*str == '\r') && (*(str + 1) == '\n'))
+			{
+				result += 2;
+				break;
+			}
+			if (*str == '\n')
+			{
+				result++;
+				break;
+			}
+			*buffer++ = *str++;
+			result++;
+		}
+		*buffer = '\0';
+		return result;
+	}
 
 	bool endsWith(c8* str, c8* end)
 	{
@@ -174,23 +373,12 @@ namespace Shady
 	}
 	void strnCopy(c8* buffer, u32 num, const c8* str)
 	{
-		SH_ASSERT(strLength(buffer) >= num);
-		num++;
-		while((*buffer++ = *str++) && num--) {}
+		SH_ASSERT(buffer);
+		while(num-- && (*buffer++ = *str++)) {}
+		*buffer = 0;
 	}
 
-	//TODO replace this with own implementation
-	float strToF(c8* str, c8** index)
-	{
-		return strtof(str, index);
-	}
-
-	//TODO replace this with own implementation
-	double strToD(c8* str, c8** index)
-	{
-		return strtod(str, index);
-	}
-
+	
 	void customFormat(c8* buffer, const c8* format ...)
 	{
 		va_list args;
