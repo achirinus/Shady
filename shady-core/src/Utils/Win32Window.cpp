@@ -265,7 +265,10 @@ namespace Shady
 	}
 	void Win32Window::disableVSync()
 	{
-		wglSwapIntervalEXT(0);
+		if(mOpenglInfo.swapControl)
+		{
+			wglSwapIntervalEXT(0);
+		}
 	}
 
 	void Win32Window::update()
