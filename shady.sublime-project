@@ -26,47 +26,43 @@
 				{
 					"name": "Build Core DEBUG",
 					
-					"shell_cmd": "scripts\\sh_build.bat SH_DEBUG CORE",
+					"shell_cmd": "scripts\\shady-core.bat SH_DEBUG",
 					"working_dir": "${project_path}",
 						
 				},
 
 				{
 					"name": "Run Core DEBUG VS",
-					"shell_cmd": "scripts\\sh_build.bat SH_DEBUG CORE SH_VSRUN",
+					"shell_cmd": "scripts\\shady-core.bat SH_DEBUG SH_VSRUN",
 					
 				},
 
 				{
 					"name": "Run Core DEBUG",
-					"shell_cmd": "scripts\\sh_build.bat SH_DEBUG CORE SH_RUN",
+					"shell_cmd": "scripts\\shady-core.bat SH_DEBUG SH_RUN",
 					
 				},
 
 				{
-					"name": "Build Core RELEASE",
-					"shell_cmd": "scripts\\sh_build.bat SH_RELEASE CORE",
-				},
-
-				{
-					"name": "Run Core RELEASE",
-					"shell_cmd": "scripts\\sh_build.bat SH_RELEASE CORE SH_RUN",
-				},
-
-				{
-					"name": "Run Core RELEASE VS",
-					"shell_cmd": "scripts\\sh_build.bat SH_RELEASE CORE SH_VSRUN",
-				},
-
-				{
 					"name": "Build Commons DEBUG",
-					"shell_cmd": "scripts\\sh_build.bat SH_DEBUG COMMONS",
+					"shell_cmd": "scripts\\shady-commons.bat SH_DEBUG",
 				},
 
 				{
 					"name": "Build Commons RELEASE",
-					"shell_cmd": "scripts\\sh_build.bat SH_RELEASE COMMONS",
+					"shell_cmd": "scripts\\shady-commons.bat SH_RELEASE",
 				},
+
+				{
+					"name": "Build Core RELEASE",
+					"shell_cmd": "scripts\\shady-core.bat SH_RELEASE",
+				},
+
+				{
+					"name": "Run Core RELEASE",
+					"shell_cmd": "scripts\\shady-core.bat SH_RELEASE SH_RUN",
+				},
+
 				{
 					"name": "Stats",
 					"shell_cmd": "scripts\\stats.bat",
