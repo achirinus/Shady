@@ -69,15 +69,13 @@ set config_opt=
 set com_input_libs=user32.lib
 set out_dir=projDir
 
+
 set configuration=%1
 set action=%2
 
 if "%configuration%"==""  set configuration=SH_DEBUG
 if "%action%"=="" set action=SH_BUILD
 
-
-REM If no action is specified, set SH_BUILD as default
-if "%action%"=="" set action=SH_BUILD
 
 REM If no configuration is specified, set default to DEBUG
 if "%configuration%"==""  set configuration=SH_DEBUG

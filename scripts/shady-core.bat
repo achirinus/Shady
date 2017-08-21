@@ -4,7 +4,7 @@
 call scripts\sh_build_setup.bat %1 %2
 
 ::Build needed projects
-call scripts\shady-commons.bat %1
+call scripts\shady-commons.bat %1 %2
 
 
 set coreInputLibs=%com_input_libs% shady-commons.lib opengl32.lib glew32s.lib Gdi32.lib dinput8.lib dxguid.lib
@@ -24,9 +24,13 @@ if /I "%configuration%"=="SH_RELEASE" (
 
 cl %coreCompilerOptions% %coreInputFiles% /link %coreLinkOptions% %coreInputLibs%
 
-if "%action%"=="SH_RUN" (start shady-core.exe)
+set compilationError=%ERRORLEVEL%
 
-if "%action%"=="SH_VSRUN" (start devenv shady-core.exe)
+IF %compilationError%==0 (
+	if %action%==SH_RUN start shady-core.exe
+
+	if %action%==SH_VSRUN start devenv shady-core.exe
+	)
 
 
 
