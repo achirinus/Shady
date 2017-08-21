@@ -34,7 +34,7 @@ namespace Shady
 		bool found = false;
 		c8* value = nullptr;
 		c8* tempStr = str;
-		while (tempStr != '\0')
+		while (*tempStr != '\0')
 		{
 			if (*tempStr == *strToFind)
 			{

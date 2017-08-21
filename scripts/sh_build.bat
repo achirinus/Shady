@@ -1,5 +1,9 @@
 @echo off
 
+::	In order to build to need Visual studio 2015 and have set 
+::enviromental variable VC_HOME 
+::
+
 setlocal enabledelayedexpansion
 ::Setting directories
 SET projDir=%CD%
@@ -21,8 +25,8 @@ SET AllDepsInclude=%glewInclude%;%stbLib%
 
 REM Win include copied from VS proj
 REM Try to remove as much as possible from this things
-set VsInclude1=C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include
-set VsInclude2=C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\atlmfc\include
+set VsInclude1=%VC_HOME%\VC\include
+set VsInclude2=%VC_HOME%\VC\atlmfc\include
 set VsInclude3=C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt
 set VsInclude4=C:\Program Files (x86)\Windows Kits\8.1\Include\um
 set VsInclude5=C:\Program Files (x86)\Windows Kits\8.1\Include\shared
@@ -47,8 +51,8 @@ SET AllDepsLibs=%glewReleaseLib%
 
 REM Win Lib dirs copied from VS proj
 REM Try to trim this down or remove it all somehow
-set VsLib1=C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\lib
-set VsLib2=C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\atlmfc\lib
+set VsLib1=%VC_HOME%\VC\lib
+set VsLib2=%VC_HOME%\VC\atlmfc\lib
 set VsLib3=C:\Program Files (x86)\Windows Kits\10\lib\10.0.10240.0\ucrt\x86
 set VsLib4=C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x86
 set VsLib5=C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\Lib\um\x86
