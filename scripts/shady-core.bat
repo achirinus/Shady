@@ -21,10 +21,12 @@ if /I "%configuration%"=="SH_RELEASE" (
 	pushd %shCore%\sh_release
 	set coreCompilerOptions=%coreCompilerOptions% /MT
 	)
+buildTimer b ..\..\data\shady.btm
 
 cl %coreCompilerOptions% %coreInputFiles% /link %coreLinkOptions% %coreInputLibs%
 
 set compilationError=%ERRORLEVEL%
+buildTimer e ..\..\data\shady.btm %compilationError%
 
 IF %compilationError%==0 (
 	if %action%==SH_RUN start shady-core.exe

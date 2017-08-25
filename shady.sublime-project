@@ -70,6 +70,23 @@
 				
 			]
 			
+		},
+
+		{
+			"name": "All Stats",
+			"shell_cmd": "scripts\\stats.bat",
+			"working_dir": "${project_path}",
+			"variants":
+			[
+				{
+					"name": "Lines of code",
+					"shell_cmd": "scripts\\loc.bat"
+				},
+				{
+					"name": "Build times",
+					"shell_cmd": "scripts\\build_times.bat"
+				}
+			]
 		}
 
 
