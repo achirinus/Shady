@@ -37,6 +37,8 @@ namespace Shady
 	void strCopy(c8* buffer, const c8* str);
 	void strnCopy(c8* buffer, u32 num, const c8* str);
 	void customFormat(c8* buffer, const c8* format ...);
+	void toAllCaps(c8* str);
+	void toAllLower(c8* str);
 }
 
 #endif

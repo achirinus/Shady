@@ -624,5 +624,23 @@ namespace Shady
 		va_end(args);
 		
 	}
+
+	void toAllCaps(c8* str)
+	{
+		while(*str)
+		{
+			if((*str >= 'a') && (*str <= 'z')) *str -= 32;
+			str++;
+		}
+	}
+
+	void toAllLower(c8* str)
+	{
+		while(*str)
+		{
+			if((*str >= 'A') && (*str <= 'Z')) *str += 32;
+			str++;
+		}
+	}
 	
 }
