@@ -16,6 +16,43 @@ namespace Shady
 		getGlInfo(&result);
 		return result;
 	}
+
+	void checkGlError()
+	{
+		GLenum err = glGetError();
+		switch(err)
+		{
+			case GL_INVALID_ENUM:
+			{
+				DEBUG_OUT_ERR("OpenGl invalid enum argument error this frame!");
+			}break;
+			case GL_INVALID_VALUE:
+			{
+				DEBUG_OUT_ERR("OpenGl invalid value argument error this frame!");
+			}break;
+			case GL_INVALID_OPERATION:
+			{
+				DEBUG_OUT_ERR("OpenGl invalid operation error this frame!");
+			}break;
+			case GL_INVALID_FRAMEBUFFER_OPERATION:
+			{
+				DEBUG_OUT_ERR("OpenGl invalid framebuffer operation error this frame!");
+			}break;
+			case GL_OUT_OF_MEMORY:
+			{
+				DEBUG_OUT_ERR("OpenGl out of memory error this frame!");
+			}break;
+			case GL_STACK_UNDERFLOW:
+			{
+				DEBUG_OUT_ERR("OpenGl stack underflow error this frame!");
+			}break;
+			case GL_STACK_OVERFLOW:
+			{
+				DEBUG_OUT_ERR("OpenGl stack overflow error this frame!");
+			}break;
+		}
+	}
+
 	void getGlInfo(OpenglInfo* info)
 	{
 		SH_ASSERT(info);

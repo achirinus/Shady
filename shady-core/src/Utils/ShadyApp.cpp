@@ -101,13 +101,16 @@ namespace Shady
 		gameState->renderer2d->render();
 		mMainWindow->swapBuffers();
 
+		checkGlError();
+		
 		limit(mFrameTimer.getElapsedTimeMS(), mFpsLimit);
 		mFdt = mFrameTimer.getElapsedTimeMS();
+
 	}
 
 	GameState* ShadyApp::initGameState()
 	{
-		File::setCwd("..\\..\\");
+		File::setCwd("..\\..\\"); //CWD = Main Shady folder
 		//TODO put these in their arena and take care of cleanup
 		GameState* gameState = new GameState();
 		gameState->currentFont =new Font();

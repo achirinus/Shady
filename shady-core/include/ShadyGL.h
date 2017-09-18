@@ -75,6 +75,7 @@ namespace Shady
 
 	void getGlInfo(OpenglInfo* info);
 	OpenglInfo getGlInfo();
+	void checkGlError();
 }
 
 #endif
