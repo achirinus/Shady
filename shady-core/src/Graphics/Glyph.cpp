@@ -7,7 +7,7 @@ namespace Shady
 	{
 
 	}
-
+#if 0
 	void Glyph::draw()
 	{
 		mTexture->bind(0);
@@ -16,11 +16,11 @@ namespace Shady
 		mShader->setUniformMat4("totalMovedMat", Matrix4f::translation(getCurrentPos()));
 			
 		glBindVertexArray(mVAO);
-		glDrawArrays(GL_QUADS, 0, 4);
+		glDrawArrays(GL_TRIANGLES, 0, 6);
 		glBindVertexArray(0);
 		mTexture->unbind(0);
 	}
-
+#endif
 	Glyph::~Glyph()
 	{
 		glDeleteBuffers(NUM_BUFFERS, mVBO);

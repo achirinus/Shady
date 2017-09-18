@@ -37,7 +37,7 @@ namespace Shady
 			vertices[2] = {pos.x + mWidth, pos.y, pos.z};
 			vertices[3] = {pos.x + mWidth, pos.y, pos.z};
 			vertices[4] = {pos.x, pos.y + mHeight, pos.z};
-			vertices[4] = {pos.x + mWidth, pos.y + mHeight, pos.z};
+			vertices[5] = {pos.x + mWidth, pos.y + mHeight, pos.z};
 		}
 		
 		Vec2f texCoords[] = 
@@ -232,8 +232,7 @@ namespace Shady
 		mShader->setUniformMat4("totalMovedMat", Matrix4f::translation(getCurrentPos()));
 			
 		glBindVertexArray(mVAO);
-		GLint program = 0;
-		glGetIntegerv(GL_CURRENT_PROGRAM, &program);
+		
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 		glBindVertexArray(0);
 		if(mTexture) mTexture->unbind(0);

@@ -85,9 +85,9 @@ namespace Shady
 		mMainWindow->update();
 		fileObserver.update();
 		gameState->camera2d->update();
-		gameState->renderer2d->submit(gameState->sprite);
-		gameState->renderer2d->submit(gameState->line);
-
+		//gameState->renderer2d->submit(gameState->sprite);
+		//gameState->renderer2d->submit(gameState->line);
+		gameState->renderer2d->submit(gameState->text);
 		limit(mUpdateTimer.getElapsedTimeMS(), mUpdateLimit);
 		mUdt = mUpdateTimer.getElapsedTimeMS();
 		
@@ -98,11 +98,11 @@ namespace Shady
 		mFrameTimer.update();
 		countFps(dt);
 		mMainWindow->clear();
-		gameState->renderer2d->render();
+		gameState->renderer2d->render(dt);
 		mMainWindow->swapBuffers();
 
 		checkGlError();
-		
+
 		limit(mFrameTimer.getElapsedTimeMS(), mFpsLimit);
 		mFdt = mFrameTimer.getElapsedTimeMS();
 
@@ -114,14 +114,15 @@ namespace Shady
 		//TODO put these in their arena and take care of cleanup
 		GameState* gameState = new GameState();
 		gameState->currentFont =new Font();
-		gameState->camera2d = new Camera2D(Vec3f(-mMainWindow->mWidth/2, -mMainWindow->mHeight/2, 1.0f),
+		gameState->camera2d = new Camera2D(Vec3f(0, 0, 1.0f),
 								mMainWindow->mWidth, mMainWindow->mHeight, 2.0f);
 		gameState->renderer2d = new Renderer2D(gameState->camera2d);
-		gameState->sprite = new Sprite( Vec3f(0.0f, 0.0f, 0.0f), gameState->currentFont->getGlyph('A'));
-		gameState->text = gameState->currentFont->getText({-500.0f, 0.0f, 0.0f}, "ALIN + Alejandra", 60.0f);
-		gameState->line = new Line2D(Vec3f(0.0f, 0.0f, 0.0f), Vec3f(100.0f, 0.0f, 0.0f),
+		//gameState->sprite = new Sprite( Vec3f(0.0f, 0.0f, 0.0f), gameState->currentFont->getGlyph('A'));
+		gameState->text = gameState->currentFont->getText({0.0f, 0.0f, 0.0f}, "ALIN+Alejandra", 60.0f);
+		gameState->line = new Line2D(Vec3f(-500.0f, 0.0f + gameState->currentFont->mAscent, 0.0f),
+									 Vec3f(-440.0f, 0.0f + gameState->currentFont->mAscent, 0.0f),
 									 Vec4f(1.0f, 1.0f, 0.0f, 1.0f), 2);
-		fileObserver.add("data\\abc.txt", testCb);
+		gameState->renderer2d->submit(gameState->line, 5.0f);
 		return gameState;
 	}
 

@@ -10,7 +10,7 @@ namespace Shady
 	public:
 		Glyph(const Vec3f& pos, Texture* texture, Shader* shader = 0);
 		virtual ~Glyph();
-		virtual void draw();
+		//virtual void draw();
 		
 	};
 }
