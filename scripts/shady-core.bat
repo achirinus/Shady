@@ -21,6 +21,17 @@ if /I "%configuration%"=="SH_RELEASE" (
 	pushd %shCore%\sh_release
 	set coreCompilerOptions=%coreCompilerOptions% /MT
 	)
+
+if %action%==SH_RUN (
+ 			start shady-core.exe
+ 			goto return
+ 			)
+
+if %action%==SH_VSRUN (
+			start devenv shady-core.exe
+			goto return
+			)
+
 buildTimer b ..\..\data\shady.btm
 
 cl %coreCompilerOptions% %coreInputFiles% /link %coreLinkOptions% %coreInputLibs%
@@ -28,12 +39,8 @@ cl %coreCompilerOptions% %coreInputFiles% /link %coreLinkOptions% %coreInputLibs
 set compilationError=%ERRORLEVEL%
 buildTimer e ..\..\data\shady.btm %compilationError%
 
-IF %compilationError%==0 (
-	if %action%==SH_RUN start shady-core.exe
-
-	if %action%==SH_VSRUN start devenv shady-core.exe
-	)
 
 
 
+:return
 popd

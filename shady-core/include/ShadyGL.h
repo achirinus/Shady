@@ -66,6 +66,7 @@ namespace Shady
 		u32 majorShaderVersion;
 		u32 minorShaderVersion;
 		b8 swapControl; //WGL_EXT_swap_control
+		b8 arbCompatibility; //GL_ARB_compatibility
 	};
 
 	#ifdef _WIN32

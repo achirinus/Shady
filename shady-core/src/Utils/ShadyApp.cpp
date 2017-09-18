@@ -63,6 +63,7 @@ namespace Shady
 			
 			//Do not render if window is minimized
 			render(mFdt);
+
 		}
 
 	}
@@ -89,10 +90,7 @@ namespace Shady
 
 		limit(mUpdateTimer.getElapsedTimeMS(), mUpdateLimit);
 		mUdt = mUpdateTimer.getElapsedTimeMS();
-		if(mKeyboard->isPressed(KEY_0))
-		{
-		fileObserver.remove("data\\abc.txt");
-		}
+		
 	}
 
 	void ShadyApp::render(f32 dt)
@@ -118,8 +116,8 @@ namespace Shady
 		gameState->renderer2d = new Renderer2D(gameState->camera2d);
 		gameState->sprite = new Sprite( Vec3f(0.0f, 0.0f, 0.0f), gameState->currentFont->getGlyph('A'));
 		gameState->text = gameState->currentFont->getText({-500.0f, 0.0f, 0.0f}, "ALIN + Alejandra", 60.0f);
-		gameState->line = new Line2D(Vec3f(0.0f, 0.0f, 0.0f), Vec3f(100.0f, 100.0f, 0.0f),
-									 Vec4f(1.0f, 1.0f, 0.0f, 1.0f));
+		gameState->line = new Line2D(Vec3f(0.0f, 0.0f, 0.0f), Vec3f(100.0f, 0.0f, 0.0f),
+									 Vec4f(1.0f, 1.0f, 0.0f, 1.0f), 2);
 		fileObserver.add("data\\abc.txt", testCb);
 		return gameState;
 	}

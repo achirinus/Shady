@@ -26,6 +26,7 @@ namespace Shady
 		const c8* glFirstDigit = findFirstDigit((c8*)verStr);
 		const c8* shaderFirstDigit = findFirstDigit((c8*)shaderVerStr);
 		info->swapControl = findStr((c8*)extStr, "WGL_EXT_swap_control");
+		info->arbCompatibility = findStr((c8*)extStr, "GL_ARB_compatibility");
 
 		info->majorGlVersion = charToDigit(glFirstDigit[0]);
 		info->minorGlVersion = charToDigit(glFirstDigit[2]);
@@ -70,18 +71,25 @@ namespace Shady
 				{
 
 				    WGL_CONTEXT_MAJOR_VERSION_ARB, 4,
-				    WGL_CONTEXT_MINOR_VERSION_ARB, 0,
-				    WGL_CONTEXT_PROFILE_MASK_ARB,
-				    WGL_CONTEXT_CORE_PROFILE_BIT_ARB, 
+				    WGL_CONTEXT_MINOR_VERSION_ARB, 2,
+				    WGL_CONTEXT_PROFILE_MASK_ARB, WGL_CONTEXT_CORE_PROFILE_BIT_ARB,
+
 				    NULL
 				};
 				glewInit();
 				result = wglCreateContextAttribsARB(dc, 0, attributes);
 				if(result) 
 				{
-					wglMakeCurrent(NULL, NULL);
+					if(wglMakeCurrent(dc, NULL) == FALSE)
+					{
+						DEBUG_OUT_ERR("Remove OpenGl temp context Failed!");
+					}
 					wglDeleteContext(tempRc);
-					wglMakeCurrent(dc, result);
+
+					if(wglMakeCurrent(dc, result) == FALSE)
+					{
+						DEBUG_OUT_ERR("New OpenGl context set failed!");
+					}
 					return result;
 				}
 				else

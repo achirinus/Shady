@@ -20,32 +20,40 @@ namespace Shady
 	void Sprite::initGlBuffers(const Vec3f& pos, const Vec4f& color, b8 posInCenter)
 	{
 				
-		Vec3f vertices[4];
+		Vec3f vertices[6];
 		if(posInCenter)
 		{
 			vertices[0] = {pos.x - mWidth/2, pos.y - mHeight/2, pos.z}; 
 			vertices[1] = {pos.x - mWidth/2, pos.y + mHeight/2, pos.z};
-			vertices[2] = {pos.x + mWidth/2, pos.y + mHeight/2, pos.z};
+			vertices[2] = {pos.x + mWidth/2, pos.y - mHeight/2, pos.z};
 			vertices[3] = {pos.x + mWidth/2, pos.y - mHeight/2, pos.z};
+			vertices[4] = {pos.x - mWidth/2, pos.y + mHeight/2, pos.z};
+			vertices[5] = {pos.x + mWidth/2, pos.y + mHeight/2, pos.z};
 		} 
 		else
 		{
 			vertices[0] = {pos.x, pos.y, pos.z};
 			vertices[1] = {pos.x, pos.y + mHeight, pos.z};
-			vertices[2] = {pos.x + mWidth, pos.y + mHeight, pos.z};
+			vertices[2] = {pos.x + mWidth, pos.y, pos.z};
 			vertices[3] = {pos.x + mWidth, pos.y, pos.z};
+			vertices[4] = {pos.x, pos.y + mHeight, pos.z};
+			vertices[4] = {pos.x + mWidth, pos.y + mHeight, pos.z};
 		}
 		
 		Vec2f texCoords[] = 
 		{
 			{0.0f, 0.0f},
 			{0.0f, 1.0f},
+			{1.0f, 0.0f},
+			{1.0f, 0.0f},
+			{0.0f, 1.0f},
 			{1.0f, 1.0f},
-			{1.0f, 0.0f}
 		};
 
 		Vec4f colors[] = 
 		{
+			mColor,
+			mColor,
 			mColor,
 			mColor,
 			mColor,
@@ -57,19 +65,19 @@ namespace Shady
 		glBindVertexArray(mVAO);
 		glGenBuffers(NUM_BUFFERS, mVBO);
 		glBindBuffer(GL_ARRAY_BUFFER, mVBO[POS_BUFFER]);
-		glBufferData(GL_ARRAY_BUFFER, 4 * sizeof(Vec3f), vertices, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(Vec3f), vertices, GL_STATIC_DRAW);
 		glEnableVertexAttribArray(POS_BUFFER);
 		glVertexAttribPointer(POS_BUFFER, 3, GL_FLOAT, GL_FALSE, 0, 0);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 		glBindBuffer(GL_ARRAY_BUFFER, mVBO[TEX_BUFFER]);
-		glBufferData(GL_ARRAY_BUFFER, 4 * sizeof(Vec2f), texCoords, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(Vec2f), texCoords, GL_STATIC_DRAW);
 		glEnableVertexAttribArray(TEX_BUFFER);
 		glVertexAttribPointer(TEX_BUFFER, 2, GL_FLOAT, GL_FALSE, 0, 0);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		
 		glBindBuffer(GL_ARRAY_BUFFER, mVBO[COL_BUFFER]);
-		glBufferData(GL_ARRAY_BUFFER, 4 * sizeof(Vec4f), colors, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(Vec4f), colors, GL_STATIC_DRAW);
 		glEnableVertexAttribArray(COL_BUFFER);
 		glVertexAttribPointer(COL_BUFFER, 4, GL_FLOAT, GL_FALSE, 0, 0);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -191,7 +199,7 @@ namespace Shady
 		};
 		glBindVertexArray(mVAO);
 		glBindBuffer(GL_ARRAY_BUFFER, mVBO[COL_BUFFER]);
-		glBufferData(GL_ARRAY_BUFFER, 4 * sizeof(Vec4f), colors, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(Vec4f), colors, GL_STATIC_DRAW);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glBindVertexArray(0);
 	}
@@ -224,7 +232,9 @@ namespace Shady
 		mShader->setUniformMat4("totalMovedMat", Matrix4f::translation(getCurrentPos()));
 			
 		glBindVertexArray(mVAO);
-		glDrawArrays(GL_QUADS, 0, 4);
+		GLint program = 0;
+		glGetIntegerv(GL_CURRENT_PROGRAM, &program);
+		glDrawArrays(GL_TRIANGLES, 0, 6);
 		glBindVertexArray(0);
 		if(mTexture) mTexture->unbind(0);
 	}

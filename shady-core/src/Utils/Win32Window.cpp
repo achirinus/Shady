@@ -90,7 +90,7 @@ namespace Shady
 					GetWindowRect(hwnd, &wndRect);
 					window->mWidth = wndRect.right - wndRect.left;
 					window->mHeight = wndRect.bottom - wndRect.top;
-
+					glViewport(0,0, window->mWidth, window->mHeight);
 				}
 			}break;
 			case WM_CREATE:

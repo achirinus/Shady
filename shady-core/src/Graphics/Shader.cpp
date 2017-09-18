@@ -49,7 +49,7 @@ namespace Shady
 		//TODO maybe assert?
 		if (vertCompiled == GL_FALSE)
 		{
-			std::cout << "Vertex Shader failed to compile\n";
+			DEBUG_OUT_ERR("Vertex Shader failed to compile\n");
 			GLint logSize = 0;
 			glGetShaderiv(vert, GL_INFO_LOG_LENGTH, &logSize);
 			char* log = new char[logSize];
@@ -66,7 +66,7 @@ namespace Shady
 		//TODO maybe assert?
 		if (fragCompiled == GL_FALSE)
 		{
-			std::cout << "Fragment Shader failed to compile\n";
+			DEBUG_OUT_ERR("Fragment Shader failed to compile\n");
 			
 			GLint logSize = 0;
 			glGetShaderiv(frag, GL_INFO_LOG_LENGTH, &logSize);
@@ -74,7 +74,7 @@ namespace Shady
 			glGetShaderInfoLog(frag, logSize, &logSize, log);
 
 			//Better log
-			std::cout << log << "\n";
+			DEBUG_OUT_INFO(log);
 			delete[] log;
 			glDeleteShader(vert);
 			glDeleteShader(frag);
@@ -94,14 +94,14 @@ namespace Shady
 			
 			if (isLinked == GL_FALSE)
 			{
-				std::cout << "Program failed to link\n";
+				DEBUG_OUT_ERR("Program failed to link\n");
 				GLint logSize = 0;
 				glGetProgramiv(mProgram, GL_INFO_LOG_LENGTH, &logSize);
 				char* log = new char[logSize];
 				glGetProgramInfoLog(mProgram, logSize, &logSize, log);
 
 				//Better log
-				std::cout << log << "\n";
+				DEBUG_OUT_INFO(log);
 				delete[] log;
 				glDeleteProgram(mProgram);
 				
@@ -117,7 +117,7 @@ namespace Shady
 		glGetProgramInfoLog(mProgram, logSize, &logSize, log2);
 
 		//Better log
-		std::cout << log2 << "\n";
+		DEBUG_OUT_INFO(log2);
 		delete[] log2;
 		glDetachShader(mProgram,vert);
 		glDetachShader(mProgram,frag);

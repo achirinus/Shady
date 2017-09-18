@@ -26,7 +26,8 @@ namespace Shady
 		u32 mHeight;
 		Shader* mShader;
 		
-		Renderable2D() = default;
+		Renderable2D(): mPos(),mModelMat(1), mMoveAmount(), mWidth(0),
+						mHeight(0), mShader(0){}
 		virtual void draw() = 0;
 		virtual void update() {}
 		virtual ~Renderable2D() {};

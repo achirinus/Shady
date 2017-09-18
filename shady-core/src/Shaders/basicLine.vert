@@ -17,8 +17,9 @@ out VS_OUT
 void main()
 {
 	vec4 position = vec4(pos, 1.0);
-	mat4 modelView = viewMat * projMat;
-	gl_Position = modelView * position;
+	mat4 modelView =viewMat * modelMat;
+	position = modelView * position;
+	gl_Position = projMat * position;
 	vs_out.vertPos = position;
 	vs_out.vertColor = vertColor;
 }
