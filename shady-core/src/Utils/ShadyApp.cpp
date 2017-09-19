@@ -1,10 +1,6 @@
 #include <ShadyApp.h>
-#include "Win32Window.h"
-#include "Shader.h"
-#include "Texture.h"
-#include "ShadyMath.h"
-#include "FileUtils.h"
-#include "Graphics.h"
+
+
 
 
 namespace Shady
@@ -31,9 +27,8 @@ namespace Shady
 		mMainWindow = new Win32Window();
 		mMouse = Mouse::getInstance();
 		mKeyboard = Keyboard::getInstance();
-		gameState = initGameState();
-
 		
+		initGameState();
 		//Texture* b = win32GetGlyphTexture('A');
 		/*
 		ModelLoader mdl{};
@@ -49,7 +44,6 @@ namespace Shady
 		setFpsLimit(60);
 		char title[250];
 
-		
 		while (mMainWindow->isOpen())
 		{
 			
@@ -84,10 +78,12 @@ namespace Shady
 
 		mMainWindow->update();
 		fileObserver.update();
-		gameState->camera2d->update();
-		//gameState->renderer2d->submit(gameState->sprite);
-		//gameState->renderer2d->submit(gameState->line);
-		gameState->renderer2d->submit(gameState->text);
+		camera2d->update();
+		
+		Text2D* fpsLabel = currentFont->getText({5.0f, 5.0f, 0.0f},
+												 mMainWindow->getTitle().cStr(), 20.0f);
+		renderer2d->submit(fpsLabel);
+
 		limit(mUpdateTimer.getElapsedTimeMS(), mUpdateLimit);
 		mUdt = mUpdateTimer.getElapsedTimeMS();
 		
@@ -98,7 +94,7 @@ namespace Shady
 		mFrameTimer.update();
 		countFps(dt);
 		mMainWindow->clear();
-		gameState->renderer2d->render(dt);
+		renderer2d->render(dt);
 		mMainWindow->swapBuffers();
 
 		checkGlError();
@@ -108,25 +104,21 @@ namespace Shady
 
 	}
 
-	GameState* ShadyApp::initGameState()
+	void ShadyApp::initGameState()
 	{
 		File::setCwd("..\\..\\"); //CWD = Main Shady folder
 		//TODO put these in their arena and take care of cleanup
-		GameState* gameState = new GameState();
 		
-		gameState->camera2d = new Camera2D(Vec3f(0, 0, 0.0f),
+		camera2d = new Camera2D(Vec3f(0, 0, 0.0f),
 								mMainWindow->mClientWidth, mMainWindow->mClientHeight, 2.0f);
-		gameState->renderer2d = new Renderer2D(gameState->camera2d);
-		gameState->currentFont =new Font();
-		gameState->sprite = new Sprite( Vec3f(0.0f, 0.0f, 0.0f), gameState->currentFont->getGlyph('A'), false);
-		gameState->text = gameState->currentFont->getText({0.0f, 0.0f, 0.0f}, "ALIN+Alexandra\nLove", 60.0f);
+		renderer2d = new Renderer2D(camera2d);
+		currentFont =new Font();
 		
-		
-		gameState->renderer2d->submit(new Rectangle(0.0f, 0.0f, mMainWindow->mClientWidth,
+		renderer2d->submit(new Rectangle(0.0f, 0.0f, mMainWindow->mClientWidth,
 													 mMainWindow->mClientHeight,
 													 Vec4f(1.0f, 0.0f, 0.0f, 1.0f), 3),
 													10000.0f);
-		return gameState;
+		
 	}
 
 	void ShadyApp::countFps(f32 dt)
@@ -149,5 +141,13 @@ namespace Shady
 		mUpdateLimit = ups;
 	}
 
+	s32 ShadyApp::getWindowClientWidth()
+	{
+		return mMainWindow ? mMainWindow->mClientWidth : 0;
+	}
+	s32 ShadyApp::getWindowClientHeight()
+	{
+		return mMainWindow ? mMainWindow->mClientHeight : 0;
+	}
 
 }

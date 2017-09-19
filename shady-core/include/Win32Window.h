@@ -36,6 +36,7 @@ namespace Shady
 		virtual bool isActive();
 		virtual bool isFullScreen();
 		virtual void setTitle(const c8* title);
+		virtual String getTitle();
 		virtual void enableVSync();
 		virtual void disableVSync();
 		virtual void* getPlatformPointer();

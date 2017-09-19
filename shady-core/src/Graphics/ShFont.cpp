@@ -82,14 +82,18 @@ namespace Shady
 			if(*str == '\n')
 			{
 				thisPos.x = pos.x;
-				baseLine += (f32)mAscent - (f32)mDescent + (f32)mLineGap - 10.0f;
+				baseLine += (f32)mAscent* scale - (f32)mDescent * scale + (f32)mLineGap*scale - 10.0f;
 			}
 			else
 			{
-				data = &mGlyphs[*str];
+				
 				if(*str == ' ')
 				{
 					data = &mGlyphs['e'];
+				}
+				else
+				{
+					data = &mGlyphs[*str];
 				}
 
 				if(!data) 
@@ -103,16 +107,19 @@ namespace Shady
 				if(lastGlyphData)
 				{
 					kernAdvance = stbtt_GetCodepointKernAdvance(&mFontInfo, lastChar,  *str);
-					thisPos.x += lastGlyphData->mAdvanceWidth + kernAdvance - lastGlyphData->mLeftSideBearing; 
+					thisPos.x += lastGlyphData->mAdvanceWidth * scale
+					 + kernAdvance * scale - scale * lastGlyphData->mLeftSideBearing; 
 				}
 				
-				thisPos.y = baseLine - (f32)data->texture->getHeight() + ((f32)data->texture->getHeight()
-									 + (f32)data->mYOff);
-				thisPos.y += (f32)mAscent + (f32)mDescent;
+				thisPos.y = baseLine - (f32)data->texture->getHeight() * scale + 
+									((f32)data->texture->getHeight() * scale
+									 + (f32)data->mYOff * scale);
+				thisPos.y +=  scale * (f32)mAscent + (f32)mDescent * scale;
 				if(*str != ' ')
 				{
+
 					Glyph* glyph = new Glyph(thisPos, data->texture, mShader);
-					//glyph->scale(scale);
+					glyph->scale(scale);
 					result->addGlyph(glyph);
 				}
 			}

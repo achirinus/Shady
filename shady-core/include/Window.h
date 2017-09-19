@@ -3,6 +3,7 @@
 
 #include <Commons.h>
 #include "ShadyGL.h"
+#include "ShString.h"
 
 #define SH_DEFAULT_WINDOW_WIDTH 1280
 #define SH_DEFAULT_WINDOW_HEIGHT 720
@@ -28,8 +29,7 @@ namespace Shady
 		s16 mClientHeight;
 		b8 mFullScreen;
 		OpenglInfo mOpenglInfo;
-		#include "ShadyGL.h"
-
+		
 		virtual void update() = 0;
 		virtual void swapBuffers() = 0;
 		virtual void clear() = 0;
@@ -44,6 +44,7 @@ namespace Shady
 		virtual void enableVSync() = 0;
 		virtual void disableVSync() = 0;
 		virtual void setTitle(const c8* title) = 0;
+		virtual String getTitle() = 0;
 		virtual ~Window() {};
 		virtual void* getPlatformPointer() = 0;
 	};

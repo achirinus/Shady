@@ -260,6 +260,13 @@ namespace Shady
 		SetWindowTextA(mHwnd, title);
 	}
 
+	String Win32Window::getTitle()
+	{
+		c8 temp[256];
+		GetWindowTextA(mHwnd, temp, 256);
+		return String(temp);
+	}
+
 	void Win32Window::enableVSync()
 	{
 		if(mOpenglInfo.swapControl)

@@ -1,15 +1,24 @@
 #ifndef SHADY_APP_H
 #define SHADY_APP_H
 
-#include "Window.h"
+#include "Win32Window.h"
 #include "Commons.h"
 #include "ShMouse.h"
 #include "FileUtils.h"
 #include "StringUtils.h"
 #include "ShKeyboard.h"
-#include "Timer.h"
-#include "GameState.h"
 #include "FileChangeObserver.h"
+#include "Sprite.h"
+#include "Timer.h"
+#include "Camera2D.h"
+#include "Renderer2D.h"
+#include "ShFont.h"
+#include "Line2D.h"
+#include "Shader.h"
+#include "Texture.h"
+#include "ShadyMath.h"
+#include "FileUtils.h"
+#include "Graphics.h"
 
 namespace Shady
 {
@@ -21,13 +30,12 @@ namespace Shady
 					mUpdateLimit(0), mFps(0), mUps(0), mFrameCount(0), 
 					mFrameTimer(), mUpdateTimer(), mUdt(0.0f), mFdt(0.0f) {}
 
-		GameState* initGameState();
+		void initGameState();
 	public:
 		
 		Window* mMainWindow;
 		Mouse* mMouse;
 		Keyboard* mKeyboard;
-		GameState* gameState;
 		Timer mFrameTimer;
 		Timer mUpdateTimer;
 		FileChangeObserver fileObserver;
@@ -41,6 +49,13 @@ namespace Shady
 		u32 mFps;
 		u32 mUps;
 		u32 mFrameCount;
+
+
+		//Gamestate stuff
+		Camera2D* camera2d;
+		Renderer2D* renderer2d;
+		Font* currentFont;
+
 		static ShadyApp* getInstance();
 		void start();
 		void update(f32 dt);
@@ -50,6 +65,9 @@ namespace Shady
 		void setUpdateFreq(u32 ups);
 		void countFps(f32 dt);
 		void countUps(f32 dt);
+		s32 getWindowClientWidth();
+		s32 getWindowClientHeight();
+
 	};	
 }
 
