@@ -16,7 +16,7 @@
 			"name": "Shady",
 
 			
-			"shell_cmd": "scripts\\sh_build.bat",
+			"shell_cmd": "scripts\\shady-core.bat SH_DEBUG SH_BUILD_RUN",
 			"file_regex": "^(..[^:]*)\\(([0-9]+)\\)([ ]*:) (.*)$",
 			"working_dir": "${project_path}",
 			"selector": "source.c++",
@@ -26,7 +26,7 @@
 				{
 					"name": "Build Core DEBUG",
 					
-					"shell_cmd": "scripts\\shady-core.bat SH_DEBUG",
+					"shell_cmd": "scripts\\shady-core.bat",
 					"working_dir": "${project_path}",
 						
 				},
@@ -94,7 +94,15 @@
 	"settings":
 	[
 		{
-
+			"always_show_minimap_viewport": true,
+			"caret_style": "phase",
+			"font_size": 12,
+			"show_errors_inline": false,
+			"margin": 2,
+			"tab_size": 4,
+			"bold_folder_labels": true,
+			"show_encoding": true,
+			"show_line_endings": true,
 		}
 	]
 }

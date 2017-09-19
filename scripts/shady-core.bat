@@ -10,7 +10,7 @@ call scripts\shady-commons.bat %1 %2
 set coreInputLibs=%com_input_libs% shady-commons.lib opengl32.lib glew32s.lib Gdi32.lib dinput8.lib dxguid.lib
 set coreInputFiles=%shCore%\src\shady-core.cpp
 set coreCompilerOptions=%com_opt% %config_opt% %symbols%
-set coreLinkOptions=/NOLOGO
+set coreLinkOptions=/NOLOGO /IGNORE:4099
 
 if /I "%configuration%"=="SH_DEBUG" (
 	pushd %shCore%\sh_debug
@@ -32,6 +32,8 @@ if %action%==SH_VSRUN (
 			goto return
 			)
 
+
+
 buildTimer b ..\..\data\shady.btm
 
 cl %coreCompilerOptions% %coreInputFiles% /link %coreLinkOptions% %coreInputLibs%
@@ -39,7 +41,11 @@ cl %coreCompilerOptions% %coreInputFiles% /link %coreLinkOptions% %coreInputLibs
 set compilationError=%ERRORLEVEL%
 buildTimer e ..\..\data\shady.btm %compilationError%
 
-
+if %action%==SH_BUILD_RUN (
+			if %compilationError%==0 (start shady-core.exe)
+			
+			
+			)
 
 
 :return

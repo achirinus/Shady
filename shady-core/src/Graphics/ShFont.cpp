@@ -66,7 +66,6 @@ namespace Shady
 	Text2D* Font::getText(Vec3f pos, const c8* str, f32 size)
 	{
 		f32 baseLine = pos.y;
-
 		u32 numOfChars = 0;
 
 		f32 scale = size / mFontSize;
@@ -79,37 +78,48 @@ namespace Shady
 		while(*str)
 		{
 			Vec3f thisPos = lastCharPos;
-			if(*str == ' ')
+			GlyphData* data = 0;
+			if(*str == '\n')
 			{
-				thisPos += {mFontSize * scale * mScale, 0.0f, 0.0f};
-				lastCharPos = thisPos;
-				lastChar = *str;
-				lastGlyphData = 0;
-				str++;
-				continue;	
-			}
-			GlyphData* data = &mGlyphs[*str];
-			
-			if(lastGlyphData)
-			{
-				thisPos.x += lastGlyphData->mAdvanceWidth * 2; 
-				
+				thisPos.x = pos.x;
+				baseLine += (f32)mAscent - (f32)mDescent + (f32)mLineGap - 10.0f;
 			}
 			else
 			{
+				data = &mGlyphs[*str];
+				if(*str == ' ')
+				{
+					data = &mGlyphs['e'];
+				}
 
+				if(!data) 
+				{
+					lastGlyphData = data;
+					lastChar = *str;
+
+					str++;
+					continue;
+				}
+				if(lastGlyphData)
+				{
+					kernAdvance = stbtt_GetCodepointKernAdvance(&mFontInfo, lastChar,  *str);
+					thisPos.x += lastGlyphData->mAdvanceWidth + kernAdvance - lastGlyphData->mLeftSideBearing; 
+				}
+				
+				thisPos.y = baseLine - (f32)data->texture->getHeight() + ((f32)data->texture->getHeight()
+									 + (f32)data->mYOff);
+				thisPos.y += (f32)mAscent + (f32)mDescent;
+				if(*str != ' ')
+				{
+					Glyph* glyph = new Glyph(thisPos, data->texture, mShader);
+					//glyph->scale(scale);
+					result->addGlyph(glyph);
+				}
 			}
-			
-			thisPos.y =baseLine - data->texture->getHeight() + data->mYOff;
-			
-			Glyph* glyph = new Glyph(thisPos, data->texture, mShader);
-			glyph->scale(scale);
-			result->addGlyph(glyph);
-			
 			lastCharPos = thisPos;
 			lastChar = *str;
 			lastGlyphData = data;
-			str++;
+			str++;   
 			numOfChars++;
 		}
 

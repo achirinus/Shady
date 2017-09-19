@@ -11,5 +11,5 @@ in VS_OUT
 void main()
 {
 	color = fs_in.vertColor;
-	color = vec4(1.0, 1.0, 0.0, 1.0);
+
 }

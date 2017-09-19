@@ -90,7 +90,7 @@ namespace Shady
 					GetWindowRect(hwnd, &wndRect);
 					window->mWidth = wndRect.right - wndRect.left;
 					window->mHeight = wndRect.bottom - wndRect.top;
-					glViewport(0,0, window->mWidth, window->mHeight);
+					glViewport(0, 0, window->mClientWidth,window->mClientHeight);
 				}
 			}break;
 			case WM_CREATE:
@@ -98,13 +98,16 @@ namespace Shady
 				CREATESTRUCT* cs = reinterpret_cast<CREATESTRUCT*>(lParam);
 				RECT abd;
 				GetClientRect(hwnd, &abd);
+				
 				Win32Window* window = reinterpret_cast<Win32Window*>(cs->lpCreateParams);
 				SetWindowLongPtr(hwnd, GWLP_USERDATA, (LONG_PTR)window);
+				window->mClientWidth = abd.right - abd.left;
+				window->mClientHeight = abd.bottom - abd.top;
 				window->mXPos = cs->x;
 				window->mYPos = cs->y;
 				window->mWidth = cs->cx;
 				window->mHeight = cs->cy;
-
+				//BringWindowToTop(hwnd);
 			}break;
 			case WM_LBUTTONDOWN:
 			{
@@ -176,7 +179,8 @@ namespace Shady
 
 		if(RegisterClass(&wc))
 		{
-			mHwnd = CreateWindowExA(0, WINDOW_CLASS_NAME, title,  WS_OVERLAPPEDWINDOW|WS_VISIBLE,
+			mHwnd = CreateWindowExA(0, WINDOW_CLASS_NAME, title,  
+									WS_OVERLAPPEDWINDOW|WS_VISIBLE,
 									 CW_USEDEFAULT, CW_USEDEFAULT,SH_DEFAULT_WINDOW_WIDTH, 
 									 SH_DEFAULT_WINDOW_HEIGHT, NULL, NULL, mInstance, this);
 			
@@ -186,9 +190,9 @@ namespace Shady
 				mIsOpen = true;	
 				mDC = GetDC(mHwnd);
 				mGlrc = Win32GlInit(mDC, &mOpenglInfo);
-				
+				SetFocus(mHwnd);
 				glClearColor(1.0f, 0.5f, 0.5f, 1.0f);
-				glViewport(0,0, SH_DEFAULT_WINDOW_WIDTH, SH_DEFAULT_WINDOW_HEIGHT);
+				glViewport(0,0, mClientWidth, mClientHeight);
 				//glEnable(GL_CULL_FACE); 
 				glEnable(GL_BLEND);
 				glEnable(GL_LINE_SMOOTH); //Antialiasing				

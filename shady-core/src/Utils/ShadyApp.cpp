@@ -113,16 +113,19 @@ namespace Shady
 		File::setCwd("..\\..\\"); //CWD = Main Shady folder
 		//TODO put these in their arena and take care of cleanup
 		GameState* gameState = new GameState();
-		gameState->currentFont =new Font();
-		gameState->camera2d = new Camera2D(Vec3f(0, 0, 1.0f),
-								mMainWindow->mWidth, mMainWindow->mHeight, 2.0f);
+		
+		gameState->camera2d = new Camera2D(Vec3f(0, 0, 0.0f),
+								mMainWindow->mClientWidth, mMainWindow->mClientHeight, 2.0f);
 		gameState->renderer2d = new Renderer2D(gameState->camera2d);
-		//gameState->sprite = new Sprite( Vec3f(0.0f, 0.0f, 0.0f), gameState->currentFont->getGlyph('A'));
-		gameState->text = gameState->currentFont->getText({0.0f, 0.0f, 0.0f}, "ALIN+Alejandra", 60.0f);
-		gameState->line = new Line2D(Vec3f(-500.0f, 0.0f + gameState->currentFont->mAscent, 0.0f),
-									 Vec3f(-440.0f, 0.0f + gameState->currentFont->mAscent, 0.0f),
-									 Vec4f(1.0f, 1.0f, 0.0f, 1.0f), 2);
-		gameState->renderer2d->submit(gameState->line, 5.0f);
+		gameState->currentFont =new Font();
+		gameState->sprite = new Sprite( Vec3f(0.0f, 0.0f, 0.0f), gameState->currentFont->getGlyph('A'), false);
+		gameState->text = gameState->currentFont->getText({0.0f, 0.0f, 0.0f}, "ALIN+Alexandra\nLove", 60.0f);
+		
+		
+		gameState->renderer2d->submit(new Rectangle(0.0f, 0.0f, mMainWindow->mClientWidth,
+													 mMainWindow->mClientHeight,
+													 Vec4f(1.0f, 0.0f, 0.0f, 1.0f), 3),
+													10000.0f);
 		return gameState;
 	}
 

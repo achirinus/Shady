@@ -12,8 +12,8 @@ namespace Shady
 	{
 		Keyboard* keyboard = Keyboard::getInstance();
 		ShadyApp* app = ShadyApp::getInstance();
-		mWidth = app->mMainWindow->mWidth;
-		mHeight = app->mMainWindow->mHeight;
+		mWidth = app->mMainWindow->mClientWidth;
+		mHeight = app->mMainWindow->mClientHeight;
 		if(keyboard->isPressed(KEY_DOWN))
 		{
 			mPos.y += mSpeed;
