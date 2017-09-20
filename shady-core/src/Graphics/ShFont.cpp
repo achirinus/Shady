@@ -16,7 +16,7 @@ namespace Shady
 		delete mShader;
 	}
 
-	Font::Font(): mGlyphs(), mFontSize(60.0f)
+	Font::Font(): mGlyphs(), mFontSize(40.0f)
 	{
 		mShader = new Shader("text", SH_FRAGMENT_SHADER | SH_VERTEX_SHADER);
 		STBloadSupportedGlyphs(mFontSize);

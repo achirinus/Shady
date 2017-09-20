@@ -37,6 +37,37 @@ namespace Shady
 		other.mBuffer = 0;
 		this->mBufferSize = other.mBufferSize;
 	}
+
+	String::String(s32 numOfStrings, ...)
+	{
+		va_list argList;
+		va_start(argList, numOfStrings);
+		mBufferSize = 0;
+
+		s32 stringsFound = 0;
+		//TODO optimize
+		c8** strings = new c8*[numOfStrings];
+		while(numOfStrings--)
+		{
+			c8* str = (c8*)va_arg(argList, c8*);
+			if(str)
+			{
+				strings[stringsFound++] = str;
+				mBufferSize += strLength(str);
+			}
+		}
+		
+		mBuffer = new c8[mBufferSize];
+		c8* tempBuffer = mBuffer;
+		for(u32 strIndex = 0; strIndex < stringsFound; strIndex++)
+		{
+			s32 advanceBy = strCopyNoTerminator(tempBuffer, strings[strIndex]);
+			tempBuffer += advanceBy;
+		}
+		*tempBuffer = '\0';
+		va_end(argList);
+	}
+
 	String& String::operator=(const String& other)
 	{
 		mBufferSize = other.mBufferSize;

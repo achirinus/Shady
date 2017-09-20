@@ -89,6 +89,7 @@ namespace Shady
 	mTexture(texture) 
 	{
 		mShader = shader;
+		mOwnShader = false;
 		mModelMat = Matrix4f(1);
 		mColor = color;
 		mMoveAmount = {};
@@ -102,6 +103,7 @@ namespace Shady
 		if(!shader)
 		{
 			mShader = new Shader("basic", SH_FRAGMENT_SHADER | SH_VERTEX_SHADER) ;
+			mOwnShader = true;
 		}
 		initGlBuffers(mPos, mColor, true);
 		
@@ -111,6 +113,7 @@ namespace Shady
 	 mTexture(texture)
 	{
 		mShader = shader;
+		mOwnShader = false;
 		mModelMat = Matrix4f(1);
 		mColor = Vec4f(1.0f, 1.0f, 1.0f, 1.0f);
 		mMoveAmount = {};
@@ -125,6 +128,7 @@ namespace Shady
 		if(!shader)
 		{
 			mShader = new Shader("basic", SH_FRAGMENT_SHADER | SH_VERTEX_SHADER) ;
+			mOwnShader = true;
 		}
 		initGlBuffers(mPos, mColor, posInCenter);
 	}
@@ -133,7 +137,7 @@ namespace Shady
 	{
 		glDeleteBuffers(NUM_BUFFERS, mVBO);
 		glDeleteVertexArrays(1, &mVAO);
-		delete mShader;
+		if(mOwnShader) delete mShader;
 	}
 
 	void Sprite::move(const Vec3f& vec)

@@ -26,9 +26,9 @@ namespace Shady
 		u32 mHeight;
 		Shader* mShader;
 		f32 mLifeTime; //seconds
-
+		b8 mOwnShader;
 		Renderable2D(): mPos(),mModelMat(1), mMoveAmount(), mWidth(0),
-						mHeight(0), mShader(0), mLifeTime(0.0f){}
+						mHeight(0), mShader(0), mLifeTime(0.0f), mOwnShader(false){}
 		virtual void draw() = 0;
 		virtual void update() {}
 		virtual ~Renderable2D() {};

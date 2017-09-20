@@ -20,6 +20,7 @@ namespace Shady
 		String(const c8* str);
 		String(const String& other);
 		String(String&& other);
+		String(s32 numOfStrings, ...);
 		String& operator=(const String& other);
 		String& operator=(const c8* str);
 		~String();

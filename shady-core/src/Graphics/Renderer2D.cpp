@@ -25,6 +25,7 @@ namespace Shady
 			
 			sprite->draw();
 			sprite->mShader->disable();
+			delete sprite;
 		}
 		for(u32 spriteIndex = 0; spriteIndex < mLifeTimeSprites.size(); spriteIndex++)
 		{
@@ -36,6 +37,7 @@ namespace Shady
 			
 			sprite->draw();
 			sprite->mShader->disable();
+
 			
 			sprite->mLifeTime -= dt/1000.0f;
 			if(sprite->mLifeTime <= 0.0f)

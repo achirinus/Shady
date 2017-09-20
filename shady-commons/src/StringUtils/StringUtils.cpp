@@ -371,6 +371,17 @@ namespace Shady
 	{
 		while (*buffer++ = *str++) {}
 	}
+
+	s32 strCopyNoTerminator(c8* buffer, const c8* str)
+	{
+		s32 result = 0;
+		while(*str)
+		{
+			*buffer++ = *str++;
+			result++;
+		}
+		return result;
+	}
 	void strnCopy(c8* buffer, u32 num, const c8* str)
 	{
 		SH_ASSERT(buffer);

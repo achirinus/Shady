@@ -41,17 +41,13 @@ namespace Shady
 		*/
 
 		mMainWindow->disableVSync();
-		setFpsLimit(60);
-		char title[250];
-
+		setFpsLimit(0);
+		
 		while (mMainWindow->isOpen())
 		{
 			
 			//IF WE LIMIT BOTH UPDAE() AND RENDER() THE TIME 
 			//WE SLEEP IS ADDED AND WE WILL SLEEP MORE THAN NEEDED
-
-			sprintf_s(title, 250, "FPS: %d", mFps);
-			mMainWindow->setTitle(title);
 			
 			update(mUdt);
 			
@@ -80,9 +76,13 @@ namespace Shady
 		fileObserver.update();
 		camera2d->update();
 		
+		//Fps display
+		char title[250];
+		sprintf_s(title, 250, "FPS: %d", mFps);
 		Text2D* fpsLabel = currentFont->getText({5.0f, 5.0f, 0.0f},
-												 mMainWindow->getTitle().cStr(), 20.0f);
+												title, 20.0f);
 		renderer2d->submit(fpsLabel);
+
 
 		limit(mUpdateTimer.getElapsedTimeMS(), mUpdateLimit);
 		mUdt = mUpdateTimer.getElapsedTimeMS();

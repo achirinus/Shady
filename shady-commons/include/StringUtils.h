@@ -35,6 +35,7 @@ namespace Shady
 	b8 endsWith(c8* str, c8* end);
 	b8 beginsWith(const c8* str, const c8* strToFind);
 	void strCopy(c8* buffer, const c8* str);
+	s32 strCopyNoTerminator(c8* buffer, const c8* str);
 	void strnCopy(c8* buffer, u32 num, const c8* str);
 	void customFormat(c8* buffer, const c8* format ...);
 	void toAllCaps(c8* str);
