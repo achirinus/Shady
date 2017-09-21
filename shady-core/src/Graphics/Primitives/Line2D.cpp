@@ -5,16 +5,20 @@ namespace Shady
 	Line2D::Line2D(Vec3f posA, Vec3f posB, Vec4f col, u32 width, Shader* shader): Renderable2D()
 	{
 		mPos = posA;
-		mShader = shader;
 		mPosA = posA;
 		mPosB = posB;
 		mColor = col;
 		mWidth = width;
-		if(!mShader)
+		
+		if(shader)
 		{
-			mShader = new Shader("basicLine", SH_FRAGMENT_SHADER | SH_VERTEX_SHADER);
+			mShaders.add(shader);
 		}
-
+		else
+		{
+			mShaders.add(new Shader("basicLine", SH_FRAGMENT_SHADER | SH_VERTEX_SHADER));
+		}
+		
 		Vec3f vertices[2] = 
 		{
 			mPosA,
@@ -90,6 +94,9 @@ namespace Shady
 	{
 		glDeleteBuffers(NUM_BUFFERS, mVBO);
 		glDeleteVertexArrays(1, &mVAO);
-		delete mShader;
+		for(s32 index = 0; index < mShaders.size(); index++)
+		{
+			delete mShaders[index];
+		}
 	}
 }

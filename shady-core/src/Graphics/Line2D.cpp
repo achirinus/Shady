@@ -10,9 +10,14 @@ namespace Shady
 		mPosB = posB;
 		mColor = col;
 		mWidth = width;
-		if(!mShader)
+		
+		if(shader)
 		{
-			mShader = new Shader("basicLine", SH_FRAGMENT_SHADER | SH_VERTEX_SHADER);
+			mShaders.add(shader);
+		}
+		else
+		{
+			mShaders.add(new Shader("basicLine", SH_FRAGMENT_SHADER | SH_VERTEX_SHADER));
 		}
 
 		Vec3f vertices[2] = 
@@ -90,6 +95,9 @@ namespace Shady
 	{
 		glDeleteBuffers(NUM_BUFFERS, mVBO);
 		glDeleteVertexArrays(1, &mVAO);
-		delete mShader;
+		for(s32 index = 0; index < mShaders.size(); index++)
+		{
+			delete mShaders[index];
+		}
 	}
 }

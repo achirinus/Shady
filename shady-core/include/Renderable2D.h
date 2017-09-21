@@ -4,7 +4,7 @@
 #include "Vec3.h"
 #include "Matrix4f.h"
 #include "Commons.h"
-
+#include "ShArray.h"
 namespace Shady
 {
 	class Renderable2D
@@ -24,11 +24,11 @@ namespace Shady
 		Vec3f mMoveAmount;
 		u32 mWidth;
 		u32 mHeight;
-		Shader* mShader;
+		Array<Shader*> mShaders;
 		f32 mLifeTime; //seconds
 		b8 mOwnShader;
 		Renderable2D(): mPos(),mModelMat(1), mMoveAmount(), mWidth(0),
-						mHeight(0), mShader(0), mLifeTime(0.0f), mOwnShader(false){}
+						mHeight(0), mShaders(), mLifeTime(0.0f), mOwnShader(false){}
 		virtual void draw() = 0;
 		virtual void update() {}
 		virtual ~Renderable2D() {};

@@ -19,24 +19,36 @@ namespace Shady
 			
 		while(Renderable2D* sprite = mSprites.pop())
 		{
-			sprite->mShader->enable();
-			sprite->mShader->setUniformMat4("viewMat", mCamera->getViewMat());
-			sprite->mShader->setUniformMat4("projMat", mCamera->getProjMat());
+			for(s32 index = 0; index < sprite->mShaders.size(); index++)
+			{
+				sprite->mShaders[index]->enable();
+				sprite->mShaders[index]->setUniformMat4("viewMat", mCamera->getViewMat());
+				sprite->mShaders[index]->setUniformMat4("projMat", mCamera->getProjMat());
+			}
 			
 			sprite->draw();
-			sprite->mShader->disable();
+			for(s32 index = 0; index < sprite->mShaders.size(); index++)
+			{
+				sprite->mShaders[index]->disable();
+			}
 			delete sprite;
 		}
 		for(u32 spriteIndex = 0; spriteIndex < mLifeTimeSprites.size(); spriteIndex++)
 		{
 			Renderable2D* sprite = mLifeTimeSprites[spriteIndex];
 
-			sprite->mShader->enable();
-			sprite->mShader->setUniformMat4("viewMat", mCamera->getViewMat());
-			sprite->mShader->setUniformMat4("projMat", mCamera->getProjMat());
+			for(s32 index = 0; index < sprite->mShaders.size(); index++)
+			{
+				sprite->mShaders[index]->enable();
+				sprite->mShaders[index]->setUniformMat4("viewMat", mCamera->getViewMat());
+				sprite->mShaders[index]->setUniformMat4("projMat", mCamera->getProjMat());
+			}
 			
 			sprite->draw();
-			sprite->mShader->disable();
+			for(s32 index = 0; index < sprite->mShaders.size(); index++)
+			{
+				sprite->mShaders[index]->disable();
+			}
 
 			
 			sprite->mLifeTime -= dt/1000.0f;

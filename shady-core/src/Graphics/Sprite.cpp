@@ -85,10 +85,9 @@ namespace Shady
 	}
 
 	Sprite::Sprite(const Vec3f& pos, u32 width, u32 height, Texture* texture,
-					 const Vec4f& color, Shader* shader): 
+					 const Vec4f& color, b8 posInCenter, Shader* shader): 
 	mTexture(texture) 
 	{
-		mShader = shader;
 		mOwnShader = false;
 		mModelMat = Matrix4f(1);
 		mColor = color;
@@ -102,17 +101,22 @@ namespace Shady
 		mRoll = 0.0f;
 		if(!shader)
 		{
-			mShader = new Shader("basic", SH_FRAGMENT_SHADER | SH_VERTEX_SHADER) ;
+			mShaders.add(new Shader("basic", SH_FRAGMENT_SHADER | SH_VERTEX_SHADER));
 			mOwnShader = true;
 		}
-		initGlBuffers(mPos, mColor, true);
+		else
+		{
+			mShaders.add(shader);
+			mOwnShader = false;
+		}
+		initGlBuffers(mPos, mColor, posInCenter);
 		
 	}
 
 	Sprite::Sprite(const Vec3f& pos, Texture* texture, b8 posInCenter, Shader* shader):
 	 mTexture(texture)
 	{
-		mShader = shader;
+		
 		mOwnShader = false;
 		mModelMat = Matrix4f(1);
 		mColor = Vec4f(1.0f, 1.0f, 1.0f, 1.0f);
@@ -127,8 +131,13 @@ namespace Shady
 		
 		if(!shader)
 		{
-			mShader = new Shader("basic", SH_FRAGMENT_SHADER | SH_VERTEX_SHADER) ;
+			mShaders.add(new Shader("basic", SH_FRAGMENT_SHADER | SH_VERTEX_SHADER));
 			mOwnShader = true;
+		}
+		else
+		{
+			mShaders.add(shader);
+			mOwnShader = false;
 		}
 		initGlBuffers(mPos, mColor, posInCenter);
 	}
@@ -137,7 +146,13 @@ namespace Shady
 	{
 		glDeleteBuffers(NUM_BUFFERS, mVBO);
 		glDeleteVertexArrays(1, &mVAO);
-		if(mOwnShader) delete mShader;
+		if(mOwnShader)
+		{
+			for(s32 index = 0; index < mShaders.size(); index++)
+			{
+				delete mShaders[index];
+			}
+		}
 	}
 
 	void Sprite::move(const Vec3f& vec)
@@ -231,10 +246,12 @@ namespace Shady
 	{
 
 		if(mTexture) mTexture->bind(0);
-		mShader->setUniform1i("hasTexture", hasTexture());
-		mShader->setUniformMat4("modelMat", getModelMat());
-		mShader->setUniformMat4("totalMovedMat", Matrix4f::translation(getCurrentPos()));
-			
+		for(s32 index = 0; index < mShaders.size(); index++)
+		{
+			mShaders[index]->setUniform1i("hasTexture", hasTexture());
+			mShaders[index]->setUniformMat4("modelMat", getModelMat());
+			mShaders[index]->setUniformMat4("totalMovedMat", Matrix4f::translation(getCurrentPos()));
+		}
 		glBindVertexArray(mVAO);
 		
 		glDrawArrays(GL_TRIANGLES, 0, 6);

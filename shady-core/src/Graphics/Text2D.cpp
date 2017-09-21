@@ -5,7 +5,7 @@ namespace Shady
 
 	Text2D::Text2D(Shader* shader)
 	{
-		mShader = shader;
+		mShaders.add(shader);
 	}
 	void Text2D::draw()
 	{

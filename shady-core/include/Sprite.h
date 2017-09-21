@@ -26,7 +26,7 @@ namespace Shady
 		
 		
 		Sprite(const Vec3f& pos, u32 width, u32 height, Texture* texture = nullptr,  
-				const Vec4f& color = {1.0f, 1.0f, 1.0f, 1.0f}, Shader* shader = 0);
+				const Vec4f& color = {1.0f, 1.0f, 1.0f, 1.0f}, b8 posInCenter = true, Shader* shader = 0);
 		Sprite(const Vec3f& pos, Texture* texture, b8 posInCenter = true, Shader* shader = 0);									 
 		virtual ~Sprite();
 

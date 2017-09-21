@@ -79,7 +79,7 @@ namespace Shady
 		//Fps display
 		char title[250];
 		sprintf_s(title, 250, "FPS: %d", mFps);
-		Text2D* fpsLabel = currentFont->getText({5.0f, 5.0f, 0.0f},
+		Text2D* fpsLabel = currentFont->getText({5.0f, 5.0f, -1.0f},
 												title, 20.0f);
 		renderer2d->submit(fpsLabel);
 
@@ -116,7 +116,8 @@ namespace Shady
 		
 		renderer2d->submit(new Rectangle(0.0f, 0.0f, mMainWindow->mClientWidth,
 													 mMainWindow->mClientHeight,
-													 Vec4f(1.0f, 0.0f, 0.0f, 1.0f), 3),
+													 false, false,
+													 Vec4f(1.0f, 0.0f, 1.0f, 1.0f), 3),
 													10000.0f);
 		
 	}

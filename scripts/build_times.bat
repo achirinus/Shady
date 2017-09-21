@@ -1,3 +1,3 @@
 @echo off
 
-buildTimer s ..\..\data\shady.btm
+buildTimer s data\shady.btm
