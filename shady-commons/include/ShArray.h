@@ -2,12 +2,9 @@
 #define SHADY_ARRAY_H
 
 #include <Commons.h>
-
+#include <ShIterator.h>
 namespace Shady
 {
-
-
-
 	template<typename T>
 	class Array
 	{
@@ -16,15 +13,25 @@ namespace Shady
 		u32 mNumOfElem;
 
 		template <typename T>
-		class ArrayIterator
+		class ArrayIterator : public Shady::Iterator<ArrayIterator<T>, T>
 		{
 			friend Array;
 			Array<T>* array;
 			u32 currentIndex;
-			ArrayIterator(Array* arr):
-			 array(arr), currentIndex(0)
+			ArrayIterator(Array* arr, IteratorPosition pos = IteratorPosition::BEGIN):
+			 array(arr)
 			{
-
+				switch(pos)
+				{
+					case IteratorPosition::BEGIN:
+					{
+						currentIndex = 0;
+					}break;
+					case IteratorPosition::END:
+					{
+						currentIndex = arr->mNumOfElem;
+					}break;
+				}
 			}
 		public:
 			T& operator*()
@@ -38,16 +45,21 @@ namespace Shady
 			{
 				array = other.array;
 				currentIndex = other.currentIndex;
+				return *this;
 			}
-
+			
 			ArrayIterator operator+(u32 offset)
 			{
-				return currentIndex + offset; 
+				ArrayIterator temp = *this;
+				temp.currentIndex = currentIndex + offset;
+				return temp; 
 			} 
 
 			ArrayIterator operator-(u32 offset)
 			{
-				return currentIndex - offset; 
+				ArrayIterator temp = *this;
+				temp.currentIndex = currentIndex - offset;
+				return temp; 
 			}
 
 			ArrayIterator& operator+=(u32 offset)
@@ -107,11 +119,6 @@ namespace Shady
 				return (array != other.array) || (currentIndex != other.currentIndex);
 			}
 			
-			void goToEnd()
-			{
-				SH_ASSERT(array);
-				currentIndex = array->mNumOfElem;
-			}
 		};
 					
 	public:
@@ -269,14 +276,12 @@ namespace Shady
 
 		ArrayIterator<T> begin()
 		{
-			return ArrayIterator<T>(this);
+			return ArrayIterator<T>(this, IteratorPosition::BEGIN);
 		}
 
 		ArrayIterator<T> end()
 		{
-			ArrayIterator<T> temp(this);
-			temp.goToEnd();
-			return temp;
+			return ArrayIterator<T>(this, IteratorPosition::END);
 		}
 
 		T& operator[](s32 index)
