@@ -40,6 +40,16 @@ namespace Shady
 		}
 		*/
 
+		Array<u32> ar(3);
+		ar.add(1);
+		ar.add(2);
+		ar.add(3);
+		for(auto& elem : ar)
+		{
+			DEBUG_OUT_INFO("%d ", elem);
+		}
+
+
 		mMainWindow->disableVSync();
 		setFpsLimit(0);
 		

@@ -5,12 +5,115 @@
 
 namespace Shady
 {
+
+
+
 	template<typename T>
 	class Array
 	{
 		T* mBuffer;
 		u32 mBufferSize;
 		u32 mNumOfElem;
+
+		template <typename T>
+		class ArrayIterator
+		{
+			friend Array;
+			Array<T>* array;
+			u32 currentIndex;
+			ArrayIterator(Array* arr):
+			 array(arr), currentIndex(0)
+			{
+
+			}
+		public:
+			T& operator*()
+			{
+				SH_ASSERT(array);
+				SH_ASSERT((currentIndex >=0) && (currentIndex < array->mNumOfElem));
+				return array->mBuffer[currentIndex];
+			}
+
+			ArrayIterator& operator=(const ArrayIterator& other)
+			{
+				array = other.array;
+				currentIndex = other.currentIndex;
+			}
+
+			ArrayIterator operator+(u32 offset)
+			{
+				return currentIndex + offset; 
+			} 
+
+			ArrayIterator operator-(u32 offset)
+			{
+				return currentIndex - offset; 
+			}
+
+			ArrayIterator& operator+=(u32 offset)
+			{
+				SH_ASSERT(array);
+				SH_ASSERT((currentIndex + offset) < array->mNumOfElem);
+				currentIndex += offset;
+				return *this;
+			} 
+
+			ArrayIterator& operator-=(u32 offset)
+			{
+				SH_ASSERT(array);
+				SH_ASSERT((currentIndex - offset) >= 0);
+				currentIndex -= offset;
+				return *this;
+			} 
+
+			ArrayIterator operator++()
+			{
+				SH_ASSERT(currentIndex < array->mNumOfElem);
+				ArrayIterator temp = *this;
+				currentIndex++;
+				return temp;
+			}
+			ArrayIterator operator++(int)
+			{
+				SH_ASSERT(array);
+				SH_ASSERT(currentIndex < array->mNumOfElem);
+				++currentIndex;
+				return *this;
+			}
+
+			ArrayIterator operator--()
+			{
+				SH_ASSERT(array);
+				SH_ASSERT(currentIndex > 0);
+				ArrayIterator temp = *this;
+				currentIndex++;
+				return temp;
+			}
+
+			ArrayIterator operator--(int)
+			{
+				SH_ASSERT(array);
+				SH_ASSERT(currentIndex > 0);
+				++currentIndex;
+				return *this;
+			}
+
+			b8 operator==(const ArrayIterator& other)
+			{
+				return (array == other.array) && (currentIndex == other.currentIndex);
+			}
+			b8 operator!=(const ArrayIterator& other)
+			{
+				return (array != other.array) || (currentIndex != other.currentIndex);
+			}
+			
+			void goToEnd()
+			{
+				SH_ASSERT(array);
+				currentIndex = array->mNumOfElem;
+			}
+		};
+					
 	public:
 		Array(): mNumOfElem(0), mBuffer(0), mBufferSize(0)
 		{
@@ -164,6 +267,18 @@ namespace Shady
 			mNumOfElem--;
 		}
 
+		ArrayIterator<T> begin()
+		{
+			return ArrayIterator<T>(this);
+		}
+
+		ArrayIterator<T> end()
+		{
+			ArrayIterator<T> temp(this);
+			temp.goToEnd();
+			return temp;
+		}
+
 		T& operator[](s32 index)
 		{
 			SH_ASSERT((index >= 0) && (index < mNumOfElem));
@@ -174,6 +289,7 @@ namespace Shady
 			Array<T> result{other};
 			return result;
 		}
+
 	};
 }
 

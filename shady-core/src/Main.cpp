@@ -9,8 +9,9 @@
 
 using namespace Shady;
 
-int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
-					LPSTR lpCmdLine, int nCmdShow)
+int main(int argc, char* argv[])
+//int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
+//					LPSTR lpCmdLine, int nCmdShow)
 {
 	
 	ShadyApp* app = ShadyApp::getInstance();
