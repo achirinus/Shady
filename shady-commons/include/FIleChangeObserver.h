@@ -1,8 +1,8 @@
 #ifndef SH_FILE_CHANGE_OBSERVER_H
 #define SH_FILE_CHANGE_OBSERVER_H
 
-#include "ShadyAssert.h"
-#include "ShadyTypes.h"
+#include "ShAssert.h"
+#include "ShTypes.h"
 #include "ShMap.h"
 #include "ShArray.h"
 #include "ShString.h"

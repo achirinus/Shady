@@ -1,8 +1,8 @@
 #ifndef STRING_UTILS_H
 #define STRING_UTILS_H
 
-#include "ShadyTypes.h"
-#include "ShadyAssert.h"
+#include "ShTypes.h"
+#include "ShAssert.h"
 #include <cstdarg>
 
 namespace Shady

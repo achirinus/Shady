@@ -16,7 +16,7 @@
 #include "Line2D.h"
 #include "Shader.h"
 #include "Texture.h"
-#include "ShadyMath.h"
+#include "ShMath.h"
 #include "FileUtils.h"
 #include "Graphics.h"
 

@@ -5,7 +5,7 @@
 #include "ShString.h"
 #include "FileUtils.h"
 #include "ModelLoader.h"
-#include "ShadyMath.h"
+#include "ShMath.h"
 
 using namespace Shady;
 

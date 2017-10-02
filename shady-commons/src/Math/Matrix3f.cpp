@@ -1,4 +1,6 @@
 #include <Matrix3f.h>
+
+#include "ShMath.h" 
 #define MAT3_DIM 3
 
 namespace Shady
@@ -79,6 +81,9 @@ namespace Shady
 		return result;
 	}
 
-	
+	void Matrix3f::transpose()
+	{
+		Shady::transpose(elem, 3);
+	}
 
 }

@@ -8,6 +8,7 @@
 #include "Containers/ShString.cpp"
 #include "Math/Matrix3f.cpp"
 #include "Math/Matrix4f.cpp"
-#include "Math/Shadymath.cpp"
+#include "Math/ShMath.cpp"
 #include "Math/Vec2.cpp"
 #include "Math/Vec4.cpp"
+#include "Utils/ComFuncs.cpp"

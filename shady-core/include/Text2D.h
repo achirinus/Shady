@@ -2,7 +2,7 @@
 #define SH_TEXT_2D_H
 
 #include "Renderable2D.h"
-#include "ShadyTypes.h"
+#include "ShTypes.h"
 #include "GlyphData.h"
 #include "Glyph.h"
 #include "ShArray.h"

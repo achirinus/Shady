@@ -1,5 +1,6 @@
 #include "Matrix4f.h"
 #include <math.h>
+#include "ShMath.h"
 #include "MemUtils.h"
 #define MAT4_DIM 4
 
@@ -239,5 +240,10 @@ namespace Shady
 							elem[8], elem[9], elem[10], elem[11], elem[12], elem[13], elem[14], elem[15]);
 		String result(all);
 		return result;
+	}
+
+	void Matrix4f::transpose()
+	{
+		Shady::transpose(elem, 4);
 	}
 }

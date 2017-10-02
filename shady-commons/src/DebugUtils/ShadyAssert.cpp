@@ -1,4 +1,4 @@
-#include "ShadyAssert.h"
+#include "ShAssert.h"
 
 namespace Shady
 {

@@ -2,6 +2,7 @@
 #define MATRIX_3_F_H
 
 #include <Vec3.h>
+
 namespace Shady
 {
 
@@ -22,6 +23,8 @@ namespace Shady
 		Vec3f operator*(Vec3f vec);
 		
 		static Matrix3f identity();
+
+		void transpose();
 	};
 	
 }

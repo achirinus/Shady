@@ -1,6 +1,6 @@
 #ifndef SH_MEM_UTILS_H
 #define SH_MEM_UTILS_H
-#include "ShadyTypes.h"
+#include "ShTypes.h"
 
 namespace Shady
 {

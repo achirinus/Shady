@@ -2,7 +2,7 @@
 #define SH_MAP_H
 
 #include "ShArray.h"
-#include "ShadyAssert.h"
+#include "ShAssert.h"
 
 
 #define INVALID_MAP_KEY_INDEX -1

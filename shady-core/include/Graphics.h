@@ -2,7 +2,7 @@
 #define SH_GRAPHICS_H
 
 
-#include "ShadyTypes.h"
+#include "ShTypes.h"
 #include "FileUtils.h"
 #include "Bitmap.h"
 #include "Texture.h"

@@ -5,7 +5,7 @@
 #include "String.h"
 #include "ShKeyboard.h"
 #include "Texture.h"
-#include "ShadyMath.h"
+#include "ShMath.h"
 #include "Renderable2D.h"
 
 namespace Shady

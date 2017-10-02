@@ -39,7 +39,7 @@ namespace Shady
 			DEBUG_OUT_INFO(cube->mVertices[vertIndex].toString().cStr());
 		}
 		*/
-
+		//TEST STUFF!!
 		Array<u32> ar(3);
 		ar.add(1);
 		ar.add(2);
@@ -48,7 +48,16 @@ namespace Shady
 		{
 			DEBUG_OUT_INFO("%d ", elem);
 		}
+		auto it = ar.begin();
+		it +=2;
+		Matrix3f tm = 
+		{
+			{1,2,3},
+			{4,5,6},
+			{7,8,9}
+		};
 
+		tm.transpose();
 
 		mMainWindow->disableVSync();
 		setFpsLimit(0);

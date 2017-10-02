@@ -12,6 +12,9 @@ set coreInputFiles=%shCore%\src\shady-core.cpp
 set coreCompilerOptions=%com_opt% %config_opt% %symbols%
 set coreLinkOptions=/NOLOGO /IGNORE:4099
 
+REM Slnady add all project files to sln
+Slnady \shady-core\sh_debug\shady-core.sln
+
 if /I "%configuration%"=="SH_DEBUG" (
 	pushd %shCore%\sh_debug
 	set coreLinkOptions=%coreLinkOptions% /NODEFAULTLIB:libcmt

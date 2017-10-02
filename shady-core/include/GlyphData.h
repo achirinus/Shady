@@ -1,7 +1,7 @@
 #ifndef SH_GLYPH_DATA_H
 #define SH_GLYPH_DATA_H
 
-#include "ShadyTypes.h"
+#include "ShTypes.h"
 #include "Texture.h"
 
 namespace Shady

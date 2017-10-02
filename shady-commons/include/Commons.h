@@ -5,9 +5,9 @@
 #include <cstdlib>
 #include <intrin.h>
 #include <cstdio>
-#include "ShadyTypes.h"
+#include "ShTypes.h"
 #include "ConsoleOut.h"
-#include "ShadyAssert.h"
+#include "ShAssert.h"
 namespace Shady
 {
 
