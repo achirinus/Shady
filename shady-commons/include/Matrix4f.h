@@ -37,6 +37,7 @@ namespace Shady
 		Matrix4f& rotZ(f32 rad);
 		String toString();
 		void transpose();
+		b8 isColumnMajor();
 	};
 }
 

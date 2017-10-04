@@ -19,8 +19,8 @@ SET shCoreInclude=%shCore%\include
 REM Remove glew after I learn how to load GL functions myself
 SET glewInclude=%depDir%\GLEW\include\GL
 SET stbLib=%depDir%\STB
-
-SET AllDepsInclude=%glewInclude%;%stbLib%
+SET glmInclude=%depDir%\glm
+SET AllDepsInclude=%glewInclude%;%stbLib%;%glmInclude%
 
 
 REM Win include copied from VS proj

@@ -56,6 +56,7 @@ namespace Shady
 		Renderer2D* renderer2d;
 		Font* currentFont;
 
+		Sprite* testSprite;
 		static ShadyApp* getInstance();
 		void start();
 		void update(f32 dt);

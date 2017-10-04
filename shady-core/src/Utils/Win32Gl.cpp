@@ -113,7 +113,10 @@ namespace Shady
 
 				    NULL
 				};
-				glewInit();
+				if(glewInit() != GLEW_OK)
+				{
+					DEBUG_OUT_ERR("Glew failed to init!");
+				}
 				result = wglCreateContextAttribsARB(dc, 0, attributes);
 				if(result) 
 				{

@@ -2,7 +2,6 @@
 
 
 
-
 namespace Shady
 {
 	ShadyApp* ShadyApp::sInstance = 0;
@@ -50,17 +49,13 @@ namespace Shady
 		}
 		auto it = ar.begin();
 		it +=2;
-		Matrix3f tm = 
-		{
-			{1,2,3},
-			{4,5,6},
-			{7,8,9}
-		};
-
-		tm.transpose();
+		Matrix4f tm = Matrix4f::perspective(0, mMainWindow->mWidth,
+											0, mMainWindow->mHeight, 0.1f, 40.0f);
+		Vec4f p1 = {mMainWindow->mWidth/2.0f, mMainWindow->mHeight/2.0f, 1.0f, 1.0f};
+		Vec4f p1t = tm * p1;
 
 		mMainWindow->disableVSync();
-		setFpsLimit(0);
+		setFpsLimit(60);
 		
 		while (mMainWindow->isOpen())
 		{
@@ -94,7 +89,9 @@ namespace Shady
 		mMainWindow->update();
 		fileObserver.update();
 		camera2d->update();
+		//testSprite->update();
 		
+
 		//Fps display
 		char title[250];
 		sprintf_s(title, 250, "FPS: %d", mFps);
@@ -138,7 +135,9 @@ namespace Shady
 													 false, false,
 													 Vec4f(1.0f, 0.0f, 1.0f, 1.0f), 3),
 													10000.0f);
-		
+
+		testSprite = new Sprite({200.0f, 200.0f, -0.2f}, 500.0f, 500.0f, nullptr, {1.0f, 1.0f, 0.0f, 1.0f}, false);
+		renderer2d->submit(testSprite, 10000.0f);
 	}
 
 	void ShadyApp::countFps(f32 dt)

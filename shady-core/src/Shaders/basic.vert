@@ -27,7 +27,9 @@ void main()
 	modelPos =  modelView * modelPos;
 	modelPos = totalMovedMat * modelPos;
 
-	gl_Position = projMat * modelPos;
+	//gl_Position = projMat * modelPos;
+	mat4 fullMat = projMat * viewMat * modelMat;
+	gl_Position = fullMat * position;
 
 	vs_out.vertPos = gl_Position;
 	vs_out.vertColor = vertColor;

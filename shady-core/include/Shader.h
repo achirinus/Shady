@@ -22,9 +22,9 @@ namespace Shady
 	{
 	protected:
 		GLuint mProgram;
-
+		b8 mIsLinked;
 		u32 mAttribIndex;
-		virtual void bindAttribs();
+		virtual void bindAttribs(String& vs);
 
 	public:
 		Shader(const char* shaderName, u32 shaderFlags);
@@ -32,6 +32,7 @@ namespace Shady
 		virtual ~Shader();
 
 		virtual void init(const char* shaderName, u32 shaderFlags);
+		virtual b8 linkProgram(GLuint vert, GLuint frag);
 		virtual void enable();
 		virtual void disable();
 		virtual void setUniform1f(const char* name, float value);
@@ -39,9 +40,8 @@ namespace Shady
 		virtual void setUniform2f(const char* name, const Vec2f& vec2);
 		virtual void setUniform3f(const char* name, const Vec3f& vec3);
 		virtual void setUniform4f(const char* name, const Vec4f& vec4);
-		virtual void setUniformMat4(const char* name, const Matrix4f& mat4);
-
-		virtual void setUniformMat4(const char* name, const f32* mat4);
+		virtual void setUniformMat4(const char* name, Matrix4f& mat4);
+		virtual void setUniformMat4(const char* name, f32* mat4, b8 transpose);
 	};
 
 }

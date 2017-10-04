@@ -4,6 +4,9 @@
 #include "MemUtils.h"
 #define MAT4_DIM 4
 
+#define MAT4_ROW_MAJOR
+//#define MAT4_COL_MAJOR
+
 namespace Shady
 {
 
@@ -54,6 +57,7 @@ namespace Shady
 	Matrix4f Matrix4f::operator*(const Matrix4f& other) const
 	{
 		Matrix4f result;
+
 		for (int i = 0; i < MAT4_DIM; i++)
 		{
 			for (int j = 0; j < MAT4_DIM; j++)
@@ -66,6 +70,8 @@ namespace Shady
 				result.elem[j + MAT4_DIM * i] = sum;
 			}
 		}
+
+
 		return result;
 	}
 
@@ -82,9 +88,17 @@ namespace Shady
 		result[0][0] = 2 / (right - left);
 		result[1][1] = 2 / (top - bottom);
 		result[2][2] = - 2 / (phar - nier);
+
+#ifdef MAT4_COL_MAJOR 
 		result[3][0] = -(right + left) / (right - left);
 		result[3][1] = -(top + bottom) / (top - bottom);
 		result[3][2] = -(phar + nier) / (phar - nier);
+#else
+		result[0][3] = -(right + left) / (right - left);
+		result[1][3] = -(top + bottom) / (top - bottom);
+		result[2][3] = -(phar + nier) / (phar - nier);
+#endif
+
 		return result;
 	}
 
@@ -145,18 +159,30 @@ namespace Shady
 	Matrix4f Matrix4f::translation(float x, float y, float z)
 	{
 		Matrix4f result = Matrix4f::identity();
+#ifdef MAT4_COL_MAJOR
 		result[3][0] = x;
 		result[3][1] = y;
 		result[3][2] = z;
+#else
+		result[0][3] = x;
+		result[1][3] = y;
+		result[2][3] = z;
+#endif
 		return result;
 	}
 
 	Matrix4f Matrix4f::translation(const Vec3f& vec)
 	{
 		Matrix4f result = Matrix4f::identity();
+#ifdef MAT4_COL_MAJOR
 		result[3][0] = vec.x;
 		result[3][1] = vec.y;
 		result[3][2] = vec.z;
+#else
+		result[0][3] = vec.x;
+		result[1][3] = vec.y;
+		result[2][3] = vec.z;
+#endif
 		return result;
 	}
 
@@ -210,24 +236,38 @@ namespace Shady
 	{
 		Matrix4f result{};
 
-		result[0][0] = (2 * nier) /(right - left);
-		result[2][0] = (right - left) / (right - left);
-		result[1][1] = (2 * nier) /(top - bot);
-		result[2][1] = (top + bot) / (top - bot);
+		result[0][0] = (2.0f * nier) /(right - left);
+		result[1][1] = (2.0f * nier) /(top - bot);
 		result[2][2] = -(phar + nier) / (phar - nier);
-		result[3][2] = -(2 * phar * nier) / (phar - nier);
-		result[2][3] = -1;
 
+#ifdef MAT4_COL_MAJOR
+		result[2][0] = (right + left) / (right - left);
+		result[2][1] = (top + bot) / (top - bot);
+		result[3][2] = -(2.0f * phar * nier) / (phar - nier);
+		result[2][3] = -1.0f;
+#else
+		result[0][2] = (right + left) / (right - left);
+		result[1][2] = (top + bot) / (top - bot);
+		result[2][3] = -(2.0f * phar * nier) / (phar - nier);
+		result[3][2] = -1.0f;
+#endif
 		return result;
 	}
 
 	Vec4f Matrix4f::operator*(Vec4f vec)
 	{
 		Vec4f result;
+#ifdef MAT4_ROW_MAJOR
 		result.x = (vec.x * rows[0][0]) + (vec.y * rows[0][1]) + (vec.z * rows[0][2]) + (vec.w * rows[0][3]);
 		result.y = (vec.x * rows[1][0]) + (vec.y * rows[1][1]) + (vec.z * rows[1][2]) + (vec.w * rows[1][3]);
 		result.z = (vec.x * rows[2][0]) + (vec.y * rows[2][1]) + (vec.z * rows[2][2]) + (vec.w * rows[2][3]); 
 		result.w = (vec.x * rows[3][0]) + (vec.y * rows[3][1]) + (vec.z * rows[3][2]) + (vec.w * rows[3][3]);
+#else
+		result.x = (vec.x * rows[0][0]) + (vec.y * rows[1][0]) + (vec.z * rows[2][0]) + (vec.w * rows[3][0]);
+		result.y = (vec.x * rows[0][1]) + (vec.y * rows[1][1]) + (vec.z * rows[2][1]) + (vec.w * rows[3][1]);
+		result.z = (vec.x * rows[0][2]) + (vec.y * rows[1][2]) + (vec.z * rows[2][2]) + (vec.w * rows[3][2]); 
+		result.w = (vec.x * rows[0][3]) + (vec.y * rows[1][3]) + (vec.z * rows[2][3]) + (vec.w * rows[3][3]);
+#endif
 		return result;
 	}
 
@@ -246,4 +286,22 @@ namespace Shady
 	{
 		Shady::transpose(elem, 4);
 	}
-}
+
+	b8 Matrix4f::isColumnMajor()
+	{
+#ifdef MAT4_COL_MAJOR
+		return true;
+#else
+		return false;
+#endif
+	}
+
+} // namespace Shady
+
+#ifdef MAT4_COL_MAJOR
+	#undef MAT4_COL_MAJOR
+#endif
+
+#ifdef MAT4_ROW_MAJOR
+	#undef MAT4_ROW_MAJOR
+#endif
