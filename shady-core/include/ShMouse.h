@@ -42,6 +42,23 @@ namespace Shady
 			}
 			return result;
 		}
+
+		f32 getValue(InputKey key)
+		{
+			f32 result = 0.0f;
+			switch(key)
+			{
+				case MOUSE_X:
+				{
+					result = (f32)xPos;
+				}break;
+				case MOUSE_Y:
+				{
+					result = (f32)yPos;
+				}break;
+			}
+			return result;
+		}
 	};
 }
 

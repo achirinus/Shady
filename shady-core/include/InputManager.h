@@ -30,6 +30,19 @@ namespace Shady
 		b8 keyState;
 	};
 
+	struct AxisValue
+	{
+		InputKey key;
+		f32 scale;
+	};
+
+	struct InputAxis
+	{
+		String name;
+		AxisFunc func;
+		f32 state; //Used only for mouse input
+	};
+
 	class InputManager
 	{
 	private:
@@ -41,13 +54,18 @@ namespace Shady
 		Keyboard* mKeyboard;
 		Mouse* mMouse;
 		MultiMap<String, InputKey> mBMappings;
+		MultiMap<String, List<AxisValue>> mAMappings;
 		List<InputAction> mBoundActions;
+		List<InputAxis> mBoundAxis;
+
 	public:
 		
 		static InputManager* getInstance();
 		void update(f32 dt);
 		void mapAction(const String& name, InputKey key);
 		void bindAction(const String& name, ButtonAction action, ButtonFunc func);
+		void mapAxis(const String& name, InputKey key, f32 scale);
+		void bindAxis(const String& name, AxisFunc func);
 	};
 }
 

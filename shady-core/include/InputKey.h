@@ -5,6 +5,8 @@ namespace Shady
 {
 	enum InputKey
 	{
+		MOUSE_X = 0x03,
+		MOUSE_Y = 0x04,
 		MOUSE_LEFT = 0x05,
 		MOUSE_RIGHT = 0x06,
 		MOUSE_MIDDLE = 0x07,

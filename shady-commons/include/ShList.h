@@ -136,6 +136,40 @@ namespace Shady
 
 	public:
 		List(): mTail{nullptr}, mHead{nullptr}, mSize{0} { }
+		List(const List<T>& other): mTail{nullptr}, mHead{nullptr}, mSize{0}
+		{
+			for(T& elem : other)
+			{
+				pushFront(elem);
+			}
+		}
+		List<T>& operator=(const List<T>& other)
+		{
+			Node* last = mTail;
+			while(last)
+			{
+				Node* temp = last;
+				last = last->next;
+				delete temp;
+			}
+			mSize = 0;
+
+			for(T& elem: other)
+			{
+				pushFront(elem);
+			}
+				
+			return *this;	
+		}
+		List(List<T>&& other)
+		{
+			mTail = other.mTail;
+			mHead = other.mHead;
+			mSize = other.mSize;
+
+			other.mTail = nullptr;
+			other.mHead = nullptr;
+		}
 		~List() 
 		{
 			Node* last = mTail;
@@ -168,6 +202,7 @@ namespace Shady
 			if(!mHead)
 			{
 				mHead = new Node(elem);
+				mTail = mHead;
 			}
 			else
 			{
@@ -259,14 +294,15 @@ namespace Shady
 			return mHead->elem;	
 		}
 
-		ListIterator<T> begin()
+		ListIterator<T> begin() const 
 		{
-			return ListIterator<T>(this, IteratorPosition::BEGIN);
+
+			return ListIterator<T>(const_cast<List<T>*>(this), IteratorPosition::BEGIN);
 		}
 
-		ListIterator<T> end()
+		ListIterator<T> end() const
 		{
-			return ListIterator<T>(this, IteratorPosition::END);
+			return ListIterator<T>(const_cast<List<T>*>(this), IteratorPosition::END);
 		}
 	};
 }
