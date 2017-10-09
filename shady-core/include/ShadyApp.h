@@ -23,7 +23,7 @@
 
 namespace Shady
 {
-	class ShadyApp
+	class ShadyApp : public Object
 	{
 	private:
 		static ShadyApp* sInstance;
@@ -70,6 +70,12 @@ namespace Shady
 		void countUps(f32 dt);
 		s32 getWindowClientWidth();
 		s32 getWindowClientHeight();
+
+
+		//test stuff
+		
+		void testKAxis(f32);
+		void testMAxis(f32);
 
 	};	
 }

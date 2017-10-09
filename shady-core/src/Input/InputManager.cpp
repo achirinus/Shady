@@ -24,11 +24,18 @@ namespace Shady
 		mBMappings.add(name, key);
 	}
 
-	void InputManager::bindAction(const String& name, ButtonAction action, ButtonFunc func)
+	void InputManager::bindAction(const String& name, ButtonAction action, Object* obj, ButtonFunc func)
 	{
 		if(mBMappings.hasKey(name))
 		{
-			mBoundActions.pushBack({name, action, func, false});
+			mBoundActions.pushBack({name, action, obj, func, nullptr, false});
+		}	
+	}
+	void InputManager::bindAction(const String& name, ButtonAction action, ButtonFunc2 func)
+	{
+		if(mBMappings.hasKey(name))
+		{
+			mBoundActions.pushBack({name, action, nullptr, nullptr, func, false});
 		}	
 	}
 	void InputManager::mapAxis(const String& name, InputKey key, f32 scale)
@@ -44,11 +51,19 @@ namespace Shady
 			mAMappings.add(name, vals);
 		}
 	}
-	void InputManager::bindAxis(const String& name, AxisFunc func)
+	void InputManager::bindAxis(const String& name, Object* obj, AxisFunc func)
 	{
 		if(mAMappings.hasKey(name))
 		{
-			mBoundAxis.pushBack({name, func, 0.0f});
+			mBoundAxis.pushBack({name, obj, func, nullptr, 0.0f});
+		}
+	}
+
+	void InputManager::bindAxis(const String& name, AxisFunc2 func)
+	{
+		if(mAMappings.hasKey(name))
+		{
+			mBoundAxis.pushBack({name, nullptr, nullptr, func, 0.0f});
 		}
 	}
 
@@ -76,7 +91,15 @@ namespace Shady
 						if(currentState)
 						{
 							ButtonFunc pFunc = in.func;
-							if(pFunc) pFunc();
+							if(pFunc && in.obj)
+							{
+								(in.obj->*pFunc)();	
+							}
+							else if(in.func2)
+							{
+								in.func2();
+							}
+
 						}
 					}break;
 					case ButtonAction::BA_RELEASED:
@@ -84,7 +107,14 @@ namespace Shady
 						if(!currentState)
 						{
 							ButtonFunc pFunc = in.func;
-							if(pFunc) pFunc();
+							if(pFunc && in.obj)
+							{
+								(in.obj->*pFunc)();	
+							}
+							else if(in.func2)
+							{
+								in.func2();
+							}
 						}
 					}break;
 				}
@@ -105,7 +135,14 @@ namespace Shady
 					f32 currentPos = mMouse->getValue(val.key); 
 					finalValue = (currentPos - in.state) * val.scale;
 					in.state = currentPos;
-					if(pFunc) (pFunc)(finalValue);
+					if(pFunc && in.obj) 
+					{
+						(in.obj->*pFunc)(finalValue);
+					}
+					else if(in.func2)
+					{
+						in.func2(finalValue);
+					}
 				}
 				else
 				{
@@ -117,7 +154,14 @@ namespace Shady
 			}
 			if(finalValue)
 			{
-				if(pFunc) (pFunc)(finalValue);
+				if(pFunc && in.obj) 
+				{
+					(in.obj->*pFunc)(finalValue);
+				}
+				else if(in.func2)
+				{
+					in.func2(finalValue);
+				}
 			}
 		}
 

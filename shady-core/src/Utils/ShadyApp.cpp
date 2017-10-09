@@ -21,12 +21,12 @@ namespace Shady
 		DEBUG_OUT_INFO("changed");
 	}
 
-	void testKAxis(f32 value)
+	void ShadyApp::testKAxis(f32 value)
 	{
 		DEBUG_OUT_INFO("Left: %f", value);
 	}
 
-	void testMAxis(f32 value)
+	void ShadyApp::testMAxis(f32 value)
 	{
 		DEBUG_OUT_INFO("X: %f", value);
 	}
@@ -134,8 +134,8 @@ namespace Shady
 		mInputManager->mapAxis("left", InputKey::KEY_A, -1.0f);
 		mInputManager->mapAxis("left", InputKey::KEY_D, 1.0f);
 		mInputManager->mapAxis("mx", InputKey::MOUSE_X, 1.0f);
-		mInputManager->bindAxis("left", testKAxis);
-		mInputManager->bindAxis("mx", testMAxis);
+		mInputManager->bindAxis("left", this, reinterpret_cast<AxisFunc>(&ShadyApp::testKAxis));
+		mInputManager->bindAxis("mx", this, reinterpret_cast<AxisFunc>(&ShadyApp::testMAxis));
 		camera2d = new Camera2D(Vec3f(0, 0, 0.0f),
 								mMainWindow->mClientWidth, mMainWindow->mClientHeight, 2.0f);
 		renderer2d = new Renderer2D(camera2d);

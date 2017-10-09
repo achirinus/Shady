@@ -7,13 +7,17 @@
 #include "ShString.h"
 #include "ShMultiMap.h"
 #include "ShList.h"
-
+#include "ShObject.h"
 
 namespace Shady
 {
 
-	typedef void (*ButtonFunc)();
-	typedef void (*AxisFunc)(f32 value);
+	typedef void (Object::*ButtonFunc)();
+	typedef void (Object::*AxisFunc)(f32 value);
+
+	//Used for static functions 
+	typedef void (*ButtonFunc2)();
+	typedef void (*AxisFunc2)(f32 value);
 
 	enum ButtonAction
 	{
@@ -26,7 +30,9 @@ namespace Shady
 	{
 		String name;
 		ButtonAction trigger;
+		Object* obj;
 		ButtonFunc func;
+		ButtonFunc2 func2;
 		b8 keyState;
 	};
 
@@ -39,7 +45,9 @@ namespace Shady
 	struct InputAxis
 	{
 		String name;
+		Object* obj;
 		AxisFunc func;
+		AxisFunc2 func2;
 		f32 state; //Used only for mouse input
 	};
 
@@ -63,9 +71,12 @@ namespace Shady
 		static InputManager* getInstance();
 		void update(f32 dt);
 		void mapAction(const String& name, InputKey key);
-		void bindAction(const String& name, ButtonAction action, ButtonFunc func);
+		void bindAction(const String& name, ButtonAction action, Object* obj, ButtonFunc func);
+		void bindAction(const String& name, ButtonAction action, ButtonFunc2 func);
 		void mapAxis(const String& name, InputKey key, f32 scale);
-		void bindAxis(const String& name, AxisFunc func);
+		void bindAxis(const String& name, Object* obj, AxisFunc func);
+		void bindAxis(const String& name, AxisFunc2 func);
+
 	};
 }
 
