@@ -1,69 +1,77 @@
 #ifndef SH_QUEUE_H
 #define SH_QUEUE_H
 
+#include <Commons.h>
+
 namespace Shady
 {
 	template<typename T>
-	struct Node
+	struct QNode
 	{
-		Node<T>* before;
-		T* elem;
-		Node<T>* after;
+		T elem;
+		QNode* next;
+		QNode* back;
+		QNode() = default;
+		QNode(T e, QNode<T>* n = nullptr, QNode<T>* b = nullptr): elem{e}, next{n}, back{b} {}
 	};
 	template<typename T>
 	class Queue
 	{
-		Node<T>* mLast;
+		typedef QNode<T> Node;
+
+		Node* mTail;
+		Node* mHead;
 		u32 mSize;
+
+
 	public:
-		Queue(): mLast(nullptr), mSize(0) {}
+		Queue(): mTail(nullptr), mHead(nullptr), mSize(0) {}
 		~Queue()
 		{
-			while(mLast)
+			Node* last = mTail;
+			while(last)
 			{
-				Node<T>* temp = mLast;
-				mLast = mLast->before;
+				Node* temp = last;
+				last = last->next;
 				delete temp;
 			}
 		} 
 
-		void push(T* elem)
+		void push(T elem)
 		{
-			if(!mLast)
+			if(!mTail)
 			{
-				mLast = new Node<T>();
-				mLast->elem = elem;
-
+				mTail = new Node(elem);
+				mHead = mTail;
 			}
 			else
 			{
-				mLast->after = new Node<T>();
-				mLast->after->before = mLast;
-				mLast->after->elem = elem;
-				mLast = mLast->after;
+				Node* temp = new Node(elem, mTail);
+				mTail->back = temp;
+				mTail = temp;
 			}
 			mSize++;
 		}
 
-		T* pop()
+		T pop()
 		{
-			T* result = nullptr;
-			if(mLast)
-			{
-				result = mLast->elem;
-				Node<T>* temp = mLast;
-				if(mLast->before)
-				{
-					mLast = mLast->before;
-					mLast->after = nullptr;
-				}
-				else
-				{
-					mLast = nullptr;
-				}
-				delete temp;
-			}
+			SH_ASSERT(mSize > 0);
+
+			T result = mHead->elem;
 			
+			Node* temp = mHead; 
+			mHead = temp->back;
+			if(mHead)
+			{
+				mHead->next = nullptr;	
+			}
+			else
+			{
+				mTail = mHead;
+			} 
+			delete temp;
+
+			mSize--;
 			return result;
 		}
 

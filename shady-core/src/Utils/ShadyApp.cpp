@@ -26,7 +26,7 @@ namespace Shady
 		mMainWindow = new Win32Window();
 		mMouse = Mouse::getInstance();
 		mKeyboard = Keyboard::getInstance();
-		
+		mInputManager = InputManager::getInstance();
 		initGameState();
 		//Texture* b = win32GetGlyphTexture('A');
 		/*
@@ -47,13 +47,7 @@ namespace Shady
 		{
 			DEBUG_OUT_INFO("%d ", elem);
 		}
-		auto it = ar.begin();
-		it +=2;
-		Matrix4f tm = Matrix4f::perspective(0, mMainWindow->mWidth,
-											0, mMainWindow->mHeight, 0.1f, 40.0f);
-		Vec4f p1 = {mMainWindow->mWidth/2.0f, mMainWindow->mHeight/2.0f, 1.0f, 1.0f};
-		Vec4f p1t = tm * p1;
-
+		
 		mMainWindow->disableVSync();
 		setFpsLimit(60);
 		
@@ -87,6 +81,7 @@ namespace Shady
 		mUpdateTimer.update();
 
 		mMainWindow->update();
+		mInputManager->update(dt);
 		fileObserver.update();
 		camera2d->update();
 		//testSprite->update();
@@ -124,7 +119,8 @@ namespace Shady
 	{
 		File::setCwd("..\\..\\"); //CWD = Main Shady folder
 		//TODO put these in their arena and take care of cleanup
-		
+		mInputManager->mapAction("test", InputKey::MOUSE_LEFT);
+		mInputManager->bindAction("test", BA_PRESSED, testCb);
 		camera2d = new Camera2D(Vec3f(0, 0, 0.0f),
 								mMainWindow->mClientWidth, mMainWindow->mClientHeight, 2.0f);
 		renderer2d = new Renderer2D(camera2d);

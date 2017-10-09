@@ -17,8 +17,9 @@ namespace Shady
 	void Renderer2D::render(f32 dt)
 	{
 			
-		while(Renderable2D* sprite = mSprites.pop())
+		while(mSprites.size())
 		{
+			Renderable2D* sprite = mSprites.pop();
 			for(s32 index = 0; index < sprite->mShaders.size(); index++)
 			{
 				sprite->mShaders[index]->enable();

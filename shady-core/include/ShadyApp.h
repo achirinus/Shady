@@ -19,6 +19,7 @@
 #include "ShMath.h"
 #include "FileUtils.h"
 #include "Graphics.h"
+#include "InputManager.h"
 
 namespace Shady
 {
@@ -36,6 +37,7 @@ namespace Shady
 		Window* mMainWindow;
 		Mouse* mMouse;
 		Keyboard* mKeyboard;
+		InputManager* mInputManager;
 		Timer mFrameTimer;
 		Timer mUpdateTimer;
 		FileChangeObserver fileObserver;

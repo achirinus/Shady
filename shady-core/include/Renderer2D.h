@@ -11,7 +11,7 @@ namespace Shady
 	class Renderer2D
 	{
 	private:
-		Queue<Renderable2D> mSprites;
+		Queue<Renderable2D*> mSprites;
 		Array<Renderable2D*> mLifeTimeSprites;
 		Camera2D* mCamera;
 		

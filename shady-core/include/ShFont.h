@@ -1,7 +1,7 @@
 #ifndef SH_FONT_H
 #define SH_FONT_H
 
-#include "ShMap.h"
+#include "ShMultiMap.h"
 #include "Texture.h"
 #define STB_TRUETYPE_IMPLEMENTATION
 #include "stb_truetype.h"
@@ -20,7 +20,7 @@ namespace Shady
 	class Font
 	{
 	private:
-		Map<c8, GlyphData> mGlyphs;
+		MultiMap<c8, GlyphData> mGlyphs;
 		stbtt_fontinfo mFontInfo;
 
 		Texture* STBgetGlyphTexture(stbtt_fontinfo* fontInfo, c8 cp,

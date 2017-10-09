@@ -2,7 +2,7 @@
 #define SHADY_MOUSE_H
 
 #include "Commons.h"
-
+#include "InputKey.h"
 namespace Shady
 {
 	class Mouse
@@ -21,6 +21,27 @@ namespace Shady
 		b32 m3;
 		b32 m4;
 		b32 m5;
+
+		b8 getState(InputKey key)
+		{
+			b8 result = false;
+			switch(key)
+			{
+				case MOUSE_LEFT:
+				{
+					result = (b8)m1;
+				}break;
+				case MOUSE_RIGHT:
+				{
+					result = (b8)m2;
+				}break;
+				case MOUSE_MIDDLE:
+				{
+					result = (b8)m3;
+				}break;
+			}
+			return result;
+		}
 	};
 }
 

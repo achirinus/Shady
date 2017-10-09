@@ -14,11 +14,11 @@
 #include "Utils/Win32GL.cpp"
 #include "Utils/Win32Window.cpp"
 #include "Utils/Timer.cpp"
-#include "Utils/ShMouse.cpp"
-#include "Utils/ShKeyboard.cpp"
 #include "Utils/ModelLoader.cpp"
 #include "Utils/ShadyApp.cpp"
-
+#include "Input/ShMouse.cpp"
+#include "Input/ShKeyboard.cpp"
+#include "Input/InputManager.cpp"
 #include "Main.cpp"
 
 

@@ -3,7 +3,6 @@
 
 #include "ShAssert.h"
 #include "ShTypes.h"
-#include "ShMap.h"
 #include "ShArray.h"
 #include "ShString.h"
 #include "Windows.h"

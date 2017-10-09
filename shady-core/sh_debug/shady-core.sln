@@ -22,11 +22,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 ..\src\Utils\Win32Gl.cpp = ..\src\Utils\Win32Gl.cpp
 ..\src\Utils\Timer.cpp = ..\src\Utils\Timer.cpp
 ..\src\Utils\ShMouse.cpp = ..\src\Utils\ShMouse.cpp
-..\src\Utils\ShKeyboard.cpp = ..\src\Utils\ShKeyboard.cpp
 ..\src\Utils\ShadyApp.cpp = ..\src\Utils\ShadyApp.cpp
 ..\src\Utils\ModelLoader.cpp = ..\src\Utils\ModelLoader.cpp
 ..\src\shady-core.cpp = ..\src\shady-core.cpp
 ..\src\Main.cpp = ..\src\Main.cpp
+..\src\Input\ShMouse.cpp = ..\src\Input\ShMouse.cpp
+..\src\Input\ShKeyboard.cpp = ..\src\Input\ShKeyboard.cpp
+..\src\Input\InputManager.cpp = ..\src\Input\InputManager.cpp
 ..\src\Graphics\Texture.cpp = ..\src\Graphics\Texture.cpp
 ..\src\Graphics\Text2D.cpp = ..\src\Graphics\Text2D.cpp
 ..\src\Graphics\Sprite.cpp = ..\src\Graphics\Sprite.cpp
@@ -59,6 +61,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 ..\include\ModelLoader.h = ..\include\ModelLoader.h
 ..\include\Mesh.h = ..\include\Mesh.h
 ..\include\Line2D.h = ..\include\Line2D.h
+..\include\InputManager.h = ..\include\InputManager.h
+..\include\InputKey.h = ..\include\InputKey.h
 ..\include\Graphics.h = ..\include\Graphics.h
 ..\include\GlyphData.h = ..\include\GlyphData.h
 ..\include\Glyph.h = ..\include\Glyph.h
@@ -86,8 +90,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 ..\..\shady-commons\include\ShTypes.h = ..\..\shady-commons\include\ShTypes.h
 ..\..\shady-commons\include\ShString.h = ..\..\shady-commons\include\ShString.h
 ..\..\shady-commons\include\ShQueue.h = ..\..\shady-commons\include\ShQueue.h
+..\..\shady-commons\include\ShMultiMap.h = ..\..\shady-commons\include\ShMultiMap.h
 ..\..\shady-commons\include\ShMath.h = ..\..\shady-commons\include\ShMath.h
-..\..\shady-commons\include\ShMap.h = ..\..\shady-commons\include\ShMap.h
+..\..\shady-commons\include\ShList.h = ..\..\shady-commons\include\ShList.h
 ..\..\shady-commons\include\ShIterator.h = ..\..\shady-commons\include\ShIterator.h
 ..\..\shady-commons\include\ShAssert.h = ..\..\shady-commons\include\ShAssert.h
 ..\..\shady-commons\include\ShArray.h = ..\..\shady-commons\include\ShArray.h
@@ -112,4 +117,4 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
-ommon Files\Intel\Shared Libraries\)\Skype\Phone\;C:\Users\ALIN\AppData\Local\Microsoft\WindowsApps;C:\Program Files (x86)\Microsoft Visual Studio 14.0\CoŸÁ×M=oft Visual Studio 14.0\VC\atlmfc\include;C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt;C:\Progrx´s{ÛwUARGS=/Icon "D:\Program Files\Cmder\icons\cmder.ico" /Title CmderFilesC:RE=64=C:ogram Files\Cmder\vendor\conemu-maximus5maximus5les (x86)\Common Files\Intel\Shared Libraries\braries\RING=Internet Exploreram Files\Git\usr\share\vim\vim74;D:\Program Files\Cmder\;C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\I9ûÒŸQles (x86)\Common Files\Intel\Shared Libraries\115x33)shady-corex1000 (115x33)=.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSCWSH;.MSC
+Nx86)\Microsoft Visual Studio 14.0\Common7\IDE;C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDEGit\usr\share\vim\vim74;D:\Program Files\Cmder\;C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE;C:\Progr€rí

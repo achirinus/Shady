@@ -174,18 +174,21 @@ namespace Shady
 	}
 	String& String::operator+=(const c8* str)
 	{
-		u32 len = strLength(str);
-		if(len > 0)
+		if(str)
 		{
-			mBufferSize = mBufferSize + len;
-			c8* temp = new c8[mBufferSize];
-			c8* tempBuffer = temp;
-			c8* tempMBuffer = mBuffer;
-			while(*tempMBuffer) *tempBuffer++ = *tempMBuffer++;
-			while(*str) *tempBuffer++ = *str++;
-			(*tempBuffer)	= '\0';
-			delete[] mBuffer;
-			mBuffer = temp;
+			u32 len = strLength(str);
+			if(len > 0)
+			{
+				mBufferSize = mBufferSize + len;
+				c8* temp = new c8[mBufferSize];
+				c8* tempBuffer = temp;
+				c8* tempMBuffer = mBuffer;
+				while(*tempMBuffer) *tempBuffer++ = *tempMBuffer++;
+				while(*str) *tempBuffer++ = *str++;
+				(*tempBuffer)	= '\0';
+				delete[] mBuffer;
+				mBuffer = temp;
+			}
 		}
 		return *this;
 	}

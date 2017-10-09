@@ -148,12 +148,12 @@ namespace Shady
 			case WM_KEYDOWN:
 			{
 				Keyboard* keyboard = Keyboard::getInstance();
-				keyboard->set((Shady::Key)wParam, true);
+				keyboard->set((Shady::InputKey)wParam, true);
 			}break;
 			case WM_KEYUP:
 			{
 				Keyboard* keyboard = Keyboard::getInstance();
-				keyboard->set((Shady::Key)wParam, false);
+				keyboard->set((Shady::InputKey)wParam, false);
 			}break;
 			default:
 			{
