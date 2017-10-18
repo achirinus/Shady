@@ -53,14 +53,14 @@ namespace Shady
 					{
 						u32 posIndex = (u32)(indices[0].tos32() - 1);
 						//vertices.add({pos[posIndex], {}, {}});
-						vertices.add({pos[posIndex]});
+						vertices.add(pos[posIndex]);
 					}
 					if(indices.size() == 2)
 					{
 						u32 posIndex = (u32)(indices[0].tos32() - 1);
 						u32 texIndex = (u32)(indices[1].tos32() - 1);
 						//vertices.add({pos[posIndex], {}, texCoord[texIndex]});
-						vertices.add({pos[posIndex]});
+						vertices.add(pos[posIndex]);
 					}
 					if(indices.size() == 3)
 					{
@@ -71,12 +71,12 @@ namespace Shady
 						{
 							u32 texIndex = (u32)(indices[1].tos32() - 1);	
 							//vertices.add({pos[posIndex], norm[normIndex], texCoord[texIndex]});
-							vertices.add({pos[posIndex]});
+							vertices.add(pos[posIndex]);
 						}
 						else
 						{
 							//vertices.add({pos[posIndex], norm[normIndex], {}});	
-							vertices.add({pos[posIndex]});	
+							vertices.add(pos[posIndex]);	
 						} 
 						
 					}

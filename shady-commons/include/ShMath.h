@@ -12,6 +12,8 @@
 #define SH_PI 3.141592f
 namespace Shady
 {	
+	#define cArrayCount(x) (sizeof(x) / sizeof(x[0]))
+
 	s32 absolute(s32 a);
 	f32 absolute(f32 a);	
 	

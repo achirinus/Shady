@@ -132,7 +132,20 @@ namespace Shady
 		{
 			mBuffer = new T[mBufferSize];
 		}
-
+		Array(T* first, u32 num): mBufferSize{0}, mNumOfElem{0}, mBuffer{nullptr}
+		{
+			if(num && first)
+			{
+				
+				mBufferSize = num;
+				mNumOfElem = num;
+				mBuffer = new T[mBufferSize];
+				for(u32 i = 0; i < num; i++)
+				{
+					mBuffer[i] = first[i];
+				}	
+			}
+		}
 		Array(std::initializer_list<T> list)
 		{
 			mBufferSize = list.size();
@@ -226,6 +239,18 @@ namespace Shady
 				mBuffer[mNumOfElem-1] = elem;
 			}
 		}
+		void add(const Array<T>& other)
+		{
+			for(u32 i = 0; i < other.size(); i++)
+			{
+				add(other[i]);
+			}
+		}
+		void add(T* first, u32 num)
+		{
+			Array<T> temp{first, num};
+			add(temp);
+		}
 		void insert(T elem, u32 index)
 		{
 			SH_ASSERT(index > 0);
@@ -304,6 +329,13 @@ namespace Shady
 			SH_ASSERT((index >= 0) && (index < mNumOfElem));
 			return mBuffer[index];
 		}
+
+		const T& operator[](s32 index) const
+		{
+			SH_ASSERT((index >= 0) && (index < mNumOfElem));
+			return mBuffer[index];
+		}
+
 		Array<T>& operator=(const Array<T>& other)
 		{
 			Array<T> result{other};

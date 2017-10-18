@@ -32,6 +32,7 @@ namespace Shady
 			3,6,7
 		};
 
+		mIndices.add(verts, cArrayCount(verts));
 		mShader = new Shader("cube", SH_VERTEX_SHADER | SH_FRAGMENT_SHADER);
 
 		glGenVertexArrays(1, &mVAO);
