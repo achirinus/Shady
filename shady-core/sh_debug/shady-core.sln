@@ -34,13 +34,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 ..\src\Graphics\Sprite.cpp = ..\src\Graphics\Sprite.cpp
 ..\src\Graphics\ShFont.cpp = ..\src\Graphics\ShFont.cpp
 ..\src\Graphics\Shader.cpp = ..\src\Graphics\Shader.cpp
+..\src\Graphics\Renderer3D.cpp = ..\src\Graphics\Renderer3D.cpp
 ..\src\Graphics\Renderer2D.cpp = ..\src\Graphics\Renderer2D.cpp
 ..\src\Graphics\Primitives\Rectangle.cpp = ..\src\Graphics\Primitives\Rectangle.cpp
 ..\src\Graphics\Primitives\Line2D.cpp = ..\src\Graphics\Primitives\Line2D.cpp
+..\src\Graphics\Primitives\Cube.cpp = ..\src\Graphics\Primitives\Cube.cpp
 ..\src\Graphics\Mesh.cpp = ..\src\Graphics\Mesh.cpp
 ..\src\Graphics\Line2D.cpp = ..\src\Graphics\Line2D.cpp
 ..\src\Graphics\Graphics.cpp = ..\src\Graphics\Graphics.cpp
 ..\src\Graphics\Glyph.cpp = ..\src\Graphics\Glyph.cpp
+..\src\Graphics\Camera3D.cpp = ..\src\Graphics\Camera3D.cpp
 ..\src\Graphics\Camera2D.cpp = ..\src\Graphics\Camera2D.cpp
 ..\include\Window.h = ..\include\Window.h
 ..\include\Win32Window.h = ..\include\Win32Window.h
@@ -56,7 +59,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 ..\include\ShadyGL.h = ..\include\ShadyGL.h
 ..\include\ShadyApp.h = ..\include\ShadyApp.h
 ..\include\Shader.h = ..\include\Shader.h
+..\include\Renderer3D.h = ..\include\Renderer3D.h
 ..\include\Renderer2D.h = ..\include\Renderer2D.h
+..\include\Renderable3D.h = ..\include\Renderable3D.h
 ..\include\Renderable2D.h = ..\include\Renderable2D.h
 ..\include\Rectangle.h = ..\include\Rectangle.h
 ..\include\ModelLoader.h = ..\include\ModelLoader.h
@@ -67,6 +72,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 ..\include\Graphics.h = ..\include\Graphics.h
 ..\include\GlyphData.h = ..\include\GlyphData.h
 ..\include\Glyph.h = ..\include\Glyph.h
+..\include\Cube.h = ..\include\Cube.h
+..\include\Camera3D.h = ..\include\Camera3D.h
 ..\include\Camera2D.h = ..\include\Camera2D.h
 ..\include\Bitmap.h = ..\include\Bitmap.h
 ..\..\shady-commons\src\Utils\ComFuncs.cpp = ..\..\shady-commons\src\Utils\ComFuncs.cpp
@@ -118,4 +125,4 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
-clude2=C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\atlmfc\includeNG=Internet Explorer_debugrogram Files (x86)\Microsoft Visual Studio 14.0\VC\includerosoft Visual Studio 14.0\VC\atlmfc\includerogram Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrtes\Common Files\Autodesk Shared\;D:\Program Files\Sublime Text 3;C:\Program Files\Perforce;C:\MinGW\bin;C:\Program Files ó–ˆi.1\Include\sharedde6=C:\Program Files (x86)\Windows Kits\8.1\Include\winrt:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrtlude\um\gl:\Program Files (x86)\Microsoft Visual Studio 14.0umE=C:mmon7\IDE\denenv.exet\;C:\Program Files (x86)\LLVM\bin;C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin;C:\Program Files\WinRAR;D:\wo;’“Ü\Phone\;C:\Users\ALIN\AppData\Local\Microsoft\WindowsApps;C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE;'róóÈZl Studio 14.0\Common7\IDE;D:\workspace\Shady\scripts;C:\Program Files\MySQL\MySQL Server 5.7\bin;D:\Program Files\Cmder;C:€Bq×æbicrosoft Visual Studio 14.0\Common7\IDEam Files\WinRARo 14.0\Common7\IDE;D:\workspace\Shady\scripts;C:\Program Files\MySQL\MySQL Server 5.7\bin;D:\Program Files\Cmder;C:\Users\AL²îy–š‚mon7\IDE;D:\workspace\Shady\scripts;C:\Program Files\MySQL\MySQL Server 5.m FilesNTIFIER=Intel64 Family 6 Model 94 Stepping 3, GenuineIntellib\10.0.10240.0\ucrt\x86;C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x86;C:\Program Files (x86)\Windows Kits\NETFXSSXï6ILE=C:\ProgramDataBE;.JS;.JSE;.WSF;.WSH;.MSC:\Program Files\Cmder\bin;D:\Program Files\Cmder\vendor\conemu-maximus5\ConEmu\Scripts;D:\Program Files\Cmder\vendor\conemu-mam6ûÎH=D:\Program Files\Cmder\bin;D:\Program Files\Cmder\vendor\conemu-maximus5\ConEmu\Scripts;D:\Program Files\Cmder\vendor\co›^›‰¬Õtel\Shared Libraries\redist\intel64\compiler;C:\Program Files\Broadcom\Broadcom 802.11 Network Adapter;C:\Windows\system32ý=j&(iles\Intel\Shared Libraries\redist\intel64\compiler;C:\Program Files\Broadcom\Broadcom 802.11 Network Adapter;C:\Windows\söÕJHme Text 3;C:\Program Files\Perforce;C:\MinGW\bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\G!”áp];C:\Program Files\Java\jdk1.8.0_111\bin;D:\workspace\DailyLog\Release;C:\Program Files (x86)\Windows Kits\10\Windows PerfoZ34->ê:\Program Files\Git\cmd;C:\Program Files\Java\jdk1.8.0_111\bin;D:\workspace\DailyLog\Release;C:\Program Files (x86)\Window…S‘6Þºlease;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Program Files (x86)\LLVM\bin;C:\Program Files“³ÝIées (x86)\Microsoft Visual Studio 14.0\Common7\IDE;D:\workspace\Shady\scripts;C:\Program Files\MySQL\MySQL Server 5.7\bin;DŒ;wŠë 5.7\bin;D:\Program Files\Cmder;C:\Users\ALIN\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Git\usr\bin;C:\Program Ìë”—aÔt Visual Studio 14.0\VC\bin;C:\Program Files\WinRAR;D:\workspace\ProjUtils\Release;C:\Program Files (x86)\Skype\Phone\;C:\ÅŠ“ï"
+C:\Program Files (x86)\Common Files

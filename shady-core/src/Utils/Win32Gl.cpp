@@ -49,6 +49,7 @@ namespace Shady
 			case GL_STACK_OVERFLOW:
 			{
 				DEBUG_OUT_ERR("OpenGl stack overflow error this frame!");
+				
 			}break;
 		}
 	}
@@ -117,7 +118,7 @@ namespace Shady
 				{
 					DEBUG_OUT_ERR("Glew failed to init!");
 				}
-				result = wglCreateContextAttribsARB(dc, 0, attributes);
+				result = wglCreateContextAttribsARB(dc, tempRc, attributes);
 				if(result) 
 				{
 					if(wglMakeCurrent(dc, NULL) == FALSE)
@@ -149,6 +150,9 @@ namespace Shady
 		}
 		return result;
 	}
+
+
+
 
 	
 	

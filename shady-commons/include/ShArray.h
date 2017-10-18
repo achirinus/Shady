@@ -3,6 +3,8 @@
 
 #include <Commons.h>
 #include <ShIterator.h>
+#include <initializer_list>
+
 namespace Shady
 {
 	template<typename T>
@@ -130,6 +132,19 @@ namespace Shady
 		{
 			mBuffer = new T[mBufferSize];
 		}
+
+		Array(std::initializer_list<T> list)
+		{
+			mBufferSize = list.size();
+			mNumOfElem = mBufferSize;
+			mBuffer = new T[mBufferSize];
+			auto it = list.begin();
+			for(u32 i = 0; i < mNumOfElem; i++, it++)
+			{
+				mBuffer[i] = *it;
+			}
+		}
+
 		Array(Array<T>&& other)
 		{
 			mBufferSize = other.mBufferSize;
@@ -293,6 +308,20 @@ namespace Shady
 		{
 			Array<T> result{other};
 			return result;
+		}
+
+		T* getPointer()
+		{
+			T* result = nullptr;
+			if(mBufferSize > 0) result = &mBuffer[0];
+			return result;
+		}
+
+		const T* getPointer() const 
+		{
+			T* result = nullptr;
+			if(mBufferSize > 0) result = &mBuffer[0];
+			return restult;
 		}
 
 	};

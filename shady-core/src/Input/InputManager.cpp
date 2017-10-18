@@ -24,18 +24,20 @@ namespace Shady
 		mBMappings.add(name, key);
 	}
 
-	void InputManager::bindAction(const String& name, ButtonAction action, Object* obj, ButtonFunc func)
+	void InputManager::bindAction(const String& name, ButtonAction action, Object* obj, ButtonFunc func, f32 time)
 	{
 		if(mBMappings.hasKey(name))
 		{
-			mBoundActions.pushBack({name, action, obj, func, nullptr, false});
+			InputAction temp(name, action, obj, func, time);
+			mBoundActions.pushBack(temp);
 		}	
 	}
-	void InputManager::bindAction(const String& name, ButtonAction action, ButtonFunc2 func)
+	void InputManager::bindAction(const String& name, ButtonAction action, ButtonFunc2 func, f32 time)
 	{
 		if(mBMappings.hasKey(name))
 		{
-			mBoundActions.pushBack({name, action, nullptr, nullptr, func, false});
+			InputAction temp(name, action, func, time);
+			mBoundActions.pushBack(temp);
 		}	
 	}
 	void InputManager::mapAxis(const String& name, InputKey key, f32 scale)
@@ -51,19 +53,21 @@ namespace Shady
 			mAMappings.add(name, vals);
 		}
 	}
-	void InputManager::bindAxis(const String& name, Object* obj, AxisFunc func)
+	void InputManager::bindAxis(const String& name, Object* obj, AxisFunc func, f32 time)
 	{
 		if(mAMappings.hasKey(name))
 		{
-			mBoundAxis.pushBack({name, obj, func, nullptr, 0.0f});
+			InputAxis temp(name, obj, func, time);
+			mBoundAxis.pushBack(temp);
 		}
 	}
 
-	void InputManager::bindAxis(const String& name, AxisFunc2 func)
+	void InputManager::bindAxis(const String& name, AxisFunc2 func, f32 time)
 	{
 		if(mAMappings.hasKey(name))
 		{
-			mBoundAxis.pushBack({name, nullptr, nullptr, func, 0.0f});
+			InputAxis temp(name, func, time);
+			mBoundAxis.pushBack(temp);
 		}
 	}
 
@@ -72,6 +76,8 @@ namespace Shady
 	
 		for(InputAction& in : mBoundActions)
 		{
+			b8 canProc = false;
+			b8 completed = false;
 			InputKey key = mBMappings[in.name];
 			b8 currentState = false;
 			if(key <= InputKey::MOUSE_MIDDLE)
@@ -82,7 +88,37 @@ namespace Shady
 			{
 				currentState = mKeyboard->isPressed(key);
 			}
-			if(currentState != in.keyState)
+			if(in.timeToProc > 0.0f)
+			{
+				if(in.isTimed)
+				{
+					in.timePassed += dt;
+					if(currentState != in.keyState)
+					{
+						in.isTimed = false;
+						in.timePassed = 0.0f;
+						canProc = true;
+					}
+					else if((in.timePassed / 1000.0f) >= in.timeToProc)
+					{
+						in.timePassed = 0.0f;
+						in.isTimed = false;
+						canProc = true;
+						completed = true;
+					}
+				}
+				else
+				{
+					canProc = true;
+				}	
+			}
+			else
+			{
+				canProc = (currentState != in.keyState);
+				completed = true;
+			}
+			
+			if(canProc)
 			{
 				switch(in.trigger)
 				{
@@ -90,31 +126,28 @@ namespace Shady
 					{
 						if(currentState)
 						{
-							ButtonFunc pFunc = in.func;
-							if(pFunc && in.obj)
+							if(completed)
 							{
-								(in.obj->*pFunc)();	
+								runAction(in);
 							}
-							else if(in.func2)
+							else
 							{
-								in.func2();
+								in.isTimed = true;
 							}
-
 						}
 					}break;
 					case ButtonAction::BA_RELEASED:
 					{
 						if(!currentState)
 						{
-							ButtonFunc pFunc = in.func;
-							if(pFunc && in.obj)
-							{
-								(in.obj->*pFunc)();	
-							}
-							else if(in.func2)
-							{
-								in.func2();
-							}
+							runAction(in);
+						}
+					}break;
+					case ButtonAction::BA_CLICKED:
+					{
+						if(!currentState)
+						{
+							runAction(in);
 						}
 					}break;
 				}
@@ -126,7 +159,7 @@ namespace Shady
 		{
 			List<AxisValue>& vals = mAMappings[in.name];
 			f32 finalValue = 0.0f;
-			AxisFunc pFunc = in.func;
+			
 
 			for(AxisValue& val : vals)
 			{
@@ -135,14 +168,7 @@ namespace Shady
 					f32 currentPos = mMouse->getValue(val.key); 
 					finalValue = (currentPos - in.state) * val.scale;
 					in.state = currentPos;
-					if(pFunc && in.obj) 
-					{
-						(in.obj->*pFunc)(finalValue);
-					}
-					else if(in.func2)
-					{
-						in.func2(finalValue);
-					}
+					runAxis(in, finalValue);
 				}
 				else
 				{
@@ -154,16 +180,35 @@ namespace Shady
 			}
 			if(finalValue)
 			{
-				if(pFunc && in.obj) 
-				{
-					(in.obj->*pFunc)(finalValue);
-				}
-				else if(in.func2)
-				{
-					in.func2(finalValue);
-				}
+				runAxis(in, finalValue);
 			}
 		}
 
 	}
-}
+
+	void InputManager::runAction(InputAction& in)
+	{
+		ButtonFunc pFunc = in.func;
+		if(pFunc && in.obj)
+		{
+			(in.obj->*pFunc)();	
+		}
+		else if(in.func2)
+		{
+			in.func2();
+		}
+	}
+	void InputManager::runAxis(InputAxis& in, f32 val)
+	{
+		AxisFunc pFunc = in.func;
+		if(pFunc && in.obj) 
+		{
+			(in.obj->*pFunc)(val);
+		}
+		else if(in.func2)
+		{
+			in.func2(val);
+		}
+	}
+
+}//namespace Shady

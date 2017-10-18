@@ -23,7 +23,8 @@ namespace Shady
 	{
 		BA_INVALID,
 		BA_PRESSED,
-		BA_RELEASED
+		BA_RELEASED,
+		BA_CLICKED
 	};
 
 	struct InputAction
@@ -33,13 +34,19 @@ namespace Shady
 		Object* obj;
 		ButtonFunc func;
 		ButtonFunc2 func2;
+		f32 timeToProc;
+		f32 timePassed;
 		b8 keyState;
-	};
+		b8 isTimed;
+		InputAction(String n, ButtonAction t, Object* o, ButtonFunc f, f32 ttp = 0.0f):
+					name{n}, trigger{t}, obj{o}, func{f}, func2{nullptr},
+					timeToProc{ttp}, timePassed{0.0f}, keyState{false}, isTimed{false} 
+					{}
+		InputAction(String n, ButtonAction t, ButtonFunc2 f, f32 ttp = 0.0f):
+					name{n}, trigger{t}, obj{nullptr}, func{nullptr}, func2{f},
+					timeToProc{ttp}, timePassed{0.0f}, keyState{false}, isTimed{false}
+					{}
 
-	struct AxisValue
-	{
-		InputKey key;
-		f32 scale;
 	};
 
 	struct InputAxis
@@ -48,8 +55,28 @@ namespace Shady
 		Object* obj;
 		AxisFunc func;
 		AxisFunc2 func2;
+		f32 timeToProc;
+		f32 timePassed;
 		f32 state; //Used only for mouse input
+
+		InputAxis(String n, Object* o, AxisFunc f, f32 ttp = 0.0f):
+				 name{n}, obj{o}, func{f}, func2{nullptr}, timeToProc{ttp},
+				 timePassed{0.0f}, state{0.0f}
+				 {}
+		InputAxis(String n, AxisFunc2 f, f32 ttp = 0.0f):
+				 name{n}, obj{nullptr}, func{nullptr}, func2{f}, timeToProc{ttp},
+				 timePassed{0.0f}, state{0.0f}
+				 {}
+
 	};
+
+	struct AxisValue
+	{
+		InputKey key;
+		f32 scale;
+	};
+
+	
 
 	class InputManager
 	{
@@ -59,6 +86,10 @@ namespace Shady
 		InputManager(const InputManager& other) = delete;
 		InputManager(const InputManager&& other) = delete;
 		InputManager operator=(const InputManager& other) = delete;
+
+		void runAction(InputAction& in);
+		void runAxis(InputAxis& in, f32 val);
+
 		Keyboard* mKeyboard;
 		Mouse* mMouse;
 		MultiMap<String, InputKey> mBMappings;
@@ -71,11 +102,11 @@ namespace Shady
 		static InputManager* getInstance();
 		void update(f32 dt);
 		void mapAction(const String& name, InputKey key);
-		void bindAction(const String& name, ButtonAction action, Object* obj, ButtonFunc func);
-		void bindAction(const String& name, ButtonAction action, ButtonFunc2 func);
+		void bindAction(const String& name, ButtonAction action, Object* obj, ButtonFunc func, f32 time = 0.0f);
+		void bindAction(const String& name, ButtonAction action, ButtonFunc2 func, f32 time = 0.0f);
 		void mapAxis(const String& name, InputKey key, f32 scale);
-		void bindAxis(const String& name, Object* obj, AxisFunc func);
-		void bindAxis(const String& name, AxisFunc2 func);
+		void bindAxis(const String& name, Object* obj, AxisFunc func, f32 time = 0.0f);
+		void bindAxis(const String& name, AxisFunc2 func, f32 time  = 0.0f);
 
 	};
 }

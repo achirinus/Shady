@@ -16,7 +16,7 @@ namespace Shady
 		return sInstance;
 	}
 
-	void testCb()
+	void ShadyApp::testCb()
 	{
 		DEBUG_OUT_INFO("changed");
 	}
@@ -49,25 +49,24 @@ namespace Shady
 		}
 		*/
 		//TEST STUFF!!
-		Array<u32> ar(3);
-		ar.add(1);
-		ar.add(2);
-		ar.add(3);
+		Array<u32> ar{1, 2, 3, 4,};
+		
 		for(auto& elem : ar)
 		{
 			DEBUG_OUT_INFO("%d ", elem);
 		}
-		
+
+
 		mMainWindow->disableVSync();
 		setFpsLimit(60);
-		
+		setUpdateFreq(60);
 		while (mMainWindow->isOpen())
 		{
 			
 			//IF WE LIMIT BOTH UPDAE() AND RENDER() THE TIME 
 			//WE SLEEP IS ADDED AND WE WILL SLEEP MORE THAN NEEDED
 			
-			update(mUdt);
+			update(mFdt);
 			
 			//Do not render if window is minimized
 			render(mFdt);
@@ -94,6 +93,7 @@ namespace Shady
 		mInputManager->update(dt);
 		fileObserver.update();
 		camera2d->update();
+		camera3d->update(dt);
 		//testSprite->update();
 		
 
@@ -103,11 +103,14 @@ namespace Shady
 		Text2D* fpsLabel = currentFont->getText({5.0f, 5.0f, -1.0f},
 												title, 20.0f);
 		renderer2d->submit(fpsLabel);
+		renderer3d->submit(cube);
 
-
+		//for now use mFds and limit only the render function because
+		//the  ads from both limit() calls. we need separate threads
+		#if 0
 		limit(mUpdateTimer.getElapsedTimeMS(), mUpdateLimit);
 		mUdt = mUpdateTimer.getElapsedTimeMS();
-		
+		#endif
 	}
 
 	void ShadyApp::render(f32 dt)
@@ -116,6 +119,7 @@ namespace Shady
 		countFps(dt);
 		mMainWindow->clear();
 		renderer2d->render(dt);
+		renderer3d->render(dt);
 		mMainWindow->swapBuffers();
 
 		checkGlError();
@@ -130,12 +134,22 @@ namespace Shady
 		File::setCwd("..\\..\\"); //CWD = Main Shady folder
 		//TODO put these in their arena and take care of cleanup
 		mInputManager->mapAction("test", InputKey::MOUSE_LEFT);
-		mInputManager->bindAction("test", BA_PRESSED, testCb);
+		mInputManager->mapAction("cameraLock", InputKey::MOUSE_RIGHT);
+		mInputManager->mapAxis("moveX", InputKey::KEY_A, -1.0f);
+		mInputManager->mapAxis("moveX", InputKey::KEY_D, 1.0f);
+		mInputManager->mapAxis("moveY", InputKey::KEY_W, -1.0f);
+		mInputManager->mapAxis("moveY", InputKey::KEY_S, 1.0f);
+		mInputManager->mapAxis("yaw", InputKey::MOUSE_X, 1.0f);
+		mInputManager->mapAxis("pitch", InputKey::MOUSE_Y, 1.0f);
+		
+		#if 0
 		mInputManager->mapAxis("left", InputKey::KEY_A, -1.0f);
 		mInputManager->mapAxis("left", InputKey::KEY_D, 1.0f);
 		mInputManager->mapAxis("mx", InputKey::MOUSE_X, 1.0f);
 		mInputManager->bindAxis("left", this, reinterpret_cast<AxisFunc>(&ShadyApp::testKAxis));
 		mInputManager->bindAxis("mx", this, reinterpret_cast<AxisFunc>(&ShadyApp::testMAxis));
+		#endif
+
 		camera2d = new Camera2D(Vec3f(0, 0, 0.0f),
 								mMainWindow->mClientWidth, mMainWindow->mClientHeight, 2.0f);
 		renderer2d = new Renderer2D(camera2d);
@@ -146,9 +160,12 @@ namespace Shady
 													 false, false,
 													 Vec4f(1.0f, 0.0f, 1.0f, 1.0f), 3),
 													10000.0f);
+		camera3d = new Camera3D({(f32)mMainWindow->mClientWidth, (f32)mMainWindow->mClientHeight});
+		renderer3d = new Renderer3D(camera3d);
 
+		cube = new Cube(50.0f);
 		testSprite = new Sprite({200.0f, 200.0f, -0.2f}, 500.0f, 500.0f, nullptr, {1.0f, 1.0f, 0.0f, 1.0f}, false);
-		renderer2d->submit(testSprite, 10000.0f);
+		//renderer2d->submit(testSprite, 10000.0f);
 	}
 
 	void ShadyApp::countFps(f32 dt)
@@ -164,6 +181,7 @@ namespace Shady
 
 	void ShadyApp::setFpsLimit(u32 fps)
 	{
+		
 		mFpsLimit = fps;
 	}
 	void ShadyApp::setUpdateFreq(u32 ups)

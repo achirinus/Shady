@@ -8,6 +8,29 @@ namespace Shady
 	{
 
 	}
+
+	String::String(std::initializer_list<const char*> list):
+		mBufferSize{0}
+	{
+		u32 numOfStrings = list.size();
+		
+		for(auto it = list.begin(); it != list.end(); it++)
+		{
+			mBufferSize += strLength(*it);
+		}
+		
+		mBufferSize++; //for null terminator
+		mBuffer = new c8[mBufferSize];
+		c8* tempBuffer = mBuffer;
+		for(auto it = list.begin(); it != list.end(); it++)
+		{
+			s32 advanceBy = strCopyNoTerminator(tempBuffer, *it);
+			tempBuffer += advanceBy;
+		}
+		*tempBuffer = '\0';
+		
+	}
+
 	String::String(u32 integer)
 	{
 		u32 size = digitCount(integer, 10);
@@ -65,6 +88,7 @@ namespace Shady
 			tempBuffer += advanceBy;
 		}
 		*tempBuffer = '\0';
+		delete[] strings;
 		va_end(argList);
 	}
 

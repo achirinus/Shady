@@ -4,6 +4,7 @@
 #include <StringUtils.h>
 #include <Commons.h>
 #include <ShArray.h>
+#include <initializer_list>
 
 namespace Shady
 {
@@ -16,6 +17,7 @@ namespace Shady
 
 	public:
 		String();
+		String(std::initializer_list<const char*> list);
 		String(u32 integer);
 		String(const c8* str);
 		String(const String& other);

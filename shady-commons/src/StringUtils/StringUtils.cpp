@@ -392,11 +392,8 @@ namespace Shady
 		*buffer = 0;
 	}
 
-	
-	void customFormat(c8* buffer, const c8* format ...)
+	void customFormat(c8* buffer, const c8* format, va_list args)
 	{
-		va_list args;
-		va_start(args, format);
 		c8* tempBuffer = buffer;
 
 		while(*format)
@@ -635,6 +632,13 @@ namespace Shady
 			format++;
 		}
 		*tempBuffer = '\0';
+	}
+	
+	void customFormat(c8* buffer, const c8* format ...)
+	{
+		va_list args;
+		va_start(args, format);
+		customFormat(buffer, format, args);
 		va_end(args);
 		
 	}

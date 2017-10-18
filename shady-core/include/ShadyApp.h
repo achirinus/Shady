@@ -20,6 +20,8 @@
 #include "FileUtils.h"
 #include "Graphics.h"
 #include "InputManager.h"
+#include "Cube.h"
+#include "Renderer3D.h"
 
 namespace Shady
 {
@@ -56,6 +58,8 @@ namespace Shady
 		//Gamestate stuff
 		Camera2D* camera2d;
 		Renderer2D* renderer2d;
+		Camera3D* camera3d;
+		Renderer3D* renderer3d;
 		Font* currentFont;
 
 		Sprite* testSprite;
@@ -73,6 +77,8 @@ namespace Shady
 
 
 		//test stuff
+		Cube* cube;
+		void testCb();
 		
 		void testKAxis(f32);
 		void testMAxis(f32);

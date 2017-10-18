@@ -113,6 +113,7 @@ namespace Shady
 			{
 				Mouse* mouse = Mouse::getInstance();
 				mouse->m1 = true;
+				
 			}break;
 			case WM_LBUTTONUP:
 			{
@@ -190,9 +191,11 @@ namespace Shady
 				mIsOpen = true;	
 				mDC = GetDC(mHwnd);
 				mGlrc = Win32GlInit(mDC, &mOpenglInfo);
+
 				SetFocus(mHwnd);
 				glClearColor(1.0f, 0.5f, 0.5f, 1.0f);
 				glViewport(0,0, mClientWidth, mClientHeight);
+				
 				//glEnable(GL_CULL_FACE); 
 				glEnable(GL_BLEND);
 				glEnable(GL_LINE_SMOOTH); //Antialiasing				

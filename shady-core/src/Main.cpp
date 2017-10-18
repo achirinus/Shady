@@ -7,6 +7,8 @@
 #include "ModelLoader.h"
 #include "ShMath.h"
 
+
+
 using namespace Shady;
 
 int main(int argc, char* argv[])

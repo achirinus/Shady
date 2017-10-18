@@ -22,6 +22,8 @@ namespace Shady
 		if(second != 0) result = first / second;
 		return result;
 	}
+
+	
 	f32 pow(f32 base, u32 pow);
 	s32 pow(s32 base, u32 pow);
 	u32 pow(u32 base, u32 pow);

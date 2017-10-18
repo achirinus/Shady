@@ -1,4 +1,5 @@
 #include "Sprite.h"
+#include "Windows.h"
 
 namespace Shady
 {
@@ -253,7 +254,7 @@ namespace Shady
 			mShaders[index]->setUniformMat4("totalMovedMat", Matrix4f::translation(getCurrentPos()));
 		}
 		glBindVertexArray(mVAO);
-		
+				
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 		glBindVertexArray(0);
 		if(mTexture) mTexture->unbind(0);
