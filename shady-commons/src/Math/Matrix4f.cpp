@@ -127,10 +127,18 @@ namespace Shady
 	{
 		f32 ca = (f32)cos(rad);
 		f32 sa = (f32)sin(rad);
+		#ifdef MAT4_ROW_MAJOR
 		(*this) = (*this) * Matrix4f{{1, 0, 0, 0},
-							{0, ca, -sa, 0},
-							{0, sa, ca, 0},
-							{0, 0, 0, 1}};
+									{0, ca, sa, 0},
+									{0, -sa, ca, 0},
+									{0, 0, 0, 1}};
+		#else
+		(*this) = (*this) * Matrix4f{{1, 0, 0, 0},
+									{0, ca, -sa, 0},
+									{0, sa, ca, 0},
+									{0, 0, 0, 1}};
+		#endif
+
 		return *this;
 	}
 
@@ -138,10 +146,17 @@ namespace Shady
 	{
 		f32 ca = (f32)cos(rad);
 		f32 sa = (f32)sin(rad);
+		#ifdef MAT4_ROW_MAJOR
+		(*this) = (*this) * Matrix4f{{ca, 0, -sa, 0},
+									{0, 1, 0, 0},
+									{sa, 0, ca, 0},
+									{0, 0, 0, 1}};
+		#else
 		(*this) = (*this) * Matrix4f{{ca, 0, sa, 0},
-							{0, 1, 0, 0},
-							{-sa, 0, ca, 0},
-							{0, 0, 0, 1}};
+									{0, 1, 0, 0},
+									{-sa, 0, ca, 0},
+									{0, 0, 0, 1}};
+		#endif
 		return *this;
 	}
 
@@ -149,10 +164,11 @@ namespace Shady
 	{
 		f32 ca = (f32)cos(rad);
 		f32 sa = (f32)sin(rad);
+
 		(*this) = (*this) * Matrix4f{{ca, -sa, 0, 0},
-							{sa, ca, 0, 0},
-							{0, 0, 1, 0},
-							{0, 0, 0, 1}};
+									{sa, ca, 0, 0},
+									{0, 0, 1, 0},
+									{0, 0, 0, 1}};
 		return *this;
 	}
 

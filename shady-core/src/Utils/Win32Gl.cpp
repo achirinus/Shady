@@ -148,8 +148,8 @@ namespace Shady
 					{
 						glEnable(GL_DEBUG_OUTPUT);
 						glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
-						//glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE,
-						//					 0, 0, GL_TRUE);
+						glDebugMessageControl(GL_DONT_CARE, GL_DEBUG_TYPE_OTHER_ARB, GL_DONT_CARE,
+											 0, 0, GL_FALSE);
 						glDebugMessageCallback(OpenGLDebugCallback, 0);
 					}
 					else if(info->arbDebugOutput)
@@ -158,6 +158,13 @@ namespace Shady
 						glDebugMessageCallbackARB(OpenGLDebugCallback, 0);
 					}
 
+					
+					glEnable(GL_CULL_FACE);
+					glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+					glEnable(GL_BLEND);
+					glEnable(GL_LINE_SMOOTH); //Antialiasing				
+					glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+				
 					return result;
 				}
 				else

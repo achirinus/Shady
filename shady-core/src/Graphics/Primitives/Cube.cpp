@@ -1,38 +1,99 @@
 #include "Cube.h"
 
+#define INDEXED 1
+
 namespace Shady
 {
 
 	Cube::Cube(f32 size, Vec3f pos, Shader* shader):
 		Renderable3D(pos, {}, shader), mSize{size}
 	{
-		if(mSize <= 0.0f) mSize = 1.0f;
-		mVerts.add({pos.x - mSize/2, pos.y - mSize/2, pos.z + mSize/2}); 
-		mVerts.add({pos.x - mSize/2, pos.y + mSize/2, pos.z + mSize/2});
-		mVerts.add({pos.x + mSize/2, pos.y + mSize/2, pos.z + mSize/2});
-		mVerts.add({pos.x + mSize/2, pos.y - mSize/2, pos.z + mSize/2});
-		mVerts.add({pos.x - mSize/2, pos.y - mSize/2, pos.z - mSize/2});
-		mVerts.add({pos.x - mSize/2, pos.y + mSize/2, pos.z - mSize/2});
-		mVerts.add({pos.x + mSize/2, pos.y + mSize/2, pos.z - mSize/2});
-		mVerts.add({pos.x + mSize/2, pos.y - mSize/2, pos.z - mSize/2});
+		
+		#if INDEXED
+		mVerts.add({pos.x - mSize/2, pos.y - mSize/2, pos.z + mSize/2}); //1
+		mVerts.add({pos.x - mSize/2, pos.y + mSize/2, pos.z + mSize/2}); //2
+		mVerts.add({pos.x + mSize/2, pos.y + mSize/2, pos.z + mSize/2}); //3
+		mVerts.add({pos.x + mSize/2, pos.y - mSize/2, pos.z + mSize/2}); //4
+		mVerts.add({pos.x - mSize/2, pos.y - mSize/2, pos.z - mSize/2}); //5
+		mVerts.add({pos.x - mSize/2, pos.y + mSize/2, pos.z - mSize/2}); //6
+		mVerts.add({pos.x + mSize/2, pos.y + mSize/2, pos.z - mSize/2}); //7
+		mVerts.add({pos.x + mSize/2, pos.y - mSize/2, pos.z - mSize/2}); //8
+		#else
+		//Front
+		mVerts.add({pos.x - mSize/2, pos.y - mSize/2, pos.z + mSize/2}); //1
+		mVerts.add({pos.x - mSize/2, pos.y + mSize/2, pos.z + mSize/2}); //2
+		mVerts.add({pos.x + mSize/2, pos.y - mSize/2, pos.z + mSize/2}); //4
+		mVerts.add({pos.x + mSize/2, pos.y - mSize/2, pos.z + mSize/2}); //4
+		mVerts.add({pos.x - mSize/2, pos.y + mSize/2, pos.z + mSize/2}); //2
+		mVerts.add({pos.x + mSize/2, pos.y + mSize/2, pos.z + mSize/2}); //3
 
-		u32 verts[] = 
+		//Right
+		mVerts.add({pos.x + mSize/2, pos.y - mSize/2, pos.z + mSize/2}); //4
+		mVerts.add({pos.x + mSize/2, pos.y + mSize/2, pos.z + mSize/2}); //3
+		mVerts.add({pos.x + mSize/2, pos.y - mSize/2, pos.z - mSize/2}); //8
+		mVerts.add({pos.x + mSize/2, pos.y - mSize/2, pos.z - mSize/2}); //8
+		mVerts.add({pos.x + mSize/2, pos.y + mSize/2, pos.z + mSize/2}); //3
+		mVerts.add({pos.x + mSize/2, pos.y + mSize/2, pos.z - mSize/2}); //7
+
+		//Back
+		mVerts.add({pos.x + mSize/2, pos.y - mSize/2, pos.z - mSize/2}); //8
+		mVerts.add({pos.x + mSize/2, pos.y + mSize/2, pos.z - mSize/2}); //7
+		mVerts.add({pos.x - mSize/2, pos.y - mSize/2, pos.z - mSize/2}); //5
+		mVerts.add({pos.x - mSize/2, pos.y - mSize/2, pos.z - mSize/2}); //5
+		mVerts.add({pos.x + mSize/2, pos.y + mSize/2, pos.z - mSize/2}); //7
+		mVerts.add({pos.x - mSize/2, pos.y + mSize/2, pos.z - mSize/2}); //6
+
+		//Left
+		mVerts.add({pos.x - mSize/2, pos.y - mSize/2, pos.z - mSize/2}); //5
+		mVerts.add({pos.x - mSize/2, pos.y + mSize/2, pos.z - mSize/2}); //6
+		mVerts.add({pos.x - mSize/2, pos.y - mSize/2, pos.z + mSize/2}); //1
+		mVerts.add({pos.x - mSize/2, pos.y - mSize/2, pos.z + mSize/2}); //1
+		mVerts.add({pos.x - mSize/2, pos.y + mSize/2, pos.z - mSize/2}); //6
+		mVerts.add({pos.x - mSize/2, pos.y + mSize/2, pos.z + mSize/2}); //2
+		
+		//Top
+		mVerts.add({pos.x - mSize/2, pos.y - mSize/2, pos.z - mSize/2}); //5
+		mVerts.add({pos.x - mSize/2, pos.y - mSize/2, pos.z + mSize/2}); //1
+		mVerts.add({pos.x + mSize/2, pos.y - mSize/2, pos.z - mSize/2}); //8
+		mVerts.add({pos.x + mSize/2, pos.y - mSize/2, pos.z - mSize/2}); //8
+		mVerts.add({pos.x - mSize/2, pos.y - mSize/2, pos.z + mSize/2}); //1
+		mVerts.add({pos.x + mSize/2, pos.y - mSize/2, pos.z + mSize/2}); //4
+
+		//Bot
+		mVerts.add({pos.x - mSize/2, pos.y + mSize/2, pos.z + mSize/2}); //2
+		mVerts.add({pos.x - mSize/2, pos.y + mSize/2, pos.z - mSize/2}); //6
+		mVerts.add({pos.x + mSize/2, pos.y + mSize/2, pos.z + mSize/2}); //3
+		mVerts.add({pos.x + mSize/2, pos.y + mSize/2, pos.z + mSize/2}); //3
+		mVerts.add({pos.x - mSize/2, pos.y + mSize/2, pos.z - mSize/2}); //6
+		mVerts.add({pos.x + mSize/2, pos.y + mSize/2, pos.z - mSize/2}); //7
+		#endif
+
+		Vec4f colors[] = 
 		{
-			1,2,4,
-			4,2,3,
-			3,8,4,
-			8,3,7,
-			8,7,5,
-			5,7,6,
-			6,1,5,
-			6,2,1,
-			1,8,5,
-			1,4,8,
-			2,6,3,
-			3,6,7
+			{1.0f, 1.0f, 0.0f, 1.0f},
+			{0.0f, 1.0f, 0.0f, 1.0f},
+			{1.0f, 1.0f, 1.0f, 1.0f},
+			{1.0f, 1.0f, 0.0f, 1.0f},
+			{1.0f, 0.0f, 1.0f, 1.0f},
+			{0.0f, 0.0f, 1.0f, 1.0f},
+			{0.0f, 0.0f, 0.0f, 1.0f},
+			{0.5f, 0.5f, 1.0f, 1.0f},
 		};
 
-		mIndices.add(verts, cArrayCount(verts));
+		
+		mIndices.add({
+					0,1,3,
+					3,1,2,
+					3,2,7,
+					7,2,6,
+					7,6,4,
+					4,6,5,
+					4,5,0,
+					0,5,1,
+					4,0,7,
+					7,0,3,
+					1,5,2,
+					2,5,6});
 		mShader = new Shader("cube", SH_VERTEX_SHADER | SH_FRAGMENT_SHADER);
 
 		glGenVertexArrays(1, &mVAO);
@@ -42,20 +103,21 @@ namespace Shady
 		glGenBuffers(NUM_BUFFERS, mVBO);
 		
 		glBindBuffer(GL_ARRAY_BUFFER, mVBO[POS_BUFFER]);
-		
 		glBufferData(GL_ARRAY_BUFFER, mVerts.size() * sizeof(Vec3f), mVerts.getPointer(), GL_STATIC_DRAW);
-		
 		glEnableVertexAttribArray(POS_BUFFER);
-		
 		glVertexAttribPointer(POS_BUFFER, 3, GL_FLOAT, GL_FALSE, 0, 0);
 		
+		glBindBuffer(GL_ARRAY_BUFFER, mVBO[TEX_BUFFER]);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(colors), colors, GL_STATIC_DRAW);
+		glEnableVertexAttribArray(TEX_BUFFER);
+		glVertexAttribPointer(TEX_BUFFER, 4, GL_FLOAT, GL_TRUE, 0, 0);
 		
 
+		#if INDEXED
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mVBO[IND_BUFFER]);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, mIndices.size() * sizeof(u32), mIndices.getPointer(), GL_STATIC_DRAW);
+		#endif
 		
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(verts), verts, GL_STATIC_DRAW);
-		
-		u32 abc = sizeof(verts);
 		glBindVertexArray(0);	
 		
 	}
@@ -71,8 +133,11 @@ namespace Shady
 		mShader->setUniformMat4("modelMat", getModelMat());
 		glBindVertexArray(mVAO);
 		
+		#if INDEXED
 		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
-		
+		#else
+		glDrawArrays(GL_TRIANGLES, 0, mVerts.size());
+		#endif
 		glBindVertexArray(0);
 	}
 

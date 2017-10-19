@@ -11,9 +11,9 @@ namespace Shady
 		updateMats();
 
 		InputManager::getInstance()->bindAction("cameraLock", BA_PRESSED, this,
-												reinterpret_cast<ButtonFunc>(&Camera3D::lock));
-		InputManager::getInstance()->bindAction("cameraLock", BA_RELEASED, this,
 												reinterpret_cast<ButtonFunc>(&Camera3D::unlock));
+		InputManager::getInstance()->bindAction("cameraLock", BA_RELEASED, this,
+												reinterpret_cast<ButtonFunc>(&Camera3D::lock));
 		InputManager::getInstance()->bindAxis("yaw", this, 
 												reinterpret_cast<AxisFunc>(&Camera3D::handleYaw));
 		InputManager::getInstance()->bindAxis("pitch", this,
@@ -27,22 +27,23 @@ namespace Shady
 
 	void Camera3D::updateMats()
 	{
+		mView = Matrix4f{1};
 		mView = Matrix4f::translation(-mPos.x, -mPos.y, -mPos.z);
 		mView.rotX(toRadians(mRot.x));
 		mView.rotY(toRadians(mRot.y));
 
-		mProj = Matrix4f::perspective(-mWidth/2.0f, mWidth/2.0f, -mHeight/2.0f, mHeight/2.0f, 1.0f, -30.0f);
+		mProj = Matrix4f::perspective(-mWidth/2.0f, mWidth/2.0f, -mHeight/2.0f, mHeight/2.0f, 1.0f, -150.0f);
 	}
 
 
 	void Camera3D::handleYaw(f32 val)
 	{
-		if(!mLocked) mRot.x += val;
+		if(!mLocked) mRot.y += val;
 	}
 
 	void Camera3D::handlePitch(f32 val)
 	{
-		if(!mLocked) mRot.y += val;
+		if(!mLocked) mRot.x += val;
 	}
 
 	void Camera3D::handleMoveX(f32 val)

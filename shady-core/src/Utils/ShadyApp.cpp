@@ -158,7 +158,7 @@ namespace Shady
 		camera3d = new Camera3D({(f32)mMainWindow->mClientWidth, (f32)mMainWindow->mClientHeight});
 		renderer3d = new Renderer3D(camera3d);
 
-		cube = new Cube(50.0f);
+		cube = new Cube(200.0f, {0.0f, 0.0f, -50});
 		testSprite = new Sprite({200.0f, 200.0f, -0.2f}, 500.0f, 500.0f, nullptr, {1.0f, 1.0f, 0.0f, 1.0f}, false);
 		//renderer2d->submit(testSprite, 10000.0f);
 	}

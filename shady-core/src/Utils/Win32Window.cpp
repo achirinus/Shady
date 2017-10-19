@@ -193,13 +193,9 @@ namespace Shady
 				mGlrc = Win32GlInit(mDC, &mOpenglInfo);
 
 				SetFocus(mHwnd);
-				glClearColor(1.0f, 0.5f, 0.5f, 1.0f);
 				glViewport(0,0, mClientWidth, mClientHeight);
 				
-				//glEnable(GL_CULL_FACE); 
-				glEnable(GL_BLEND);
-				glEnable(GL_LINE_SMOOTH); //Antialiasing				
-				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+				
 				
 			}
 		}
