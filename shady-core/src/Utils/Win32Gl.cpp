@@ -10,6 +10,16 @@ namespace Shady
 	// {
 	// 	glClampColor = (_pfshglClampColor)wglGetProcAddress("glClampColor");
 	// }
+
+	
+	void GLAPIENTRY OpenGLDebugCallback(GLenum source, GLenum type, GLuint id, GLenum severity,
+								 GLsizei length, const GLchar* message, const void* userParam)
+	{
+		DEBUG_OUT_ERR(message);
+		//SH_ASSERT(!message);
+	}
+	
+
 	OpenglInfo getGlInfo()
 	{
 		OpenglInfo result = {};
@@ -65,6 +75,7 @@ namespace Shady
 		const c8* shaderFirstDigit = findFirstDigit((c8*)shaderVerStr);
 		info->swapControl = findStr((c8*)extStr, "WGL_EXT_swap_control");
 		info->arbCompatibility = findStr((c8*)extStr, "GL_ARB_compatibility");
+		info->arbDebugOutput = findStr((c8*)extStr, "GL_ARB_debug_output");
 
 		info->majorGlVersion = charToDigit(glFirstDigit[0]);
 		info->minorGlVersion = charToDigit(glFirstDigit[2]);
@@ -110,6 +121,7 @@ namespace Shady
 
 				    WGL_CONTEXT_MAJOR_VERSION_ARB, 4,
 				    WGL_CONTEXT_MINOR_VERSION_ARB, 2,
+				    WGL_CONTEXT_FLAGS_ARB, WGL_CONTEXT_FORWARD_COMPATIBLE_BIT_ARB,
 				    WGL_CONTEXT_PROFILE_MASK_ARB, WGL_CONTEXT_CORE_PROFILE_BIT_ARB,
 
 				    NULL
@@ -131,6 +143,21 @@ namespace Shady
 					{
 						DEBUG_OUT_ERR("New OpenGl context set failed!");
 					}
+
+					if(info->majorGlVersion >= 4)
+					{
+						glEnable(GL_DEBUG_OUTPUT);
+						glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+						//glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE,
+						//					 0, 0, GL_TRUE);
+						glDebugMessageCallback(OpenGLDebugCallback, 0);
+					}
+					else if(info->arbDebugOutput)
+					{
+						glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+						glDebugMessageCallbackARB(OpenGLDebugCallback, 0);
+					}
+
 					return result;
 				}
 				else
@@ -148,6 +175,8 @@ namespace Shady
 		{
 			DEBUG_OUT_ERR("SetPixelFormat failed!");
 		}
+
+
 		return result;
 	}
 

@@ -49,12 +49,7 @@ namespace Shady
 		}
 		*/
 		//TEST STUFF!!
-		Array<u32> ar{1, 2, 3, 4,};
 		
-		for(auto& elem : ar)
-		{
-			DEBUG_OUT_INFO("%d ", elem);
-		}
 
 
 		mMainWindow->disableVSync();
@@ -122,7 +117,7 @@ namespace Shady
 		renderer3d->render(dt);
 		mMainWindow->swapBuffers();
 
-		checkGlError();
+		//checkGlError();
 
 		limit(mFrameTimer.getElapsedTimeMS(), mFpsLimit);
 		mFdt = mFrameTimer.getElapsedTimeMS();

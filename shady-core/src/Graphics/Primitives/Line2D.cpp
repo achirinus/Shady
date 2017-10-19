@@ -65,7 +65,7 @@ namespace Shady
 	{
 		//mShader->setUniformMat4("modelMat", getModelMat());
 		glBindVertexArray(mVAO);
-		glLineWidth(mWidth);
+		//glLineWidth(mWidth);
 		glDrawArrays(GL_LINES, 0, 2);
 		glBindVertexArray(0);
 	}

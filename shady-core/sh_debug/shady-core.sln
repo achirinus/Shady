@@ -40,7 +40,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 ..\src\Graphics\Primitives\Line2D.cpp = ..\src\Graphics\Primitives\Line2D.cpp
 ..\src\Graphics\Primitives\Cube.cpp = ..\src\Graphics\Primitives\Cube.cpp
 ..\src\Graphics\Mesh.cpp = ..\src\Graphics\Mesh.cpp
-..\src\Graphics\Line2D.cpp = ..\src\Graphics\Line2D.cpp
 ..\src\Graphics\Graphics.cpp = ..\src\Graphics\Graphics.cpp
 ..\src\Graphics\Glyph.cpp = ..\src\Graphics\Glyph.cpp
 ..\src\Graphics\Camera3D.cpp = ..\src\Graphics\Camera3D.cpp
@@ -125,3 +124,4 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
+tion\PhysX\Common;C:\Program Files\Git\cmd;C:\Program Files\Java\jdk1.8.0_111\bin;D:\workspace\DailyLog\Release;C:\Program Files (x86):R•NÎ
