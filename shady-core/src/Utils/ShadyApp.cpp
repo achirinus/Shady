@@ -51,7 +51,6 @@ namespace Shady
 		//TEST STUFF!!
 		
 
-
 		mMainWindow->disableVSync();
 		setFpsLimit(60);
 		setUpdateFreq(60);

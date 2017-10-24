@@ -92,7 +92,7 @@ namespace Shady
 
 			String win32ReadTextFile(const String& fileName)
 			{
-				return win32ReadTextFile(fileName.cStr());	
+				return win32ReadTextFile(fileName.CStr());	
 			}
 
 			BinaryFileContent win32ReadBinaryFile(const char* fileName)
@@ -132,7 +132,7 @@ namespace Shady
 
 			BinaryFileContent win32ReadBinaryFile(const String& fileName)
 			{
-				return win32ReadBinaryFile(fileName.cStr());
+				return win32ReadBinaryFile(fileName.CStr());
 			}
 
 			BinaryFileContent readBinaryFile(const char* fileName)

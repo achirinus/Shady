@@ -1,7 +1,7 @@
 #ifndef TEXTURE_H
 #define TEXTURE_H
 
-#include <glew.h>
+#include <ShadyGL.h>
 #include "Commons.h"
 #include "Bitmap.h"
 

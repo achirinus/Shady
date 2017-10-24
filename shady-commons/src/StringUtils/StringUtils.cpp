@@ -587,8 +587,8 @@ namespace Shady
 				else if(beginsWith(format+1, "str"))
 				{
 					String str = va_arg(args, String);
-					const c8* tempStr = str.cStr();
-					u32 tbSize = str.size();
+					const c8* tempStr = str.CStr();
+					u32 tbSize = str.Size();
 					while(tbSize--)
 					{
 						*tempBuffer++ = *tempStr++;

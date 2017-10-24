@@ -3,7 +3,7 @@
 
 #include "Vertex.h"
 #include "ShArray.h"
-#include <glew.h>
+#include <ShadyGL.h>
 
 namespace Shady
 {

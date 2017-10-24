@@ -2,7 +2,7 @@
 #define SH_CUBE_H 
 
 #include "Renderable3D.h"
-#include <glew.h>
+#include <ShadyGL.h>
 
 
 namespace Shady

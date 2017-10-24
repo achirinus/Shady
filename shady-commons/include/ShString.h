@@ -26,9 +26,9 @@ namespace Shady
 		String& operator=(const String& other);
 		String& operator=(const c8* str);
 		~String();
-		const c8* cStr() const;
-		void reserve(u32 size);
-		u32 size() const;
+		const c8* CStr() const;
+		void Reserve(u32 size);
+		u32 Size() const;
 		c8& operator[](s32 index);
 		b8 operator==(const String& other);
 		b8 operator!=(const String& other);
@@ -36,15 +36,16 @@ namespace Shady
 		String operator+(const String& other);
 		String& operator+=(const c8* str);
 		String& operator+=(const String& other);
-		b8 cmpIgnoreCase(const String& other);
-		String subString(u32 beginIndex, u32 numOfElem);
-		Array<String> split(c8 token);
-		f32 tof32();
-		f64 tof64();
-		s32 tos32();
-		String getLine();
-		b8 beginsWith(c8 character);
-		b8 beginsWith(const char* str);
+		operator b8();
+		b8 CmpIgnoreCase(const String& other);
+		String SubString(u32 beginIndex, u32 numOfElem);
+		Array<String> Split(c8 token);
+		f32 Tof32();
+		f64 Tof64();
+		s32 Tos32();
+		String GetLine();
+		b8 BeginsWith(c8 character);
+		b8 BeginsWith(const char* str);
 	};
 	
 }

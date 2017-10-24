@@ -17,10 +17,10 @@ REM Setting include dirs
 SET shCommonsInclude=%shCommons%\include
 SET shCoreInclude=%shCore%\include
 REM Remove glew after I learn how to load GL functions myself
-SET glewInclude=%depDir%\GLEW\include\GL
+::SET glewInclude=%depDir%\GLEW\include\GL
 SET stbLib=%depDir%\STB
 SET glmInclude=%depDir%\glm
-SET AllDepsInclude=%glewInclude%;%stbLib%;%glmInclude%
+SET AllDepsInclude=%stbLib%;%glmInclude%
 
 
 REM Win include copied from VS proj
@@ -41,13 +41,13 @@ SET PATH=%PATH%;%VS_PATH%
 
 REM Setting lib dirs
 
-SET glewReleaseLib=%depDir%\GLEW\lib\Release\Win32
+::SET glewReleaseLib=%depDir%\GLEW\lib\Release\Win32
 
 SET shCommonsLib=%shCommons%\lib
 SET shCommonsRelLib=%shCommonsLib%\sh_release
 SET shCommonsDebLib=%shCommonsLib%\sh_debug
 
-SET AllDepsLibs=%glewReleaseLib%
+SET AllDepsLibs=
 
 REM Win Lib dirs copied from VS proj
 REM Try to trim this down or remove it all somehow
@@ -93,4 +93,4 @@ if /I "%configuration%"=="SH_RELEASE" (
 
 ::SET shCommonsRelLib in LIB first because AllWinLibs include path with parenthesys
 ::and  the IF statement breaks
-SET LIB=%LIB%;%AllDepsLibs%;%AllWinLibs%
+SET LIB=%LIB%;%AllWinLibs%

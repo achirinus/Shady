@@ -1,7 +1,7 @@
 #ifndef SHADER_H
 #define SHADER_H
 
-#include "glew.h"
+#include "ShadyGL.h"
 #include "Vec2.h"
 #include "Vec3.h"
 #include "Vec4.h"

@@ -1,6 +1,6 @@
 #include <Commons.h>
 
-#include <glew.h>
+#include <ShadyGL.h>
 #include "ShadyApp.h"
 #include "ShString.h"
 #include "FileUtils.h"

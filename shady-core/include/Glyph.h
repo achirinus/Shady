@@ -1,7 +1,7 @@
 #ifndef SH_GLYPH_H
 #define SH_GLYPH_H
 
-#include <glew.h>
+#include <ShadyGL.h>
 
 namespace Shady
 {

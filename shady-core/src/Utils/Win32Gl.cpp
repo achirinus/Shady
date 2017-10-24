@@ -1,15 +1,15 @@
-#include <glew.h>
-#include <wglew.h>
+#include <ShadyGL.h>
+
 #include <Windows.h>
 #include <Commons.h>
+#include <ShArray.h>
+#include <ShString.h>
+
 namespace Shady
 {
 
 	
-	// void Win32LoadFunctions()
-	// {
-	// 	glClampColor = (_pfshglClampColor)wglGetProcAddress("glClampColor");
-	// }
+	Array<String> initGLFunctions();
 
 	
 	void GLAPIENTRY OpenGLDebugCallback(GLenum source, GLenum type, GLuint id, GLenum severity,
@@ -66,6 +66,8 @@ namespace Shady
 
 	void getGlInfo(OpenglInfo* info)
 	{
+		//Use glGetStringi for each extension if this is called in 
+		//forward compatible context
 		SH_ASSERT(info);
 		const uc8* extStr = glGetString(GL_EXTENSIONS);
 		const uc8* verStr = glGetString(GL_VERSION);
@@ -115,7 +117,15 @@ namespace Shady
 			if(tempRc)
 			{
 				wglMakeCurrent(dc, tempRc);
+				Array<String> failedFuncs = initGLFunctions();
 				getGlInfo(info);
+				
+				/*
+				if(glewInit() != GLEW_OK)
+				{
+					DEBUG_OUT_ERR("Glew failed to init!");
+				}
+				*/
 				static const int attributes[] = 
 				{
 
@@ -126,10 +136,6 @@ namespace Shady
 
 				    NULL
 				};
-				if(glewInit() != GLEW_OK)
-				{
-					DEBUG_OUT_ERR("Glew failed to init!");
-				}
 				result = wglCreateContextAttribsARB(dc, tempRc, attributes);
 				if(result) 
 				{
@@ -189,7 +195,74 @@ namespace Shady
 
 
 
+	Array<String> initGLFunctions()
+	{
+		Array<String> result{};
+		HMODULE gldll = LoadLibrary(TEXT("opengl32.dll"));
 
+		
+		ShGlGetProcAddress(wglCreateContextAttribsARB, gldll, result);
+		ShGlGetProcAddress(wglSwapIntervalEXT, gldll, result);
+
+		ShGlGetProcAddress(glGenVertexArrays, gldll, result);
+		ShGlGetProcAddress(glGenBuffers, gldll, result);
+		ShGlGetProcAddress(glBindBuffer, gldll, result);
+		ShGlGetProcAddress(glBufferData, gldll, result);
+		ShGlGetProcAddress(glEnableVertexAttribArray, gldll, result);
+		ShGlGetProcAddress(glVertexAttribPointer, gldll, result);
+		ShGlGetProcAddress(glDeleteVertexArrays, gldll, result);
+		ShGlGetProcAddress(glDrawArrays, gldll, result);
+		ShGlGetProcAddress(glDrawElements, gldll, result);
+		ShGlGetProcAddress(glBindVertexArray, gldll, result);
+		ShGlGetProcAddress(glCreateShader, gldll, result);
+		ShGlGetProcAddress(glLinkProgram, gldll, result);
+		ShGlGetProcAddress(glShaderSource, gldll, result);
+		ShGlGetProcAddress(glUseProgram, gldll, result);
+		ShGlGetProcAddress(glCompileShader, gldll, result);
+		ShGlGetProcAddress(glGetShaderiv, gldll, result);
+		ShGlGetProcAddress(glGetShaderInfoLog, gldll, result);
+		ShGlGetProcAddress(glDeleteShader, gldll, result);
+		ShGlGetProcAddress(glAttachShader, gldll, result);
+		ShGlGetProcAddress(glBindAttribLocation, gldll, result);
+		ShGlGetProcAddress(glGetProgramiv, gldll, result);
+		ShGlGetProcAddress(glGetProgramInfoLog, gldll, result);
+		ShGlGetProcAddress(glValidateProgram, gldll, result);
+		ShGlGetProcAddress(glGetUniformLocation, gldll, result);
+		ShGlGetProcAddress(glUniform1f, gldll, result);
+		ShGlGetProcAddress(glUniform2f, gldll, result);
+		ShGlGetProcAddress(glUniform3f, gldll, result);
+		ShGlGetProcAddress(glUniform4f, gldll, result);
+		ShGlGetProcAddress(glUniform1i, gldll, result);
+		ShGlGetProcAddress(glUniformMatrix4fv, gldll, result);
+		ShGlGetProcAddress(glBindTexture, gldll, result);
+		ShGlGetProcAddress(glDeleteTextures, gldll, result);
+		ShGlGetProcAddress(glGenTextures, gldll, result);
+		ShGlGetProcAddress(glCreateProgram, gldll, result);
+		ShGlGetProcAddress(glDetachShader, gldll, result);
+		ShGlGetProcAddress(glDeleteProgram, gldll, result);
+		ShGlGetProcAddress(glDeleteBuffers, gldll, result);
+		ShGlGetProcAddress(glTexParameteri, gldll, result);
+		ShGlGetProcAddress(glTexImage2D, gldll, result);
+		ShGlGetProcAddress(glActiveTexture, gldll, result);
+		ShGlGetProcAddress(glGetError, gldll, result);
+		ShGlGetProcAddress(glGetString, gldll, result);
+		ShGlGetProcAddress(glEnable, gldll, result);
+		ShGlGetProcAddress(glClear, gldll, result);
+		ShGlGetProcAddress(glClearColor, gldll, result);
+		ShGlGetProcAddress(glDebugMessageControlARB, gldll, result);
+		ShGlGetProcAddress(glDebugMessageInsertARB, gldll, result);
+		ShGlGetProcAddress(glDebugMessageCallbackARB, gldll, result);
+		ShGlGetProcAddress(glGetDebugMessageLogARB, gldll, result);
+		ShGlGetProcAddress(glDebugMessageControl, gldll, result);
+		ShGlGetProcAddress(glDebugMessageInsert, gldll, result);
+		ShGlGetProcAddress(glDebugMessageCallback, gldll, result);
+		ShGlGetProcAddress(glGetDebugMessageLog, gldll, result);
+		ShGlGetProcAddress(glBlendFunc, gldll, result);
+		ShGlGetProcAddress(glViewport, gldll, result);
+		ShGlGetProcAddress(glTexParameterf, gldll, result);
+		
+		return result;
+	}
 	
 	
 }

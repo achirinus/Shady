@@ -27,16 +27,16 @@ namespace Shady
 		}
 
 		String vertSource = File::win32ReadTextFile(vertFileName);
-		int vertLen = vertSource.size();
+		int vertLen = vertSource.Size();
 		String fragSource = File::win32ReadTextFile(fragFileName);
-		int fragLen = fragSource.size();
+		int fragLen = fragSource.Size();
 
 		//TODO check if ARB version of functions are better
 		GLuint vert, frag;
 		vert = glCreateShader(GL_VERTEX_SHADER);
 		frag = glCreateShader(GL_FRAGMENT_SHADER);
-		const c8* tempVS = vertSource.cStr();
-		const c8* tempFS = fragSource.cStr();
+		const c8* tempVS = vertSource.CStr();
+		const c8* tempFS = fragSource.CStr();
 		glShaderSource(vert, 1, &tempVS, &vertLen);
 		glShaderSource(frag, 1, &tempFS, &fragLen);
 

@@ -1,6 +1,6 @@
 #include "Win32Window.h"
-#include <glew.h>
-#include <wglew.h>
+#include <ShadyGL.h>
+
 #include "ShMouse.h"
 #include "ShKeyboard.h"
 #include "Windowsx.h"
@@ -90,7 +90,10 @@ namespace Shady
 					GetWindowRect(hwnd, &wndRect);
 					window->mWidth = wndRect.right - wndRect.left;
 					window->mHeight = wndRect.bottom - wndRect.top;
-					glViewport(0, 0, window->mClientWidth,window->mClientHeight);
+					if(glViewport)
+					{
+						glViewport(0, 0, window->mClientWidth,window->mClientHeight);
+					}
 				}
 			}break;
 			case WM_CREATE:

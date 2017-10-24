@@ -110,11 +110,11 @@ namespace Shady
 		
 		return *this;
 	}
-	const c8* String::cStr() const
+	const c8* String::CStr() const
 	{
 		return mBuffer;
 	}
-	void String::reserve(u32 size)
+	void String::Reserve(u32 size)
 	{
 		if(!mBuffer)
 		{
@@ -137,7 +137,7 @@ namespace Shady
 		}
 	}
 
-	u32 String::size() const 
+	u32 String::Size() const 
 	{
 		return mBufferSize - 1;
 	}
@@ -178,8 +178,8 @@ namespace Shady
 
 	String String::operator+(const String& other)
 	{
-		const c8* str = other.cStr();
-		u32 len = other.size();
+		const c8* str = other.CStr();
+		u32 len = other.Size();
 		if(len > 0)
 		{
 			String result;
@@ -218,8 +218,8 @@ namespace Shady
 	}
 	String& String::operator+=(const String& other)
 	{
-		const c8* str = other.cStr();
-		u32 len = other.size();
+		const c8* str = other.CStr();
+		u32 len = other.Size();
 		if(len > 0)
 		{
 			mBufferSize = mBufferSize + len;
@@ -235,12 +235,33 @@ namespace Shady
 		return *this;
 	}
 
-	b8 String::cmpIgnoreCase(const String& other)
+	String::operator b8()
+	{
+		b8 result = false;
+		if(mBuffer)
+		{
+			if(mBufferSize > 0)
+			{
+				if(mBuffer[0] != '\0')
+				{
+					result = true;
+				}  
+			}
+			else
+			{
+				result = false;
+			}
+			
+		}
+		return result;
+	}
+
+	b8 String::CmpIgnoreCase(const String& other)
 	{
 		return strCompareNoCase(mBuffer, other.mBuffer);
 	}
 
-	String String::subString(u32 beginIndex, u32 numOfElem)
+	String String::SubString(u32 beginIndex, u32 numOfElem)
 	{
 		SH_ASSERT(beginIndex >= 0);
 		SH_ASSERT(beginIndex < mBufferSize);
@@ -256,7 +277,7 @@ namespace Shady
 		return result;
 	}
 
-	Array<String> String::split(c8 token)
+	Array<String> String::Split(c8 token)
 	{
 		Array<String> result {};
 		u32 lastIndex = 0;
@@ -289,7 +310,7 @@ namespace Shady
 		return result;
 	}
 
-	f32 String::tof32()
+	f32 String::Tof32()
 	{
 		//TODO replace with own implementation
 		f32 result = 0;
@@ -297,19 +318,19 @@ namespace Shady
 		return result;
 	}
 
-	f64 String::tof64()
+	f64 String::Tof64()
 	{
 		f64 result = 0;
 		sscanf(mBuffer, "%lf", &result);
 		return result;
 	}
 
-	s32 String::tos32()
+	s32 String::Tos32()
 	{
 		return strTos32(mBuffer);
 	}
 
-	String String::getLine()
+	String String::GetLine()
 	{
 		
 		//TODO optimize this!
@@ -338,12 +359,12 @@ namespace Shady
 		return String(&chars[0]);
 	}
 
-	b8 String::beginsWith(c8 character)
+	b8 String::BeginsWith(c8 character)
 	{
 		return (mBuffer[0] == character);
 	}
 
-	b8 String::beginsWith(const char* str)
+	b8 String::BeginsWith(const char* str)
 	{
 		b8 result = true;
 		if(mBuffer)
