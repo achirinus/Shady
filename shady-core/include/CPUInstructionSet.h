@@ -9,8 +9,9 @@
 namespace Shady
 {
 	struct CPUInstructionSet
-	{
-		
+	{   
+		friend class CPU;
+	private:
 		b8 mIsIntel;
 		b8 mIsAmd;
 		b8 mMMX;
@@ -28,9 +29,8 @@ namespace Shady
 		b8 mAVX512CD;
 		b8 mFMA;
 		b8 mSHA;
+		b8 mRDTSCP;
 		
-		
-
 		String mBrand;
 
 		CPUInstructionSet(): mIsIntel{false}, mIsAmd{false}
@@ -62,7 +62,6 @@ namespace Shady
 				mIsAmd = true;
 			}
 
-
 			if (ids >= 1)
 			{
 				__cpuid(data, 1);
@@ -87,14 +86,31 @@ namespace Shady
 				mAVX512CD = EBX & (1 << 28);
 				mSHA = EBX & (1 << 29);
 			}
-		}
 
+			__cpuid(data, 0x80000000);
+			ids = EAX;
+			if(ids >= 0x80000001)
+			{
+				__cpuid(data, 0x80000001);
+				mRDTSCP = EDX & (1 << 27);
+			}
+			if(ids > 0x80000004)
+			{
+				char brand[64];
+				__cpuid(data, 0x80000002);
+				memcpy(brand, data, sizeof(data));
+				__cpuid(data, 0x80000003);
+				memcpy(brand + 16, data, sizeof(data));
+				__cpuid(data, 0x80000004);
+				memcpy(brand + 32, data, sizeof(data));
+				mBrand = brand;
+			}
+		}
 	};
 
 	class CPU
 	{
 	public:
-
 		static CPUInstructionSet sCPU;
 		
 		static b8 IsIntel() {return sCPU.mIsIntel;}
@@ -114,6 +130,8 @@ namespace Shady
 		static b8 AVX512CD() {return sCPU.mAVX512CD;}
 		static b8 FMA() {return sCPU.mFMA;}
 		static b8 SHA() {return sCPU.mSHA;}
+		static b8 RDTSCP() {return sCPU.mRDTSCP && sCPU.mIsIntel;}
+		static String Brand() {return sCPU.mBrand;}
 	};
 }
 
