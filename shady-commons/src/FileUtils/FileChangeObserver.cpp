@@ -31,7 +31,7 @@ namespace Shady
 			tempInfo.fileHandle = tempHandle;
 			tempInfo.callback = cb;
 			tempInfo.lastModified = getLastModified(tempHandle);
-			strCopy(tempInfo.fileName, fileName);
+			StrCopy(tempInfo.fileName, fileName);
 			obsInfos.add(tempInfo);
 		}
 		else
@@ -47,7 +47,7 @@ namespace Shady
 		
 		for(u32 index = 0; index < obsInfos.size(); index++)
 		{
-			if(strCompare(fileName, obsInfos[index].fileName))
+			if(StrCompare(fileName, obsInfos[index].fileName))
 			{
 				result = true;
 				CloseHandle(obsInfos[index].fileHandle);

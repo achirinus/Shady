@@ -6,11 +6,11 @@ namespace Shady
 
 	InputManager::InputManager(): mBoundActions{}, mBMappings{}
 	{
-		mKeyboard = Keyboard::getInstance();
-		mMouse = Mouse::getInstance();
+		mKeyboard = Keyboard::GetInstance();
+		mMouse = Mouse::GetInstance();
 	}
 
-	InputManager* InputManager::getInstance()
+	InputManager* InputManager::GetInstance()
 	{
 		if(!sInstance)
 		{
@@ -19,13 +19,13 @@ namespace Shady
 		return sInstance;
 	}
 
-	void InputManager::mapAction(const String& name, InputKey key)
+	void InputManager::MapAction(const String& name, InputKey key)
 	{
 		mBMappings.add(name, key);
 	}
 
 	//Call this with reinterpret_cast to ButtonFunc or with IM_BFUNC(Func) macro
-	void InputManager::bindAction(const String& name, ButtonAction action, Object* obj, ButtonFunc func, f32 time)
+	void InputManager::BindAction(const String& name, ButtonAction action, Object* obj, ButtonFunc func, f32 time)
 	{
 		if(mBMappings.hasKey(name))
 		{
@@ -33,7 +33,7 @@ namespace Shady
 			mBoundActions.pushBack(temp);
 		}	
 	}
-	void InputManager::bindAction(const String& name, ButtonAction action, ButtonFuncS func, f32 time)
+	void InputManager::BindAction(const String& name, ButtonAction action, ButtonFuncS func, f32 time)
 	{
 		if(mBMappings.hasKey(name))
 		{
@@ -41,7 +41,7 @@ namespace Shady
 			mBoundActions.pushBack(temp);
 		}	
 	}
-	void InputManager::mapAxis(const String& name, InputKey key, f32 scale)
+	void InputManager::MapAxis(const String& name, InputKey key, f32 scale)
 	{
 		if(mAMappings.hasKey(name))
 		{
@@ -56,7 +56,7 @@ namespace Shady
 	}
 
 	//Call this with reinterpret_cast to AxisFunc or with IM_AFUNC(Func) macro
-	void InputManager::bindAxis(const String& name, Object* obj, AxisFunc func, f32 time)
+	void InputManager::BindAxis(const String& name, Object* obj, AxisFunc func, f32 time)
 	{
 		if(mAMappings.hasKey(name))
 		{
@@ -65,7 +65,7 @@ namespace Shady
 		}
 	}
 
-	void InputManager::bindAxis(const String& name, AxisFuncS func, f32 time)
+	void InputManager::BindAxis(const String& name, AxisFuncS func, f32 time)
 	{
 		if(mAMappings.hasKey(name))
 		{
@@ -74,7 +74,7 @@ namespace Shady
 		}
 	}
 
-	void InputManager::update(f32 dt)
+	void InputManager::Update(f32 dt)
 	{
 	
 		for(InputAction& in : mBoundActions)
@@ -85,11 +85,11 @@ namespace Shady
 			b8 currentState = false;
 			if(key <= InputKey::MOUSE_MIDDLE)
 			{
-				currentState = mMouse->getState(key);
+				currentState = mMouse->GetState(key);
 			}
 			else
 			{
-				currentState = mKeyboard->isPressed(key);
+				currentState = mKeyboard->IsPressed(key);
 			}
 			if(in.timeToProc > 0.0f)
 			{
@@ -131,7 +131,7 @@ namespace Shady
 						{
 							if(completed)
 							{
-								runAction(in);
+								RunAction(in);
 							}
 							else
 							{
@@ -143,14 +143,14 @@ namespace Shady
 					{
 						if(!currentState)
 						{
-							runAction(in);
+							RunAction(in);
 						}
 					}break;
 					case ButtonAction::BA_CLICKED:
 					{
 						if(!currentState)
 						{
-							runAction(in);
+							RunAction(in);
 						}
 					}break;
 				}
@@ -168,14 +168,14 @@ namespace Shady
 			{
 				if(val.key <= InputKey::MOUSE_Y)
 				{
-					f32 currentPos = mMouse->getValue(val.key); 
+					f32 currentPos = mMouse->GetValue(val.key); 
 					finalValue = (currentPos - in.state) * val.scale;
 					in.state = currentPos;
-					runAxis(in, finalValue);
+					RunAxis(in, finalValue);
 				}
 				else
 				{
-					if(mKeyboard->isPressed(val.key))
+					if(mKeyboard->IsPressed(val.key))
 					{
 						finalValue += val.scale;
 					}
@@ -183,13 +183,13 @@ namespace Shady
 			}
 			if(finalValue)
 			{
-				runAxis(in, finalValue);
+				RunAxis(in, finalValue);
 			}
 		}
 
 	}
 
-	void InputManager::runAction(InputAction& in)
+	void InputManager::RunAction(InputAction& in)
 	{
 		ButtonFunc pFunc = in.func;
 		if(pFunc && in.obj)
@@ -201,7 +201,7 @@ namespace Shady
 			in.funcS();
 		}
 	}
-	void InputManager::runAxis(InputAxis& in, f32 val)
+	void InputManager::RunAxis(InputAxis& in, f32 val)
 	{
 		AxisFunc pFunc = in.func;
 		if(pFunc && in.obj) 

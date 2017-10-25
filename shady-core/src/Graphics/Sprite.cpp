@@ -164,41 +164,41 @@ namespace Shady
 	void Sprite::update()
 	{
 		
-		Keyboard* keyboard = Keyboard::getInstance();
-		if(keyboard->isPressed(KEY_Z))
+		Keyboard* keyboard = Keyboard::GetInstance();
+		if(keyboard->IsPressed(KEY_Z))
 		{
 			scale(-0.02f);
 		}
-		if(keyboard->isPressed(KEY_C))
+		if(keyboard->IsPressed(KEY_C))
 		{
 			scale( 0.02f);
 		}
-		if(keyboard->isPressed(KEY_A))
+		if(keyboard->IsPressed(KEY_A))
 		{
 			move({-1.0f, 0.0f, 0.0f});
 		}
-		if(keyboard->isPressed(KEY_D))
+		if(keyboard->IsPressed(KEY_D))
 		{
 			move({1.0f, 0.0f, 0.0f});
 			//rotate(0.0f, 0.0f, 0.01f);
 		}
-		if(keyboard->isPressed(KEY_W))
+		if(keyboard->IsPressed(KEY_W))
 		{
 			move({0.0f, -1.0f, 0.0f});
 		}
-		if(keyboard->isPressed(KEY_S))
+		if(keyboard->IsPressed(KEY_S))
 		{
 			move({0.0f, 1.0f, 0.0f});
 		}
-		if(keyboard->isPressed(KEY_Q))
+		if(keyboard->IsPressed(KEY_Q))
 		{
 			move({0.0f, 0.0f, -0.1f });
 		}
-		if(keyboard->isPressed(KEY_E))
+		if(keyboard->IsPressed(KEY_E))
 		{
 			move({0.0f, 0.0f, 0.1f });
 		}
-		if(keyboard->isPressed(KEY_K))
+		if(keyboard->IsPressed(KEY_K))
 		{
 			DEBUG_OUT_INFO("Pos: [%f  %f  %f  %f]", mPos.x, mPos.y, mPos.z, mPos.w);
 			DEBUG_OUT_INFO("Move by: [%f  %f  %f  %f]", mMoveAmount.x, mMoveAmount.y,

@@ -73,17 +73,17 @@ namespace Shady
 		const uc8* verStr = glGetString(GL_VERSION);
 		const uc8* shaderVerStr = glGetString(GL_SHADING_LANGUAGE_VERSION);
 
-		const c8* glFirstDigit = findFirstDigit((c8*)verStr);
-		const c8* shaderFirstDigit = findFirstDigit((c8*)shaderVerStr);
-		info->swapControl = findStr((c8*)extStr, "WGL_EXT_swap_control");
-		info->arbCompatibility = findStr((c8*)extStr, "GL_ARB_compatibility");
-		info->arbDebugOutput = findStr((c8*)extStr, "GL_ARB_debug_output");
+		const c8* glFirstDigit = FindFirstDigit((c8*)verStr);
+		const c8* shaderFirstDigit = FindFirstDigit((c8*)shaderVerStr);
+		info->swapControl = FindStr((c8*)extStr, "WGL_EXT_swap_control");
+		info->arbCompatibility = FindStr((c8*)extStr, "GL_ARB_compatibility");
+		info->arbDebugOutput = FindStr((c8*)extStr, "GL_ARB_debug_output");
 
-		info->majorGlVersion = charToDigit(glFirstDigit[0]);
-		info->minorGlVersion = charToDigit(glFirstDigit[2]);
+		info->majorGlVersion = CharToDigit(glFirstDigit[0]);
+		info->minorGlVersion = CharToDigit(glFirstDigit[2]);
 
-		info->majorShaderVersion = charToDigit(shaderFirstDigit[0]);
-		info->minorShaderVersion = charToDigit(shaderFirstDigit[2]);
+		info->majorShaderVersion = CharToDigit(shaderFirstDigit[0]);
+		info->minorShaderVersion = CharToDigit(shaderFirstDigit[2]);
 	}
 
 	HGLRC Win32GlInit(HDC dc, OpenglInfo* info)

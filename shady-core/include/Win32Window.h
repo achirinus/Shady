@@ -24,22 +24,22 @@ namespace Shady
 				s16 width = SH_DEFAULT_WINDOW_WIDTH,
 				s16 height = SH_DEFAULT_WINDOW_HEIGHT);
 
-		virtual void update();
-		virtual void swapBuffers();
-		virtual void clear();
-		virtual b8 isOpen();
-		virtual void show();
-		virtual void hide();
-		virtual void minimize();
-		virtual void maximize();
-		virtual void restore();
-		virtual bool isActive();
-		virtual bool isFullScreen();
-		virtual void setTitle(const c8* title);
-		virtual String getTitle();
-		virtual void enableVSync();
-		virtual void disableVSync();
-		virtual void* getPlatformPointer();
+		virtual void Update();
+		virtual void SwapBuffers();
+		virtual void Clear();
+		virtual b8 IsOpen();
+		virtual void Show();
+		virtual void Hide();
+		virtual void Minimize();
+		virtual void Maximize();
+		virtual void Restore();
+		virtual bool IsActive();
+		virtual bool IsFullScreen();
+		virtual void SetTitle(const c8* title);
+		virtual String GetTitle();
+		virtual void EnableVSync();
+		virtual void DisableVSync();
+		virtual void* GetPlatformPointer();
 		virtual ~Win32Window();
 		static LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 		static VOID CALLBACK renderTimerProc(HWND hwnd, UINT uMsg, UINT_PTR idEvent, DWORD dwTime);

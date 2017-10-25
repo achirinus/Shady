@@ -34,9 +34,9 @@ namespace Shady
 	void ShadyApp::start()
 	{
 		mMainWindow = new Win32Window();
-		mMouse = Mouse::getInstance();
-		mKeyboard = Keyboard::getInstance();
-		mInputManager = InputManager::getInstance();
+		mMouse = Mouse::GetInstance();
+		mKeyboard = Keyboard::GetInstance();
+		mInputManager = InputManager::GetInstance();
 		initGameState();
 		//Texture* b = win32GetGlyphTexture('A');
 		/*
@@ -60,13 +60,14 @@ namespace Shady
 		b8 bit3 = a[2];
 		b8 bit4 = a[3];
 
-		
+		u32 tu = 1_KB;
+		DEBUG_OUT_INFO("%d", tu);
 
 
-		mMainWindow->disableVSync();
+		mMainWindow->DisableVSync();
 		setFpsLimit(60);
 		setUpdateFreq(60);
-		while (mMainWindow->isOpen())
+		while (mMainWindow->IsOpen())
 		{
 			
 			//IF WE LIMIT BOTH UPDAE() AND RENDER() THE TIME 
@@ -95,11 +96,11 @@ namespace Shady
 	{
 		mUpdateTimer.update();
 
-		mMainWindow->update();
-		mInputManager->update(dt);
+		mMainWindow->Update();
+		mInputManager->Update(dt);
 		fileObserver.update();
 		camera2d->update();
-		camera3d->update(dt);
+		camera3d->Update(dt);
 		//testSprite->update();
 		
 
@@ -123,10 +124,10 @@ namespace Shady
 	{
 		mFrameTimer.update();
 		countFps(dt);
-		mMainWindow->clear();
+		mMainWindow->Clear();
 		renderer2d->render(dt);
 		renderer3d->render(dt);
-		mMainWindow->swapBuffers();
+		mMainWindow->SwapBuffers();
 
 		//checkGlError();
 
@@ -139,14 +140,14 @@ namespace Shady
 	{
 		File::setCwd("..\\..\\"); //CWD = Main Shady folder
 		//TODO put these in their arena and take care of cleanup
-		mInputManager->mapAction("test", InputKey::MOUSE_LEFT);
-		mInputManager->mapAction("cameraLock", InputKey::MOUSE_RIGHT);
-		mInputManager->mapAxis("moveX", InputKey::KEY_A, -1.0f);
-		mInputManager->mapAxis("moveX", InputKey::KEY_D, 1.0f);
-		mInputManager->mapAxis("moveY", InputKey::KEY_W, -1.0f);
-		mInputManager->mapAxis("moveY", InputKey::KEY_S, 1.0f);
-		mInputManager->mapAxis("yaw", InputKey::MOUSE_X, 1.0f);
-		mInputManager->mapAxis("pitch", InputKey::MOUSE_Y, 1.0f);
+		mInputManager->MapAction("test", InputKey::MOUSE_LEFT);
+		mInputManager->MapAction("cameraLock", InputKey::MOUSE_RIGHT);
+		mInputManager->MapAxis("moveX", InputKey::KEY_A, -1.0f);
+		mInputManager->MapAxis("moveX", InputKey::KEY_D, 1.0f);
+		mInputManager->MapAxis("moveY", InputKey::KEY_W, -1.0f);
+		mInputManager->MapAxis("moveY", InputKey::KEY_S, 1.0f);
+		mInputManager->MapAxis("yaw", InputKey::MOUSE_X, 1.0f);
+		mInputManager->MapAxis("pitch", InputKey::MOUSE_Y, 1.0f);
 		
 		#if 0
 		mInputManager->mapAxis("left", InputKey::KEY_A, -1.0f);

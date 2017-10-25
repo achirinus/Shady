@@ -30,23 +30,23 @@ namespace Shady
 		b8 mFullScreen;
 		OpenglInfo mOpenglInfo;
 		
-		virtual void update() = 0;
-		virtual void swapBuffers() = 0;
-		virtual void clear() = 0;
-		virtual b8 isOpen() = 0;
-		virtual void show() = 0;
-		virtual void hide() = 0;
-		virtual void minimize() = 0;
-		virtual void maximize() = 0;
-		virtual void restore() = 0;
-		virtual bool isActive() = 0;
-		virtual bool isFullScreen() = 0;
-		virtual void enableVSync() = 0;
-		virtual void disableVSync() = 0;
-		virtual void setTitle(const c8* title) = 0;
-		virtual String getTitle() = 0;
+		virtual void Update() = 0;
+		virtual void SwapBuffers() = 0;
+		virtual void Clear() = 0;
+		virtual b8 IsOpen() = 0;
+		virtual void Show() = 0;
+		virtual void Hide() = 0;
+		virtual void Minimize() = 0;
+		virtual void Maximize() = 0;
+		virtual void Restore() = 0;
+		virtual bool IsActive() = 0;
+		virtual bool IsFullScreen() = 0;
+		virtual void EnableVSync() = 0;
+		virtual void DisableVSync() = 0;
+		virtual void SetTitle(const c8* title) = 0;
+		virtual String GetTitle() = 0;
 		virtual ~Window() {};
-		virtual void* getPlatformPointer() = 0;
+		virtual void* GetPlatformPointer() = 0;
 	};
 }
 

@@ -8,19 +8,19 @@ namespace Shady
 		mWidth{dim.x}, mHeight{dim.y}, mPos{pos}, mRot{rot},
 		mView{1}, mProj{1}
 	{
-		updateMats();
+		UpdateMats();
 
 		
-		InputManager::getInstance()->bindAction("cameraLock", BA_PRESSED, this, IM_BFUNC(Camera3D::unlock));
-		InputManager::getInstance()->bindAction("cameraLock", BA_RELEASED, this, IM_BFUNC(Camera3D::lock));
-		InputManager::getInstance()->bindAxis("yaw", this, IM_AFUNC(Camera3D::handleYaw));
-		InputManager::getInstance()->bindAxis("pitch", this, IM_AFUNC(Camera3D::handlePitch));
-		InputManager::getInstance()->bindAxis("moveX", this, IM_AFUNC(Camera3D::handleMoveX));
-		InputManager::getInstance()->bindAxis("moveY", this, IM_AFUNC(Camera3D::handleMoveY));
+		InputManager::GetInstance()->BindAction("cameraLock", BA_PRESSED, this, IM_BFUNC(Camera3D::Unlock));
+		InputManager::GetInstance()->BindAction("cameraLock", BA_RELEASED, this, IM_BFUNC(Camera3D::Lock));
+		InputManager::GetInstance()->BindAxis("yaw", this, IM_AFUNC(Camera3D::HandleYaw));
+		InputManager::GetInstance()->BindAxis("pitch", this, IM_AFUNC(Camera3D::HandlePitch));
+		InputManager::GetInstance()->BindAxis("moveX", this, IM_AFUNC(Camera3D::HandleMoveX));
+		InputManager::GetInstance()->BindAxis("moveY", this, IM_AFUNC(Camera3D::HandleMoveY));
 
 	}
 
-	void Camera3D::updateMats()
+	void Camera3D::UpdateMats()
 	{
 		mView = Matrix4f{1};
 		mView = Matrix4f::translation(-mPos.x, -mPos.y, -mPos.z);
@@ -31,29 +31,29 @@ namespace Shady
 	}
 
 
-	void Camera3D::handleYaw(f32 val)
+	void Camera3D::HandleYaw(f32 val)
 	{
 		if(!mLocked) mRot.y += val;
 	}
 
-	void Camera3D::handlePitch(f32 val)
+	void Camera3D::HandlePitch(f32 val)
 	{
 		if(!mLocked) mRot.x += val;
 	}
 
-	void Camera3D::handleMoveX(f32 val)
+	void Camera3D::HandleMoveX(f32 val)
 	{
 		if(!mLocked) mPos.x += val;
 	}
 
-	void Camera3D::handleMoveY(f32 val)
+	void Camera3D::HandleMoveY(f32 val)
 	{
 		if(!mLocked) mPos.z += val;
 	}
 
-	void Camera3D::update(f32 dt)
+	void Camera3D::Update(f32 dt)
 	{
-		updateMats();
+		UpdateMats();
 
 	}
 }

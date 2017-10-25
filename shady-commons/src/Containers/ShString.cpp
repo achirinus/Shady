@@ -16,7 +16,7 @@ namespace Shady
 		
 		for(auto it = list.begin(); it != list.end(); it++)
 		{
-			mBufferSize += strLength(*it);
+			mBufferSize += StrLength(*it);
 		}
 		
 		mBufferSize++; //for null terminator
@@ -24,7 +24,7 @@ namespace Shady
 		c8* tempBuffer = mBuffer;
 		for(auto it = list.begin(); it != list.end(); it++)
 		{
-			s32 advanceBy = strCopyNoTerminator(tempBuffer, *it);
+			s32 advanceBy = StrCopyNoTerminator(tempBuffer, *it);
 			tempBuffer += advanceBy;
 		}
 		*tempBuffer = '\0';
@@ -33,16 +33,16 @@ namespace Shady
 
 	String::String(u32 integer)
 	{
-		u32 size = digitCount(integer, 10);
+		u32 size = DigitCount(integer, 10);
 		mBufferSize = size + 1;
 		mBuffer = new c8[mBufferSize];
-		s32ToStr(mBuffer, mBufferSize, integer);
+		S32ToStr(mBuffer, mBufferSize, integer);
 	}
 	String::String(const c8* str)
 	{
-		mBufferSize = strLength(str) + 1;
+		mBufferSize = StrLength(str) + 1;
 		mBuffer = new c8[mBufferSize];
-		strCopy(mBuffer, str);
+		StrCopy(mBuffer, str);
 	}
 	String::String(const String& other)
 	{
@@ -51,7 +51,7 @@ namespace Shady
 		if(mBufferSize > 0)
 		{
 			mBuffer = new c8[mBufferSize];
-			strCopy(mBuffer, other.mBuffer);
+			StrCopy(mBuffer, other.mBuffer);
 		}
 	}
 	String::String(String&& other)
@@ -76,7 +76,7 @@ namespace Shady
 			if(str)
 			{
 				strings[stringsFound++] = str;
-				mBufferSize += strLength(str);
+				mBufferSize += StrLength(str);
 			}
 		}
 		
@@ -84,7 +84,7 @@ namespace Shady
 		c8* tempBuffer = mBuffer;
 		for(u32 strIndex = 0; strIndex < stringsFound; strIndex++)
 		{
-			s32 advanceBy = strCopyNoTerminator(tempBuffer, strings[strIndex]);
+			s32 advanceBy = StrCopyNoTerminator(tempBuffer, strings[strIndex]);
 			tempBuffer += advanceBy;
 		}
 		*tempBuffer = '\0';
@@ -96,13 +96,13 @@ namespace Shady
 	{
 		mBufferSize = other.mBufferSize;
 		if(!mBuffer) mBuffer = new c8[mBufferSize];
-		strCopy(mBuffer, other.mBuffer);
+		StrCopy(mBuffer, other.mBuffer);
 		return *this;
 	}
 	String& String::operator=(const c8* str)
 	{
 		SH_ASSERT(str);
-		s32 size = strLength(str);
+		s32 size = StrLength(str);
 		
 		mBufferSize = size + 1;
 		mBuffer = new c8[mBufferSize];	
@@ -124,14 +124,14 @@ namespace Shady
 		else if(size > mBufferSize)
 		{
 			c8* tempBuffer = new c8[size + 1];
-			strCopy(tempBuffer, mBuffer);
+			StrCopy(tempBuffer, mBuffer);
 			delete[] mBuffer;
 			mBuffer = tempBuffer;
 		}
 		else
 		{
 			c8* tempBuffer = new c8[size + 1];
-			strnCopy(tempBuffer, size, tempBuffer);
+			StrnCopy(tempBuffer, size, tempBuffer);
 			delete[] mBuffer;
 			mBuffer = tempBuffer;
 		}
@@ -150,7 +150,7 @@ namespace Shady
 
 	b8 String::operator==(const String& other)
 	{
-		return strCompare(mBuffer, other.mBuffer);
+		return StrCompare(mBuffer, other.mBuffer);
 	}
 	b8 String::operator!=(const String& other)
 	{
@@ -159,7 +159,7 @@ namespace Shady
 
 	String String::operator+(const c8* str)
 	{
-		u32 len = strLength(str);
+		u32 len = StrLength(str);
 		if(len > 0)
 		{
 			String result;
@@ -200,7 +200,7 @@ namespace Shady
 	{
 		if(str)
 		{
-			u32 len = strLength(str);
+			u32 len = StrLength(str);
 			if(len > 0)
 			{
 				mBufferSize = mBufferSize + len;
@@ -258,7 +258,7 @@ namespace Shady
 
 	b8 String::CmpIgnoreCase(const String& other)
 	{
-		return strCompareNoCase(mBuffer, other.mBuffer);
+		return StrCompareNoCase(mBuffer, other.mBuffer);
 	}
 
 	String String::SubString(u32 beginIndex, u32 numOfElem)
@@ -327,7 +327,7 @@ namespace Shady
 
 	s32 String::Tos32()
 	{
-		return strTos32(mBuffer);
+		return StrTos32(mBuffer);
 	}
 
 	String String::GetLine()

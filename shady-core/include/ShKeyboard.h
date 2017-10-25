@@ -15,10 +15,11 @@ namespace Shady
 		bool mKeyStates[MAX_KEYS_SUPPORTED];
 		Keyboard() { for(s32 index = 0; index < MAX_KEYS_SUPPORTED; index++) mKeyStates[index] = false;}
 	public:
-		static Keyboard* getInstance();
-		void set(InputKey key, bool value);
-		bool isPressed(InputKey key);
-		bool isCombo(s32 numOfKeys ...);
+		static Keyboard* GetInstance();
+		void Set(InputKey key, bool value);
+		bool IsPressed(InputKey key);
+		bool IsCombo(s32 numOfKeys ...);
+		bool IsCombo(std::initializer_list<s32>);
 	};
 }
 

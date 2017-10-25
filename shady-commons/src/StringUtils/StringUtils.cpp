@@ -10,13 +10,13 @@ namespace Shady
 	c8 base16DigitsUpper[] = "0123456789ABCDEF";
 	c8 base16DigitsLower[] = "0123456789abcdef";
 
-	c8* skipChars(c8* str, c8 c)
+	c8* SkipChars(c8* str, c8 c)
 	{
 		while(*str && (*str == c)) str++;
 		return str;
 	}
 
-	c8* findChar(c8* str, c8 c)
+	c8* FindChar(c8* str, c8 c)
 	{
 
 		if (!str) return nullptr;
@@ -29,7 +29,7 @@ namespace Shady
 		return nullptr;
 	}
 
-	c8* findStr(c8* str, c8* strToFind)
+	c8* FindStr(c8* str, c8* strToFind)
 	{
 		bool found = false;
 		c8* value = nullptr;
@@ -62,48 +62,48 @@ namespace Shady
 		return value;
 	}
 
-	const c8* findFirstDigit(const c8* str)
+	const c8* FindFirstDigit(const c8* str)
 	{
 		while(*str)
 		{
-			if(isDigit(*str)) return str;
+			if(IsDigit(*str)) return str;
 			str++;
 		}
 		return 0;
 	}
 
-	c8* findFirstDigit(c8* str)
+	c8* FindFirstDigit(c8* str)
 	{
 		while(*str)
 		{
-			if(isDigit(*str)) return str;
+			if(IsDigit(*str)) return str;
 			str++;
 		}
 		return 0;
 	}
 
-	c8* strConcat(const c8* first, const c8* second)
+	c8* StrConcat(const c8* first, const c8* second)
 	{
-		u32 firstLen = strLength(first);
-		u32 secondLen = strLength(second);
+		u32 firstLen = StrLength(first);
+		u32 secondLen = StrLength(second);
 		c8* result = new c8[firstLen + secondLen + 1];
 		c8* temp = result;
-		strCopy(temp, first);
+		StrCopy(temp, first);
 		temp+= firstLen;
-		strCopy(temp, second);
+		StrCopy(temp, second);
 		temp+= secondLen;
 		*temp = '\0';
 		return result;
 	}
 
-	c8* s32ToStr(s32 num)
+	c8* S32ToStr(s32 num)
 	{
 		c8* result = new c8[S32_CHAR_NUM + 1];
-		s32ToStr(result, S32_CHAR_NUM + 1, num);
+		S32ToStr(result, S32_CHAR_NUM + 1, num);
 		return result;
 	}
 
-	void s32ToStr(c8* buffer, u32 bufferSize, s32 num)
+	void S32ToStr(c8* buffer, u32 bufferSize, s32 num)
 	{
 		SH_ASSERT(buffer);
 		SH_ASSERT(bufferSize);
@@ -136,14 +136,14 @@ namespace Shady
 		buffer[counter] = 0;
 	}
 
-	s64 strTos64(c8* str)
+	s64 StrTos64(c8* str)
 	{
 		s64 result = 0;
 		b8 digitStarted = false;
 		b8 isNegative = false;
 		while(*str)
 		{
-			if(!isDigit(*str))
+			if(!IsDigit(*str))
 			{
 				if(digitStarted) break;
 				if(*str != '-')
@@ -152,7 +152,7 @@ namespace Shady
 				}
 				else
 				{
-					if(isDigit(*++str))
+					if(IsDigit(*++str))
 					{
 						isNegative = true;
 						digitStarted = true;	
@@ -170,19 +170,19 @@ namespace Shady
 		return result;
 	}
 
-	s32 strTos32(c8* str)
+	s32 StrTos32(c8* str)
 	{
-		return (s32)strTos64(str);
+		return (s32)StrTos64(str);
 	}
 
-	u64 strTou64(c8* str)
+	u64 StrTou64(c8* str)
 	{
 		SH_ASSERT(str);
 		u64 result = 0;
 		b8 digitStarted = false;
 		while(*str)
 		{
-			if(!isDigit(*str))
+			if(!IsDigit(*str))
 			{
 				if(digitStarted) break;
 				str++;
@@ -199,31 +199,31 @@ namespace Shady
 		return result;
 	}
 
-	u32 strTou32(c8* str)
+	u32 StrTou32(c8* str)
 	{
-		return (u32)strTou64(str);
+		return (u32)StrTou64(str);
 	}
 
 	//TODO replace this with own implementation
-	float strTof32(c8* str, c8** index)
+	float StrTof32(c8* str, c8** index)
 	{
 		return strtof(str, index);
 	}
 
 	//TODO replace this with own implementation
-	double strTof64(c8* str, c8** index)
+	double StrTof64(c8* str, c8** index)
 	{
 		return strtod(str, index);
 	}
 
-	s32 charToDigit(c8 c)
+	s32 CharToDigit(c8 c)
 	{
 		s32 result = INVALID_DIGIT;
-		if(isDigit(c)) result = (c - '0');
+		if(IsDigit(c)) result = (c - '0');
 		return result;
 	}
 
-	u32 digitCount(s32 num, s32 base)
+	u32 DigitCount(s32 num, s32 base)
 	{
 		u32 result = 0;
 		b8 isNegative = (num < 0);
@@ -239,23 +239,10 @@ namespace Shady
 	}
 
 	
-	bool strCompare(const c8* str1, const c8* str2)
+	bool StrCompare(const c8* str1, const c8* str2)
 	{
 		
-		if (strLength(str1) != strLength(str2)) return false;
-		
-		while (*str1)
-		{
-			if (*str1 != *str2) return false;
-			str1++;
-			str2++;
-		}
-		return true;
-	}
-
-	b8 strCompare(const c16* str1, const c16* str2)
-	{
-		if (strLength(str1) != strLength(str2)) return false;
+		if (StrLength(str1) != StrLength(str2)) return false;
 		
 		while (*str1)
 		{
@@ -266,12 +253,25 @@ namespace Shady
 		return true;
 	}
 
-	bool strCompareNoCase(const c8* str1, const c8* str2)
+	b8 StrCompare(const c16* str1, const c16* str2)
 	{
-		if (strLength(str1) != strLength(str2)) return false;
+		if (StrLength(str1) != StrLength(str2)) return false;
+		
+		while (*str1)
+		{
+			if (*str1 != *str2) return false;
+			str1++;
+			str2++;
+		}
+		return true;
+	}
+
+	bool StrCompareNoCase(const c8* str1, const c8* str2)
+	{
+		if (StrLength(str1) != StrLength(str2)) return false;
 		while (*str1 || *str2)
 		{
-			if (!charCompareNoCase(*str1, *str2)) return false;
+			if (!CharCompareNoCase(*str1, *str2)) return false;
 			str1++;
 			str2++;
 		}
@@ -279,9 +279,9 @@ namespace Shady
 		return true;
 	}
 
-	b8 charCompareNoCase(c8 c1, c8 c2)
+	b8 CharCompareNoCase(c8 c1, c8 c2)
 	{
-		if (isLetter(c1) && isLetter(c2))
+		if (IsLetter(c1) && IsLetter(c2))
 		{
 			s32 dif = absolute(c1 - c2);
 			if ((dif == 32) || (dif == 0)) return true;
@@ -292,18 +292,15 @@ namespace Shady
 		return false;
 	}
 
-	u32 strLength(const c8 *str)
+	u32 StrLength(const c8 *str)
 	{
 		u32 result = 0;
-		if(str)
-		{
-			while (*str++) result++;	
-		}
-		
+		while (*str++) result++;
+
 		return result;
 	}
 	
-	u32 strLength(const c16 *str)
+	u32 StrLength(const c16 *str)
 	{
 		u32 result = 0;
 		while (*str++) result++;
@@ -311,19 +308,19 @@ namespace Shady
 		return result;
 	}
 
-	b8 isLetter(c8 c)
+	b8 IsLetter(c8 c)
 	{
 		return ((c > 64) && (c < 91)) || ((c > 96) && (c < 123));
 	}
 
-	b8 isDigit(c8 c)
+	b8 IsDigit(c8 c)
 	{
 		return ((c >= '0') &&(c <= '9'));
 	}
 
 	
 	
-	int getLine(c8* buffer, int bufferLength, c8* str)
+	int GetLine(c8* buffer, int bufferLength, c8* str)
 	{
 		int result = 0;
 		for (int i = 0; i < bufferLength; i++)
@@ -346,17 +343,17 @@ namespace Shady
 		return result;
 	}
 
-	bool endsWith(c8* str, c8* end)
+	bool EndsWith(c8* str, c8* end)
 	{
-		u32 sizeStr = strLength(str);
-		u32 sizeEnd = strLength(end);
+		u32 sizeStr = StrLength(str);
+		u32 sizeEnd = StrLength(end);
 		if(sizeEnd > sizeStr) return false;
-		bool result = strCompare((str + (sizeStr - sizeEnd)), end);
+		bool result = StrCompare((str + (sizeStr - sizeEnd)), end);
 
 		return result;
 	}
 
-	bool beginsWith(const c8* str, const c8* strToFind)
+	bool BeginsWith(const c8* str, const c8* strToFind)
 	{
 		b8 result = true;
 		if(str)
@@ -370,12 +367,18 @@ namespace Shady
 		return result;
 	}
 
-	void strCopy(c8* buffer, const c8* str)
+	void StrCopy(c8* buffer, const c8* str)
 	{
 		while (*buffer++ = *str++) {}
 	}
+	void StrnCopy(c8* buffer, u32 num, const c8* str)
+	{
+		SH_ASSERT(buffer);
+		while(num-- && (*buffer++ = *str++)) {}
+		*buffer = 0;
+	}
 
-	s32 strCopyNoTerminator(c8* buffer, const c8* str)
+	s32 StrCopyNoTerminator(c8* buffer, const c8* str)
 	{
 		s32 result = 0;
 		while(*str)
@@ -385,22 +388,18 @@ namespace Shady
 		}
 		return result;
 	}
-	void strnCopy(c8* buffer, u32 num, const c8* str)
+	
+	void CustomFormat(c8* buffer, const c8* format ...)
 	{
-		SH_ASSERT(buffer);
-		while(num-- && (*buffer++ = *str++)) {}
-		*buffer = 0;
-	}
-
-	void customFormat(c8* buffer, const c8* format, va_list args)
-	{
+		va_list args;
+		va_start(args, format);
 		c8* tempBuffer = buffer;
 
 		while(*format)
 		{
 			if(*format == '%')
 			{
-				if(beginsWith(format+1, "mat4"))
+				if(BeginsWith(format+1, "mat4"))
 				{
 					c8 tb[256];
 					c8* tbp = &tb[0]; 
@@ -410,7 +409,7 @@ namespace Shady
 										mat.elem[4], mat.elem[5], mat.elem[6], mat.elem[7], 
 										mat.elem[8], mat.elem[9], mat.elem[10], mat.elem[11],
 										mat.elem[12], mat.elem[13], mat.elem[14], mat.elem[15]);
-					u32 tbSize = strLength(tb);
+					u32 tbSize = StrLength(tb);
 					while(tbSize--)
 					{
 						*tempBuffer++ = *tbp++;
@@ -418,7 +417,7 @@ namespace Shady
 					format+=5;
 					continue;
 				}
-				else if(beginsWith(format+1, "mat3"))
+				else if(BeginsWith(format+1, "mat3"))
 				{
 					c8 tb[256];
 					c8* tbp = &tb[0];
@@ -427,7 +426,7 @@ namespace Shady
 										mat.elem[0], mat.elem[1], mat.elem[2],
 										mat.elem[3], mat.elem[4], mat.elem[5],
 										mat.elem[6], mat.elem[7], mat.elem[8]);
-					u32 tbSize = strLength(tb);
+					u32 tbSize = StrLength(tb);
 					while(tbSize--)
 					{
 						*tempBuffer++ = *tbp++;
@@ -436,13 +435,13 @@ namespace Shady
 					continue;
 
 				}	
-				else if(beginsWith(format+1, "vec4f"))
+				else if(BeginsWith(format+1, "vec4f"))
 				{
 					c8 tb[128];
 					c8* tbp = &tb[0];
 					Vec4f vec = va_arg(args, Vec4f);
 					sprintf_s(tb, 128, "|%f %f %f %f|", vec.x, vec.y, vec.z, vec.w);
-					u32 tbSize = strLength(tb);
+					u32 tbSize = StrLength(tb);
 					while(tbSize--)
 					{
 						*tempBuffer++ = *tbp++;
@@ -450,13 +449,13 @@ namespace Shady
 					format+=6;
 					continue;
 				}
-				else if(beginsWith(format+1, "vec3f"))
+				else if(BeginsWith(format+1, "vec3f"))
 				{
 					c8 tb[128];
 					c8* tbp = &tb[0];
 					Vec3f vec = va_arg(args, Vec3f);
 					sprintf_s(tb, 128, "|%f %f %f|", vec.x, vec.y, vec.z);
-					u32 tbSize = strLength(tb);
+					u32 tbSize = StrLength(tb);
 					while(tbSize--)
 					{
 						*tempBuffer++ = *tbp++;
@@ -464,13 +463,13 @@ namespace Shady
 					format+=6;
 					continue;
 				}
-				else if(beginsWith(format+1, "vec2f"))
+				else if(BeginsWith(format+1, "vec2f"))
 				{
 					c8 tb[48];
 					c8* tbp = &tb[0];
 					Vec2f vec = va_arg(args, Vec2f);
 					sprintf_s(tb, 48, "|%f %f|", vec.x, vec.y);
-					u32 tbSize = strLength(tb);
+					u32 tbSize = StrLength(tb);
 					while(tbSize--)
 					{
 						*tempBuffer++ = *tbp++;
@@ -478,13 +477,13 @@ namespace Shady
 					format+=6;
 					continue;
 				}
-				else if(beginsWith(format+1, "f32"))
+				else if(BeginsWith(format+1, "f32"))
 				{
 					c8 tb[48];
 					c8* tbp = &tb[0];
 					f64 num = va_arg(args, f64);
 					sprintf_s(tb, 48, "%f", num);
-					u32 tbSize = strLength(tb);
+					u32 tbSize = StrLength(tb);
 					while(tbSize--)
 					{
 						*tempBuffer++ = *tbp++;
@@ -492,13 +491,13 @@ namespace Shady
 					format+=4;
 					continue;
 				}
-				else if(beginsWith(format+1, "s32"))
+				else if(BeginsWith(format+1, "s32"))
 				{
 					c8 tb[48];
 					c8* tbp = &tb[0];
 					s32 num = va_arg(args, s32);
 					sprintf_s(tb, 48, "%d", num);
-					u32 tbSize = strLength(tb);
+					u32 tbSize = StrLength(tb);
 					while(tbSize--)
 					{
 						*tempBuffer++ = *tbp++;
@@ -506,13 +505,13 @@ namespace Shady
 					format+=4;
 					continue;
 				}			
-				else if(beginsWith(format+1, "u32"))
+				else if(BeginsWith(format+1, "u32"))
 				{
 					c8 tb[48];
 					c8* tbp = &tb[0];
 					u32 num = va_arg(args, u32);
 					sprintf_s(tb, 48, "%u", num);
-					u32 tbSize = strLength(tb);
+					u32 tbSize = StrLength(tb);
 					while(tbSize--)
 					{
 						*tempBuffer++ = *tbp++;
@@ -520,13 +519,13 @@ namespace Shady
 					format+=4;
 					continue;
 				}
-				else if(beginsWith(format+1, "f64"))
+				else if(BeginsWith(format+1, "f64"))
 				{
 					c8 tb[48];
 					c8* tbp = &tb[0];
 					f64 num = va_arg(args, f64);
 					sprintf_s(tb, 48, "%f", num);
-					u32 tbSize = strLength(tb);
+					u32 tbSize = StrLength(tb);
 					while(tbSize--)
 					{
 						*tempBuffer++ = *tbp++;
@@ -534,13 +533,13 @@ namespace Shady
 					format+=4;
 					continue;
 				}
-				else if(beginsWith(format+1, "s64"))
+				else if(BeginsWith(format+1, "s64"))
 				{
 					c8 tb[48];
 					c8* tbp = &tb[0];
 					s64 num = va_arg(args, s64);
 					sprintf_s(tb, 48, "%lld", num);
-					u32 tbSize = strLength(tb);
+					u32 tbSize = StrLength(tb);
 					while(tbSize--)
 					{
 						*tempBuffer++ = *tbp++;
@@ -548,13 +547,13 @@ namespace Shady
 					format+=4;
 					continue;
 				}			
-				else if(beginsWith(format+1, "u64"))
+				else if(BeginsWith(format+1, "u64"))
 				{
 					c8 tb[48];
 					c8* tbp = &tb[0];
 					u64 num = va_arg(args, u64);
 					sprintf_s(tb, 48, "%llu", num);
-					u32 tbSize = strLength(tb);
+					u32 tbSize = StrLength(tb);
 					while(tbSize--)
 					{
 						*tempBuffer++ = *tbp++;
@@ -562,7 +561,7 @@ namespace Shady
 					format+=4;
 					continue;
 				}
-				else if(beginsWith(format+1, "b8"))
+				else if(BeginsWith(format+1, "b8"))
 				{
 					c8 tb[8];
 					c8* tbp = &tb[0];
@@ -576,7 +575,7 @@ namespace Shady
 						sprintf_s(tb, 8, "TRUE");
 					}
 					
-					u32 tbSize = strLength(tb);
+					u32 tbSize = StrLength(tb);
 					while(tbSize--)
 					{
 						*tempBuffer++ = *tbp++;
@@ -584,7 +583,7 @@ namespace Shady
 					format+=3;
 					continue;
 				}
-				else if(beginsWith(format+1, "str"))
+				else if(BeginsWith(format+1, "str"))
 				{
 					String str = va_arg(args, String);
 					const c8* tempStr = str.CStr();
@@ -596,11 +595,11 @@ namespace Shady
 					format+=4;
 					continue;
 				}
-				else if(beginsWith(format+1, "s"))
+				else if(BeginsWith(format+1, "s"))
 				{
 					c8* tempStr = va_arg(args, c8*);
 					
-					u32 tbSize = strLength(tempStr);
+					u32 tbSize = StrLength(tempStr);
 					while(tbSize--)
 					{
 						*tempBuffer++ = *tempStr++;
@@ -608,13 +607,13 @@ namespace Shady
 					format+=2;
 					continue;
 				}
-				else if(beginsWith(format + 1, "c8"))
+				else if(BeginsWith(format + 1, "c8"))
 				{
 					c8 tb[4];
 					c8* tbp = &tb[0];
 					s32 c = va_arg(args, s32);
 					sprintf_s(tb, 4, "%c", c);
-					u32 tbSize = strLength(tb);
+					u32 tbSize = StrLength(tb);
 					while(tbSize--)
 					{
 						*tempBuffer++ = *tbp++;
@@ -632,33 +631,8 @@ namespace Shady
 			format++;
 		}
 		*tempBuffer = '\0';
-	}
-	
-	void customFormat(c8* buffer, const c8* format ...)
-	{
-		va_list args;
-		va_start(args, format);
-		customFormat(buffer, format, args);
 		va_end(args);
 		
-	}
-
-	void toAllCaps(c8* str)
-	{
-		while(*str)
-		{
-			if((*str >= 'a') && (*str <= 'z')) *str -= 32;
-			str++;
-		}
-	}
-
-	void toAllLower(c8* str)
-	{
-		while(*str)
-		{
-			if((*str >= 'A') && (*str <= 'Z')) *str += 32;
-			str++;
-		}
 	}
 	
 }

@@ -1,12 +1,12 @@
 #include "ShKeyboard.h"
-
+#include <initializer_list>
 
 namespace Shady
 {
 
 	Keyboard* Keyboard::sInstance = 0;
 
-	inline Keyboard* Keyboard::getInstance()
+	inline Keyboard* Keyboard::GetInstance()
 	{
 		if(!sInstance)
 		{
@@ -15,7 +15,7 @@ namespace Shady
 		return sInstance;
 	}
 
-	bool Keyboard::isCombo(s32 numOfKeys ...)
+	bool Keyboard::IsCombo(s32 numOfKeys ...)
 	{
 		SH_ASSERT(numOfKeys <= SHADY_MAX_KEY_COMBO);
 		va_list list;
@@ -29,15 +29,37 @@ namespace Shady
 			if(!val) return false;
 			result = true;
 		}
+		va_end(list);
+		
 		return result;
 	}
 
-	bool Keyboard::isPressed(InputKey key)
+	bool Keyboard::IsCombo(std::initializer_list<s32> list)
+	{
+		u32 numOfKeys = list.size();
+
+		SH_ASSERT(numOfKeys <= SHADY_MAX_KEY_COMBO);
+		
+		bool result = false;
+
+		auto it = list.begin();
+
+		for(s32 i = 0; i < numOfKeys; i++, it++)
+		{
+			s32 keyIndex = *it;
+			bool val = mKeyStates[keyIndex];
+			if(!val) return false;
+			result = true;
+		}
+		return result;
+	}
+
+	bool Keyboard::IsPressed(InputKey key)
 	{
 		return mKeyStates[key];
 	}
 
-	void Keyboard::set(InputKey key, bool value)
+	void Keyboard::Set(InputKey key, bool value)
 	{
 		mKeyStates[key] = value;
 	}

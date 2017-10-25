@@ -5,7 +5,7 @@ namespace Shady
 
 	Mouse* Mouse::sInstance = 0;
 
-	inline Mouse* Mouse::getInstance()
+	inline Mouse* Mouse::GetInstance()
 	{
 		if(!sInstance)
 		{

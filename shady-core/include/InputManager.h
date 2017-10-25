@@ -91,8 +91,8 @@ namespace Shady
 		InputManager(const InputManager&& other) = delete;
 		InputManager operator=(const InputManager& other) = delete;
 
-		void runAction(InputAction& in);
-		void runAxis(InputAxis& in, f32 val);
+		void RunAction(InputAction& in);
+		void RunAxis(InputAxis& in, f32 val);
 
 		Keyboard* mKeyboard;
 		Mouse* mMouse;
@@ -103,14 +103,14 @@ namespace Shady
 
 	public:
 		
-		static InputManager* getInstance();
-		void update(f32 dt);
-		void mapAction(const String& name, InputKey key);
-		void bindAction(const String& name, ButtonAction action, Object* obj, ButtonFunc func, f32 time = 0.0f);
-		void bindAction(const String& name, ButtonAction action, ButtonFuncS func, f32 time = 0.0f);
-		void mapAxis(const String& name, InputKey key, f32 scale);
-		void bindAxis(const String& name, Object* obj, AxisFunc func, f32 time = 0.0f);
-		void bindAxis(const String& name, AxisFuncS func, f32 time  = 0.0f);
+		static InputManager* GetInstance();
+		void Update(f32 dt);
+		void MapAction(const String& name, InputKey key);
+		void BindAction(const String& name, ButtonAction action, Object* obj, ButtonFunc func, f32 time = 0.0f);
+		void BindAction(const String& name, ButtonAction action, ButtonFuncS func, f32 time = 0.0f);
+		void MapAxis(const String& name, InputKey key, f32 scale);
+		void BindAxis(const String& name, Object* obj, AxisFunc func, f32 time = 0.0f);
+		void BindAxis(const String& name, AxisFuncS func, f32 time  = 0.0f);
 
 	};
 }

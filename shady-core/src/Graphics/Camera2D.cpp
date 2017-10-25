@@ -13,25 +13,25 @@ namespace Shady
 	{
 		if(!mLockedInPlace)
 		{
-			Keyboard* keyboard = Keyboard::getInstance();
+			Keyboard* keyboard = Keyboard::GetInstance();
 			ShadyApp* app = ShadyApp::getInstance();
 			mWidth = app->mMainWindow->mClientWidth;
 			mHeight = app->mMainWindow->mClientHeight;
-			if(keyboard->isPressed(KEY_DOWN))
+			if(keyboard->IsPressed(KEY_DOWN))
 			{
 				mPos.y += mSpeed;
 				
 			} 
-			if(keyboard->isPressed(KEY_UP))
+			if(keyboard->IsPressed(KEY_UP))
 			{	
 				mPos.y -= mSpeed;
 				
 			} 
-			if(keyboard->isPressed(KEY_LEFT)) 
+			if(keyboard->IsPressed(KEY_LEFT)) 
 			{
 				mPos.x -= mSpeed;
 			}
-			if(keyboard->isPressed(KEY_RIGHT)) 
+			if(keyboard->IsPressed(KEY_RIGHT)) 
 			{
 				mPos.x += mSpeed;
 			}	

@@ -19,24 +19,24 @@ namespace Shady
 		Matrix4f mProj;
 		b8 mLocked;
 
-		void updateMats();
+		void UpdateMats();
 
 	public:
 		Camera3D() = default;
 		Camera3D(Vec2f dim, Vec3f pos = {}, Vec3f rot = {});
 		~Camera3D() = default;
 		
-		void update(f32 dt);
+		void Update(f32 dt);
 		
-		Matrix4f getViewMat() { return mView;}
-		Matrix4f getProjMat() { return mProj;}
+		Matrix4f GetViewMat() { return mView;}
+		Matrix4f GetProjMat() { return mProj;}
 
-		void lock(){ mLocked = true;}
-		void unlock() {mLocked = false;}
-		void handleYaw(f32 val);
-		void handlePitch(f32 val);
-		void handleMoveX(f32 val);
-		void handleMoveY(f32 val);
+		void Lock(){ mLocked = true;}
+		void Unlock() {mLocked = false;}
+		void HandleYaw(f32 val);
+		void HandlePitch(f32 val);
+		void HandleMoveX(f32 val);
+		void HandleMoveY(f32 val);
 
 
 

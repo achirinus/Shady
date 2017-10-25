@@ -13,7 +13,7 @@ namespace Shady
 				m3(false), m4(false) {}
 
 	public:
-		static Mouse* getInstance();
+		static Mouse* GetInstance();
 		s32 xPos;
 		s32 yPos;
 		b32 m1;
@@ -22,7 +22,7 @@ namespace Shady
 		b32 m4;
 		b32 m5;
 
-		b8 getState(InputKey key)
+		b8 GetState(InputKey key)
 		{
 			b8 result = false;
 			switch(key)
@@ -43,7 +43,7 @@ namespace Shady
 			return result;
 		}
 
-		f32 getValue(InputKey key)
+		f32 GetValue(InputKey key)
 		{
 			f32 result = 0.0f;
 			switch(key)

@@ -47,12 +47,12 @@ namespace Shady
 				{
 					case SC_MINIMIZE:
 					{
-						window->minimize();
+						window->Minimize();
 						//result = DefWindowProc(hwnd, uMsg, wParam, lParam);
 					}break;
 					case SC_MAXIMIZE:
 					{
-						window->maximize();
+						window->Maximize();
 						//result = DefWindowProc(hwnd, uMsg, wParam, lParam);
 					}break;
 					default:
@@ -114,50 +114,50 @@ namespace Shady
 			}break;
 			case WM_LBUTTONDOWN:
 			{
-				Mouse* mouse = Mouse::getInstance();
+				Mouse* mouse = Mouse::GetInstance();
 				mouse->m1 = true;
 				
 			}break;
 			case WM_LBUTTONUP:
 			{
-				Mouse* mouse = Mouse::getInstance();
+				Mouse* mouse = Mouse::GetInstance();
 				mouse->m1 = false;
 			}break;
 			case WM_RBUTTONDOWN:
 			{
-				Mouse* mouse = Mouse::getInstance();
+				Mouse* mouse = Mouse::GetInstance();
 				mouse->m2 = true;
 			}break;
 			case WM_RBUTTONUP:
 			{
-				Mouse* mouse = Mouse::getInstance();
+				Mouse* mouse = Mouse::GetInstance();
 				mouse->m2 = false;
 			}break;
 			case WM_MBUTTONDOWN:
 			{
-				Mouse* mouse = Mouse::getInstance();
+				Mouse* mouse = Mouse::GetInstance();
 				mouse->m3 = true;
 			}break;
 			case WM_MBUTTONUP:
 			{
-				Mouse* mouse = Mouse::getInstance();
+				Mouse* mouse = Mouse::GetInstance();
 				mouse->m3 = false;
 			}break;
 			case WM_MOUSEMOVE:
 			{
-				Mouse* mouse = Mouse::getInstance();
+				Mouse* mouse = Mouse::GetInstance();
 				mouse->xPos = GET_X_LPARAM(lParam);
 				mouse->yPos = GET_Y_LPARAM(lParam);
 			}break;
 			case WM_KEYDOWN:
 			{
-				Keyboard* keyboard = Keyboard::getInstance();
-				keyboard->set((Shady::InputKey)wParam, true);
+				Keyboard* keyboard = Keyboard::GetInstance();
+				keyboard->Set((Shady::InputKey)wParam, true);
 			}break;
 			case WM_KEYUP:
 			{
-				Keyboard* keyboard = Keyboard::getInstance();
-				keyboard->set((Shady::InputKey)wParam, false);
+				Keyboard* keyboard = Keyboard::GetInstance();
+				keyboard->Set((Shady::InputKey)wParam, false);
 			}break;
 			default:
 			{
@@ -210,73 +210,73 @@ namespace Shady
 		
 	}
 
-	void* Win32Window::getPlatformPointer()
+	void* Win32Window::GetPlatformPointer()
 	{
 		return mHwnd;		
 	}
 
-	void Win32Window::show()
+	void Win32Window::Show()
 	{
 		ShowWindow(mHwnd, SW_SHOW);
 	}
 
-	void Win32Window::hide()
+	void Win32Window::Hide()
 	{
 		ShowWindow(mHwnd, SW_HIDE);
 	}
 
-	void Win32Window::clear()
+	void Win32Window::Clear()
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
-	void Win32Window::minimize()
+	void Win32Window::Minimize()
 	{
 		ShowWindow(mHwnd, SW_MINIMIZE);
 		mFullScreen = false;
 	}
 
-	void Win32Window::maximize()
+	void Win32Window::Maximize()
 	{
 		ShowWindow(mHwnd, SW_MAXIMIZE);
 		mFullScreen = true;
 	}
 
-	void Win32Window::restore()
+	void Win32Window::Restore()
 	{
 		ShowWindow(mHwnd, SW_RESTORE);
 	}
 
-	bool Win32Window::isActive()
+	bool Win32Window::IsActive()
 	{
 		return mIsActive;
 	}
 
-	bool Win32Window::isFullScreen()
+	bool Win32Window::IsFullScreen()
 	{
 		return mFullScreen;
 	}
 
-	void Win32Window::setTitle(const c8* title)
+	void Win32Window::SetTitle(const c8* title)
 	{
 		SetWindowTextA(mHwnd, title);
 	}
 
-	String Win32Window::getTitle()
+	String Win32Window::GetTitle()
 	{
 		c8 temp[256];
 		GetWindowTextA(mHwnd, temp, 256);
 		return String(temp);
 	}
 
-	void Win32Window::enableVSync()
+	void Win32Window::EnableVSync()
 	{
 		if(mOpenglInfo.swapControl)
 		{
 			wglSwapIntervalEXT(1);
 		}
 	}
-	void Win32Window::disableVSync()
+	void Win32Window::DisableVSync()
 	{
 		if(mOpenglInfo.swapControl)
 		{
@@ -284,7 +284,7 @@ namespace Shady
 		}
 	}
 
-	void Win32Window::update()
+	void Win32Window::Update()
 	{
 		while(PeekMessage(&mMessage, mHwnd, 0, 0, PM_REMOVE))
 		{
@@ -293,12 +293,12 @@ namespace Shady
 		}
 	}
 
-	void Win32Window::swapBuffers()
+	void Win32Window::SwapBuffers()
 	{
-		SwapBuffers(mDC);
+		::SwapBuffers(mDC);
 	}
 
-	b8 Win32Window::isOpen()
+	b8 Win32Window::IsOpen()
 	{
 		return mIsOpen;
 	}
