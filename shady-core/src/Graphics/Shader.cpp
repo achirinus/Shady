@@ -197,6 +197,12 @@ namespace Shady
 	Shader::~Shader()
 	{
 		glDeleteProgram(mProgram);
+		FileChangeObserver* obs = FileChangeObserver::GetInstance();
+			if(obs)
+			{
+				obs->Remove(mVertFileName.CStr());
+				obs->Remove(mFragFileName.CStr());
+			}
 	}
 
 	

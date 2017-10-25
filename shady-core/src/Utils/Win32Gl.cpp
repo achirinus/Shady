@@ -64,6 +64,14 @@ namespace Shady
 		}
 	}
 
+	void DisplayFailedFuncs(Array<String>& funcs)
+	{
+		for (auto& name : funcs)
+		{
+			DEBUG_OUT_ERR("Failed to load GL function: %s", name.CStr());
+		}
+	}
+
 	void getGlInfo(OpenglInfo* info)
 	{
 		//Use glGetStringi for each extension if this is called in 
@@ -118,14 +126,10 @@ namespace Shady
 			{
 				wglMakeCurrent(dc, tempRc);
 				Array<String> failedFuncs = initGLFunctions();
+				DisplayFailedFuncs(failedFuncs);
 				getGlInfo(info);
 				
-				/*
-				if(glewInit() != GLEW_OK)
-				{
-					DEBUG_OUT_ERR("Glew failed to init!");
-				}
-				*/
+				
 				static const int attributes[] = 
 				{
 
@@ -261,7 +265,6 @@ namespace Shady
 		ShGlGetProcAddress(glViewport, gldll, result);
 		ShGlGetProcAddress(glTexParameterf, gldll, result);
 		
-
 		FreeLibrary(gldll);
 		return result;
 	}

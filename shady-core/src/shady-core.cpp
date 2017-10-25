@@ -18,6 +18,7 @@
 #include "Utils/Win32Window.cpp"
 #include "Utils/Timer.cpp"
 #include "Utils/ModelLoader.cpp"
+#include "Utils/CPUInstructionSet.cpp"
 #include "Utils/ShadyApp.cpp"
 #include "Input/ShMouse.cpp"
 #include "Input/ShKeyboard.cpp"

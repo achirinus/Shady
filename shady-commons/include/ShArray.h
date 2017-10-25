@@ -7,7 +7,7 @@
 
 namespace Shady
 {
-	template<typename T>
+	template<typename T, s32 num = 0>
 	class Array
 	{
 		T* mBuffer;
@@ -126,7 +126,11 @@ namespace Shady
 	public:
 		Array(): mNumOfElem(0), mBuffer(0), mBufferSize(0)
 		{
-
+			if(num)
+			{
+				mBufferSize = num;
+				mBuffer = new T[mBufferSize];
+			}
 		}
 		Array(u32 size): mBufferSize(size), mNumOfElem(0)
 		{
@@ -160,7 +164,6 @@ namespace Shady
 
 		Array(Array<T>&& other)
 		{
-			DEBUG_OUT_INFO("Array move constructor");
 			mBufferSize = other.mBufferSize;
 			mNumOfElem = other.mNumOfElem;
 			mBuffer = other.mBuffer;
