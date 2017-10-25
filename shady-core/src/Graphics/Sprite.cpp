@@ -249,9 +249,9 @@ namespace Shady
 		if(mTexture) mTexture->bind(0);
 		for(s32 index = 0; index < mShaders.size(); index++)
 		{
-			mShaders[index]->setUniform1i("hasTexture", hasTexture());
-			mShaders[index]->setUniformMat4("modelMat", getModelMat());
-			mShaders[index]->setUniformMat4("totalMovedMat", Matrix4f::translation(getCurrentPos()));
+			mShaders[index]->SetUniform1i("hasTexture", hasTexture());
+			mShaders[index]->SetUniformMat4("modelMat", getModelMat());
+			mShaders[index]->SetUniformMat4("totalMovedMat", Matrix4f::translation(getCurrentPos()));
 		}
 		glBindVertexArray(mVAO);
 				

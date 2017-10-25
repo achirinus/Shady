@@ -160,6 +160,7 @@ namespace Shady
 
 		Array(Array<T>&& other)
 		{
+			DEBUG_OUT_INFO("Array move constructor");
 			mBufferSize = other.mBufferSize;
 			mNumOfElem = other.mNumOfElem;
 			mBuffer = other.mBuffer;
@@ -167,6 +168,7 @@ namespace Shady
 		}
 		Array(const Array<T>& other)
 		{
+			DEBUG_OUT_INFO("Array copy constructor");
 			mBuffer = new T[other.mBufferSize];
 			mBufferSize = other.mBufferSize;
 			mNumOfElem = other.mNumOfElem;

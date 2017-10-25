@@ -43,7 +43,7 @@ namespace Shady
 		InputManager* mInputManager;
 		Timer mFrameTimer;
 		Timer mUpdateTimer;
-		FileChangeObserver fileObserver;
+		FileChangeObserver* mFileObserver;
 
 		u32 mFpsLimit;
 		u32 mUpdateLimit; //This is expressed in updates/s too

@@ -2,7 +2,17 @@
 
 namespace Shady
 {
-	SYSTEMTIME FileChangeObserver::getLastModified(HANDLE file)
+
+	FileChangeObserver* FileChangeObserver::sInstance = nullptr;
+
+	FileChangeObserver* FileChangeObserver::GetInstance()
+	{
+		if(!sInstance) sInstance = new FileChangeObserver();
+
+		return sInstance;
+	}
+
+	SYSTEMTIME FileChangeObserver::GetLastModified(HANDLE file)
 	{
 		SYSTEMTIME result = {};
 		BY_HANDLE_FILE_INFORMATION info = {};
@@ -19,7 +29,7 @@ namespace Shady
 		}
 	}
 
-	b8 FileChangeObserver::add(const c8* fileName, FileChangeCallback cb)
+	b8 FileChangeObserver::Add(const c8* fileName, FileChangeCb cb)
 	{
 		b8 result = true;
 		HANDLE tempHandle = CreateFileA(fileName, GENERIC_READ,
@@ -29,8 +39,8 @@ namespace Shady
 		{
 			FileObserverInfo tempInfo = {};
 			tempInfo.fileHandle = tempHandle;
-			tempInfo.callback = cb;
-			tempInfo.lastModified = getLastModified(tempHandle);
+			tempInfo.cb = cb;
+			tempInfo.lastModified = GetLastModified(tempHandle);
 			StrCopy(tempInfo.fileName, fileName);
 			obsInfos.add(tempInfo);
 		}
@@ -41,7 +51,30 @@ namespace Shady
 		return result;
 	}
 
-	b8 FileChangeObserver::remove(const c8* fileName)
+	b8 FileChangeObserver::Add(const c8* fileName, Object* obj, FileChangeObjCb objCb)
+	{
+		b8 result = true;
+		HANDLE tempHandle = CreateFileA(fileName, GENERIC_READ,
+										FILE_SHARE_READ | FILE_SHARE_WRITE,
+										NULL, OPEN_EXISTING,FILE_ATTRIBUTE_NORMAL, NULL);
+		if(tempHandle != INVALID_HANDLE_VALUE)
+		{
+			FileObserverInfo tempInfo = {};
+			tempInfo.fileHandle = tempHandle;
+			tempInfo.obj = obj;
+			tempInfo.objCb = objCb;
+			tempInfo.lastModified = GetLastModified(tempHandle);
+			StrCopy(tempInfo.fileName, fileName);
+			obsInfos.add(tempInfo);
+		}
+		else
+		{
+			result = false;
+		}
+		return result;
+	}
+
+	b8 FileChangeObserver::Remove(const c8* fileName)
 	{
 		b8 result = false;
 		
@@ -57,25 +90,27 @@ namespace Shady
 		return result;
 	}
 
-	void FileChangeObserver::update()
+	void FileChangeObserver::Update()
 	{
 		for(u32 i = 0; i < obsInfos.size(); i++)
 		{
-			SYSTEMTIME lastModified = getLastModified(obsInfos[i].fileHandle);
-			if((lastModified.wYear == obsInfos[i].lastModified.wYear) && 
-				(lastModified.wMonth == obsInfos[i].lastModified.wMonth) &&
-				(lastModified.wDay == obsInfos[i].lastModified.wDay) &&
-				(lastModified.wHour == obsInfos[i].lastModified.wHour) &&
-				(lastModified.wMinute == obsInfos[i].lastModified.wMinute) &&
-				(lastModified.wSecond == obsInfos[i].lastModified.wSecond) &&
-				(lastModified.wMilliseconds == obsInfos[i].lastModified.wMilliseconds))
+			FileObserverInfo& info = obsInfos[i];
+			SYSTEMTIME lastModified = GetLastModified(info.fileHandle);
+			if((lastModified.wYear == info.lastModified.wYear) && 
+				(lastModified.wMonth == info.lastModified.wMonth) &&
+				(lastModified.wDay == info.lastModified.wDay) &&
+				(lastModified.wHour == info.lastModified.wHour) &&
+				(lastModified.wMinute == info.lastModified.wMinute) &&
+				(lastModified.wSecond == info.lastModified.wSecond) &&
+				(lastModified.wMilliseconds == info.lastModified.wMilliseconds))
 			{
 				//Not edited	
 			}
 			else
 			{
-				obsInfos[i].lastModified = lastModified;
-				if(obsInfos[i].callback) obsInfos[i].callback();
+				info.lastModified = lastModified;
+				if(info.cb) info.cb();
+				if(info.objCb && info.obj) (info.obj->*info.objCb)();
 			}
 
 		}

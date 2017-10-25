@@ -11,6 +11,7 @@ uniform bool hasTexture;
 
 in VS_OUT
 {
+	
 	vec2 texCoord;
 	vec4 vertColor;
 	vec4 vertPos;

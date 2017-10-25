@@ -37,6 +37,7 @@ namespace Shady
 		mMouse = Mouse::GetInstance();
 		mKeyboard = Keyboard::GetInstance();
 		mInputManager = InputManager::GetInstance();
+		mFileObserver = FileChangeObserver::GetInstance();
 		initGameState();
 		//Texture* b = win32GetGlyphTexture('A');
 		/*
@@ -98,7 +99,7 @@ namespace Shady
 
 		mMainWindow->Update();
 		mInputManager->Update(dt);
-		fileObserver.update();
+		mFileObserver->Update();
 		camera2d->update();
 		camera3d->Update(dt);
 		//testSprite->update();

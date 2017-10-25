@@ -42,11 +42,11 @@ namespace Shady
 		while(mRenderQueue.size())
 		{
 			Renderable3D* model = mRenderQueue.pop();
-			model->mShader->enable();
-			model->mShader->setUniformMat4("viewMat", mCam->GetViewMat());
-			model->mShader->setUniformMat4("projMat", mCam->GetProjMat());
+			model->mShader->Enable();
+			model->mShader->SetUniformMat4("viewMat", mCam->GetViewMat());
+			model->mShader->SetUniformMat4("projMat", mCam->GetProjMat());
 			model->draw();
-			model->mShader->disable();
+			model->mShader->Disable();
 		}
 	}
 

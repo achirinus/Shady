@@ -130,7 +130,7 @@ namespace Shady
 
 	void Cube::draw()
 	{
-		mShader->setUniformMat4("modelMat", getModelMat());
+		mShader->SetUniformMat4("modelMat", getModelMat());
 		glBindVertexArray(mVAO);
 		
 		#if INDEXED
