@@ -24,6 +24,7 @@ namespace Shady
 		mBMappings.add(name, key);
 	}
 
+	//Call this with reinterpret_cast to ButtonFunc or with IM_BFUNC(Func) macro
 	void InputManager::bindAction(const String& name, ButtonAction action, Object* obj, ButtonFunc func, f32 time)
 	{
 		if(mBMappings.hasKey(name))
@@ -32,7 +33,7 @@ namespace Shady
 			mBoundActions.pushBack(temp);
 		}	
 	}
-	void InputManager::bindAction(const String& name, ButtonAction action, ButtonFunc2 func, f32 time)
+	void InputManager::bindAction(const String& name, ButtonAction action, ButtonFuncS func, f32 time)
 	{
 		if(mBMappings.hasKey(name))
 		{
@@ -53,6 +54,8 @@ namespace Shady
 			mAMappings.add(name, vals);
 		}
 	}
+
+	//Call this with reinterpret_cast to AxisFunc or with IM_AFUNC(Func) macro
 	void InputManager::bindAxis(const String& name, Object* obj, AxisFunc func, f32 time)
 	{
 		if(mAMappings.hasKey(name))
@@ -62,7 +65,7 @@ namespace Shady
 		}
 	}
 
-	void InputManager::bindAxis(const String& name, AxisFunc2 func, f32 time)
+	void InputManager::bindAxis(const String& name, AxisFuncS func, f32 time)
 	{
 		if(mAMappings.hasKey(name))
 		{
@@ -193,9 +196,9 @@ namespace Shady
 		{
 			(in.obj->*pFunc)();	
 		}
-		else if(in.func2)
+		else if(in.funcS)
 		{
-			in.func2();
+			in.funcS();
 		}
 	}
 	void InputManager::runAxis(InputAxis& in, f32 val)
@@ -205,9 +208,9 @@ namespace Shady
 		{
 			(in.obj->*pFunc)(val);
 		}
-		else if(in.func2)
+		else if(in.funcS)
 		{
-			in.func2(val);
+			in.funcS(val);
 		}
 	}
 

@@ -49,7 +49,19 @@ namespace Shady
 		}
 		*/
 		//TEST STUFF!!
+		f32 first = 4.0f;
+		f32 res = SquareRoot(first);
+		Bitset a{};
+		a.add(1);
+		a.add(0);
+		a.add(0);
+		a.add(1);
+		b8 bit0 = a[0];
+		b8 bit3 = a[2];
+		b8 bit4 = a[3];
+
 		
+
 
 		mMainWindow->disableVSync();
 		setFpsLimit(60);

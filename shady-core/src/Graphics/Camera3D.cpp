@@ -10,18 +10,13 @@ namespace Shady
 	{
 		updateMats();
 
-		InputManager::getInstance()->bindAction("cameraLock", BA_PRESSED, this,
-												reinterpret_cast<ButtonFunc>(&Camera3D::unlock));
-		InputManager::getInstance()->bindAction("cameraLock", BA_RELEASED, this,
-												reinterpret_cast<ButtonFunc>(&Camera3D::lock));
-		InputManager::getInstance()->bindAxis("yaw", this, 
-												reinterpret_cast<AxisFunc>(&Camera3D::handleYaw));
-		InputManager::getInstance()->bindAxis("pitch", this,
-											reinterpret_cast<AxisFunc>(&Camera3D::handlePitch));
-		InputManager::getInstance()->bindAxis("moveX", this, 
-											reinterpret_cast<AxisFunc>(&Camera3D::handleMoveX));
-		InputManager::getInstance()->bindAxis("moveY", this, 
-											reinterpret_cast<AxisFunc>(&Camera3D::handleMoveY));
+		
+		InputManager::getInstance()->bindAction("cameraLock", BA_PRESSED, this, IM_BFUNC(Camera3D::unlock));
+		InputManager::getInstance()->bindAction("cameraLock", BA_RELEASED, this, IM_BFUNC(Camera3D::lock));
+		InputManager::getInstance()->bindAxis("yaw", this, IM_AFUNC(Camera3D::handleYaw));
+		InputManager::getInstance()->bindAxis("pitch", this, IM_AFUNC(Camera3D::handlePitch));
+		InputManager::getInstance()->bindAxis("moveX", this, IM_AFUNC(Camera3D::handleMoveX));
+		InputManager::getInstance()->bindAxis("moveY", this, IM_AFUNC(Camera3D::handleMoveY));
 
 	}
 

@@ -163,7 +163,7 @@ namespace Shady
 			mBufferSize = other.mBufferSize;
 			mNumOfElem = other.mNumOfElem;
 			mBuffer = other.mBuffer;
-			other.mBuffer = 0;
+			other.mBuffer = nullptr;
 		}
 		Array(const Array<T>& other)
 		{
@@ -174,6 +174,47 @@ namespace Shady
 			{
 				mBuffer[i] = other.mBuffer[i];
 			}
+		}
+
+		Array<T>& operator=(Array<T>&& other)
+		{
+			if(mBuffer) delete[] mBuffer;
+
+			mBufferSize = other.mBufferSize;
+			mNumOfElem = other.mNumOfElem;
+			mBuffer = other.mBuffer;
+			other.mBuffer = nullptr;
+			return *this;
+		}
+
+		Array<T>& operator=(const Array<T>& other)
+		{
+			if(&other == this) return *this;
+			if(mBuffer) delete[] mBuffer;
+
+			mBufferSize = other.mBufferSize;
+			mNumOfElem = other.mNumOfElem;
+			mBuffer = new T[mBufferSize];
+			for(u32 i = 0; i < mBufferSize; i++)
+			{
+				mBuffer[i] = other.mBuffer[i];
+			}
+			return *this;
+		}
+
+		Array<T>& operator=(std::initializer_list<T> list)
+		{
+			if(mBuffer) delete[] mBuffer;
+			mBufferSize = list.size();
+			mNumOfElem = list.size();
+			mBuffer = new T[mBufferSize];
+			auto it = list.begin();
+			for(u32 i = 0; i < mNumOfElem; i++, it++)
+			{
+				mBuffer[i] = *it;
+			}
+
+			return *this;
 		}
 		~Array()
 		{
@@ -336,12 +377,6 @@ namespace Shady
 			return mBuffer[index];
 		}
 
-		Array<T>& operator=(const Array<T>& other)
-		{
-			Array<T> result{other};
-			return result;
-		}
-
 		T* getPointer()
 		{
 			T* result = nullptr;
@@ -354,6 +389,17 @@ namespace Shady
 			T* result = nullptr;
 			if(mBufferSize > 0) result = &mBuffer[0];
 			return restult;
+		}
+
+		operator b8() const
+		{
+			b8 result = false;
+			if(mBuffer)
+			{
+				if(mNumOfElem > 0) result = true;
+			}
+			
+			return result;
 		}
 
 	};

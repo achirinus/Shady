@@ -261,6 +261,8 @@ namespace Shady
 		ShGlGetProcAddress(glViewport, gldll, result);
 		ShGlGetProcAddress(glTexParameterf, gldll, result);
 		
+
+		FreeLibrary(gldll);
 		return result;
 	}
 	

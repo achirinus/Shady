@@ -22,6 +22,7 @@
 #include "InputManager.h"
 #include "Cube.h"
 #include "Renderer3D.h"
+#include "ShBitset.h"
 
 namespace Shady
 {

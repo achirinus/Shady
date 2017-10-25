@@ -12,12 +12,16 @@
 namespace Shady
 {
 
-	typedef void (Object::*ButtonFunc)();
-	typedef void (Object::*AxisFunc)(f32 value);
+	
+	using AxisFunc = void (Object::*)(f32 value);
+	using ButtonFunc = void (Object::*)();
+	
+	using ButtonFuncS = void (*)();
+	using AxisFuncS = void (*)(f32 value);
 
-	//Used for static functions 
-	typedef void (*ButtonFunc2)();
-	typedef void (*AxisFunc2)(f32 value);
+	#define IM_BFUNC(Func) (reinterpret_cast<ButtonFunc>(&Func))
+	#define IM_AFUNC(Func) (reinterpret_cast<AxisFunc>(&Func))
+
 
 	enum ButtonAction
 	{
@@ -33,17 +37,17 @@ namespace Shady
 		ButtonAction trigger;
 		Object* obj;
 		ButtonFunc func;
-		ButtonFunc2 func2;
+		ButtonFuncS funcS;
 		f32 timeToProc;
 		f32 timePassed;
 		b8 keyState;
 		b8 isTimed;
 		InputAction(String n, ButtonAction t, Object* o, ButtonFunc f, f32 ttp = 0.0f):
-					name{n}, trigger{t}, obj{o}, func{f}, func2{nullptr},
+					name{n}, trigger{t}, obj{o}, func{f}, funcS{nullptr},
 					timeToProc{ttp}, timePassed{0.0f}, keyState{false}, isTimed{false} 
 					{}
-		InputAction(String n, ButtonAction t, ButtonFunc2 f, f32 ttp = 0.0f):
-					name{n}, trigger{t}, obj{nullptr}, func{nullptr}, func2{f},
+		InputAction(String n, ButtonAction t, ButtonFuncS f, f32 ttp = 0.0f):
+					name{n}, trigger{t}, obj{nullptr}, func{nullptr}, funcS{f},
 					timeToProc{ttp}, timePassed{0.0f}, keyState{false}, isTimed{false}
 					{}
 
@@ -54,17 +58,17 @@ namespace Shady
 		String name;
 		Object* obj;
 		AxisFunc func;
-		AxisFunc2 func2;
+		AxisFuncS funcS;
 		f32 timeToProc;
 		f32 timePassed;
 		f32 state; //Used only for mouse input
 
 		InputAxis(String n, Object* o, AxisFunc f, f32 ttp = 0.0f):
-				 name{n}, obj{o}, func{f}, func2{nullptr}, timeToProc{ttp},
+				 name{n}, obj{o}, func{f}, funcS{nullptr}, timeToProc{ttp},
 				 timePassed{0.0f}, state{0.0f}
 				 {}
-		InputAxis(String n, AxisFunc2 f, f32 ttp = 0.0f):
-				 name{n}, obj{nullptr}, func{nullptr}, func2{f}, timeToProc{ttp},
+		InputAxis(String n, AxisFuncS f, f32 ttp = 0.0f):
+				 name{n}, obj{nullptr}, func{nullptr}, funcS{f}, timeToProc{ttp},
 				 timePassed{0.0f}, state{0.0f}
 				 {}
 
@@ -103,10 +107,10 @@ namespace Shady
 		void update(f32 dt);
 		void mapAction(const String& name, InputKey key);
 		void bindAction(const String& name, ButtonAction action, Object* obj, ButtonFunc func, f32 time = 0.0f);
-		void bindAction(const String& name, ButtonAction action, ButtonFunc2 func, f32 time = 0.0f);
+		void bindAction(const String& name, ButtonAction action, ButtonFuncS func, f32 time = 0.0f);
 		void mapAxis(const String& name, InputKey key, f32 scale);
 		void bindAxis(const String& name, Object* obj, AxisFunc func, f32 time = 0.0f);
-		void bindAxis(const String& name, AxisFunc2 func, f32 time  = 0.0f);
+		void bindAxis(const String& name, AxisFuncS func, f32 time  = 0.0f);
 
 	};
 }

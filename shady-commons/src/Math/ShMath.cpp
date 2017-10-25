@@ -1,5 +1,6 @@
 #include <ShMath.h>
 #include "ComFuncs.h"
+#include <intrin.h>
 
 namespace Shady
 {
@@ -168,5 +169,11 @@ namespace Shady
 				swap(elem[i + j * dim], elem[j + i * dim]);
 			}			
 		}
+	}
+
+	f32 SquareRoot(f32 val)
+	{
+		f32 result = _mm_cvtss_f32(_mm_sqrt_ss(_mm_set_ss(val)));
+		return result;
 	}
 }

@@ -6,6 +6,7 @@
 #include "DebugUtils/ConsoleOut.cpp"
 #include "DebugUtils/ShadyAssert.cpp"
 #include "Containers/ShString.cpp"
+
 #include "Math/Matrix3f.cpp"
 #include "Math/Matrix4f.cpp"
 #include "Math/ShMath.cpp"

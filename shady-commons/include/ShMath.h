@@ -43,6 +43,7 @@ namespace Shady
 	Vec3f normalize(const Vec3f& vec);
 	f32 toRadians(f32 angle);
 	void transpose(f32* elem, u32 dim);
+	f32 SquareRoot(f32 val);
 }
 
 #endif
