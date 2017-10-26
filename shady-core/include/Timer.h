@@ -1,30 +1,34 @@
 #ifndef TIMER_J
 #define TIMER_J
 
-#include <Windows.h>
 #include "Commons.h"
+#include "ShObject.h"
 
 namespace Shady
 {
+
+	typedef void (TimerFunc)(void*);
 	
 	class Timer
 	{
-		
+		friend class TimerManager;
 	private:
-		LARGE_INTEGER mUpateTime;
-		LARGE_INTEGER mFreq;
-	public:
-		enum TimeUnit
-		{
-			MILISECONDS,
-			SECONDS,
-		};
-		Timer();
-		void update();
-		u32 getElapsedTimeS();
-		f32 getElapsedTimeMS();
+		TimerFunc* mFunc;
+		void* mData;
+		f32 mBoomTime;
+		b8 mPaused;
 
-		u64 getCurrentCPUTime();
+		Timer(f32 boomTime, TimerFunc* func, void* data);
+		Timer(const Timer&);
+		Timer(Timer&& other);
+		Timer& operator=(const Timer&);
+		Timer& operator=(Timer&&);
+		~Timer() = default;
+	public:
+
+		b8 Update(f32 dt);
+		void Pause();
+		void Unpause();
 	};
 
 }

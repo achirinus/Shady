@@ -16,6 +16,11 @@ namespace Shady
 		return sInstance;
 	}
 
+	void testTm(void* data)
+	{
+		DEBUG_OUT_INFO("worked!");
+	}
+
 	void ShadyApp::testCb()
 	{
 		DEBUG_OUT_INFO("changed");
@@ -38,6 +43,7 @@ namespace Shady
 		mKeyboard = Keyboard::GetInstance();
 		mInputManager = InputManager::GetInstance();
 		mFileObserver = FileChangeObserver::GetInstance();
+		mTimerManager = TimerManager::GetInstance();
 		initGameState();
 		//Texture* b = win32GetGlyphTexture('A');
 		/*
@@ -64,7 +70,9 @@ namespace Shady
 		u32 tu = 1_KB;
 		DEBUG_OUT_INFO("%d", tu);
 
+		mTimerManager->CreateTimer(5.0f, testTm);
 
+		//END TEST
 		mMainWindow->DisableVSync();
 		setFpsLimit(60);
 		setUpdateFreq(60);
@@ -86,7 +94,7 @@ namespace Shady
 	void ShadyApp::limit(f32 time, u32 freq)
 	{
 		if(!freq) return;
-		u32 targetTime = safeRatio((u32)1000, freq);
+		u32 targetTime = SafeRatio((u32)1000, freq);
 		if((u32)time > targetTime) return;
 		
 		//TODO Anything but this.
@@ -95,11 +103,13 @@ namespace Shady
 
 	void ShadyApp::update(f32 dt)
 	{
-		mUpdateTimer.update();
+		mUpdateClock.Reset();
 
 		mMainWindow->Update();
-		mInputManager->Update(dt);
 		mFileObserver->Update();
+		mInputManager->Update(dt);
+		mTimerManager->Update(dt);
+
 		camera2d->update();
 		camera3d->Update(dt);
 		//testSprite->update();
@@ -116,14 +126,14 @@ namespace Shady
 		//for now use mFds and limit only the render function because
 		//the  ads from both limit() calls. we need separate threads
 		#if 0
-		limit(mUpdateTimer.getElapsedTimeMS(), mUpdateLimit);
-		mUdt = mUpdateTimer.getElapsedTimeMS();
+		limit(mUpdateClock.GetElapsedTimeMS(), mUpdateLimit);
+		mUdt = mUpdateClock.GetElapsedTimeMS();
 		#endif
 	}
 
 	void ShadyApp::render(f32 dt)
 	{
-		mFrameTimer.update();
+		mFrameClock.Reset();
 		countFps(dt);
 		mMainWindow->Clear();
 		renderer2d->render(dt);
@@ -132,8 +142,8 @@ namespace Shady
 
 		//checkGlError();
 
-		limit(mFrameTimer.getElapsedTimeMS(), mFpsLimit);
-		mFdt = mFrameTimer.getElapsedTimeMS();
+		limit(mFrameClock.GetElapsedTimeMS(), mFpsLimit);
+		mFdt = mFrameClock.GetElapsedTimeMS();
 
 	}
 
@@ -179,12 +189,12 @@ namespace Shady
 	void ShadyApp::countFps(f32 dt)
 	{
 		mFrameCount++;
-		mFps = (u32)safeRatio(1000.0f, dt);
+		mFps = (u32)SafeRatio(1000.0f, dt);
 	}
 
 	void ShadyApp::countUps(f32 dt)
 	{
-		mUps = (u32)safeRatio(1000.0f, dt);
+		mUps = (u32)SafeRatio(1000.0f, dt);
 	}	
 
 	void ShadyApp::setFpsLimit(u32 fps)

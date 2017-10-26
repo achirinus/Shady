@@ -9,7 +9,7 @@
 #include "ShKeyboard.h"
 #include "FileChangeObserver.h"
 #include "Sprite.h"
-#include "Timer.h"
+#include "ShClock.h"
 #include "Camera2D.h"
 #include "Renderer2D.h"
 #include "ShFont.h"
@@ -20,6 +20,7 @@
 #include "FileUtils.h"
 #include "Graphics.h"
 #include "InputManager.h"
+#include "TimerManager.h"
 #include "Cube.h"
 #include "Renderer3D.h"
 #include "ShBitset.h"
@@ -32,7 +33,7 @@ namespace Shady
 		static ShadyApp* sInstance;
 		ShadyApp():mMainWindow(0), mMouse(0), mKeyboard(0), mFpsLimit(0),
 					mUpdateLimit(0), mFps(0), mUps(0), mFrameCount(0), 
-					mFrameTimer(), mUpdateTimer(), mUdt(0.0f), mFdt(0.0f) {}
+					mFrameClock(), mUpdateClock(), mUdt(0.0f), mFdt(0.0f) {}
 
 		void initGameState();
 	public:
@@ -41,9 +42,11 @@ namespace Shady
 		Mouse* mMouse;
 		Keyboard* mKeyboard;
 		InputManager* mInputManager;
-		Timer mFrameTimer;
-		Timer mUpdateTimer;
 		FileChangeObserver* mFileObserver;
+		TimerManager* mTimerManager;
+
+		Clock mFrameClock;
+		Clock mUpdateClock;
 
 		u32 mFpsLimit;
 		u32 mUpdateLimit; //This is expressed in updates/s too
@@ -54,7 +57,6 @@ namespace Shady
 		u32 mFps;
 		u32 mUps;
 		u32 mFrameCount;
-
 
 		//Gamestate stuff
 		Camera2D* camera2d;

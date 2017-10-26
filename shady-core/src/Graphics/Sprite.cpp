@@ -240,7 +240,7 @@ namespace Shady
 	void Sprite::scale(f32 scale)
 	{
 		mScale = scale;
-		mScale = clampToZero(mScale);
+		mScale = ClampToZero(mScale);
 	}
 
 	void Sprite::draw()

@@ -17,6 +17,8 @@
 #include "Utils/Win32GL.cpp"
 #include "Utils/Win32Window.cpp"
 #include "Utils/Timer.cpp"
+#include "Utils/TimerManager.cpp"
+#include "Utils/ShClock.cpp"
 #include "Utils/ModelLoader.cpp"
 #include "Utils/CPUInstructionSet.cpp"
 #include "Utils/ShadyApp.cpp"

@@ -140,7 +140,7 @@ namespace Shady
 		{
 			for(T& elem : other)
 			{
-				pushFront(elem);
+				PushFront(elem);
 			}
 		}
 		List<T>& operator=(const List<T>& other)
@@ -156,7 +156,7 @@ namespace Shady
 
 			for(T& elem: other)
 			{
-				pushFront(elem);
+				PushFront(elem);
 			}
 				
 			return *this;	
@@ -181,7 +181,7 @@ namespace Shady
 			}
 		}
 
-		void pushBack(T elem)
+		void PushBack(T elem)
 		{
 			if(!mTail)
 			{
@@ -197,7 +197,7 @@ namespace Shady
 			mSize++;
 		}
 
-		void pushFront(T elem)
+		void PushFront(T elem)
 		{
 			if(!mHead)
 			{
@@ -213,7 +213,7 @@ namespace Shady
 			mSize++;
 		}
 
-		void insertAfter(const T& elemBefore, T elem, b8 insAfterMulElems = false)
+		void InsertAfter(const T& elemBefore, T elem, b8 insAfterMulElems = false)
 		{
 			Node* test = mTail;
 			while(test)
@@ -234,7 +234,7 @@ namespace Shady
 			}
 		}
 
-		void insertBefore(const T& elemBefore, T elem, b8 insAfterMulElems = false)
+		void InsertBefore(const T& elemBefore, T elem, b8 insAfterMulElems = false)
 		{
 			Node* test = mTail;
 			while(test)
@@ -253,7 +253,7 @@ namespace Shady
 			}
 		}
 
-		T popBack()
+		T PopBack()
 		{
 			SH_ASSERT(mSize > 0);
 
@@ -267,10 +267,10 @@ namespace Shady
 			return result;
 		}
 
-		T popFront()
+		T PopFront()
 		{
 			SH_ASSERT(mSize > 0);
-
+			
 			T result = mHead->elem;
 			
 			Node* temp = mHead; 
@@ -282,21 +282,84 @@ namespace Shady
 			return result;
 		}
 
-		T& peekBack()
+		T& PeekBack()
 		{
 			SH_ASSERT(mSize > 0);
 			return mTail->elem;	
 		}
 
-		T& peekFront()
+		T& PeekFront()
 		{
 			SH_ASSERT(mSize > 0);
 			return mHead->elem;	
 		}
 
+		b8 Remove(const T& elem)
+		{
+			b8 result = false;
+			Node* temp = mHead;
+			while(temp)
+			{
+				Node* tempToDel = temp;
+
+				if(temp->elem == elem)
+				{
+					if(temp == mHead)
+					{
+						if(mHead == mTail)
+						{
+							mHead = mTail = nullptr;
+							temp = nullptr;
+						}
+						else
+						{
+							mHead = mHead->next;
+							if(mHead)
+							{
+								mHead->back = nullptr;	
+							}
+							temp = temp->next;	
+						}
+					}
+					else if(temp == mTail)
+					{
+						mTail = mTail->back;
+						if(mTail)
+						{
+							mTail->next = nullptr;
+						}
+						temp = temp->next;	
+					}
+					else
+					{
+						if(temp->back) 
+						{
+							temp->back->next = temp->next;
+						}
+						if(temp->next)
+						{
+							temp->next->back = temp->back;
+						}
+						temp = temp->next;
+					}
+					result = true;
+					
+					delete tempToDel;
+					mSize--;
+
+				}// If elem found
+				else
+				{
+					temp = temp->next;	
+				} 
+				
+				
+			} // while
+			return result;
+		}
+
 		ListIterator<T> begin() const 
 		{
-
 			return ListIterator<T>(const_cast<List<T>*>(this), IteratorPosition::BEGIN);
 		}
 

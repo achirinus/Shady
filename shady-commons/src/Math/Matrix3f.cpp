@@ -83,7 +83,7 @@ namespace Shady
 
 	void Matrix3f::transpose()
 	{
-		Shady::transpose(elem, 3);
+		Shady::Transpose(elem, 3);
 	}
 
 }

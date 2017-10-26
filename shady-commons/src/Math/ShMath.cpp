@@ -1,11 +1,11 @@
 #include <ShMath.h>
 #include "ComFuncs.h"
-#include <intrin.h>
+#include "CPUInstructionSet.h"
 
 namespace Shady
 {
 
-	s32 absolute(s32 a)
+	s32 Absolute(s32 a)
 	{
 		if (a < 0)
 		{
@@ -14,7 +14,7 @@ namespace Shady
 		return a;	
 	}
 
-	f32 absolute(f32 a)
+	f32 Absolute(f32 a)
 	{
 		if (a < 0)
 		{
@@ -23,37 +23,37 @@ namespace Shady
 		return a;	
 	}
 
-	f32 toRadians(f32 angle)
+	f32 ToRadians(f32 angle)
 	{
 		return (angle * SH_PI)/180;
 	}
 
-	f32 clamp(f32 value, f32 upperLimit)
+	f32 Clamp(f32 value, f32 upperLimit)
 	{
 		return (value > upperLimit) ? upperLimit : value;
 	}
-	f64 clamp(f64 value, f64 upperLimit)
+	f64 Clamp(f64 value, f64 upperLimit)
 	{
 		return (value > upperLimit) ? upperLimit : value;
 	}
-	s32 clamp(s32 value, s32 upperLimit)
-	{
-		return (value > upperLimit) ? upperLimit : value;
-	}
-
-	u32 clamp(u32 value, u32 upperLimit)
+	s32 Clamp(s32 value, s32 upperLimit)
 	{
 		return (value > upperLimit) ? upperLimit : value;
 	}
 
-	f32 clamp(f32 value, f32 lowerLimit, f32 upperLimit)
+	u32 Clamp(u32 value, u32 upperLimit)
+	{
+		return (value > upperLimit) ? upperLimit : value;
+	}
+
+	f32 Clamp(f32 value, f32 lowerLimit, f32 upperLimit)
 	{
 		f32 result = value;
 		if (result > upperLimit) result = upperLimit;
 		if (result < lowerLimit) result = lowerLimit;
 		return result;
 	}
-	f64 clamp(f64 value, f64 lowerLimit, f64 upperLimit)
+	f64 Clamp(f64 value, f64 lowerLimit, f64 upperLimit)
 	{
 		f64 result = value;
 		if (result > upperLimit) result = upperLimit;
@@ -61,12 +61,7 @@ namespace Shady
 		return result;
 	}
 
-	f32 clampToZero(f32 value)
-	{	
-		if(value < 0.0f) value = 0.0f;
-		return value;
-	}
-	s32 clamp(s32 value, s32 lowerLimit, s32 upperLimit)
+	s32 Clamp(s32 value, s32 lowerLimit, s32 upperLimit)
 	{
 		s32 result = value;
 		if (result > upperLimit) result = upperLimit;
@@ -74,7 +69,13 @@ namespace Shady
 		return result;
 	}
 
-	f32 pow(f32 base, u32 pow)
+	f32 ClampToZero(f32 value)
+	{	
+		if(value < 0.0f) value = 0.0f;
+		return value;
+	}
+
+	f32 Pow(f32 base, u32 pow)
 	{
 		if (pow == 0) return 1.0f;
 		f32 result = base;
@@ -84,7 +85,7 @@ namespace Shady
 		}
 		return result;
 	}
-	s32 pow(s32 base, u32 pow)
+	s32 Pow(s32 base, u32 pow)
 	{
 		if(base == 0) return 0;
 		if (pow == 0) return 1;
@@ -95,7 +96,7 @@ namespace Shady
 		}
 		return result;
 	}
-	u32 pow(u32 base, u32 pow)
+	u32 Pow(u32 base, u32 pow)
 	{
 		if(base == 0) return 0;
 		if (pow == 0) return 1;
@@ -107,35 +108,35 @@ namespace Shady
 		return result;	
 	}
 
-	f32 ceil(f32 value)
+	f32 Ceil(f32 value)
 	{
 		value += 1.0f;
 		s32 iValue = (s32)value;
 		return (f32)iValue;
 	}
-	f64 ceil(f64 value)
+	f64 Ceil(f64 value)
 	{
 		value += 1.0;
 		s32 iValue = (s32)value;
 		return (f64)iValue;
 	}
-	f32 round(f32 value)
+	f32 Round(f32 value)
 	{
 		value += 0.50f;
 		s32 iValue = (s32)value;
 		return (f32)iValue;
 	}
-	f64 round(f64 value)
+	f64 Round(f64 value)
 	{
 		value += 0.50;
 		s32 iValue = (s32)value;
 		return (f64)iValue;
 	}
 
-	Vec3f normalize(const Vec3f& vec)
+	Vec3f Normalize(const Vec3f& vec)
 	{
 		Vec3f result;
-		f32 len = (f32)sqrt(absolute(pow(vec.x, 2) + pow(vec.y, 2) + pow(vec.z, 2)));
+		f32 len = (f32)sqrt(Absolute(Pow(vec.x, 2) + Pow(vec.y, 2) + Pow(vec.z, 2)));
 		if(len != 0)
 		{
 			result = Vec3f(vec.x/len, vec.y/len, vec.z/len);	
@@ -148,19 +149,19 @@ namespace Shady
 		return result;
 	}
 
-	f32 floor(f32 value)
+	f32 Floor(f32 value)
 	{
 		s32 iValue = (s32)value;
 		return (f32)iValue;
 	}
 	
-	f64 floor(f64 value)
+	f64 Floor(f64 value)
 	{
 		s32 iValue = (s32)value;
 		return (f64)iValue;
 	}
 
-	void transpose(f32* elem, u32 dim)
+	void Transpose(f32* elem, u32 dim)
 	{
 		for(u32 i = 0; i < dim; i++)
 		{
@@ -174,6 +175,18 @@ namespace Shady
 	f32 SquareRoot(f32 val)
 	{
 		f32 result = _mm_cvtss_f32(_mm_sqrt_ss(_mm_set_ss(val)));
+		return result;
+	}
+
+	s32 Compare(f32 left, f32 right, f32 err)
+	{
+		s32 result = 0;
+		f32 dif =left-right;
+		f32 abs = Absolute(dif);
+		if(abs > err)
+		{
+			result = ((s32)dif & (1 << 31)) ? 1 : -1;
+		}
 		return result;
 	}
 }

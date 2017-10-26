@@ -283,7 +283,7 @@ namespace Shady
 	{
 		if (IsLetter(c1) && IsLetter(c2))
 		{
-			s32 dif = absolute(c1 - c2);
+			s32 dif = Absolute(c1 - c2);
 			if ((dif == 32) || (dif == 0)) return true;
 
 			return false;

@@ -24,8 +24,8 @@ namespace Shady
 	{
 		mView = Matrix4f{1};
 		mView = Matrix4f::translation(-mPos.x, -mPos.y, -mPos.z);
-		mView.rotX(toRadians(mRot.x));
-		mView.rotY(toRadians(mRot.y));
+		mView.rotX(ToRadians(mRot.x));
+		mView.rotY(ToRadians(mRot.y));
 
 		mProj = Matrix4f::perspective(-mWidth/2.0f, mWidth/2.0f, -mHeight/2.0f, mHeight/2.0f, 1.0f, -150.0f);
 	}

@@ -3,42 +3,68 @@
 
 namespace Shady
 {
-	
-	u32 Timer::getElapsedTimeS()
+	Timer::Timer(f32 boomTime, TimerFunc* func, void* data):
+		mFunc{func}, mData{data}, mBoomTime{boomTime}, mPaused{false} 
 	{
-		LARGE_INTEGER tempTime;
-		QueryPerformanceCounter(&tempTime);
-		return (tempTime.QuadPart - mUpateTime.QuadPart) / mFreq.QuadPart;
+
 	}
 
-	f32 Timer::getElapsedTimeMS()
+	Timer::Timer(const Timer& other): 
+		mFunc{other.mFunc}, mData{other.mData}, mBoomTime{other.mBoomTime}, mPaused{false} 
 	{
-		LARGE_INTEGER tempTime;
-		QueryPerformanceCounter(&tempTime);
-		u64 delta = tempTime.QuadPart - mUpateTime.QuadPart; 
-		delta *= 1000;
-		f64 fDelta = static_cast<f64>(delta);
-		f64 fFreq = static_cast<f64>(mFreq.QuadPart);
-		f32 result = fDelta / fFreq;
-		
+
+	}
+	
+	Timer::Timer(Timer&& other): 
+		mFunc{other.mFunc}, mData{other.mData}, mBoomTime{other.mBoomTime}, mPaused{false}
+	{
+
+	}
+	
+	Timer& Timer::operator=(const Timer& other)
+	{
+		mFunc = other.mFunc;
+		mData = other.mData;
+		mBoomTime = other.mBoomTime;
+		mPaused = other.mPaused;
+		return *this;
+	}
+
+	Timer& Timer::operator=(Timer&& other)
+	{
+		mFunc = other.mFunc;
+		mData = other.mData;
+		mBoomTime = other.mBoomTime;
+		mPaused = other.mPaused;
+		return *this;
+	}
+
+	b8 Timer::Update(f32 dt)
+	{
+		static f32 timePassed = 0;
+		b8 result = false;
+		if(!mPaused)
+		{
+			timePassed += dt;
+			if((timePassed / 1000.0f) >= mBoomTime)
+			{
+				if(mFunc) mFunc(mData);
+				result = true;
+			}
+		}
+
 		return result;
 	}
 
+	void Timer::Pause()
+	{
+		mPaused = true;
+	}
+
+	void Timer::Unpause()
+	{
+		mPaused = false;
+	}
 	
-
-	void Timer::update()
-	{
-		QueryPerformanceCounter(&mUpateTime);
-	}
-
-	Timer::Timer()
-	{
-		QueryPerformanceFrequency(&mFreq);
-	}
-
-	uint64 Timer::getCurrentCPUTime()
-	{
-		return (uint64)(mUpateTime.QuadPart) / mFreq.QuadPart;
-	}
 
 }

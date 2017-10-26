@@ -30,7 +30,7 @@ namespace Shady
 		if(mBMappings.hasKey(name))
 		{
 			InputAction temp(name, action, obj, func, time);
-			mBoundActions.pushBack(temp);
+			mBoundActions.PushBack(temp);
 		}	
 	}
 	void InputManager::BindAction(const String& name, ButtonAction action, ButtonFuncS func, f32 time)
@@ -38,19 +38,19 @@ namespace Shady
 		if(mBMappings.hasKey(name))
 		{
 			InputAction temp(name, action, func, time);
-			mBoundActions.pushBack(temp);
+			mBoundActions.PushBack(temp);
 		}	
 	}
 	void InputManager::MapAxis(const String& name, InputKey key, f32 scale)
 	{
 		if(mAMappings.hasKey(name))
 		{
-			mAMappings[name].pushBack({key, scale});
+			mAMappings[name].PushBack({key, scale});
 		}
 		else
 		{
 			List<AxisValue> vals = {};
-			vals.pushBack({key, scale});
+			vals.PushBack({key, scale});
 			mAMappings.add(name, vals);
 		}
 	}
@@ -61,7 +61,7 @@ namespace Shady
 		if(mAMappings.hasKey(name))
 		{
 			InputAxis temp(name, obj, func, time);
-			mBoundAxis.pushBack(temp);
+			mBoundAxis.PushBack(temp);
 		}
 	}
 
@@ -70,7 +70,7 @@ namespace Shady
 		if(mAMappings.hasKey(name))
 		{
 			InputAxis temp(name, func, time);
-			mBoundAxis.pushBack(temp);
+			mBoundAxis.PushBack(temp);
 		}
 	}
 

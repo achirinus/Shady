@@ -105,8 +105,8 @@ namespace Shady
 	Matrix4f Matrix4f::lookAt(const Vec3f& eye, const Vec3f& center, const Vec3f& up)
 	{
 		Matrix4f result(1);
-		Vec3f first(normalize(center - eye));
-		Vec3f second(normalize(first.cross(up)));
+		Vec3f first(Normalize(center - eye));
+		Vec3f second(Normalize(first.cross(up)));
 		Vec3f third = second.cross(first);
 		result[0][0] = second.x;
 		result[1][0] = second.y;
@@ -300,7 +300,7 @@ namespace Shady
 
 	void Matrix4f::transpose()
 	{
-		Shady::transpose(elem, 4);
+		Shady::Transpose(elem, 4);
 	}
 
 	b8 Matrix4f::isColumnMajor()

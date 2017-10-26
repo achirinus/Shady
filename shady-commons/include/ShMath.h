@@ -14,36 +14,37 @@ namespace Shady
 {	
 	#define cArrayCount(x) (sizeof(x) / sizeof(x[0]))
 
-	s32 absolute(s32 a);
-	f32 absolute(f32 a);	
-	
 	template<typename T>
-	T safeRatio(T first, T second)
+	T SafeRatio(T first, T second)
 	{
 		T result = static_cast<T>(0);
 		if(second != 0) result = first / second;
 		return result;
 	}
-
-	
-	f32 pow(f32 base, u32 pow);
-	s32 pow(s32 base, u32 pow);
-	u32 pow(u32 base, u32 pow);
-	f32 clamp(f32 value, f32 upperLimit);
-	f64 clamp(f64 value, f64 upperLimit);
-	s32 clamp(s32 value, s32 upperLimit);
-	u32 clamp(u32 value, u32 upperLimit);
-	f32 clampToZero(f32 value);
-	f32 ceil(f32 value);
-	f64 ceil(f64 value);
-	f32 floor(f32 value);
-	f64 floor(f64 value);
-	f32 round(f32 value);
-	f64 round(f64 value);
-	Vec3f normalize(const Vec3f& vec);
-	f32 toRadians(f32 angle);
-	void transpose(f32* elem, u32 dim);
+	s32 Absolute(s32 a);
+	f32 Absolute(f32 a);	
+	f32 Pow(f32 base, u32 pow);
+	s32 Pow(s32 base, u32 pow);
+	u32 Pow(u32 base, u32 pow);
+	u32 Clamp(u32 value, u32 upperLimit);
+	f32 Clamp(f32 value, f32 upperLimit);
+	f64 Clamp(f64 value, f64 upperLimit);
+	s32 Clamp(s32 value, s32 upperLimit);
+	f32 Clamp(f32 value, f32 lowerLimit, f32 upperLimit);
+	f64 Clamp(f64 value, f64 lowerLimit, f64 upperLimit);
+	s32 Clamp(s32 value, s32 lowerLimit, s32 upperLimit);
+	f32 ClampToZero(f32 value);
+	f32 Ceil(f32 value);
+	f64 Ceil(f64 value);
+	f32 Floor(f32 value);
+	f64 Floor(f64 value);
+	f32 Round(f32 value);
+	f64 Round(f64 value);
+	Vec3f Normalize(const Vec3f& vec);
+	f32 ToRadians(f32 angle);
+	void Transpose(f32* elem, u32 dim);
 	f32 SquareRoot(f32 val);
+	s32 Compare(f32 left, f32 right, f32 err);
 }
 
 #endif
