@@ -15,4 +15,11 @@ namespace Shady
 
 		va_end(args);
 	}
+
+	void _HandleAssertBox(const c8* mes)
+	{
+		s32 result = MessageBoxA(GetActiveWindow(), mes, "Asertion Failure!",
+								MB_RETRYCANCEL | MB_ICONERROR | MB_DEFBUTTON2 | MB_SYSTEMMODAL);
+		if(result == IDCANCEL) ExitProcess(1);
+	}
 }

@@ -12,7 +12,7 @@ namespace Shady
 
 	String::String():mBufferSize(0), mBuffer(0)
 	{
-
+		
 	}
 
 	String::String(std::initializer_list<const char*> list):

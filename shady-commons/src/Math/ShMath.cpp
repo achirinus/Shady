@@ -167,7 +167,7 @@ namespace Shady
 		{
 			for(u32 j = i + 1; j < dim; j++)
 			{
-				swap(elem[i + j * dim], elem[j + i * dim]);
+				Swap(elem[i + j * dim], elem[j + i * dim]);
 			}			
 		}
 	}

@@ -61,9 +61,12 @@ namespace Shady
 		String a = "Abc";
 		String b = a + 2345;
 		DEBUG_OUT_INFO("%s", b.CStr());
+
 		
 
-
+		
+		u64 gb = 1_GB;
+		DEBUG_OUT_INFO("GB: %lld", gb);
 
 		//END TEST
 		mMainWindow->DisableVSync();
@@ -86,6 +89,7 @@ namespace Shady
 
 	void ShadyApp::limit(f32 time, u32 freq)
 	{
+		
 		if(!freq) return;
 		u32 targetTime = SafeRatio((u32)1000, freq);
 		if((u32)time > targetTime) return;

@@ -8,6 +8,7 @@
 #include "ShTypes.h"
 #include "ConsoleOut.h"
 #include "ShAssert.h"
+#include "ComFuncs.h"
 namespace Shady
 {
 
@@ -30,9 +31,6 @@ struct PerfCounter
 };
 
 	
-	u64 operator "" _KB(u64 in);
-	u64 operator "" _MB(u64 in);
-	u64 operator "" _GB(u64 in);
 	
 
 #if defined (SHADY_DEBUG) || (SHADY_DEBUG_RELEASE)

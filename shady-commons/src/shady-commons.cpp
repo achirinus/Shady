@@ -4,7 +4,7 @@
 #include "FileUtils/FileChangeObserver.cpp"
 #include "MemUtils/MemUtils.cpp"
 #include "DebugUtils/ConsoleOut.cpp"
-#include "DebugUtils/ShadyAssert.cpp"
+#include "DebugUtils/ShAssert.cpp"
 #include "Containers/ShString.cpp"
 
 #include "Math/Matrix3f.cpp"
