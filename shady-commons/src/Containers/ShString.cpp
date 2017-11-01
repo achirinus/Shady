@@ -4,6 +4,12 @@
 
 namespace Shady
 {
+	void String::InitBuffer(u32 size)
+	{
+		mBufferSize = size;
+		mBuffer = new c8[mBufferSize];
+	}
+
 	String::String():mBufferSize(0), mBuffer(0)
 	{
 
@@ -118,8 +124,7 @@ namespace Shady
 	{
 		if(!mBuffer)
 		{
-			mBufferSize = size + 1;
-			mBuffer = new c8[mBufferSize];
+			InitBuffer(size + 1);
 		}
 		else if(size > mBufferSize)
 		{
@@ -163,8 +168,8 @@ namespace Shady
 		if(len > 0)
 		{
 			String result;
-			result.mBufferSize = mBufferSize + len;
-			result.mBuffer = new c8[result.mBufferSize];
+			result.InitBuffer(mBufferSize + len);
+
 			c8* tempBuffer = result.mBuffer;
 			c8* tempMBuffer = mBuffer;
 			while(*tempMBuffer) *tempBuffer++ = *tempMBuffer++;
@@ -174,6 +179,38 @@ namespace Shady
 		}
 		
 		return *this;
+	}
+
+	String String::operator+(const c8 c)
+	{
+		String result;
+		if(mBuffer)
+		{
+			result.InitBuffer(mBufferSize + 1);
+			StrCopyNoTerminator(result.mBuffer, mBuffer);
+			*(result.mBuffer + result.mBufferSize - 2) = c;
+			*(result.mBuffer + result.mBufferSize - 1) = '\0';
+		}
+		else
+		{
+			result.InitBuffer(2);
+			result.mBuffer[0] = c;
+			result.mBuffer[1] = '\0';
+		}
+		return result;
+	}
+
+	String String::operator+(s32 num)
+	{
+		String result;
+		c8* temp = S32ToStr(num);
+
+		result.InitBuffer(mBufferSize + StrLength(temp));
+		StrCopyNoTerminator(result.mBuffer, mBuffer);
+		StrCopy(result.mBuffer + mBufferSize-1, temp);
+
+		delete[] temp;
+		return result;
 	}
 
 	String String::operator+(const String& other)
@@ -192,7 +229,6 @@ namespace Shady
 			(*tempBuffer)	= '\0';
 			return result;
 		}
-		
 		return *this;
 
 	}
@@ -213,6 +249,26 @@ namespace Shady
 				delete[] mBuffer;
 				mBuffer = temp;
 			}
+		}
+		return *this;
+	}
+
+	String& String::operator+=(const c8 c)
+	{
+		if(mBuffer)
+		{
+			c8* oldBuf = mBuffer;
+			InitBuffer(mBufferSize + 1);
+			StrCopyNoTerminator(mBuffer, oldBuf);
+			mBuffer[mBufferSize - 2] = c;
+			mBuffer[mBufferSize - 1] = '\0';
+			delete[] oldBuf;
+		}
+		else
+		{
+			InitBuffer(2);
+			mBuffer[0] = c;
+			mBuffer[1] = '\0';
 		}
 		return *this;
 	}

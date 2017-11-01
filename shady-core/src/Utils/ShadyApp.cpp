@@ -58,19 +58,12 @@ namespace Shady
 		//TEST STUFF!!
 		f32 first = 4.0f;
 		f32 res = SquareRoot(first);
-		Bitset a{};
-		a.add(1);
-		a.add(0);
-		a.add(0);
-		a.add(1);
-		b8 bit0 = a[0];
-		b8 bit3 = a[2];
-		b8 bit4 = a[3];
+		String a = "Abc";
+		String b = a + 2345;
+		DEBUG_OUT_INFO("%s", b.CStr());
+		
 
-		u32 tu = 1_KB;
-		DEBUG_OUT_INFO("%d", tu);
 
-		mTimerManager->CreateTimer(5.0f, testTm);
 
 		//END TEST
 		mMainWindow->DisableVSync();

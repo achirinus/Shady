@@ -15,6 +15,7 @@ namespace Shady
 		c8* mBuffer;
 		s32 mBufferSize; //this is not the size of string. size of string is mBufferSize - 1;
 
+		void InitBuffer(u32 size);
 	public:
 		String();
 		String(std::initializer_list<const char*> list);
@@ -33,8 +34,11 @@ namespace Shady
 		b8 operator==(const String& other);
 		b8 operator!=(const String& other);
 		String operator+(const c8* str);
+		String operator+(const c8 c);
+		String operator+(s32 num);
 		String operator+(const String& other);
 		String& operator+=(const c8* str);
+		String& operator+=(const c8 c);
 		String& operator+=(const String& other);
 		operator b8();
 		b8 CmpIgnoreCase(const String& other);

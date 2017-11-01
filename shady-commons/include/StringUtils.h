@@ -22,7 +22,7 @@ namespace Shady
 	f32 StrTof32(c8* str, c8** index = 0);
 	f64 StrTof64(c8* str, c8** index = 0);
 	s32 CharToDigit(c8 c);
-	u32 DigitCount(s32 num, s32 base);
+	u32 DigitCount(s32 num, s32 base = 10);
 	b8 StrCompare(const c8* str1, const c8* str2);
 	b8 StrCompare(const c16* str1, const c16* str2);
 	b8 StrCompareNoCase(const c8* str1, const c8* str2);

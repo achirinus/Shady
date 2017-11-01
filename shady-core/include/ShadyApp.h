@@ -24,6 +24,8 @@
 #include "Cube.h"
 #include "Renderer3D.h"
 #include "ShBitset.h"
+#include "ShSArray.h"
+
 
 namespace Shady
 {
