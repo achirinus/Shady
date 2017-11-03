@@ -12,15 +12,11 @@ namespace Shady
 	template<typename T, u32 size = SH_ARRAY_DEFAULT_SIZE>
 	class Array
 	{
-		using ThisType = Array<T>;
-		using EType = T;
-
 		T* mBuffer;
 		u32 mBufferSize;
 		u32 mNumOfElem;
 
-	template<typename T>
-	class ArrayIterator;	
+	template<typename T> class ArrayIterator;	
 					
 	public:
 		Array(): mNumOfElem(0), mBuffer(0), mBufferSize(0)
@@ -413,7 +409,11 @@ namespace Shady
 
 			for(u32 i = 0; i < mNumOfElem; i++)
 			{
-				if(mBuffer[i] != other.mBuffer[i]) result = false;
+				if(mBuffer[i] != other.mBuffer[i])
+				{
+					result = false;
+					break;
+				}
 			}
 			return result;
 		}
@@ -423,7 +423,11 @@ namespace Shady
 			b8 result = false;
 			for(u32 i = 0; i < mNumOfElem; i++)
 			{
-				if(mBuffer[i] != other.mBuffer[i]) result = true;
+				if(mBuffer[i] != other.mBuffer[i])
+				{
+					result = true;
+					break;
+				}
 			}
 			return result;
 		}

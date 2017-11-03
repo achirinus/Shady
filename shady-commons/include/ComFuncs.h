@@ -24,6 +24,8 @@ namespace Shady
 		return static_cast<T&&>(obj);
 	}
 
+	void ClearMem(void* mem, u64 size);
+
 	u64 operator "" _KB(u64 in);
 	u64 operator "" _MB(u64 in);
 	u64 operator "" _GB(u64 in);

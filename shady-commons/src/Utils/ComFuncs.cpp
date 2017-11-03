@@ -16,4 +16,13 @@ namespace Shady
 	{
 		return in << 30;
 	}
+
+	void ClearMem(void* mem, u64 size)
+	{
+		c8* temp = (c8*)mem;
+		while(size--)
+		{
+			*temp++ = 0;
+		}
+	}
 }

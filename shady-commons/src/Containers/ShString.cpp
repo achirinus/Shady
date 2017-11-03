@@ -386,7 +386,6 @@ namespace Shady
 
 	String String::GetLine()
 	{
-		
 		//TODO optimize this!
 		static u32 lineBeginIndex = 0;
 		if(lineBeginIndex == U32_MAX)

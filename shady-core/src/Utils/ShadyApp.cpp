@@ -72,7 +72,9 @@ namespace Shady
 		tInts.Add(ss, ss + 5);
 
 		tInts.RemoveFirst();
-
+		Bitset<4> bits = "0101";
+		bits.Flip();
+		String bitsStr = bits.ToString();
 		//END TEST
 		mMainWindow->DisableVSync();
 		setFpsLimit(60);
