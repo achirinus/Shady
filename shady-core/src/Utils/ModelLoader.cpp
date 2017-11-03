@@ -18,51 +18,51 @@ namespace Shady
 			if(line.BeginsWith("vn"))
 			{
 				Array<String> chunks = line.Split(' ');
-				if(chunks.size() == 4)
+				if(chunks.Size() == 4)
 				{
-					norm.add({chunks[1].Tof32(), chunks[2].Tof32(), chunks[3].Tof32()});
+					norm.Add({chunks[1].Tof32(), chunks[2].Tof32(), chunks[3].Tof32()});
 				}
 			}
 			else if(line.BeginsWith("vt"))
 			{
 				Array<String> chunks = line.Split(' ');
-				if(chunks.size() == 3)
+				if(chunks.Size() == 3)
 				{
-					texCoord.add({chunks[1].Tof32(), chunks[2].Tof32()});
+					texCoord.Add({chunks[1].Tof32(), chunks[2].Tof32()});
 				}
 			}
 			else if(line.BeginsWith('v'))
 			{
 				Array<String> chunks = line.Split(' ');
-				if(chunks.size() == 4)
+				if(chunks.Size() == 4)
 				{
-					pos.add({chunks[1].Tof32(), chunks[2].Tof32(), chunks[3].Tof32(), 1.0f});
+					pos.Add({chunks[1].Tof32(), chunks[2].Tof32(), chunks[3].Tof32(), 1.0f});
 				}
-				if(chunks.size() == 5)
+				if(chunks.Size() == 5)
 				{
-					pos.add({chunks[1].Tof32(), chunks[2].Tof32(), chunks[3].Tof32(), chunks[4].Tof32()});	
+					pos.Add({chunks[1].Tof32(), chunks[2].Tof32(), chunks[3].Tof32(), chunks[4].Tof32()});	
 				}
 			}
 			else if(line.BeginsWith('f'))
 			{
 				Array<String> chunks = line.Split(' ');
-				for(u32 index = 1; index < chunks.size(); index++)
+				for(u32 index = 1; index < chunks.Size(); index++)
 				{
 					Array<String> indices = chunks[index].Split('/');
-					if(indices.size() == 1)
+					if(indices.Size() == 1)
 					{
 						u32 posIndex = (u32)(indices[0].Tos32() - 1);
 						//vertices.add({pos[posIndex], {}, {}});
-						vertices.add(pos[posIndex]);
+						vertices.Add(pos[posIndex]);
 					}
-					if(indices.size() == 2)
+					if(indices.Size() == 2)
 					{
 						u32 posIndex = (u32)(indices[0].Tos32() - 1);
 						u32 texIndex = (u32)(indices[1].Tos32() - 1);
 						//vertices.add({pos[posIndex], {}, texCoord[texIndex]});
-						vertices.add(pos[posIndex]);
+						vertices.Add(pos[posIndex]);
 					}
-					if(indices.size() == 3)
+					if(indices.Size() == 3)
 					{
 						u32 posIndex = (u32)(indices[0].Tos32() - 1);
 						
@@ -71,12 +71,12 @@ namespace Shady
 						{
 							u32 texIndex = (u32)(indices[1].Tos32() - 1);	
 							//vertices.add({pos[posIndex], norm[normIndex], texCoord[texIndex]});
-							vertices.add(pos[posIndex]);
+							vertices.Add(pos[posIndex]);
 						}
 						else
 						{
 							//vertices.add({pos[posIndex], norm[normIndex], {}});	
-							vertices.add(pos[posIndex]);	
+							vertices.Add(pos[posIndex]);	
 						} 
 						
 					}

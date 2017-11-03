@@ -23,7 +23,7 @@ namespace Shady
 
 	FileChangeObserver::~FileChangeObserver()
 	{
-		for(u32 index = 0 ; index < obsInfos.size(); index++)
+		for(u32 index = 0 ; index < obsInfos.Size(); index++)
 		{
 			CloseHandle(obsInfos[index].fileHandle);
 		}
@@ -42,7 +42,7 @@ namespace Shady
 			tempInfo.cb = cb;
 			tempInfo.lastModified = GetLastModified(tempHandle);
 			StrCopy(tempInfo.fileName, fileName);
-			obsInfos.add(tempInfo);
+			obsInfos.Add(tempInfo);
 		}
 		else
 		{
@@ -65,7 +65,7 @@ namespace Shady
 			tempInfo.objCb = objCb;
 			tempInfo.lastModified = GetLastModified(tempHandle);
 			StrCopy(tempInfo.fileName, fileName);
-			obsInfos.add(tempInfo);
+			obsInfos.Add(tempInfo);
 		}
 		else
 		{
@@ -78,13 +78,13 @@ namespace Shady
 	{
 		b8 result = false;
 		
-		for(u32 index = 0; index < obsInfos.size(); index++)
+		for(u32 index = 0; index < obsInfos.Size(); index++)
 		{
 			if(StrCompare(fileName, obsInfos[index].fileName))
 			{
 				result = true;
 				CloseHandle(obsInfos[index].fileHandle);
-				obsInfos.remove(index);
+				obsInfos.Remove(index);
 			}
 		}
 		return result;
@@ -92,7 +92,7 @@ namespace Shady
 
 	void FileChangeObserver::Update()
 	{
-		for(u32 i = 0; i < obsInfos.size(); i++)
+		for(u32 i = 0; i < obsInfos.Size(); i++)
 		{
 			FileObserverInfo& info = obsInfos[i];
 			SYSTEMTIME lastModified = GetLastModified(info.fileHandle);

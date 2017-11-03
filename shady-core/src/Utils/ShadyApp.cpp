@@ -56,17 +56,22 @@ namespace Shady
 		}
 		*/
 		//TEST STUFF!!
-		f32 first = 4.0f;
-		f32 res = SquareRoot(first);
-		String a = "Abc";
-		String b = a + 2345;
-		DEBUG_OUT_INFO("%s", b.CStr());
-
 		
+		struct TestS
+		{
+			int a;
+			int b;
+			TestS(): a(0), b(0) {DEBUG_OUT_INFO("Test default constructed");}
+			TestS(int aa , int bb): a(aa), b(bb) {DEBUG_OUT_INFO("Test args constructed\n");}
+			TestS(const TestS& other): a{other.a}, b{other.b} {DEBUG_OUT_INFO("Test Copied\n");}
+			TestS(TestS&& other): a{other.a}, b{other.b} {DEBUG_OUT_INFO("Test Moved\n");}
+			TestS& operator=(const TestS& other) {DEBUG_OUT_INFO("Test = copied"); return *this;}
+		};
+		Array<u32> tInts{};
+		u32 ss[] = { 1, 2, 3, 4, 5};
+		tInts.Add(ss, ss + 5);
 
-		
-		u64 gb = 1_GB;
-		DEBUG_OUT_INFO("GB: %lld", gb);
+		tInts.RemoveFirst();
 
 		//END TEST
 		mMainWindow->DisableVSync();

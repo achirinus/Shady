@@ -15,13 +15,13 @@ namespace Shady
 
 		if(isFilled) //Create the fill sprite
 		{
-			mShaders.add(new Shader("basic", SH_FRAGMENT_SHADER | SH_VERTEX_SHADER));
+			mShaders.Add(new Shader("basic", SH_FRAGMENT_SHADER | SH_VERTEX_SHADER));
 			fillArea = new Sprite({x, y, 0.0f}, width, height, nullptr, col, false, mShaders[0]);
 		}
 
 		if((isFilled && hasBorder) || !isFilled)
 		{
-			mShaders.add(new Shader("basicLine", SH_FRAGMENT_SHADER | SH_VERTEX_SHADER));
+			mShaders.Add(new Shader("basicLine", SH_FRAGMENT_SHADER | SH_VERTEX_SHADER));
 			Shader* tempShader = 0;
 			if(isFilled) 
 			{

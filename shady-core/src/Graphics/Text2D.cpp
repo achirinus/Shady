@@ -5,11 +5,11 @@ namespace Shady
 
 	Text2D::Text2D(Shader* shader)
 	{
-		mShaders.add(shader);
+		mShaders.Add(shader);
 	}
 	void Text2D::draw()
 	{
-		for(u32 gIndex = 0; gIndex < mGlyphs.size(); gIndex++)
+		for(u32 gIndex = 0; gIndex < mGlyphs.Size(); gIndex++)
 		{
 			mGlyphs[gIndex]->draw();
 		}
@@ -17,12 +17,12 @@ namespace Shady
 
 	void Text2D::addGlyph(Glyph* glyph)
 	{
-		mGlyphs.add(glyph);
+		mGlyphs.Add(glyph);
 	}
 
 	Text2D::~Text2D()
 	{
-		for(u32 gIndex = 0; gIndex < mGlyphs.size(); gIndex++)
+		for(u32 gIndex = 0; gIndex < mGlyphs.Size(); gIndex++)
 		{
 			delete mGlyphs[gIndex];
 		}

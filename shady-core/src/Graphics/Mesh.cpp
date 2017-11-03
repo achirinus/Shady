@@ -17,7 +17,7 @@ namespace Shady
 		// };
 		glGenBuffers(NUM_BUFFERS, mVBO);
 		glBindBuffer(GL_ARRAY_BUFFER, mVBO[POSITION_VB]);
-		glBufferData(GL_ARRAY_BUFFER, verts.size() * sizeof(Vec4f), &mVertices[0], GL_DYNAMIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, verts.Size() * sizeof(Vec4f), &mVertices[0], GL_DYNAMIC_DRAW);
 		glEnableVertexAttribArray(POSITION_VB);
 		glVertexAttribPointer(POSITION_VB, 4, GL_FLOAT, GL_FALSE, 0, 0);
 	
@@ -41,7 +41,7 @@ namespace Shady
 	{
 		bind();
 		
-		glDrawArrays(GL_LINES, 0, mVertices.size());
+		glDrawArrays(GL_LINES, 0, mVertices.Size());
 
 		unbind();
 	}

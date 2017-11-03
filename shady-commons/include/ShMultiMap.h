@@ -116,7 +116,7 @@ namespace Shady
 		
 		s32 getKeyIndex(K key)
 		{
-			for(u32 index = 0; index < mPairs.size(); index++)
+			for(u32 index = 0; index < mPairs.Size(); index++)
 			{
 				if(mPairs[index].key == key) return index;
 			}
@@ -125,13 +125,13 @@ namespace Shady
 
 		s32 getKeyByIndex(u32 index)
 		{
-			SH_ASSERT(index < mPairs.size());
+			SH_ASSERT(index < mPairs.Size());
 			return mPairs[index].key;
 		}
 		
 		void add(K key, V value)
 		{
-			mPairs.add({key, value});
+			mPairs.Add({key, value});
 		}
 
 		void remove(K key)
@@ -139,7 +139,7 @@ namespace Shady
 			s32 keyIndex = getKeyIndex(key);
 			if(keyIndex != INVALID_MAP_KEY_INDEX)
 			{
-				mPairs.remove(keyIndex);
+				mPairs.Remove(keyIndex);
 			}
 		}
 
@@ -163,7 +163,7 @@ namespace Shady
 
 		u32 size()
 		{
-			return mPairs.size();
+			return mPairs.Size();
 		}
 
 		b8 hasKey(const K& key)

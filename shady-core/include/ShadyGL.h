@@ -326,7 +326,7 @@ OpenGlGlobalFunc(glTexParameterf);
 #define ShGlGetProcAddress(Name, FallbackModule, Arr)	\
  	Name = (sh_##Name*)wglGetProcAddress(#Name); \
 	if(!Name) {Name = (sh_##Name*)GetProcAddress(FallbackModule,#Name);} \
-	if(!Name) {Arr.add(#Name);}
+	if(!Name) {Arr.Add(#Name);}
 
 
 #ifdef __cplusplus

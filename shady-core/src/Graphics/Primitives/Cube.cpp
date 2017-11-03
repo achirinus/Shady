@@ -10,62 +10,62 @@ namespace Shady
 	{
 		
 		#if INDEXED
-		mVerts.add({pos.x - mSize/2, pos.y - mSize/2, pos.z + mSize/2}); //1
-		mVerts.add({pos.x - mSize/2, pos.y + mSize/2, pos.z + mSize/2}); //2
-		mVerts.add({pos.x + mSize/2, pos.y + mSize/2, pos.z + mSize/2}); //3
-		mVerts.add({pos.x + mSize/2, pos.y - mSize/2, pos.z + mSize/2}); //4
-		mVerts.add({pos.x - mSize/2, pos.y - mSize/2, pos.z - mSize/2}); //5
-		mVerts.add({pos.x - mSize/2, pos.y + mSize/2, pos.z - mSize/2}); //6
-		mVerts.add({pos.x + mSize/2, pos.y + mSize/2, pos.z - mSize/2}); //7
-		mVerts.add({pos.x + mSize/2, pos.y - mSize/2, pos.z - mSize/2}); //8
+		mVerts.Add({pos.x - mSize/2, pos.y - mSize/2, pos.z + mSize/2}); //1
+		mVerts.Add({pos.x - mSize/2, pos.y + mSize/2, pos.z + mSize/2}); //2
+		mVerts.Add({pos.x + mSize/2, pos.y + mSize/2, pos.z + mSize/2}); //3
+		mVerts.Add({pos.x + mSize/2, pos.y - mSize/2, pos.z + mSize/2}); //4
+		mVerts.Add({pos.x - mSize/2, pos.y - mSize/2, pos.z - mSize/2}); //5
+		mVerts.Add({pos.x - mSize/2, pos.y + mSize/2, pos.z - mSize/2}); //6
+		mVerts.Add({pos.x + mSize/2, pos.y + mSize/2, pos.z - mSize/2}); //7
+		mVerts.Add({pos.x + mSize/2, pos.y - mSize/2, pos.z - mSize/2}); //8
 		#else
 		//Front
-		mVerts.add({pos.x - mSize/2, pos.y - mSize/2, pos.z + mSize/2}); //1
-		mVerts.add({pos.x - mSize/2, pos.y + mSize/2, pos.z + mSize/2}); //2
-		mVerts.add({pos.x + mSize/2, pos.y - mSize/2, pos.z + mSize/2}); //4
-		mVerts.add({pos.x + mSize/2, pos.y - mSize/2, pos.z + mSize/2}); //4
-		mVerts.add({pos.x - mSize/2, pos.y + mSize/2, pos.z + mSize/2}); //2
-		mVerts.add({pos.x + mSize/2, pos.y + mSize/2, pos.z + mSize/2}); //3
+		mVerts.Add({pos.x - mSize/2, pos.y - mSize/2, pos.z + mSize/2}); //1
+		mVerts.Add({pos.x - mSize/2, pos.y + mSize/2, pos.z + mSize/2}); //2
+		mVerts.Add({pos.x + mSize/2, pos.y - mSize/2, pos.z + mSize/2}); //4
+		mVerts.Add({pos.x + mSize/2, pos.y - mSize/2, pos.z + mSize/2}); //4
+		mVerts.Add({pos.x - mSize/2, pos.y + mSize/2, pos.z + mSize/2}); //2
+		mVerts.Add({pos.x + mSize/2, pos.y + mSize/2, pos.z + mSize/2}); //3
 
 		//Right
-		mVerts.add({pos.x + mSize/2, pos.y - mSize/2, pos.z + mSize/2}); //4
-		mVerts.add({pos.x + mSize/2, pos.y + mSize/2, pos.z + mSize/2}); //3
-		mVerts.add({pos.x + mSize/2, pos.y - mSize/2, pos.z - mSize/2}); //8
-		mVerts.add({pos.x + mSize/2, pos.y - mSize/2, pos.z - mSize/2}); //8
-		mVerts.add({pos.x + mSize/2, pos.y + mSize/2, pos.z + mSize/2}); //3
-		mVerts.add({pos.x + mSize/2, pos.y + mSize/2, pos.z - mSize/2}); //7
+		mVerts.Add({pos.x + mSize/2, pos.y - mSize/2, pos.z + mSize/2}); //4
+		mVerts.Add({pos.x + mSize/2, pos.y + mSize/2, pos.z + mSize/2}); //3
+		mVerts.Add({pos.x + mSize/2, pos.y - mSize/2, pos.z - mSize/2}); //8
+		mVerts.Add({pos.x + mSize/2, pos.y - mSize/2, pos.z - mSize/2}); //8
+		mVerts.Add({pos.x + mSize/2, pos.y + mSize/2, pos.z + mSize/2}); //3
+		mVerts.Add({pos.x + mSize/2, pos.y + mSize/2, pos.z - mSize/2}); //7
 
 		//Back
-		mVerts.add({pos.x + mSize/2, pos.y - mSize/2, pos.z - mSize/2}); //8
-		mVerts.add({pos.x + mSize/2, pos.y + mSize/2, pos.z - mSize/2}); //7
-		mVerts.add({pos.x - mSize/2, pos.y - mSize/2, pos.z - mSize/2}); //5
-		mVerts.add({pos.x - mSize/2, pos.y - mSize/2, pos.z - mSize/2}); //5
-		mVerts.add({pos.x + mSize/2, pos.y + mSize/2, pos.z - mSize/2}); //7
-		mVerts.add({pos.x - mSize/2, pos.y + mSize/2, pos.z - mSize/2}); //6
+		mVerts.Add({pos.x + mSize/2, pos.y - mSize/2, pos.z - mSize/2}); //8
+		mVerts.Add({pos.x + mSize/2, pos.y + mSize/2, pos.z - mSize/2}); //7
+		mVerts.Add({pos.x - mSize/2, pos.y - mSize/2, pos.z - mSize/2}); //5
+		mVerts.Add({pos.x - mSize/2, pos.y - mSize/2, pos.z - mSize/2}); //5
+		mVerts.Add({pos.x + mSize/2, pos.y + mSize/2, pos.z - mSize/2}); //7
+		mVerts.Add({pos.x - mSize/2, pos.y + mSize/2, pos.z - mSize/2}); //6
 
 		//Left
-		mVerts.add({pos.x - mSize/2, pos.y - mSize/2, pos.z - mSize/2}); //5
-		mVerts.add({pos.x - mSize/2, pos.y + mSize/2, pos.z - mSize/2}); //6
-		mVerts.add({pos.x - mSize/2, pos.y - mSize/2, pos.z + mSize/2}); //1
-		mVerts.add({pos.x - mSize/2, pos.y - mSize/2, pos.z + mSize/2}); //1
-		mVerts.add({pos.x - mSize/2, pos.y + mSize/2, pos.z - mSize/2}); //6
-		mVerts.add({pos.x - mSize/2, pos.y + mSize/2, pos.z + mSize/2}); //2
+		mVerts.Add({pos.x - mSize/2, pos.y - mSize/2, pos.z - mSize/2}); //5
+		mVerts.Add({pos.x - mSize/2, pos.y + mSize/2, pos.z - mSize/2}); //6
+		mVerts.Add({pos.x - mSize/2, pos.y - mSize/2, pos.z + mSize/2}); //1
+		mVerts.Add({pos.x - mSize/2, pos.y - mSize/2, pos.z + mSize/2}); //1
+		mVerts.Add({pos.x - mSize/2, pos.y + mSize/2, pos.z - mSize/2}); //6
+		mVerts.Add({pos.x - mSize/2, pos.y + mSize/2, pos.z + mSize/2}); //2
 		
 		//Top
-		mVerts.add({pos.x - mSize/2, pos.y - mSize/2, pos.z - mSize/2}); //5
-		mVerts.add({pos.x - mSize/2, pos.y - mSize/2, pos.z + mSize/2}); //1
-		mVerts.add({pos.x + mSize/2, pos.y - mSize/2, pos.z - mSize/2}); //8
-		mVerts.add({pos.x + mSize/2, pos.y - mSize/2, pos.z - mSize/2}); //8
-		mVerts.add({pos.x - mSize/2, pos.y - mSize/2, pos.z + mSize/2}); //1
-		mVerts.add({pos.x + mSize/2, pos.y - mSize/2, pos.z + mSize/2}); //4
+		mVerts.Add({pos.x - mSize/2, pos.y - mSize/2, pos.z - mSize/2}); //5
+		mVerts.Add({pos.x - mSize/2, pos.y - mSize/2, pos.z + mSize/2}); //1
+		mVerts.Add({pos.x + mSize/2, pos.y - mSize/2, pos.z - mSize/2}); //8
+		mVerts.Add({pos.x + mSize/2, pos.y - mSize/2, pos.z - mSize/2}); //8
+		mVerts.Add({pos.x - mSize/2, pos.y - mSize/2, pos.z + mSize/2}); //1
+		mVerts.Add({pos.x + mSize/2, pos.y - mSize/2, pos.z + mSize/2}); //4
 
 		//Bot
-		mVerts.add({pos.x - mSize/2, pos.y + mSize/2, pos.z + mSize/2}); //2
-		mVerts.add({pos.x - mSize/2, pos.y + mSize/2, pos.z - mSize/2}); //6
-		mVerts.add({pos.x + mSize/2, pos.y + mSize/2, pos.z + mSize/2}); //3
-		mVerts.add({pos.x + mSize/2, pos.y + mSize/2, pos.z + mSize/2}); //3
-		mVerts.add({pos.x - mSize/2, pos.y + mSize/2, pos.z - mSize/2}); //6
-		mVerts.add({pos.x + mSize/2, pos.y + mSize/2, pos.z - mSize/2}); //7
+		mVerts.Add({pos.x - mSize/2, pos.y + mSize/2, pos.z + mSize/2}); //2
+		mVerts.Add({pos.x - mSize/2, pos.y + mSize/2, pos.z - mSize/2}); //6
+		mVerts.Add({pos.x + mSize/2, pos.y + mSize/2, pos.z + mSize/2}); //3
+		mVerts.Add({pos.x + mSize/2, pos.y + mSize/2, pos.z + mSize/2}); //3
+		mVerts.Add({pos.x - mSize/2, pos.y + mSize/2, pos.z - mSize/2}); //6
+		mVerts.Add({pos.x + mSize/2, pos.y + mSize/2, pos.z - mSize/2}); //7
 		#endif
 
 		Vec4f colors[] = 
@@ -81,7 +81,7 @@ namespace Shady
 		};
 
 		
-		mIndices.add({
+		mIndices.Add({
 					0,1,3,
 					3,1,2,
 					3,2,7,
@@ -103,7 +103,7 @@ namespace Shady
 		glGenBuffers(NUM_BUFFERS, mVBO);
 		
 		glBindBuffer(GL_ARRAY_BUFFER, mVBO[POS_BUFFER]);
-		glBufferData(GL_ARRAY_BUFFER, mVerts.size() * sizeof(Vec3f), mVerts.getPointer(), GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, mVerts.Size() * sizeof(Vec3f), mVerts.GetPointer(), GL_STATIC_DRAW);
 		glEnableVertexAttribArray(POS_BUFFER);
 		glVertexAttribPointer(POS_BUFFER, 3, GL_FLOAT, GL_FALSE, 0, 0);
 		
@@ -115,7 +115,7 @@ namespace Shady
 
 		#if INDEXED
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mVBO[IND_BUFFER]);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, mIndices.size() * sizeof(u32), mIndices.getPointer(), GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, mIndices.Size() * sizeof(u32), mIndices.GetPointer(), GL_STATIC_DRAW);
 		#endif
 		
 		glBindVertexArray(0);	

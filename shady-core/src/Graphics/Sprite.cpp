@@ -102,12 +102,12 @@ namespace Shady
 		mRoll = 0.0f;
 		if(!shader)
 		{
-			mShaders.add(new Shader("basic", SH_FRAGMENT_SHADER | SH_VERTEX_SHADER));
+			mShaders.Add(new Shader("basic", SH_FRAGMENT_SHADER | SH_VERTEX_SHADER));
 			mOwnShader = true;
 		}
 		else
 		{
-			mShaders.add(shader);
+			mShaders.Add(shader);
 			mOwnShader = false;
 		}
 		initGlBuffers(mPos, mColor, posInCenter);
@@ -132,12 +132,12 @@ namespace Shady
 		
 		if(!shader)
 		{
-			mShaders.add(new Shader("basic", SH_FRAGMENT_SHADER | SH_VERTEX_SHADER));
+			mShaders.Add(new Shader("basic", SH_FRAGMENT_SHADER | SH_VERTEX_SHADER));
 			mOwnShader = true;
 		}
 		else
 		{
-			mShaders.add(shader);
+			mShaders.Add(shader);
 			mOwnShader = false;
 		}
 		initGlBuffers(mPos, mColor, posInCenter);
@@ -149,7 +149,7 @@ namespace Shady
 		glDeleteVertexArrays(1, &mVAO);
 		if(mOwnShader)
 		{
-			for(s32 index = 0; index < mShaders.size(); index++)
+			for(s32 index = 0; index < mShaders.Size(); index++)
 			{
 				delete mShaders[index];
 			}
@@ -247,7 +247,7 @@ namespace Shady
 	{
 
 		if(mTexture) mTexture->bind(0);
-		for(s32 index = 0; index < mShaders.size(); index++)
+		for(s32 index = 0; index < mShaders.Size(); index++)
 		{
 			mShaders[index]->SetUniform1i("hasTexture", hasTexture());
 			mShaders[index]->SetUniformMat4("modelMat", getModelMat());

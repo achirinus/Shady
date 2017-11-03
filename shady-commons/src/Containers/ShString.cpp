@@ -16,7 +16,7 @@ namespace Shady
 	}
 
 	String::String(std::initializer_list<const char*> list):
-		mBufferSize{0}
+		mBufferSize{0}, mBuffer{0}
 	{
 		u32 numOfStrings = list.size();
 		
@@ -50,10 +50,8 @@ namespace Shady
 		mBuffer = new c8[mBufferSize];
 		StrCopy(mBuffer, str);
 	}
-	String::String(const String& other)
+	String::String(const String& other): mBufferSize(other.mBufferSize), mBuffer(0)
 	{
-		
-		mBufferSize = other.mBufferSize;
 		if(mBufferSize > 0)
 		{
 			mBuffer = new c8[mBufferSize];
@@ -349,7 +347,7 @@ namespace Shady
 				}
 				lastIndex++;
 				temp.mBuffer[temp.mBufferSize - 1] = '\0';
-				result.add(temp);
+				result.Add(temp);
 			}
 		}
 		if(lastIndex < mBufferSize)
@@ -361,7 +359,7 @@ namespace Shady
 				temp.mBuffer[charIndex] = this->mBuffer[lastIndex++];
 			}
 			temp.mBuffer[temp.mBufferSize - 1] = '\0';
-			result.add(temp);
+			result.Add(temp);
 		}
 		return result;
 	}
@@ -406,11 +404,11 @@ namespace Shady
 			if(currentChar == '\r') continue;
 			if(currentChar == '\n')
 			{
-				chars.add('\0');
+				chars.Add('\0');
 				lineBeginIndex = ++charIndex;
 				break;
 			}
-			chars.add(currentChar);
+			chars.Add(currentChar);
 		}
 		return String(&chars[0]);
 	}

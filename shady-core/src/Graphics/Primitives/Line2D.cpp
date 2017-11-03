@@ -12,11 +12,11 @@ namespace Shady
 		
 		if(shader)
 		{
-			mShaders.add(shader);
+			mShaders.Add(shader);
 		}
 		else
 		{
-			mShaders.add(new Shader("basicLine", SH_FRAGMENT_SHADER | SH_VERTEX_SHADER));
+			mShaders.Add(new Shader("basicLine", SH_FRAGMENT_SHADER | SH_VERTEX_SHADER));
 		}
 		
 		Vec3f vertices[2] = 
@@ -94,7 +94,7 @@ namespace Shady
 	{
 		glDeleteBuffers(NUM_BUFFERS, mVBO);
 		glDeleteVertexArrays(1, &mVAO);
-		for(s32 index = 0; index < mShaders.size(); index++)
+		for(s32 index = 0; index < mShaders.Size(); index++)
 		{
 			delete mShaders[index];
 		}
