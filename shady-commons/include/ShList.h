@@ -281,6 +281,65 @@ namespace Shady
 				if(test) test = test->back;
 			}
 		}
+		//--------------Emplace----------------------//
+
+		template<typename ...Args>
+		void PutBack(Args... args)
+		{
+			if(!mTail)
+			{
+				mTail = new Node();
+				new(&mTail->elem) T(args...);
+				mHead = mTail;
+			}
+			else
+			{
+				Node* temp = new Node();
+				new(&temp->elem) T(args...);
+				temp->back = mTail;
+
+				if(mTail != mHead)
+				{
+					mTail->next = temp;
+				}
+				else
+				{
+					mHead->next = temp;
+				}
+				mTail = temp;
+			}
+			mSize++;
+		}
+
+		template<typename ...Args>
+		void PutFront(Args... args)
+		{
+			if(!mHead)
+			{
+				mHead = new Node();
+				new(&mHead->elem) T(args...);
+				mTail = mHead;
+			}
+			else
+			{
+				Node* temp = new Node();
+				new(&temp->elem) T(args...);
+				temp->next = mHead;
+
+				if(mHead != mTail)
+				{
+					mHead->back = temp;	
+				}
+				else
+				{
+					mTail->back = temp;
+				}
+				mHead = temp;
+			}
+			mSize++;
+		}
+
+		//-------------------------------------------//
 
 		T PopBack()
 		{
