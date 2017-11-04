@@ -17,7 +17,7 @@ namespace Shady
 	Timer* TimerManager::CreateTimer(f32 boomTime, TimerFunc* func, void* data)
 	{
 		Timer* result = new Timer(boomTime, func, data);
-		mTimers.PushFront(result);
+		mTimers.AddFront(result);
 		return result;
 	}
 

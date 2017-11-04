@@ -11,8 +11,36 @@ namespace Shady
 		T elem;
 		LNode<T>* next;
 		LNode<T>* back;
-		LNode() = default;
-		LNode(T e, LNode<T>* n = nullptr, LNode<T>* b = nullptr): elem{e}, next{n}, back{b} {}
+		LNode()
+		{
+			next = 0;
+			back = 0;
+		}
+
+		template<typename ...Args>
+		LNode(LNode<T>* n, LNode<T>* b , Args... vArgs): 
+		{
+			next = n;
+			back = b;
+			new(elem) T(vArgs...);
+		}
+		
+		
+		LNode(const T& e, LNode<T>* n = 0, LNode<T>* b = 0)
+		{
+			elem = e;
+			next = n;
+			back = b;
+		}
+
+		
+		LNode(const LNode<T>& other)
+		{
+			elem = other.elem;
+			next = other.next; 
+			back = other.back;
+		}
+
 	};
 
 	//This is implemented as a double linked list.
@@ -36,7 +64,7 @@ namespace Shady
 					}break;
 					case IteratorPosition::END:
 					{
-						node = nullptr;
+						node = 0;
 					}break;
 				}
 			}
@@ -135,30 +163,29 @@ namespace Shady
 		u32 mSize;
 
 	public:
-		List(): mTail{nullptr}, mHead{nullptr}, mSize{0} { }
-		List(const List<T>& other): mTail{nullptr}, mHead{nullptr}, mSize{0}
+		List()
 		{
+			mHead = 0;
+			mTail = 0;
+			mSize = 0;
+		}
+		List(const List<T>& other)
+		{
+			mHead = 0;
+			mTail = 0;
+			mSize = 0;
 			for(T& elem : other)
 			{
-				PushFront(elem);
+				AddFront(elem);
 			}
 		}
 		List<T>& operator=(const List<T>& other)
 		{
-			Node* last = mTail;
-			while(last)
-			{
-				Node* temp = last;
-				last = last->next;
-				delete temp;
-			}
-			mSize = 0;
-
+			Clear();
 			for(T& elem: other)
 			{
-				PushFront(elem);
+				AddBack(elem);
 			}
-				
 			return *this;	
 		}
 		List(List<T>&& other)
@@ -167,8 +194,8 @@ namespace Shady
 			mHead = other.mHead;
 			mSize = other.mSize;
 
-			other.mTail = nullptr;
-			other.mHead = nullptr;
+			other.mTail = 0;
+			other.mHead = 0;
 		}
 		~List() 
 		{
@@ -181,7 +208,7 @@ namespace Shady
 			}
 		}
 
-		void PushBack(T elem)
+		void AddBack(const T& elem)
 		{
 			if(!mTail)
 			{
@@ -190,14 +217,21 @@ namespace Shady
 			}
 			else
 			{
-				Node* temp = new Node(elem, mTail);
-				mTail->back = temp;
+				Node* temp = new Node(elem, 0, mTail);
+				if(mTail != mHead)
+				{
+					mTail->next = temp;
+				}
+				else
+				{
+					mHead->next = temp;
+				}
 				mTail = temp;
 			}
 			mSize++;
 		}
 
-		void PushFront(T elem)
+		void AddFront(const T& elem)
 		{
 			if(!mHead)
 			{
@@ -206,63 +240,164 @@ namespace Shady
 			}
 			else
 			{
-				Node* temp = new Node(elem, nullptr, mHead);
-				mHead->next = temp;
+				Node* temp = new Node(elem, mHead, 0);
+				if(mHead != mTail)
+				{
+					mHead->back = temp;	
+				}
+				else
+				{
+					mTail->back = temp;
+				}
 				mHead = temp;
 			}
 			mSize++;
 		}
 
-		void InsertAfter(const T& elemBefore, T elem, b8 insAfterMulElems = false)
+		void AddAfter(const T& elemBefore, const T& elem, b8 insAfterMulElems = false)
 		{
-			Node* test = mTail;
+			Node* test = mHead;
 			while(test)
 			{
 				if(test->elem == elemBefore) // insert here
 				{
-					Node* temp = new Node(elem, test->next, test);
-					if(test->next) test->next->back = temp;
-
-					if(test == mHead) mHead = temp;
-
+					Node* nextNode = test->next;
+					Node* temp = new Node(elem, nextNode, test);
+					if(nextNode) nextNode->back = temp;
 					test->next = temp;
 					mSize++;
+					if(test == mTail) mTail = temp;
 					test = test->next;
 					if(!insAfterMulElems) break;
 				}
-				test = test->next;
+				if(test) test = test->next;
 			}
 		}
 
-		void InsertBefore(const T& elemBefore, T elem, b8 insAfterMulElems = false)
+		void AddBefore(const T& elemBefore, const T& elem, b8 insAfterMulElems = false)
 		{
 			Node* test = mTail;
 			while(test)
 			{
 				if(test->elem == elemBefore) // insert here
 				{
-					Node* temp = new Node(elem, test, test->back);
-					if(test->back) test->back->next = temp;
-					if(test == mTail) mTail = temp;
+					Node* lastNode = test->back;
+					Node* temp = new Node(elem, test, lastNode);
+					if(lastNode) lastNode->next = temp;
 					test->back = temp;
+					if(test == mHead) mHead = temp;
 					mSize++;
-					
+					test = test->back;
 					if(!insAfterMulElems) break;
 				}
-				test = test->next;
+				if(test) test = test->back;
 			}
 		}
+
+		//-------------------Emplace functions--------//
+		
+		template<typename ...Args>
+		void PutBack(Args... vArgs)
+		{
+			if(!mTail)
+			{
+				mTail = new Node(0, 0, vArgs...);
+				mHead = mTail;
+			}
+			else
+			{
+				Node* temp = new Node(0, mTail, vArgs...);
+				if(mTail != mHead)
+				{
+					mTail->next = temp;
+				}
+				mTail = temp;
+			}
+			mSize++;
+		}
+
+		template<typename ...Args>
+		void PutFront(Args... vArgs)
+		{
+			if(!mHead)
+			{
+				mHead = new Node(0, 0, vArgs...);
+				mTail = mHead;
+			}
+			else
+			{
+				Node* temp = new Node(mHead, 0, vArgs...);
+				if(mHead != mTail)
+				{
+					mHead->back = temp;	
+				}
+				mHead = temp;
+			}
+			mSize++;
+		}
+
+		template<typename ...Args>
+		void PutAfter(const T& elemBefore, Args... vArgs)
+		{
+			Node* test = mHead;
+			while(test)
+			{
+				if(test->elem == elemBefore) // insert here
+				{
+					Node* nextNode = test->next;
+					Node* temp = new Node(nextNode, test, vArgs...);
+					
+					if(nextNode) nextNode->back = temp;
+					test->next = temp;
+					mSize++;
+					if(test == mTail) mTail = temp;
+					test = test->next;
+					break;
+				}
+				if(test) test = test->next;
+			}
+		}
+
+		template<typename ...Args>
+		void PutBefore(const T& elemBefore, Args... vArgs)
+		{
+			Node* test = mTail;
+			while(test)
+			{
+				if(test->elem == elemBefore) // insert here
+				{
+					Node* lastNode = test->back;
+					Node* temp = new Node(test, lastNode, vArgs...);
+					if(lastNode) lastNode->next = temp;
+					test->back = temp;
+					if(test == mHead) mHead = temp;
+					mSize++;
+					test = test->back;
+					break;
+				}
+				if(test) test = test->back;
+			}
+		}
+		
+		//--------------------------------------------//
 
 		T PopBack()
 		{
 			SH_ASSERT(mSize > 0);
 
 			T result = mTail->elem;
-			Node* temp = mTail;
-			mTail = temp->next;
-			if(mTail) mTail->back = nullptr;
-			delete temp;
-
+			if(mTail != mHead)
+			{
+				Node* temp = mTail;
+				mTail = temp->back;
+				if(mTail) mTail->next = 0;	
+				delete temp;
+			}
+			else
+			{
+				delete mHead;
+				mHead = mTail = 0;
+			}
 			mSize--;
 			return result;
 		}
@@ -272,12 +407,18 @@ namespace Shady
 			SH_ASSERT(mSize > 0);
 			
 			T result = mHead->elem;
-			
-			Node* temp = mHead; 
-			mHead = temp->back;
-			if(mHead) mHead->next = nullptr;
-			delete temp;
-
+			if(mHead != mTail)
+			{
+				Node* temp = mHead; 
+				mHead = temp->next;
+				if(mHead) mHead->back = 0;
+				delete temp;
+			}
+			else
+			{
+				delete mHead;
+				mHead = mTail = 0;
+			}
 			mSize--;
 			return result;
 		}
@@ -308,15 +449,15 @@ namespace Shady
 					{
 						if(mHead == mTail)
 						{
-							mHead = mTail = nullptr;
-							temp = nullptr;
+							mHead = mTail = 0;
+							temp = 0;
 						}
 						else
 						{
 							mHead = mHead->next;
 							if(mHead)
 							{
-								mHead->back = nullptr;	
+								mHead->back = 0;	
 							}
 							temp = temp->next;	
 						}
@@ -326,7 +467,7 @@ namespace Shady
 						mTail = mTail->back;
 						if(mTail)
 						{
-							mTail->next = nullptr;
+							mTail->next = 0;
 						}
 						temp = temp->next;	
 					}
@@ -346,16 +487,50 @@ namespace Shady
 					
 					delete tempToDel;
 					mSize--;
-
 				}// If elem found
 				else
 				{
 					temp = temp->next;	
 				} 
-				
-				
 			} // while
 			return result;
+		}
+
+		List<T>& Clear()
+		{
+			Node* temp = mHead;
+			if(temp == mTail)
+			{
+				delete temp;
+			}
+			else
+			{
+				while(temp)
+				{
+					Node* nextTemp = temp->next;
+					delete temp;
+					temp = nextTemp; 
+				}
+			}
+			mHead = 0;
+			mTail = 0;
+			mSize = 0;
+			return *this;
+		}
+
+		void Swap(List<T>& other)
+		{
+			Node* tHead = mHead;
+			Node* tTail = mTail;
+			u32 tSize = mSize;
+
+			mHead = other.mHead;
+			mTail = other.mTail;
+			mSize = other.mSize;
+
+			other.mHead = tHead;
+			other.mTail = tTail;
+			other.mSize = tSize;
 		}
 
 		ListIterator<T> begin() const 

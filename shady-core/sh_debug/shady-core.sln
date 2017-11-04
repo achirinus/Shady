@@ -94,7 +94,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 ..\..\shady-commons\src\DebugUtils\ShAssert.cpp = ..\..\shady-commons\src\DebugUtils\ShAssert.cpp
 ..\..\shady-commons\src\DebugUtils\ConsoleOut.cpp = ..\..\shady-commons\src\DebugUtils\ConsoleOut.cpp
 ..\..\shady-commons\src\Containers\ShString.cpp = ..\..\shady-commons\src\Containers\ShString.cpp
-..\..\shady-commons\src\Containers\ShBitset.cpp = ..\..\shady-commons\src\Containers\ShBitset.cpp
 ..\..\shady-commons\src\Commons.cpp = ..\..\shady-commons\src\Commons.cpp
 ..\..\shady-commons\include\Vec4.h = ..\..\shady-commons\include\Vec4.h
 ..\..\shady-commons\include\Vec3.h = ..\..\shady-commons\include\Vec3.h

@@ -42,6 +42,9 @@ namespace Shady
 		f32 timePassed;
 		b8 keyState;
 		b8 isTimed;
+
+		InputAction() = default;
+		
 		InputAction(String n, ButtonAction t, Object* o, ButtonFunc f, f32 ttp = 0.0f):
 					name{n}, trigger{t}, obj{o}, func{f}, funcS{nullptr},
 					timeToProc{ttp}, timePassed{0.0f}, keyState{false}, isTimed{false} 
@@ -62,6 +65,8 @@ namespace Shady
 		f32 timeToProc;
 		f32 timePassed;
 		f32 state; //Used only for mouse input
+
+		InputAxis() = default;
 
 		InputAxis(String n, Object* o, AxisFunc f, f32 ttp = 0.0f):
 				 name{n}, obj{o}, func{f}, funcS{nullptr}, timeToProc{ttp},

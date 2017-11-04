@@ -295,16 +295,20 @@ namespace Shady
 	u32 StrLength(const c8 *str)
 	{
 		u32 result = 0;
-		while (*str++) result++;
-
+		if(str)
+		{
+			while (*str++) result++;	
+		}
 		return result;
 	}
 	
 	u32 StrLength(const c16 *str)
 	{
 		u32 result = 0;
-		while (*str++) result++;
-
+		if(str)
+		{
+			while (*str++) result++;	
+		}
 		return result;
 	}
 
