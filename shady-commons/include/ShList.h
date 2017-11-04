@@ -16,24 +16,12 @@ namespace Shady
 			next = 0;
 			back = 0;
 		}
-
-		template<typename ...Args>
-		LNode(LNode<T>* n, LNode<T>* b , Args... vArgs): 
-		{
-			next = n;
-			back = b;
-			new(elem) T(vArgs...);
-		}
-		
-		
 		LNode(const T& e, LNode<T>* n = 0, LNode<T>* b = 0)
 		{
 			elem = e;
 			next = n;
 			back = b;
 		}
-
-		
 		LNode(const LNode<T>& other)
 		{
 			elem = other.elem;
@@ -293,93 +281,6 @@ namespace Shady
 				if(test) test = test->back;
 			}
 		}
-
-		//-------------------Emplace functions--------//
-		
-		template<typename ...Args>
-		void PutBack(Args... vArgs)
-		{
-			if(!mTail)
-			{
-				mTail = new Node(0, 0, vArgs...);
-				mHead = mTail;
-			}
-			else
-			{
-				Node* temp = new Node(0, mTail, vArgs...);
-				if(mTail != mHead)
-				{
-					mTail->next = temp;
-				}
-				mTail = temp;
-			}
-			mSize++;
-		}
-
-		template<typename ...Args>
-		void PutFront(Args... vArgs)
-		{
-			if(!mHead)
-			{
-				mHead = new Node(0, 0, vArgs...);
-				mTail = mHead;
-			}
-			else
-			{
-				Node* temp = new Node(mHead, 0, vArgs...);
-				if(mHead != mTail)
-				{
-					mHead->back = temp;	
-				}
-				mHead = temp;
-			}
-			mSize++;
-		}
-
-		template<typename ...Args>
-		void PutAfter(const T& elemBefore, Args... vArgs)
-		{
-			Node* test = mHead;
-			while(test)
-			{
-				if(test->elem == elemBefore) // insert here
-				{
-					Node* nextNode = test->next;
-					Node* temp = new Node(nextNode, test, vArgs...);
-					
-					if(nextNode) nextNode->back = temp;
-					test->next = temp;
-					mSize++;
-					if(test == mTail) mTail = temp;
-					test = test->next;
-					break;
-				}
-				if(test) test = test->next;
-			}
-		}
-
-		template<typename ...Args>
-		void PutBefore(const T& elemBefore, Args... vArgs)
-		{
-			Node* test = mTail;
-			while(test)
-			{
-				if(test->elem == elemBefore) // insert here
-				{
-					Node* lastNode = test->back;
-					Node* temp = new Node(test, lastNode, vArgs...);
-					if(lastNode) lastNode->next = temp;
-					test->back = temp;
-					if(test == mHead) mHead = temp;
-					mSize++;
-					test = test->back;
-					break;
-				}
-				if(test) test = test->back;
-			}
-		}
-		
-		//--------------------------------------------//
 
 		T PopBack()
 		{

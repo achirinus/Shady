@@ -21,29 +21,27 @@ namespace Shady
 
 	void InputManager::MapAction(const String& name, InputKey key)
 	{
-		mBMappings.add(name, key);
+		mBMappings.Add(name, key);
 	}
 
 	//Call this with reinterpret_cast to ButtonFunc or with IM_BFUNC(Func) macro
 	void InputManager::BindAction(const String& name, ButtonAction action, Object* obj, ButtonFunc func, f32 time)
 	{
-		if(mBMappings.hasKey(name))
+		if(mBMappings.HasKey(name))
 		{
-			InputAction temp(name, action, obj, func, time);
-			mBoundActions.AddBack(temp);
+			mBoundActions.AddBack({name, action, obj, func, time});
 		}	
 	}
 	void InputManager::BindAction(const String& name, ButtonAction action, ButtonFuncS func, f32 time)
 	{
-		if(mBMappings.hasKey(name))
+		if(mBMappings.HasKey(name))
 		{
-			InputAction temp(name, action, func, time);
-			mBoundActions.AddBack(temp);
+			mBoundActions.AddBack({name, action, func, time});
 		}	
 	}
 	void InputManager::MapAxis(const String& name, InputKey key, f32 scale)
 	{
-		if(mAMappings.hasKey(name))
+		if(mAMappings.HasKey(name))
 		{
 			mAMappings[name].AddBack({key, scale});
 		}
@@ -51,26 +49,24 @@ namespace Shady
 		{
 			List<AxisValue> vals = {};
 			vals.AddBack({key, scale});
-			mAMappings.add(name, vals);
+			mAMappings.Add(name, vals);
 		}
 	}
 
 	//Call this with reinterpret_cast to AxisFunc or with IM_AFUNC(Func) macro
 	void InputManager::BindAxis(const String& name, Object* obj, AxisFunc func, f32 time)
 	{
-		if(mAMappings.hasKey(name))
+		if(mAMappings.HasKey(name))
 		{
-			InputAxis temp(name, obj, func, time);
-			mBoundAxis.AddBack(temp);
+			mBoundAxis.AddBack({name, obj, func, time});
 		}
 	}
 
 	void InputManager::BindAxis(const String& name, AxisFuncS func, f32 time)
 	{
-		if(mAMappings.hasKey(name))
+		if(mAMappings.HasKey(name))
 		{
-			InputAxis temp(name, func, time);
-			mBoundAxis.AddBack(temp);
+			mBoundAxis.AddBack({name, func, time});
 		}
 	}
 

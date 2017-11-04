@@ -231,7 +231,7 @@ namespace Shady
 			{
 				mBufferSize = SH_ARRAY_DEFAULT_SIZE;
 				mBuffer = new T[mBufferSize];
-				new(&mBuffer[mNumOfElem]) T(vArgs...)
+				new(&mBuffer[mNumOfElem]) T(vArgs...);
 			}
 			mNumOfElem++;
 		}

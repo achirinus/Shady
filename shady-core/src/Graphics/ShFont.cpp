@@ -7,9 +7,9 @@ namespace Shady
 
 	Font::~Font()
 	{
-		for(u32 index = 0; index < mGlyphs.size(); index++)
+		for(u32 index = 0; index < mGlyphs.Size(); index++)
 		{
-			Texture* tex = mGlyphs[mGlyphs.getKeyByIndex(index)].texture;
+			Texture* tex = mGlyphs[mGlyphs.GetKeyByIndex(index)].texture;
 			delete tex;
 		}
 
@@ -59,7 +59,7 @@ namespace Shady
 			s32 advanceW, leftBearing, xOffset, yOffset;
 			Texture* tex = STBgetGlyphTexture(&mFontInfo, cp, &xOffset, &yOffset);
 			stbtt_GetCodepointHMetrics(&mFontInfo, cp, &advanceW, &leftBearing);
-			mGlyphs.add(cp,  {tex, advanceW * mScale, leftBearing * mScale, xOffset, yOffset});
+			mGlyphs.Add(cp,  {tex, advanceW * mScale, leftBearing * mScale, xOffset, yOffset});
 		}
 	}
 

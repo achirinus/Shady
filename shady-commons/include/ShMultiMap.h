@@ -15,6 +15,13 @@ namespace Shady
 	{
 		K key;
 		V value;
+
+		MapPair() = default;
+		MapPair(const K& k, const V& v)
+		{
+			key = k;
+			value = v;
+		}
 	};
 
 	template<typename K, typename V>
@@ -42,7 +49,7 @@ namespace Shady
 					} break;
 					case IteratorPosition::END
 					{
-						currentIndex = map->mPairs.size();
+						currentIndex = map->mPairs.Size();
 					} break;
 				}
 			}
@@ -62,25 +69,25 @@ namespace Shady
 			{
 				MapIterator temp = *this;
 				temp.currentIndex += offset;
-				temp.currentIndex = Shady::clamp(temp.currentIndex, map->mPairs.size());
+				temp.currentIndex = Shady::clamp(temp.currentIndex, map->mPairs.Size());
 				return temp;
 			}
 			virtual MapIterator operator-(u32 offset)
 			{
 				MapIterator temp = *this;
 				temp.currentIndex -= offset;
-				if(temp.currentIndex < 0) temp.currentIndex = map->mPairs.size();
+				if(temp.currentIndex < 0) temp.currentIndex = map->mPairs.Size();
 				return temp;	
 			}
 			virtual MapIterator& operator+=(u32 offset)
 			{
 				currentIndex += offset;
-				currentIndex = Shady::clamp(currentIndex, map->mPairs.size());
+				currentIndex = Shady::clamp(currentIndex, map->mPairs.Size());
 			}
 			virtual MapIterator& operator-=(u32 offset)
 			{
 				currentIndex -= offset;
-				if(currentIndex < 0) currentIndex = map->mPairs.size();
+				if(currentIndex < 0) currentIndex = map->mPairs.Size();
 			}
 			virtual MapIterator operator++() 
 			{
@@ -114,7 +121,7 @@ namespace Shady
 	public:
 		MultiMap(): mPairs{} {}
 		
-		s32 getKeyIndex(K key)
+		s32 GetKeyIndex(K key)
 		{
 			for(u32 index = 0; index < mPairs.Size(); index++)
 			{
@@ -123,18 +130,18 @@ namespace Shady
 			return INVALID_MAP_KEY_INDEX;
 		}
 
-		s32 getKeyByIndex(u32 index)
+		s32 GetKeyByIndex(u32 index)
 		{
 			SH_ASSERT(index < mPairs.Size());
 			return mPairs[index].key;
 		}
 		
-		void add(K key, V value)
+		void Add(K key, V value)
 		{
-			mPairs.Add({key, value});
+			mPairs.Put(key, value);
 		}
 
-		void remove(K key)
+		void Remove(K key)
 		{
 			s32 keyIndex = getKeyIndex(key);
 			if(keyIndex != INVALID_MAP_KEY_INDEX)
@@ -143,7 +150,7 @@ namespace Shady
 			}
 		}
 
-		V* getValue(K key)
+		V* GetValue(K key)
 		{
 			V* result = nullptr;
 			s32 keyIndex = getKeyIndex(key);
@@ -156,17 +163,17 @@ namespace Shady
 
 		V& operator[](K key)
 		{
-			s32 keyIndex = getKeyIndex(key);
+			s32 keyIndex = GetKeyIndex(key);
 			SH_ASSERT(keyIndex != INVALID_MAP_KEY_INDEX);
 			return mPairs[keyIndex].value;
 		}
 
-		u32 size()
+		u32 Size()
 		{
 			return mPairs.Size();
 		}
 
-		b8 hasKey(const K& key)
+		b8 HasKey(const K& key)
 		{
 			b8 result = false;
 			for(auto& pair : mPairs)
