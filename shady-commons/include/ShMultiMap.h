@@ -22,6 +22,21 @@ namespace Shady
 			key = k;
 			value = v;
 		}
+		MapPair(const MapPair& other)
+		{
+			key = other.key;
+			value = other.value;
+		}
+		MapPair(MapPair&& other)
+		{
+			key = other.key;
+			value = other.value;	
+		}
+		MapPair& operator=(const MapPair& other)
+		{
+			key = other.key;
+			value = other.value;	
+		}
 	};
 
 	template<typename K, typename V>
@@ -32,7 +47,7 @@ namespace Shady
 		Array<Pair> mPairs;
 		
 		template <typename T>
-		struct MapIterator : public Shady::Iterator<MapIterator<T>, T>
+		struct MapIterator 
 		{
 			friend MultiMap;
 
@@ -54,69 +69,86 @@ namespace Shady
 				}
 			}
 
-			virtual T& operator*()
+			T& operator*()
 			{
 				SH_ASSERT(map->mPairs.size() > 0);
 				return map->mPairs[currentIndex];
 			}
-			virtual MapIterator& operator=(const MapIterator& other)
+			MapIterator& operator=(const MapIterator& other)
 			{
 				map = other.map;
 				currentIndex = other.currentIndex;
 				return *this;
 			}
-			virtual MapIterator operator+(u32 offset)
+			MapIterator operator+(u32 offset)
 			{
 				MapIterator temp = *this;
 				temp.currentIndex += offset;
 				temp.currentIndex = Shady::clamp(temp.currentIndex, map->mPairs.Size());
 				return temp;
 			}
-			virtual MapIterator operator-(u32 offset)
+			MapIterator operator-(u32 offset)
 			{
 				MapIterator temp = *this;
 				temp.currentIndex -= offset;
 				if(temp.currentIndex < 0) temp.currentIndex = map->mPairs.Size();
 				return temp;	
 			}
-			virtual MapIterator& operator+=(u32 offset)
+			MapIterator& operator+=(u32 offset)
 			{
 				currentIndex += offset;
 				currentIndex = Shady::clamp(currentIndex, map->mPairs.Size());
 			}
-			virtual MapIterator& operator-=(u32 offset)
+			MapIterator& operator-=(u32 offset)
 			{
 				currentIndex -= offset;
 				if(currentIndex < 0) currentIndex = map->mPairs.Size();
 			}
-			virtual MapIterator operator++() 
+			MapIterator operator++() 
 			{
 				MapIterator temp = *this;
 				currentIndex++;
 				return temp;
 			}
-			virtual MapIterator operator++(int) 
+			MapIterator operator++(int) 
 			{
 				currentIndex++;
 			}
-			virtual MapIterator operator--()
+			MapIterator operator--()
 			{
 				MapIterator temp = *this;
 				currentIndex--;
 				return temp;
 			}
-			virtual MapIterator operator--(int)
+			MapIterator operator--(int)
 			{
 				currentIndex--;
 			}
-			virtual b8 operator==(const MapIterator& other)
+			b8 operator==(const MapIterator& other)
 			{
 				return ((map == other.map) && (currentIndex == other.currentIndex));
 			}
-			virtual b8 operator!=(const MapIterator& other) 
+			b8 operator!=(const MapIterator& other) 
 			{
 				return ((map != other.map) || (currentIndex != other.currentIndex));	
 			}
+			b8 operator>(const MapIterator& other)
+			{
+				return currentIndex > other.currentIndex;
+			}
+			b8 operator>=(const MapIterator& other)
+			{
+				return currentIndex >= other.currentIndex;
+			}
+			b8 operator<(const MapIterator& other)
+			{
+				return currentIndex < other.currentIndex;
+			}
+			b8 operator<=(const MapIterator& other)
+			{
+				return currentIndex <= other.currentIndex;
+			}
+
 		};
 	public:
 		MultiMap(): mPairs{} {}

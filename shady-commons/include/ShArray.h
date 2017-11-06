@@ -565,6 +565,27 @@ namespace Shady
 			{
 				return (array != other.array) || (currentIndex != other.currentIndex);
 			}
+			b8 operator>(const ArrayIterator& other)
+			{
+				//TODO decide if i should check the iterators beging for the same array 
+				return (currentIndex > other.currentIndex);
+			}
+			b8 operator>=(const ArrayIterator& other)
+			{
+				//TODO decide if i should check the iterators beging for the same array 
+				return (currentIndex >= other.currentIndex);
+			}
+			b8 operator<(const ArrayIterator& other)
+			{
+				//TODO decide if i should check the iterators beging for the same array 
+				return (currentIndex > other.currentIndex);
+			}
+			b8 operator<=(const ArrayIterator& other)
+			{
+				//TODO decide if i should check the iterators beging for the same array 
+				return (currentIndex >= other.currentIndex);
+			}
+
 		}; // ArrayIterator
 
 	}; // Array

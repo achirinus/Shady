@@ -37,7 +37,7 @@ namespace Shady
 	{
 		typedef LNode<T> Node;
 		template <typename T>
-		struct ListIterator : public Shady::Iterator<ListIterator<T>, T>
+		struct ListIterator 
 		{
 			friend List;
 			List<T>* list;
@@ -56,22 +56,20 @@ namespace Shady
 					}break;
 				}
 			}
-
-
-			virtual T& operator*()
+			T& operator*()
 			{
 				SH_ASSERT(node);
 				return node->elem;
 			}
 
-			virtual ListIterator& operator=(const ListIterator& other)
+			ListIterator& operator=(const ListIterator& other)
 			{
 				list = other.list;
 				node = other.node;
 				return *this;
 			}
 
-			virtual ListIterator operator+(u32 offset)
+			ListIterator operator+(u32 offset)
 			{
 				SH_ASSERT(offset >= 0); //TODO maybe allow negative offsets
 				ListIterator result = *this;
@@ -82,7 +80,7 @@ namespace Shady
 				}
 				return result;
 			}
-			virtual ListIterator operator-(u32 offset)
+			ListIterator operator-(u32 offset)
 			{
 				SH_ASSERT(offset >= 0); //TODO maybe allow negative offsets
 				ListIterator result = *this;
@@ -93,7 +91,7 @@ namespace Shady
 				}
 				return result;	
 			}
-			virtual ListIterator& operator+=(u32 offset)
+			ListIterator& operator+=(u32 offset)
 			{
 				SH_ASSERT(offset >= 0); //TODO maybe allow negative offsets
 				while(offset--)
@@ -103,7 +101,7 @@ namespace Shady
 				}
 				return *this;	
 			}
-			virtual ListIterator& operator-=(u32 offset) 
+			ListIterator& operator-=(u32 offset) 
 			{
 				SH_ASSERT(offset >= 0); //TODO maybe allow negative offsets
 				while(offset--)
@@ -113,33 +111,33 @@ namespace Shady
 				}
 				return *this;	
 			}
-			virtual ListIterator operator++() 
+			ListIterator operator++() 
 			{
 				ListIterator temp = *this;
 				if(node) node = node->next;
 				return temp;
 			}
-			virtual ListIterator operator++(int)
+			ListIterator operator++(int)
 			{
 				if(node) node = node->next;
 				return *this;
 			}
-			virtual ListIterator operator--()
+			ListIterator operator--()
 			{
 				ListIterator temp = *this;
 				if(node) node = node->back;
 				return temp;	
 			}
-			virtual ListIterator operator--(int)
+			ListIterator operator--(int)
 			{
 				if(node) node = node->back;
 				return *this;	
 			}
-			virtual b8 operator==(const ListIterator& other)
+			b8 operator==(const ListIterator& other)
 			{
 				return ((list == other.list) && (node == other.node));
 			}
-			virtual b8 operator!=(const ListIterator& other)
+			b8 operator!=(const ListIterator& other)
 			{
 				return ((list != other.list) || (node != other.node));
 			}
