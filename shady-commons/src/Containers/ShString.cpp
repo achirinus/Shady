@@ -151,11 +151,11 @@ namespace Shady
 		return *(mBuffer + index);
 	}
 
-	b8 String::operator==(const String& other)
+	b8 String::operator==(const String& other) const
 	{
 		return StrCompare(mBuffer, other.mBuffer);
 	}
-	b8 String::operator!=(const String& other)
+	b8 String::operator!=(const String& other) const 
 	{
 		return !((*this) == other);
 	}

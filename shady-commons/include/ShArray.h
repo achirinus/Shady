@@ -16,8 +16,10 @@ namespace Shady
 		u32 mBufferSize;
 		u32 mNumOfElem;
 
-	template<typename T> class ArrayIterator;	
-					
+		typedef Array<T> SType;
+		typedef T EType;
+
+	template<typename AType> class ArrayIterator;	
 	public:
 		Array(): mNumOfElem(0), mBuffer(0), mBufferSize(0)
 		{
@@ -360,14 +362,45 @@ namespace Shady
 			return mBuffer[mNumOfElem-1];
 		}
 
-		ArrayIterator<T> begin()
+		ArrayIterator<SType> begin()
 		{
-			return ArrayIterator<T>(this, IteratorPosition::BEGIN);
+			return ArrayIterator<SType>(this, IteratorPosition::BEGIN);
 		}
 
-		ArrayIterator<T> end()
+		ArrayIterator<SType> end()
 		{
-			return ArrayIterator<T>(this, IteratorPosition::END);
+			return ArrayIterator<SType>(this, IteratorPosition::END);
+		}
+
+		const ArrayIterator<const SType> begin() const
+		{
+			return ArrayIterator<const SType>(this, IteratorPosition::BEGIN);
+		}
+
+		const ArrayIterator<const SType> end() const 
+		{
+			
+			return ArrayIterator<const SType>(this, IteratorPosition::END);
+		}
+
+		ArrayIterator<SType> rbegin()
+		{
+			return ArrayIterator<SType>(this, IteratorPosition::RBEGIN);
+		}
+
+		ArrayIterator<SType> rend()
+		{
+			return ArrayIterator<SType>(this, IteratorPosition::REND);
+		}
+
+		const ArrayIterator<const SType> rbegin() const
+		{
+			return ArrayIterator<const SType>(this, IteratorPosition::RBEGIN);
+		}
+
+		const ArrayIterator<const SType> rend() const 
+		{
+			return ArrayIterator<const SType>(this, IteratorPosition::REND);
 		}
 
 		T& operator[](u32 index)
@@ -459,14 +492,21 @@ namespace Shady
 
 		//------------------------------------------------------------------------//
 		//------------------------------------------------------------------------//
-		template <typename T>
+		template <typename AType>
 		class ArrayIterator 
 		{
 			friend Array;
-			Array<T>* array;
+			AType* array;
 			u32 currentIndex;
-			ArrayIterator(Array* arr, IteratorPosition pos = IteratorPosition::BEGIN):
-			 array(arr)
+			IteratorPosition position;
+			
+			ArrayIterator(AType* arr, IteratorPosition pos = IteratorPosition::BEGIN):
+			 array(arr), position{pos}
+			{
+				Init(pos);
+			}
+
+			void Init(IteratorPosition pos)
 			{
 				switch(pos)
 				{
@@ -476,12 +516,29 @@ namespace Shady
 					}break;
 					case IteratorPosition::END:
 					{
-						currentIndex = arr->mNumOfElem;
+						currentIndex = array->mNumOfElem;
+					}break;
+					case IteratorPosition::RBEGIN:
+					{
+						currentIndex = array->Size() -1;
+					}break;
+					case IteratorPosition::REND:
+					{
+						currentIndex = -1;
 					}break;
 				}
 			}
+
 		public:
-			T& operator*()
+			b8 IsReverse() {return (position == IteratorPosition::RBEGIN) || (position == IteratorPosition::REND);}
+			EType& operator*()
+			{
+				SH_ASSERT(array);
+				SH_ASSERT((currentIndex >=0) && (currentIndex < array->mNumOfElem));
+				return array->mBuffer[currentIndex];
+			}
+
+			const EType& operator*() const
 			{
 				SH_ASSERT(array);
 				SH_ASSERT((currentIndex >=0) && (currentIndex < array->mNumOfElem));
@@ -492,99 +549,152 @@ namespace Shady
 			{
 				array = other.array;
 				currentIndex = other.currentIndex;
+				position = other.position;
 				return *this;
 			}
 			
 			ArrayIterator operator+(u32 offset)
 			{
 				ArrayIterator temp = *this;
-				temp.currentIndex = currentIndex + offset;
+				if(IsReverse())
+				{
+					temp.currentIndex = currentIndex - offset;
+				}
+				else
+				{
+					temp.currentIndex = currentIndex + offset;	
+				}
+				
 				return temp; 
 			} 
 
 			ArrayIterator operator-(u32 offset)
 			{
 				ArrayIterator temp = *this;
-				temp.currentIndex = currentIndex - offset;
+				if(IsReverse())
+				{
+					temp.currentIndex = currentIndex + offset;
+				}
+				else
+				{
+					temp.currentIndex = currentIndex - offset;	
+				}
 				return temp; 
 			}
 
 			ArrayIterator& operator+=(u32 offset)
 			{
 				SH_ASSERT(array);
-				SH_ASSERT((currentIndex + offset) < array->mNumOfElem);
-				currentIndex += offset;
+				if(IsReverse())
+				{
+					currentIndex -= offset;
+				}
+				else
+				{
+					currentIndex += offset;
+				}
 				return *this;
 			} 
 
 			ArrayIterator& operator-=(u32 offset)
 			{
 				SH_ASSERT(array);
-				SH_ASSERT((currentIndex - offset) >= 0);
-				currentIndex -= offset;
+				if(IsReverse())
+				{
+					currentIndex += offset;
+				}
+				else
+				{
+					currentIndex -= offset;
+				}
 				return *this;
 			} 
 
 			ArrayIterator operator++()
 			{
-				SH_ASSERT(currentIndex < array->mNumOfElem);
 				ArrayIterator temp = *this;
-				currentIndex++;
+				if(IsReverse())
+				{
+					currentIndex--;
+				}
+				else
+				{
+					currentIndex++;
+				}
 				return temp;
 			}
 			ArrayIterator operator++(int)
 			{
 				SH_ASSERT(array);
-				SH_ASSERT(currentIndex < array->mNumOfElem);
-				++currentIndex;
+				if(IsReverse())
+				{
+					currentIndex--;
+				}
+				else
+				{
+					currentIndex++;
+				}
 				return *this;
 			}
 
 			ArrayIterator operator--()
 			{
 				SH_ASSERT(array);
-				SH_ASSERT(currentIndex > 0);
 				ArrayIterator temp = *this;
-				currentIndex++;
+				if(IsReverse())
+				{
+					currentIndex++;
+				}
+				else
+				{
+					currentIndex--;
+				}
 				return temp;
 			}
 
 			ArrayIterator operator--(int)
 			{
 				SH_ASSERT(array);
-				SH_ASSERT(currentIndex > 0);
-				++currentIndex;
+				if(IsReverse())
+				{
+					currentIndex++;
+				}
+				else
+				{
+					currentIndex--;
+				}
 				return *this;
 			}
 
-			b8 operator==(const ArrayIterator& other)
+			b8 operator==(const ArrayIterator& other) const
 			{
 				return (array == other.array) && (currentIndex == other.currentIndex);
 			}
-			b8 operator!=(const ArrayIterator& other)
+			b8 operator!=(const ArrayIterator& other) const
 			{
 				return (array != other.array) || (currentIndex != other.currentIndex);
 			}
-			b8 operator>(const ArrayIterator& other)
+			b8 operator>(const ArrayIterator& other) const
 			{
 				//TODO decide if i should check the iterators beging for the same array 
 				return (currentIndex > other.currentIndex);
 			}
-			b8 operator>=(const ArrayIterator& other)
+			b8 operator>=(const ArrayIterator& other) const
 			{
 				//TODO decide if i should check the iterators beging for the same array 
 				return (currentIndex >= other.currentIndex);
 			}
-			b8 operator<(const ArrayIterator& other)
+			b8 operator<(const ArrayIterator& other) const
 			{
 				//TODO decide if i should check the iterators beging for the same array 
-				return (currentIndex > other.currentIndex);
+				return (currentIndex < other.currentIndex);
 			}
-			b8 operator<=(const ArrayIterator& other)
+			b8 operator<=(const ArrayIterator& other) const
 			{
 				//TODO decide if i should check the iterators beging for the same array 
-				return (currentIndex >= other.currentIndex);
+				return (currentIndex <= other.currentIndex);
 			}
+
 
 		}; // ArrayIterator
 

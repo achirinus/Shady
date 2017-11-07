@@ -42,20 +42,32 @@ namespace Shady
 			friend List;
 			List<T>* list;
 			Node* node;
-			ListIterator(List<T>* l, IteratorPosition pos = IteratorPosition::BEGIN): list{l}
+			IteratorPosition position;
+			ListIterator(List<T>* l, IteratorPosition pos = IteratorPosition::BEGIN): 
+						list{l}, node{nullptr}, position{pos}
 			{
 				switch(pos)
 				{
 					case IteratorPosition::BEGIN:
 					{
-						node = list->mTail;
+						node = list->mHead;
 					}break;
 					case IteratorPosition::END:
 					{
 						node = 0;
 					}break;
+					case IteratorPosition::RBEGIN:
+					{
+						node = list->mTail;
+					}break;
+					case IteratorPosition::REND:
+					{
+						node = 0;
+					}break;
 				}
 			}
+
+			b8 IsReverse() {return (position == IteratorPosition::RBEGIN) || (position == IteratorPosition::REND);}
 			T& operator*()
 			{
 				SH_ASSERT(node);
@@ -71,66 +83,134 @@ namespace Shady
 
 			ListIterator operator+(u32 offset)
 			{
-				SH_ASSERT(offset >= 0); //TODO maybe allow negative offsets
 				ListIterator result = *this;
-				while(offset--)
+				if(IsReverse())
 				{
-					if(result.node) result.node = result.node->next;
-					if(!result.node) break;
+					while(offset--)
+					{
+						if(result.node) result.node = result.node->back;
+						if(!result.node) break;
+					}
+				}
+				else
+				{
+					while(offset--)
+					{
+						if(result.node) result.node = result.node->next;
+						if(!result.node) break;
+					}
 				}
 				return result;
 			}
 			ListIterator operator-(u32 offset)
 			{
-				SH_ASSERT(offset >= 0); //TODO maybe allow negative offsets
 				ListIterator result = *this;
-				while(offset--)
+				if(IsReverse())
 				{
-					if(result.node) result.node = result.node->back;
-					if(!result.node) break;
+					while(offset--)
+					{
+						if(result.node) result.node = result.node->next;
+						if(!result.node) break;
+					}
+				}
+				else
+				{
+					while(offset--)
+					{
+						if(result.node) result.node = result.node->back;
+						if(!result.node) break;
+					}
 				}
 				return result;	
 			}
 			ListIterator& operator+=(u32 offset)
 			{
-				SH_ASSERT(offset >= 0); //TODO maybe allow negative offsets
-				while(offset--)
+				if(IsReverse())
 				{
-					if(node) node = node->next;
-					if(!node) break;
+					while(offset--)
+					{
+						if(node) node = node->back;
+						if(!node) break;
+					}
+				}
+				else
+				{
+					while(offset--)
+					{
+						if(node) node = node->next;
+						if(!node) break;
+					}
 				}
 				return *this;	
 			}
 			ListIterator& operator-=(u32 offset) 
 			{
-				SH_ASSERT(offset >= 0); //TODO maybe allow negative offsets
-				while(offset--)
+				if(IsReverse())
 				{
-					if(node) node = node->back;
-					if(!node) break;
+					while(offset--)
+					{
+						if(node) node = node->next;
+						if(!node) break;
+					}
+				}
+				else
+				{
+					while(offset--)
+					{
+						if(node) node = node->back;
+						if(!node) break;
+					}
 				}
 				return *this;	
 			}
 			ListIterator operator++() 
 			{
 				ListIterator temp = *this;
-				if(node) node = node->next;
+				if(IsReverse())
+				{
+					if(temp.node) temp.node = temp.node->back;
+				}
+				else
+				{
+					if(temp.node) temp.node = temp.node->next;
+				}
 				return temp;
 			}
 			ListIterator operator++(int)
 			{
-				if(node) node = node->next;
+				if(IsReverse())
+				{
+					if(node) node = node->back;
+				}
+				else
+				{
+					if(node) node = node->next;
+				}
 				return *this;
 			}
 			ListIterator operator--()
 			{
 				ListIterator temp = *this;
-				if(node) node = node->back;
+				if(IsReverse())
+				{
+					if(temp.node) temp.node = temp.node->next;
+				}
+				else
+				{
+					if(temp.node) temp.node = temp.node->back;
+				}
 				return temp;	
 			}
 			ListIterator operator--(int)
 			{
-				if(node) node = node->back;
+				if(IsReverse())
+				{
+					if(node) node = node->back;
+				}
+				else
+				{
+					if(node) node = node->next;
+				}
 				return *this;	
 			}
 			b8 operator==(const ListIterator& other)
@@ -141,6 +221,7 @@ namespace Shady
 			{
 				return ((list != other.list) || (node != other.node));
 			}
+
 		};
 	protected:
 		
@@ -491,15 +572,44 @@ namespace Shady
 			other.mSize = tSize;
 		}
 
-		ListIterator<T> begin() const 
+		ListIterator<T> begin()
 		{
 			return ListIterator<T>(const_cast<List<T>*>(this), IteratorPosition::BEGIN);
 		}
 
-		ListIterator<T> end() const
+		ListIterator<T> end() 
 		{
 			return ListIterator<T>(const_cast<List<T>*>(this), IteratorPosition::END);
 		}
+		const ListIterator<T> begin() const 
+		{
+			return ListIterator<T>(const_cast<List<T>*>(this), IteratorPosition::BEGIN);
+		}
+
+		const ListIterator<T> end() const
+		{
+			return ListIterator<T>(const_cast<List<T>*>(this), IteratorPosition::END);
+		}
+
+		ListIterator<T> rbegin() 
+		{
+			return ListIterator<T>(const_cast<List<T>*>(this), IteratorPosition::RBEGIN);
+		}
+
+		ListIterator<T> rend() 
+		{
+			return ListIterator<T>(const_cast<List<T>*>(this), IteratorPosition::REND);
+		}
+		const ListIterator<T> rbegin() const 
+		{
+			return ListIterator<T>(const_cast<List<T>*>(this), IteratorPosition::RBEGIN);
+		}
+
+		const ListIterator<T> rend() const
+		{
+			return ListIterator<T>(const_cast<List<T>*>(this), IteratorPosition::REND);
+		}
+
 	};
 }
 

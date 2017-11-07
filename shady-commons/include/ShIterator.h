@@ -6,7 +6,9 @@ namespace Shady
 	enum class IteratorPosition
 	{	
 		BEGIN,
-		END
+		END,
+		RBEGIN,
+		REND
 	};
 	template <typename Child, typename T>
 	struct Iterator

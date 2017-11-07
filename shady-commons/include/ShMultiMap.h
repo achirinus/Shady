@@ -36,6 +36,7 @@ namespace Shady
 		{
 			key = other.key;
 			value = other.value;	
+			return *this;
 		}
 	};
 
@@ -66,10 +67,25 @@ namespace Shady
 					{
 						currentIndex = map->mPairs.Size();
 					} break;
+					case IteratorPosition::RBEGIN
+					{
+						currentIndex = map->mPairs.Size() - 1;
+					} break;
+					case IteratorPosition::REND
+					{
+						currentIndex = -1;
+					} break;
 				}
 			}
 
+			b8 IsReverse() {return (position == IteratorPosition::RBEGIN) || (position == IteratorPosition::REND);}
+
 			T& operator*()
+			{
+				SH_ASSERT(map->mPairs.size() > 0);
+				return map->mPairs[currentIndex];
+			}
+			const T& operator*() const
 			{
 				SH_ASSERT(map->mPairs.size() > 0);
 				return map->mPairs[currentIndex];
@@ -83,77 +99,132 @@ namespace Shady
 			MapIterator operator+(u32 offset)
 			{
 				MapIterator temp = *this;
-				temp.currentIndex += offset;
-				temp.currentIndex = Shady::clamp(temp.currentIndex, map->mPairs.Size());
+				if(IsReverse())
+				{
+					temp.currentIndex -= offset;
+				}
+				else
+				{
+					temp.currentIndex += offset;
+				}
 				return temp;
 			}
 			MapIterator operator-(u32 offset)
 			{
 				MapIterator temp = *this;
-				temp.currentIndex -= offset;
-				if(temp.currentIndex < 0) temp.currentIndex = map->mPairs.Size();
+				if(IsReverse())
+				{
+					temp.currentIndex += offset;
+				}
+				else
+				{
+					temp.currentIndex -= offset;
+				}
 				return temp;	
 			}
 			MapIterator& operator+=(u32 offset)
 			{
-				currentIndex += offset;
-				currentIndex = Shady::clamp(currentIndex, map->mPairs.Size());
+				if(IsReverse())
+				{
+					currentIndex -= offset;
+				}
+				else
+				{
+					currentIndex += offset;
+				}
+				return *this;
 			}
 			MapIterator& operator-=(u32 offset)
 			{
-				currentIndex -= offset;
-				if(currentIndex < 0) currentIndex = map->mPairs.Size();
+				if(IsReverse())
+				{
+					currentIndex -= offset;
+				}
+				else
+				{
+					currentIndex += offset;
+				}
+				return *this;
 			}
 			MapIterator operator++() 
 			{
 				MapIterator temp = *this;
-				currentIndex++;
+				if(IsReverse())
+				{
+					temp.currentIndex--;
+				}
+				else
+				{
+					temp.currentIndex++;
+				}
 				return temp;
 			}
 			MapIterator operator++(int) 
 			{
-				currentIndex++;
+				if(IsReverse())
+				{
+					currentIndex--;
+				}
+				else
+				{
+					currentIndex++;
+				}
+				return *this;
 			}
 			MapIterator operator--()
 			{
 				MapIterator temp = *this;
-				currentIndex--;
+				if(IsReverse())
+				{
+					temp.currentIndex++;
+				}
+				else
+				{
+					temp.currentIndex--;
+				}
 				return temp;
 			}
 			MapIterator operator--(int)
 			{
-				currentIndex--;
+				if(IsReverse())
+				{
+					currentIndex++;
+				}
+				else
+				{
+					currentIndex--;
+				}
+				return *this;
 			}
-			b8 operator==(const MapIterator& other)
+			b8 operator==(const MapIterator& other) const
 			{
 				return ((map == other.map) && (currentIndex == other.currentIndex));
 			}
-			b8 operator!=(const MapIterator& other) 
+			b8 operator!=(const MapIterator& other) const
 			{
 				return ((map != other.map) || (currentIndex != other.currentIndex));	
 			}
-			b8 operator>(const MapIterator& other)
+			b8 operator>(const MapIterator& other) const
 			{
 				return currentIndex > other.currentIndex;
 			}
-			b8 operator>=(const MapIterator& other)
+			b8 operator>=(const MapIterator& other) const
 			{
 				return currentIndex >= other.currentIndex;
 			}
-			b8 operator<(const MapIterator& other)
+			b8 operator<(const MapIterator& other) const
 			{
 				return currentIndex < other.currentIndex;
 			}
-			b8 operator<=(const MapIterator& other)
+			b8 operator<=(const MapIterator& other) const
 			{
 				return currentIndex <= other.currentIndex;
 			}
-
 		};
 	public:
 		MultiMap(): mPairs{} {}
 		
-		s32 GetKeyIndex(K key)
+		s32 GetKeyIndex(K key) const
 		{
 			for(u32 index = 0; index < mPairs.Size(); index++)
 			{
@@ -162,7 +233,7 @@ namespace Shady
 			return INVALID_MAP_KEY_INDEX;
 		}
 
-		s32 GetKeyByIndex(u32 index)
+		s32 GetKeyByIndex(u32 index) const
 		{
 			SH_ASSERT(index < mPairs.Size());
 			return mPairs[index].key;
@@ -200,12 +271,19 @@ namespace Shady
 			return mPairs[keyIndex].value;
 		}
 
-		u32 Size()
+		const V& operator[](K key) const
+		{
+			s32 keyIndex = GetKeyIndex(key);
+			SH_ASSERT(keyIndex != INVALID_MAP_KEY_INDEX);
+			return mPairs[keyIndex].value;
+		}
+
+		u32 Size() const
 		{
 			return mPairs.Size();
 		}
 
-		b8 HasKey(const K& key)
+		b8 HasKey(const K& key) const
 		{
 			b8 result = false;
 			for(auto& pair : mPairs)
@@ -213,6 +291,16 @@ namespace Shady
 				if(pair.key == key) result = true;
 			}
 			return result;
+		}
+
+		void Swap(MultiMap<K, V>& other)
+		{
+			mPairs.Swap(other.mPairs);
+		}
+
+		void Clear()
+		{
+			mPairs.Clear();
 		}
 
 		MapIterator<Pair> begin()
@@ -223,6 +311,37 @@ namespace Shady
 		MapIterator<Pair> end()
 		{
 			return MapIterator(this, IteratorPosition::END);
+		}
+
+		const MapIterator<Pair> begin() const
+		{
+			return MapIterator(this, IteratorPosition::BEGIN);
+		}
+
+		const MapIterator<Pair> end() const
+		{
+			return MapIterator(this, IteratorPosition::END);
+		}
+
+
+		MapIterator<Pair> rbegin()
+		{
+			return MapIterator(this, IteratorPosition::RBEGIN);
+		}
+
+		MapIterator<Pair> rend()
+		{
+			return MapIterator(this, IteratorPosition::REND);
+		}
+
+		const MapIterator<Pair> rbegin() const
+		{
+			return MapIterator(this, IteratorPosition::RBEGIN);
+		}
+
+		const MapIterator<Pair> rend() const
+		{
+			return MapIterator(this, IteratorPosition::REND);
 		}
 	};
 }

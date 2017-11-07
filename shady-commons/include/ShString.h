@@ -31,8 +31,8 @@ namespace Shady
 		void Reserve(u32 size);
 		u32 Size() const;
 		c8& operator[](s32 index);
-		b8 operator==(const String& other);
-		b8 operator!=(const String& other);
+		b8 operator==(const String& other) const;
+		b8 operator!=(const String& other) const;
 		String operator+(const c8* str);
 		String operator+(const c8 c);
 		String operator+(s32 num);
