@@ -10,9 +10,13 @@ namespace Shady
 	c8 base16DigitsUpper[] = "0123456789ABCDEF";
 	c8 base16DigitsLower[] = "0123456789abcdef";
 
-	c8* SkipChars(c8* str, c8 c)
+	//Skips contiguous chars from the beggining of the string str
+	c8* SkipFirstChars(c8* str, const c8 c)
 	{
-		while(*str && (*str == c)) str++;
+		if(str)
+		{
+			while(*str &&(*str == c)) str++;
+		}
 		return str;
 	}
 

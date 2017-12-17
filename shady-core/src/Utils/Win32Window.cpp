@@ -23,9 +23,10 @@ namespace Shady
 			case WM_CLOSE:
 			{
 				window->mIsOpen = false;
-				wglMakeCurrent(window->mDC, NULL);
-				wglDeleteContext(window->mGlrc);
-				ReleaseDC(window->mHwnd, window->mDC);
+				//TODO Check if I should really destroy the contexts here
+				//wglMakeCurrent(window->mDC, NULL);
+				//wglDeleteContext(window->mGlrc);
+				//ReleaseDC(window->mHwnd, window->mDC);
 			}break;
 			case WM_DESTROY:
 			{
@@ -90,7 +91,7 @@ namespace Shady
 					GetWindowRect(hwnd, &wndRect);
 					window->mWidth = wndRect.right - wndRect.left;
 					window->mHeight = wndRect.bottom - wndRect.top;
-					if(glViewport)
+					if(IsGlValidFunc(glViewport))
 					{
 						glViewport(0, 0, window->mClientWidth,window->mClientHeight);
 					}

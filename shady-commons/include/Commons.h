@@ -30,7 +30,8 @@ struct PerfCounter
 	}
 };
 
-	
+
+
 	
 
 #if defined (SHADY_DEBUG) || (SHADY_DEBUG_RELEASE)

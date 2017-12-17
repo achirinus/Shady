@@ -9,7 +9,7 @@ namespace Shady
 {
 
 	
-	Array<String> initGLFunctions();
+	Array<String> InitGLFunctions();
 
 	
 	void GLAPIENTRY OpenGLDebugCallback(GLenum source, GLenum type, GLuint id, GLenum severity,
@@ -20,48 +20,66 @@ namespace Shady
 	}
 	
 
-	OpenglInfo getGlInfo()
+	OpenglInfo GetGlInfo()
 	{
 		OpenglInfo result = {};
-		getGlInfo(&result);
+		GetGlInfo(&result);
 		return result;
 	}
 
-	void checkGlError()
+	void ClearGlErrors() 
+	{ 
+		#ifdef GL_FUNCS_AS_MACROS
+			while(!glGetError_()) {}
+		#else
+			while(!glGetError()) {}
+		#endif
+	}
+
+	void CheckGlError(const char* func, const char* file, int line)
 	{
-		GLenum err = glGetError();
-		switch(err)
+		GLenum err = 0;
+		do
 		{
-			case GL_INVALID_ENUM:
-			{
-				DEBUG_OUT_ERR("OpenGl invalid enum argument error this frame!");
-			}break;
-			case GL_INVALID_VALUE:
-			{
-				DEBUG_OUT_ERR("OpenGl invalid value argument error this frame!");
-			}break;
-			case GL_INVALID_OPERATION:
-			{
-				DEBUG_OUT_ERR("OpenGl invalid operation error this frame!");
-			}break;
-			case GL_INVALID_FRAMEBUFFER_OPERATION:
-			{
-				DEBUG_OUT_ERR("OpenGl invalid framebuffer operation error this frame!");
-			}break;
-			case GL_OUT_OF_MEMORY:
-			{
-				DEBUG_OUT_ERR("OpenGl out of memory error this frame!");
-			}break;
-			case GL_STACK_UNDERFLOW:
-			{
-				DEBUG_OUT_ERR("OpenGl stack underflow error this frame!");
-			}break;
-			case GL_STACK_OVERFLOW:
-			{
-				DEBUG_OUT_ERR("OpenGl stack overflow error this frame!");
+			#ifdef GL_FUNCS_AS_MACROS
+				err = glGetError_();
+			#else
+				err = glGetError();
+			#endif
 				
-			}break;
-		}
+			switch(err)
+			{
+				case GL_INVALID_ENUM:
+				{
+					DEBUG_OUT_ERR("%s:OpenGl invalid enum argument error!\n File:%s  Line:%d", func, file, line);
+				}break;
+				case GL_INVALID_VALUE:
+				{
+					DEBUG_OUT_ERR("%s:OpenGl invalid value argument error!\n File:%s  Line:%d", func, file, line);
+				}break;
+				case GL_INVALID_OPERATION:
+				{
+					DEBUG_OUT_ERR("%s:OpenGl invalid operation error!\n File:%s  Line:%d", func, file, line);
+				}break;
+				case GL_INVALID_FRAMEBUFFER_OPERATION:
+				{
+					DEBUG_OUT_ERR("%s:OpenGl invalid framebufer operation error!\n File:%s  Line:%d", func, file, line);
+				}break;
+				case GL_OUT_OF_MEMORY:
+				{
+					DEBUG_OUT_ERR("%s:OpenGl out of memory error!\n File:%s  Line:%d", func, file, line);
+				}break;
+				case GL_STACK_UNDERFLOW:
+				{
+					DEBUG_OUT_ERR("%s:OpenGl stack underflow error!\n File:%s  Line:%d", func, file, line);
+				}break;
+				case GL_STACK_OVERFLOW:
+				{
+					DEBUG_OUT_ERR("%s:OpenGl stack overflow error!\n File:%s  Line:%d", func, file, line);
+					
+				}break;
+			}
+		} while(err != GL_NO_ERROR);
 	}
 
 	void DisplayFailedFuncs(Array<String>& funcs)
@@ -72,7 +90,7 @@ namespace Shady
 		}
 	}
 
-	void getGlInfo(OpenglInfo* info)
+	void GetGlInfo(OpenglInfo* info)
 	{
 		//Use glGetStringi for each extension if this is called in 
 		//forward compatible context
@@ -125,9 +143,9 @@ namespace Shady
 			if(tempRc)
 			{
 				wglMakeCurrent(dc, tempRc);
-				Array<String> failedFuncs = initGLFunctions();
+				Array<String> failedFuncs = InitGLFunctions();
 				DisplayFailedFuncs(failedFuncs);
-				getGlInfo(info);
+				GetGlInfo(info);
 				
 				
 				static const int attributes[] = 
@@ -199,7 +217,7 @@ namespace Shady
 
 
 
-	Array<String> initGLFunctions()
+	Array<String> InitGLFunctions()
 	{
 		Array<String> result{};
 		HMODULE gldll = LoadLibrary(TEXT("opengl32.dll"));

@@ -165,33 +165,40 @@ namespace Shady
 	}
 	void Shader::SetUniform1f(const char* name, float value)
 	{
-		glUniform1f(glGetUniformLocation(mProgram, name), value);
+		GLuint loc = glGetUniformLocation(mProgram, name);
+		glUniform1f(loc, value);
 	}
 	void Shader::SetUniform1i(const char* name, int value)
 	{
-		glUniform1i(glGetUniformLocation(mProgram, name), value);
+		GLuint loc = glGetUniformLocation(mProgram, name);
+		glUniform1i(loc, value);
 	}
 	void Shader::SetUniform2f(const char* name, const Vec2f& vec2)
 	{
-		glUniform2f(glGetUniformLocation(mProgram, name), vec2.x, vec2.y);
+		GLuint loc = glGetUniformLocation(mProgram, name);
+		glUniform2f(loc, vec2.x, vec2.y);
 	}
 	void Shader::SetUniform3f(const char* name, const Vec3f& vec3)
 	{
-		glUniform3f(glGetUniformLocation(mProgram, name), vec3.x, vec3.y, vec3.z);
+		GLuint loc = glGetUniformLocation(mProgram, name);
+		glUniform3f(loc, vec3.x, vec3.y, vec3.z);
 	}
 	void Shader::SetUniform4f(const char* name, const Vec4f& vec4)
 	{
-		glUniform4f(glGetUniformLocation(mProgram, name), vec4.x, vec4.y, vec4.z, vec4.w);
+		GLuint loc = glGetUniformLocation(mProgram, name);
+		glUniform4f(loc, vec4.x, vec4.y, vec4.z, vec4.w);
 	}
 	void Shader::SetUniformMat4(const char* name, Matrix4f& mat4)
 	{
+		GLuint loc = glGetUniformLocation(mProgram, name);
 		GLboolean transpose = (GLboolean)(!mat4.isColumnMajor());
-		glUniformMatrix4fv(glGetUniformLocation(mProgram, name), 1, transpose,  mat4.elem);
+		glUniformMatrix4fv(loc, 1, transpose,  mat4.elem);
 	}
 
 	void Shader::SetUniformMat4(const char* name, f32* mat4, b8 transpose)
 	{
-		glUniformMatrix4fv(glGetUniformLocation(mProgram, name), 1, (GLboolean)transpose,  mat4);	
+		GLuint loc = glGetUniformLocation(mProgram, name);
+		glUniformMatrix4fv(loc, 1, (GLboolean)transpose,  mat4);	
 	}
 
 	Shader::~Shader()

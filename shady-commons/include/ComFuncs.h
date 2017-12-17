@@ -24,6 +24,16 @@ namespace Shady
 		return static_cast<T&&>(obj);
 	}
 
+	//TODO decide on this.
+	//-1 if Left is bigger, 1 if Right is bigger, 0 otherwise
+	template<typename T>
+	s32 Compare(const T& left, const T& right)
+	{
+		if(left > right) return -1;
+		if(left < right) return 1;
+		return 0;
+	}
+
 	void ClearMem(void* mem, u64 size);
 
 	u64 operator "" _KB(u64 in);

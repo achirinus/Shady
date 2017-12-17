@@ -6,6 +6,7 @@ namespace Shady
 	#ifdef WIN32
 		#ifdef  _MSC_VER
 			typedef char c8;
+			typedef char s8;
 			typedef unsigned char uc8;
 			typedef unsigned char u8;
 			typedef wchar_t c16;

@@ -1,6 +1,9 @@
 #ifndef SHADY_GL_H
 #define SHADY_GL_H
 
+#define GL_FUNCS_AS_MACROS
+
+
 #if defined (_WIN32)
 #include <Windows.h>
 
@@ -258,76 +261,271 @@ typedef void APIENTRY sh_glBlendFunc (GLenum sfactor, GLenum dfactor);
 typedef void APIENTRY sh_glViewport (GLint x, GLint y, GLsizei width, GLsizei height);
 typedef void APIENTRY sh_glTexParameterf (GLenum target, GLenum pname, GLfloat param);
 
+#ifdef GL_FUNCS_AS_MACROS
 
-#define OpenGlGlobalFunc(Name) static sh_##Name* Name
+	#define IsGlValidFunc(Name) ((Name##_) != nullptr)
+	#define OpenGlGlobalFunc(Name) static sh_##Name* Name##_
 
-OpenGlGlobalFunc(wglCreateContextAttribsARB);
-OpenGlGlobalFunc(wglSwapIntervalEXT);
+	#ifdef SHADY_DEBUG
+		#define GLFunctionWrap(Func, ...) 	Func##_(__VA_ARGS__); \
+											CheckGlError(#Func, __FILE__, __LINE__)
+	#else
+		#define GLFunctionWrap(Func, ...) Func_(__VA_ARGS__)
+	#endif
 
-OpenGlGlobalFunc(glGenVertexArrays);
-OpenGlGlobalFunc(glGenBuffers);
-OpenGlGlobalFunc(glBindBuffer);
-OpenGlGlobalFunc(glBufferData);
-OpenGlGlobalFunc(glEnableVertexAttribArray);
-OpenGlGlobalFunc(glVertexAttribPointer);
-OpenGlGlobalFunc(glDeleteVertexArrays);
-OpenGlGlobalFunc(glDrawArrays);
-OpenGlGlobalFunc(glDrawElements);
-OpenGlGlobalFunc(glBindVertexArray);
-OpenGlGlobalFunc(glCreateShader);
-OpenGlGlobalFunc(glLinkProgram);
-OpenGlGlobalFunc(glShaderSource);
-OpenGlGlobalFunc(glUseProgram);
-OpenGlGlobalFunc(glCompileShader);
-OpenGlGlobalFunc(glGetShaderiv);
-OpenGlGlobalFunc(glGetShaderInfoLog);
-OpenGlGlobalFunc(glDeleteShader);
-OpenGlGlobalFunc(glAttachShader);
-OpenGlGlobalFunc(glBindAttribLocation);
-OpenGlGlobalFunc(glGetProgramiv);
-OpenGlGlobalFunc(glGetProgramInfoLog);
-OpenGlGlobalFunc(glValidateProgram);
-OpenGlGlobalFunc(glGetUniformLocation);
-OpenGlGlobalFunc(glUniform1f);
-OpenGlGlobalFunc(glUniform2f);
-OpenGlGlobalFunc(glUniform3f);
-OpenGlGlobalFunc(glUniform4f);
-OpenGlGlobalFunc(glUniform1i);
-OpenGlGlobalFunc(glUniformMatrix4fv);
-OpenGlGlobalFunc(glBindTexture);
-OpenGlGlobalFunc(glDeleteTextures);
-OpenGlGlobalFunc(glGenTextures);
-OpenGlGlobalFunc(glCreateProgram);
-OpenGlGlobalFunc(glDetachShader);
-OpenGlGlobalFunc(glDeleteProgram);
-OpenGlGlobalFunc(glDeleteBuffers);
-OpenGlGlobalFunc(glTexParameteri);
-OpenGlGlobalFunc(glTexImage2D);
-OpenGlGlobalFunc(glActiveTexture);
-OpenGlGlobalFunc(glGetError);
-OpenGlGlobalFunc(glGetString);
-OpenGlGlobalFunc(glEnable);
-OpenGlGlobalFunc(glClear);
-OpenGlGlobalFunc(glClearColor);
-OpenGlGlobalFunc(glDebugMessageControlARB);
-OpenGlGlobalFunc(glDebugMessageInsertARB);
-OpenGlGlobalFunc(glDebugMessageCallbackARB);
-OpenGlGlobalFunc(glGetDebugMessageLogARB);
-OpenGlGlobalFunc(glDebugMessageControl);
-OpenGlGlobalFunc(glDebugMessageInsert);
-OpenGlGlobalFunc(glDebugMessageCallback);
-OpenGlGlobalFunc(glGetDebugMessageLog);
-OpenGlGlobalFunc(glBlendFunc);
-OpenGlGlobalFunc(glViewport);
-OpenGlGlobalFunc(glTexParameterf);
+	OpenGlGlobalFunc(wglCreateContextAttribsARB);
+	#define wglCreateContextAttribsARB(...) GLFunctionWrap(wglCreateContextAttribsARB, __VA_ARGS__)
+
+	OpenGlGlobalFunc(wglSwapIntervalEXT);
+	#define wglSwapIntervalEXT(...) GLFunctionWrap(wglSwapIntervalEXT, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glGenVertexArrays);
+	#define glGenVertexArrays(...) GLFunctionWrap(glGenVertexArrays, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glGenBuffers);
+	#define glGenBuffers(...) GLFunctionWrap(glGenBuffers, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glBindBuffer);
+	#define glBindBuffer(...) GLFunctionWrap(glBindBuffer, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glBufferData);
+	#define glBufferData(...) GLFunctionWrap(glBufferData, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glEnableVertexAttribArray);
+	#define glEnableVertexAttribArray(...) GLFunctionWrap(glEnableVertexAttribArray, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glVertexAttribPointer);
+	#define glVertexAttribPointer(...) GLFunctionWrap(glVertexAttribPointer, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glDeleteVertexArrays);
+	#define glDeleteVertexArrays(...) GLFunctionWrap(glDeleteVertexArrays, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glDrawArrays);
+	#define glDrawArrays(...) GLFunctionWrap(glDrawArrays, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glDrawElements);
+	#define glDrawElements(...) GLFunctionWrap(glDrawElements, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glBindVertexArray);
+	#define glBindVertexArray(...) GLFunctionWrap(glBindVertexArray, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glCreateShader);
+	#define glCreateShader(...) GLFunctionWrap(glCreateShader, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glLinkProgram);
+	#define glLinkProgram(...) GLFunctionWrap(glLinkProgram, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glShaderSource);
+	#define glShaderSource(...) GLFunctionWrap(glShaderSource, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glUseProgram);
+	#define glUseProgram(...) GLFunctionWrap(glUseProgram, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glCompileShader);
+	#define glCompileShader(...) GLFunctionWrap(glCompileShader, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glGetShaderiv);
+	#define glGetShaderiv(...) GLFunctionWrap(glGetShaderiv, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glGetShaderInfoLog);
+	#define glGetShaderInfoLog(...) GLFunctionWrap(glGetShaderInfoLog, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glDeleteShader);
+	#define glDeleteShader(...) GLFunctionWrap(glDeleteShader, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glAttachShader);
+	#define glAttachShader(...) GLFunctionWrap(glAttachShader, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glBindAttribLocation);
+	#define glBindAttribLocation(...) GLFunctionWrap(glBindAttribLocation, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glGetProgramiv);
+	#define glGetProgramiv(...) GLFunctionWrap(glGetProgramiv, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glGetProgramInfoLog);
+	#define glGetProgramInfoLog(...) GLFunctionWrap(glGetProgramInfoLog, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glValidateProgram);
+	#define glValidateProgram(...) GLFunctionWrap(glValidateProgram, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glGetUniformLocation);
+	#define glGetUniformLocation(...) GLFunctionWrap(glGetUniformLocation, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glUniform1f);
+	#define glUniform1f(...) GLFunctionWrap(glUniform1f, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glUniform2f);
+	#define glUniform2f(...) GLFunctionWrap(glUniform2f, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glUniform3f);
+	#define glUniform3f(...) GLFunctionWrap(glUniform3f, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glUniform4f);
+	#define glUniform4f(...) GLFunctionWrap(glUniform4f, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glUniform1i);
+	#define glUniform1i(...) GLFunctionWrap(glUniform1i, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glUniformMatrix4fv);
+	#define glUniformMatrix4fv(...) GLFunctionWrap(glUniformMatrix4fv, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glBindTexture);
+	#define glBindTexture(...) GLFunctionWrap(glBindTexture, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glDeleteTextures);
+	#define glDeleteTextures(...) GLFunctionWrap(glDeleteTextures, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glGenTextures);
+	#define glGenTextures(...) GLFunctionWrap(glGenTextures, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glCreateProgram);
+	#define glCreateProgram(...) GLFunctionWrap(glCreateProgram, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glDetachShader);
+	#define glDetachShader(...) GLFunctionWrap(glDetachShader, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glDeleteProgram);
+	#define glDeleteProgram(...) GLFunctionWrap(glDeleteProgram, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glDeleteBuffers);
+	#define glDeleteBuffers(...) GLFunctionWrap(glDeleteBuffers, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glTexParameteri);
+	#define glTexParameteri(...) GLFunctionWrap(glTexParameteri, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glTexImage2D);
+	#define glTexImage2D(...) GLFunctionWrap(glTexImage2D, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glActiveTexture);
+	#define glActiveTexture(...) GLFunctionWrap(glActiveTexture, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glGetError);
+	#define glGetError(...) GLFunctionWrap(glGetError, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glGetString);
+	#define glGetString(...) GLFunctionWrap(glGetString, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glEnable);
+	#define glEnable(...) GLFunctionWrap(glEnable, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glClear);
+	#define glClear(...) GLFunctionWrap(glClear, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glClearColor);
+	#define glClearColor(...) GLFunctionWrap(glClearColor, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glDebugMessageControlARB);
+	#define glDebugMessageControlARB(...) GLFunctionWrap(glDebugMessageControlARB, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glDebugMessageInsertARB);
+	#define glDebugMessageInsertARB(...) GLFunctionWrap(glDebugMessageInsertARB, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glDebugMessageCallbackARB);
+	#define glDebugMessageCallbackARB(...) GLFunctionWrap(glDebugMessageCallbackARB, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glGetDebugMessageLogARB);
+	#define glGetDebugMessageLogARB(...) GLFunctionWrap(glGetDebugMessageLogARB, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glDebugMessageControl);
+	#define glDebugMessageControl(...) GLFunctionWrap(glDebugMessageControl, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glDebugMessageInsert);
+	#define glDebugMessageInsert(...) GLFunctionWrap(glDebugMessageInsert, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glDebugMessageCallback);
+	#define glDebugMessageCallback(...) GLFunctionWrap(glDebugMessageCallback, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glGetDebugMessageLog);
+	#define glGetDebugMessageLog(...) GLFunctionWrap(glGetDebugMessageLog, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glBlendFunc);
+	#define glBlendFunc(...) GLFunctionWrap(glBlendFunc, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glViewport);
+	#define glViewport(...) GLFunctionWrap(glViewport, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glTexParameterf);
+	#define glTexParameterf(...) GLFunctionWrap(glTexParameterf, __VA_ARGS__)
 
 
 
-#define ShGlGetProcAddress(Name, FallbackModule, Arr)	\
- 	Name = (sh_##Name*)wglGetProcAddress(#Name); \
-	if(!Name) {Name = (sh_##Name*)GetProcAddress(FallbackModule,#Name);} \
-	if(!Name) {Arr.Add(#Name);}
+	#define ShGlGetProcAddress(Name, FallbackModule, Arr)	\
+	 	Name##_ = (sh_##Name*)wglGetProcAddress(#Name); \
+		if(!Name##_) {Name##_ = (sh_##Name*)GetProcAddress(FallbackModule,#Name);} \
+		if(!Name##_) {Arr.Add(#Name);}
 
+#else //IFDEF GL_FUNCS_AS_MACROS
+	#define IsGlValidFunc(Name) ((Name) != nullptr)
+	#define OpenGlGlobalFunc(Name) static sh_##Name* Name
+
+	OpenGlGlobalFunc(wglCreateContextAttribsARB);
+	OpenGlGlobalFunc(wglSwapIntervalEXT);
+
+	OpenGlGlobalFunc(glGenVertexArrays);
+	OpenGlGlobalFunc(glGenBuffers);
+	OpenGlGlobalFunc(glBindBuffer);
+	OpenGlGlobalFunc(glBufferData);
+	OpenGlGlobalFunc(glEnableVertexAttribArray);
+	OpenGlGlobalFunc(glVertexAttribPointer);
+	OpenGlGlobalFunc(glDeleteVertexArrays);
+	OpenGlGlobalFunc(glDrawArrays);
+	OpenGlGlobalFunc(glDrawElements);
+	OpenGlGlobalFunc(glBindVertexArray);
+	OpenGlGlobalFunc(glCreateShader);
+	OpenGlGlobalFunc(glLinkProgram);
+	OpenGlGlobalFunc(glShaderSource);
+	OpenGlGlobalFunc(glUseProgram);
+	OpenGlGlobalFunc(glCompileShader);
+	OpenGlGlobalFunc(glGetShaderiv);
+	OpenGlGlobalFunc(glGetShaderInfoLog);
+	OpenGlGlobalFunc(glDeleteShader);
+	OpenGlGlobalFunc(glAttachShader);
+	OpenGlGlobalFunc(glBindAttribLocation);
+	OpenGlGlobalFunc(glGetProgramiv);
+	OpenGlGlobalFunc(glGetProgramInfoLog);
+	OpenGlGlobalFunc(glValidateProgram);
+	OpenGlGlobalFunc(glGetUniformLocation);
+	OpenGlGlobalFunc(glUniform1f);
+	OpenGlGlobalFunc(glUniform2f);
+	OpenGlGlobalFunc(glUniform3f);
+	OpenGlGlobalFunc(glUniform4f);
+	OpenGlGlobalFunc(glUniform1i);
+	OpenGlGlobalFunc(glUniformMatrix4fv);
+	OpenGlGlobalFunc(glBindTexture);
+	OpenGlGlobalFunc(glDeleteTextures);
+	OpenGlGlobalFunc(glGenTextures);
+	OpenGlGlobalFunc(glCreateProgram);
+	OpenGlGlobalFunc(glDetachShader);
+	OpenGlGlobalFunc(glDeleteProgram);
+	OpenGlGlobalFunc(glDeleteBuffers);
+	OpenGlGlobalFunc(glTexParameteri);
+	OpenGlGlobalFunc(glTexImage2D);
+	OpenGlGlobalFunc(glActiveTexture);
+	OpenGlGlobalFunc(glGetError);
+	OpenGlGlobalFunc(glGetString);
+	OpenGlGlobalFunc(glEnable);
+	OpenGlGlobalFunc(glClear);
+	OpenGlGlobalFunc(glClearColor);
+	OpenGlGlobalFunc(glDebugMessageControlARB);
+	OpenGlGlobalFunc(glDebugMessageInsertARB);
+	OpenGlGlobalFunc(glDebugMessageCallbackARB);
+	OpenGlGlobalFunc(glGetDebugMessageLogARB);
+	OpenGlGlobalFunc(glDebugMessageControl);
+	OpenGlGlobalFunc(glDebugMessageInsert);
+	OpenGlGlobalFunc(glDebugMessageCallback);
+	OpenGlGlobalFunc(glGetDebugMessageLog);
+	OpenGlGlobalFunc(glBlendFunc);
+	OpenGlGlobalFunc(glViewport);
+	OpenGlGlobalFunc(glTexParameterf);
+
+
+
+	#define ShGlGetProcAddress(Name, FallbackModule, Arr)	\
+	 	Name = (sh_##Name*)wglGetProcAddress(#Name); \
+		if(!Name) {Name = (sh_##Name*)GetProcAddress(FallbackModule,#Name);} \
+		if(!Name) {Arr.Add(#Name);}
+
+#endif//IFDEF GL_FUNCS_AS_MACROS
 
 #ifdef __cplusplus
 }
@@ -351,9 +549,11 @@ namespace Shady
 	#endif
 
 	
-	void getGlInfo(OpenglInfo* info);
-	OpenglInfo getGlInfo();
-	void checkGlError();
+	void GetGlInfo(OpenglInfo* info);
+	OpenglInfo GetGlInfo();
+	void CheckGlError(const char* func, const char* file, int line);
+	void ClearGlErrors();
+
 }
 
 #endif

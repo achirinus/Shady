@@ -168,11 +168,11 @@ namespace Shady
 				ListIterator temp = *this;
 				if(IsReverse())
 				{
-					if(temp.node) temp.node = temp.node->back;
+					if(node) node = node->back;
 				}
 				else
 				{
-					if(temp.node) temp.node = temp.node->next;
+					if(node) node = node->next;
 				}
 				return temp;
 			}

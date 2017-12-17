@@ -108,6 +108,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 ..\..\shady-commons\include\ShList.h = ..\..\shady-commons\include\ShList.h
 ..\..\shady-commons\include\ShIterator.h = ..\..\shady-commons\include\ShIterator.h
 ..\..\shady-commons\include\ShBitset.h = ..\..\shady-commons\include\ShBitset.h
+..\..\shady-commons\include\ShBiTree.h = ..\..\shady-commons\include\ShBiTree.h
 ..\..\shady-commons\include\ShAssert.h = ..\..\shady-commons\include\ShAssert.h
 ..\..\shady-commons\include\ShArray.h = ..\..\shady-commons\include\ShArray.h
 ..\..\shady-commons\include\MemUtils.h = ..\..\shady-commons\include\MemUtils.h
@@ -131,4 +132,8 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
-ogram Files (x86)\Microsoft Visual Studio 14.0\VC\includews Performance Toolkit\;C:\Program Files (x86)\LLVM\bin;C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin;C:\Program Files\WinRAR;çt√sÜWindows Kits\8.1\Include\um\gl;D:\workspace\Shady\Dep\STB;D:\workspace\Shady\Dep\glm;D:\workspace\Shady\shady-core\includee\Shady\Dep\glm;D:\workspace\Shady\shady-core\includee\Shady\Dep\STB;D:\workspace\Shady\Dep\glm;D:\workspace\Shady\shady-core\includee\Shady\Dep\glm;D:\m Files (x86)\Microsoft Visual Studio 14.0\VC\lib0\VC\lib0\VC\lib0\VC\lib (x86)\Microsoft Visual Studio 14.0\VC\atlmfc\liblmfc\libC:\Program Files (x86)\Windows Kits\10\lib\10.0.10240.0\ucrt\x86
+Solution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
+:\Program Files (x86)\MySQL\Connector.NET 6.9\Assemblies\v4.5WND=0x00060400es\compiler\lib\mic
