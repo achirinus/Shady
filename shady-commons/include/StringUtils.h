@@ -38,6 +38,7 @@ namespace Shady
 	void StrnCopy(c8* buffer, u32 num, const c8* str);
 	s32 StrCopyNoTerminator(c8* buffer, const c8* str);
 	void CustomFormat(c8* buffer, const c8* format ...);
+	void CustomFormatVar(c8* buffer, const c8* format, va_list args);
 }
 
 #endif

@@ -21,6 +21,11 @@ namespace Shady
 		if(second != 0) result = first / second;
 		return result;
 	}
+	template<typename T>
+	T Lerp(T first, T second, f32 alpha)
+	{
+		return (first + alpha * (second - first));
+	}
 	s32 Absolute(s32 a);
 	f32 Absolute(f32 a);	
 	f32 Pow(f32 base, u32 pow);
@@ -45,6 +50,7 @@ namespace Shady
 	void Transpose(f32* elem, u32 dim);
 	f32 SquareRoot(f32 val);
 	s32 Compare(f32 left, f32 right, f32 err);
+
 }
 
 #endif

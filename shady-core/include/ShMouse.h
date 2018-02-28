@@ -3,6 +3,8 @@
 
 #include "Commons.h"
 #include "InputKey.h"
+#include "Vec2.h"
+
 namespace Shady
 {
 	class Mouse
@@ -22,43 +24,9 @@ namespace Shady
 		b32 m4;
 		b32 m5;
 
-		b8 GetState(InputKey key)
-		{
-			b8 result = false;
-			switch(key)
-			{
-				case MOUSE_LEFT:
-				{
-					result = (b8)m1;
-				}break;
-				case MOUSE_RIGHT:
-				{
-					result = (b8)m2;
-				}break;
-				case MOUSE_MIDDLE:
-				{
-					result = (b8)m3;
-				}break;
-			}
-			return result;
-		}
-
-		f32 GetValue(InputKey key)
-		{
-			f32 result = 0.0f;
-			switch(key)
-			{
-				case MOUSE_X:
-				{
-					result = (f32)xPos;
-				}break;
-				case MOUSE_Y:
-				{
-					result = (f32)yPos;
-				}break;
-			}
-			return result;
-		}
+		b8 GetState(InputKey key);
+		f32 GetValue(InputKey key);
+		Vec2f GetCursorPosition();
 	};
 }
 

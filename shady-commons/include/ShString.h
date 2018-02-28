@@ -40,6 +40,8 @@ namespace Shady
 		String& operator+=(const c8* str);
 		String& operator+=(const c8 c);
 		String& operator+=(const String& other);
+		c8* operator*();
+		const c8* operator*() const;
 		operator b8();
 		b8 CmpIgnoreCase(const String& other);
 		String SubString(u32 beginIndex, u32 numOfElem);
@@ -50,6 +52,8 @@ namespace Shady
 		String GetLine();
 		b8 BeginsWith(c8 character);
 		b8 BeginsWith(const char* str);
+		static String FormatString(const char* format, ...);
+		static String FormatString(String format, ...);
 	};
 	
 }

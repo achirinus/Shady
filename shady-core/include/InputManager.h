@@ -85,7 +85,7 @@ namespace Shady
 		f32 scale;
 	};
 
-	
+	//Important - Use IM_BFUNC() and IM_AFUNC() macros with bind functions, it's a shortcut for reinterpret_cast
 
 	class InputManager
 	{

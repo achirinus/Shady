@@ -55,7 +55,7 @@ namespace Shady
 			DEBUG_OUT_INFO(cube->mVertices[vertIndex].toString().cStr());
 		}
 		*/
-		//TEST STUFF!!
+		//TEST STUFF!!------------------------------------
 		
 		struct TestS
 		{
@@ -75,7 +75,9 @@ namespace Shady
 		Bitset<4> bits = "0101";
 		bits.Flip();
 		String bitsStr = bits.ToString();
-		//END TEST
+
+		
+		//END TEST ------------------------------------------
 		mMainWindow->DisableVSync();
 		setFpsLimit(60);
 		setUpdateFreq(60);
@@ -89,9 +91,7 @@ namespace Shady
 			
 			//Do not render if window is minimized
 			render(mFdt);
-
 		}
-
 	}
 
 	void ShadyApp::limit(f32 time, u32 freq)
@@ -120,11 +120,15 @@ namespace Shady
 		
 
 		//Fps display
-		char title[250];
-		sprintf_s(title, 250, "FPS: %d", mFps);
+		
+		String title = String::FormatString("FPS:%d", mFps);
 		Text2D* fpsLabel = currentFont->getText({5.0f, 5.0f, -1.0f},
-												title, 20.0f);
+												*title, 20.0f);
+		String CursorPosString = String::FormatString("Cursor Position:%v2", mMouse->GetCursorPosition());
+		Text2D* cursorPosText = currentFont->getText({5.0f, 30.0f, -1.0f}, *CursorPosString, 20.0f);
+
 		renderer2d->submit(fpsLabel);
+		renderer2d->submit(cursorPosText);
 		renderer3d->submit(cube);
 
 		//for now use mFds and limit only the render function because

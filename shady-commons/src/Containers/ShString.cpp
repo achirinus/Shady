@@ -1,5 +1,5 @@
 #include "ShString.h"
-
+#include <cstdarg>
 
 
 namespace Shady
@@ -289,6 +289,16 @@ namespace Shady
 		return *this;
 	}
 
+	c8* String::operator*()
+	{
+		return mBuffer;
+	}
+
+	const c8* String::operator*() const
+	{
+		return mBuffer;
+	}
+
 	String::operator b8()
 	{
 		b8 result = false;
@@ -437,5 +447,25 @@ namespace Shady
 		{
 			delete[] mBuffer;
 		}
+	}
+
+	String String::FormatString(const char* format, ...)
+	{
+		va_list args;
+		va_start(args, format);
+		c8 tempBuffer[512];
+		CustomFormatVar(tempBuffer, format, args);
+		va_end(args);
+		return String(tempBuffer);
+	}
+
+	String String::FormatString(String format, ...)
+	{
+		va_list args;
+		va_start(args, format);
+		c8 tempBuffer[512];
+		CustomFormatVar(tempBuffer, *format, args);
+		va_end(args);
+		return String(tempBuffer);
 	}
 }

@@ -396,18 +396,26 @@ namespace Shady
 		}
 		return result;
 	}
-	
+
 	void CustomFormat(c8* buffer, const c8* format ...)
 	{
 		va_list args;
 		va_start(args, format);
+		CustomFormatVar(buffer, format, args);
+		va_end(args);
+	}
+	
+	//TODO replace sprintf_s with my own
+	void CustomFormatVar(c8* buffer, const c8* format, va_list args)
+	{
 		c8* tempBuffer = buffer;
 
 		while(*format)
 		{
 			if(*format == '%')
 			{
-				if(BeginsWith(format+1, "mat4"))
+				b8 op1 = false;
+				if((op1 = BeginsWith(format+1, "mat4")) || BeginsWith(format+1, "m4"))
 				{
 					c8 tb[256];
 					c8* tbp = &tb[0]; 
@@ -422,10 +430,10 @@ namespace Shady
 					{
 						*tempBuffer++ = *tbp++;
 					}
-					format+=5;
+					format+= op1 ? 5 : 3;
 					continue;
 				}
-				else if(BeginsWith(format+1, "mat3"))
+				else if((op1 = BeginsWith(format+1, "mat3")) || BeginsWith(format+1, "m3"))
 				{
 					c8 tb[256];
 					c8* tbp = &tb[0];
@@ -439,53 +447,53 @@ namespace Shady
 					{
 						*tempBuffer++ = *tbp++;
 					}
-					format+=5;
+					format+= op1 ? 5 : 3;
 					continue;
 
 				}	
-				else if(BeginsWith(format+1, "vec4f"))
+				else if((op1 = BeginsWith(format+1, "vec4f")) || BeginsWith(format+1, "v4"))
 				{
 					c8 tb[128];
 					c8* tbp = &tb[0];
 					Vec4f vec = va_arg(args, Vec4f);
-					sprintf_s(tb, 128, "|%f %f %f %f|", vec.x, vec.y, vec.z, vec.w);
+					sprintf_s(tb, 128, "{%f %f %f %f}", vec.x, vec.y, vec.z, vec.w);
 					u32 tbSize = StrLength(tb);
 					while(tbSize--)
 					{
 						*tempBuffer++ = *tbp++;
 					}
-					format+=6;
+					format+= op1 ? 6 : 3;
 					continue;
 				}
-				else if(BeginsWith(format+1, "vec3f"))
+				else if((op1 = BeginsWith(format+1, "vec3f")) || BeginsWith(format+1, "v3"))
 				{
 					c8 tb[128];
 					c8* tbp = &tb[0];
 					Vec3f vec = va_arg(args, Vec3f);
-					sprintf_s(tb, 128, "|%f %f %f|", vec.x, vec.y, vec.z);
+					sprintf_s(tb, 128, "{%f %f %f}", vec.x, vec.y, vec.z);
 					u32 tbSize = StrLength(tb);
 					while(tbSize--)
 					{
 						*tempBuffer++ = *tbp++;
 					}
-					format+=6;
+					format+= op1 ? 6 : 3;
 					continue;
 				}
-				else if(BeginsWith(format+1, "vec2f"))
+				else if((op1 = BeginsWith(format+1, "vec2f")) || BeginsWith(format+1, "v2"))
 				{
 					c8 tb[48];
 					c8* tbp = &tb[0];
 					Vec2f vec = va_arg(args, Vec2f);
-					sprintf_s(tb, 48, "|%f %f|", vec.x, vec.y);
+					sprintf_s(tb, 48, "{%f %f}", vec.x, vec.y);
 					u32 tbSize = StrLength(tb);
 					while(tbSize--)
 					{
 						*tempBuffer++ = *tbp++;
 					}
-					format+=6;
+					format+= op1 ? 6 : 3;
 					continue;
 				}
-				else if(BeginsWith(format+1, "f32"))
+				else if((op1 = BeginsWith(format+1, "f32")) || BeginsWith(format+1, "f"))
 				{
 					c8 tb[48];
 					c8* tbp = &tb[0];
@@ -496,10 +504,10 @@ namespace Shady
 					{
 						*tempBuffer++ = *tbp++;
 					}
-					format+=4;
+					format+= op1 ? 4 : 2;
 					continue;
 				}
-				else if(BeginsWith(format+1, "s32"))
+				else if((op1 = BeginsWith(format+1, "s32")) || BeginsWith(format+1, "d"))
 				{
 					c8 tb[48];
 					c8* tbp = &tb[0];
@@ -510,10 +518,10 @@ namespace Shady
 					{
 						*tempBuffer++ = *tbp++;
 					}
-					format+=4;
+					format+= op1 ? 4 : 2;
 					continue;
 				}			
-				else if(BeginsWith(format+1, "u32"))
+				else if((op1 = BeginsWith(format+1, "u32")) || BeginsWith(format+1, "u"))
 				{
 					c8 tb[48];
 					c8* tbp = &tb[0];
@@ -524,7 +532,7 @@ namespace Shady
 					{
 						*tempBuffer++ = *tbp++;
 					}
-					format+=4;
+					format+= op1 ? 4 : 2;
 					continue;
 				}
 				else if(BeginsWith(format+1, "f64"))
@@ -541,7 +549,7 @@ namespace Shady
 					format+=4;
 					continue;
 				}
-				else if(BeginsWith(format+1, "s64"))
+				else if(BeginsWith(format+1, "s64") || BeginsWith(format+1, "lld"))
 				{
 					c8 tb[48];
 					c8* tbp = &tb[0];
@@ -552,10 +560,10 @@ namespace Shady
 					{
 						*tempBuffer++ = *tbp++;
 					}
-					format+=4;
+					format+= 4;
 					continue;
 				}			
-				else if(BeginsWith(format+1, "u64"))
+				else if(BeginsWith(format+1, "u64") || BeginsWith(format+1, "llu"))
 				{
 					c8 tb[48];
 					c8* tbp = &tb[0];
@@ -615,7 +623,7 @@ namespace Shady
 					format+=2;
 					continue;
 				}
-				else if(BeginsWith(format + 1, "c8"))
+				else if((op1 = BeginsWith(format + 1, "c8")) || BeginsWith(format + 1, "c"))
 				{
 					c8 tb[4];
 					c8* tbp = &tb[0];
@@ -626,10 +634,9 @@ namespace Shady
 					{
 						*tempBuffer++ = *tbp++;
 					}
-					format += 3;
+					format+= op1 ? 3 : 2;
 					continue;
 				}
-				
 			}
 			else
 			{
@@ -639,8 +646,6 @@ namespace Shady
 			format++;
 		}
 		*tempBuffer = '\0';
-		va_end(args);
-		
 	}
 	
 }
