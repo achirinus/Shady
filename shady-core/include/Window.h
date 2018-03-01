@@ -45,6 +45,7 @@ namespace Shady
 		virtual void DisableVSync() = 0;
 		virtual void SetTitle(const c8* title) = 0;
 		virtual String GetTitle() = 0;
+		virtual void SetCursorVisibility(b8 visible) = 0;
 		virtual ~Window() {};
 		virtual void* GetPlatformPointer() = 0;
 	};

@@ -16,24 +16,19 @@ namespace Shady
 		return sInstance;
 	}
 
-	void testTm(void* data)
+	
+	void onSetCursorVisible()
 	{
-		DEBUG_OUT_INFO("worked!");
+		DEBUG_OUT_INFO("Cursor set visible");
+		ShadyApp* app = ShadyApp::getInstance();
+		app->mMainWindow->SetCursorVisibility(true);
 	}
 
-	void ShadyApp::testCb()
+	void onSetCursorInVisible()
 	{
-		DEBUG_OUT_INFO("changed");
-	}
-
-	void ShadyApp::testKAxis(f32 value)
-	{
-		DEBUG_OUT_INFO("Left: %f", value);
-	}
-
-	void ShadyApp::testMAxis(f32 value)
-	{
-		DEBUG_OUT_INFO("X: %f", value);
+		DEBUG_OUT_INFO("Cursor set invisible");
+		ShadyApp* app = ShadyApp::getInstance();
+		app->mMainWindow->SetCursorVisibility(false);
 	}
 
 	void ShadyApp::start()
@@ -56,7 +51,10 @@ namespace Shady
 		}
 		*/
 		//TEST STUFF!!------------------------------------
-		
+		mInputManager->MapAction("ShowCursor", InputKey::KEY_B);
+		mInputManager->MapAction("HideCursor", InputKey::KEY_N);
+		mInputManager->BindAction("ShowCursor", BA_RELEASED, onSetCursorVisible);
+		mInputManager->BindAction("HideCursor", BA_RELEASED, onSetCursorInVisible);
 		struct TestS
 		{
 			int a;

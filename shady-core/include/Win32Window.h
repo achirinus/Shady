@@ -19,7 +19,7 @@ namespace Shady
 		HINSTANCE mInstance;
 		HGLRC mGlrc;
 		MSG mMessage;
-		
+		HCURSOR mCurrentCursor;
 		Win32Window(const c8* title = SH_DEFAULT_WINDOW_TITLE, 
 				s16 width = SH_DEFAULT_WINDOW_WIDTH,
 				s16 height = SH_DEFAULT_WINDOW_HEIGHT);
@@ -36,10 +36,11 @@ namespace Shady
 		virtual bool IsActive();
 		virtual bool IsFullScreen();
 		virtual void SetTitle(const c8* title);
-		virtual String GetTitle();
 		virtual void EnableVSync();
 		virtual void DisableVSync();
 		virtual void* GetPlatformPointer();
+		virtual String GetTitle();
+		virtual void SetCursorVisibility(b8 visible);
 		virtual ~Win32Window();
 		static LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 		static VOID CALLBACK renderTimerProc(HWND hwnd, UINT uMsg, UINT_PTR idEvent, DWORD dwTime);

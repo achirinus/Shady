@@ -83,11 +83,7 @@ namespace Shady
 
 		//test stuff
 		Cube* cube;
-		void testCb();
 		
-		void testKAxis(f32);
-		void testMAxis(f32);
-
 	};	
 }
 

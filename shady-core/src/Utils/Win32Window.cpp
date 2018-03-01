@@ -4,6 +4,7 @@
 #include "ShMouse.h"
 #include "ShKeyboard.h"
 #include "Windowsx.h"
+#include "Win32Utils.h"
 
 /*
 	Win32Window is mixed up win OpenGL. Take care of this somehow, sometime...
@@ -111,6 +112,10 @@ namespace Shady
 				window->mYPos = cs->y;
 				window->mWidth = cs->cx;
 				window->mHeight = cs->cy;
+
+				//window->mCurrentCursor = LoadCursor(NULL, IDC_ARROW);
+				SetCursor(window->mCurrentCursor);
+				Shady::Win32::CheckLastError();
 				//BringWindowToTop(hwnd);
 			}break;
 			case WM_LBUTTONDOWN:
@@ -176,11 +181,17 @@ namespace Shady
 	{
 		mInstance = GetModuleHandle(NULL);
 
+		mCurrentCursor = (HCURSOR)LoadImageA(NULL, "cursor.cur", IMAGE_CURSOR, 0, 0, LR_DEFAULTSIZE | LR_LOADFROMFILE | LR_SHARED);
+		Win32::CheckLastError();
+		HICON NewIcon = (HICON)LoadImageA(NULL, "icon.ico", IMAGE_ICON, 0, 0, LR_DEFAULTSIZE | LR_LOADFROMFILE | LR_SHARED);
+		Win32::CheckLastError();
 		WNDCLASS wc = {};
 		wc.style = CS_OWNDC;
 		wc.lpfnWndProc = WindowProc;
 		wc.hInstance = mInstance;
 		wc.lpszClassName = TEXT(WINDOW_CLASS_NAME);
+		wc.hIcon = NewIcon;
+		wc.hCursor = mCurrentCursor;
 
 		if(RegisterClass(&wc))
 		{
@@ -188,8 +199,6 @@ namespace Shady
 									WS_OVERLAPPEDWINDOW|WS_VISIBLE,
 									 CW_USEDEFAULT, CW_USEDEFAULT,SH_DEFAULT_WINDOW_WIDTH, 
 									 SH_DEFAULT_WINDOW_HEIGHT, NULL, NULL, mInstance, this);
-			
-
 			if(mHwnd)
 			{
 				mIsOpen = true;	
@@ -198,17 +207,12 @@ namespace Shady
 
 				SetFocus(mHwnd);
 				glViewport(0,0, mClientWidth, mClientHeight);
-				
-				
-				
 			}
 		}
 		else
 		{
 			DEBUG_OUT_ERR("Window creation failed!");
 		}
-
-		
 	}
 
 	void* Win32Window::GetPlatformPointer()
@@ -219,11 +223,13 @@ namespace Shady
 	void Win32Window::Show()
 	{
 		ShowWindow(mHwnd, SW_SHOW);
+		Shady::Win32::CheckLastError();
 	}
 
 	void Win32Window::Hide()
 	{
 		ShowWindow(mHwnd, SW_HIDE);
+		Shady::Win32::CheckLastError();
 	}
 
 	void Win32Window::Clear()
@@ -234,18 +240,21 @@ namespace Shady
 	void Win32Window::Minimize()
 	{
 		ShowWindow(mHwnd, SW_MINIMIZE);
+		Shady::Win32::CheckLastError();
 		mFullScreen = false;
 	}
 
 	void Win32Window::Maximize()
 	{
 		ShowWindow(mHwnd, SW_MAXIMIZE);
+		Shady::Win32::CheckLastError();
 		mFullScreen = true;
 	}
 
 	void Win32Window::Restore()
 	{
 		ShowWindow(mHwnd, SW_RESTORE);
+		Shady::Win32::CheckLastError();
 	}
 
 	bool Win32Window::IsActive()
@@ -261,14 +270,9 @@ namespace Shady
 	void Win32Window::SetTitle(const c8* title)
 	{
 		SetWindowTextA(mHwnd, title);
+		Shady::Win32::CheckLastError();
 	}
 
-	String Win32Window::GetTitle()
-	{
-		c8 temp[256];
-		GetWindowTextA(mHwnd, temp, 256);
-		return String(temp);
-	}
 
 	void Win32Window::EnableVSync()
 	{
@@ -285,6 +289,30 @@ namespace Shady
 		}
 	}
 
+	String Win32Window::GetTitle()
+	{
+		c8 temp[256];
+		GetWindowTextA(mHwnd, temp, 256);
+		Shady::Win32::CheckLastError();
+		return String(temp);
+	}
+
+	void Win32Window::SetCursorVisibility(b8 visible)
+	{
+		//Windows ShowCursor(bool) increments or decrements a display counter and
+		//it hides the cursor only if the counter is < 0 so if SetCursorVisibility is
+		//called 3 times with true and then is called with false, the cursor will not be
+		//hidden unless I do this.
+		if(visible)
+		{
+			while(ShowCursor(visible) < 0) {} 
+		}
+		else
+		{
+			while(ShowCursor(visible) >= 0) {}
+		}
+		Shady::Win32::CheckLastError();
+	}
 	void Win32Window::Update()
 	{
 		while(PeekMessage(&mMessage, mHwnd, 0, 0, PM_REMOVE))
