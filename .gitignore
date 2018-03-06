@@ -4,3 +4,5 @@
 *.idb
 *.exe
 *.ilk
+*.log
+*.tlog
