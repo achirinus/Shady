@@ -1,0 +1,32 @@
+﻿  Commons.cpp
+  Generating Code...
+  Compiling...
+  StringUtils.cpp
+  ShMath.cpp
+d:\workspace\shady\commons\src\math\shmath.cpp(92): warning C4244: 'initializing': conversion from 'Shady::s32' to 'Shady::f32', possible loss of data
+d:\workspace\shady\commons\src\math\shmath.cpp(97): warning C4244: 'return': conversion from 'Shady::f32' to 'Shady::s32', possible loss of data
+d:\workspace\shady\commons\src\math\shmath.cpp(103): warning C4244: 'initializing': conversion from 'Shady::u32' to 'Shady::f32', possible loss of data
+d:\workspace\shady\commons\src\math\shmath.cpp(108): warning C4244: 'return': conversion from 'Shady::f32' to 'Shady::u32', possible loss of data
+  Matrix4f.cpp
+d:\workspace\shady\commons\src\math\matrix4f.cpp(239): warning C4244: 'initializing': conversion from 'double' to 'Shady::f32', possible loss of data
+  Matrix3f.cpp
+  FileUtils.cpp
+d:\workspace\shady\commons\src\filesystem\fileutils.cpp(113): warning C4244: 'argument': conversion from 'LONGLONG' to 'SIZE_T', possible loss of data
+d:\workspace\shady\commons\src\filesystem\fileutils.cpp(118): warning C4244: 'argument': conversion from 'LONGLONG' to 'DWORD', possible loss of data
+  FileChangeObserver.cpp
+  ShAssert.cpp
+  ConsoleOut.cpp
+  ShString.cpp
+d:\workspace\shady\commons\src\containers\shstring.cpp(89): warning C4018: '<': signed/unsigned mismatch
+d:\workspace\shady\commons\src\containers\shstring.cpp(113): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(119): note: see declaration of 'strcpy'
+d:\workspace\shady\commons\src\containers\shstring.cpp(127): warning C4018: '>': signed/unsigned mismatch
+d:\workspace\shady\commons\src\containers\shstring.cpp(348): warning C4018: '<': signed/unsigned mismatch
+d:\workspace\shady\commons\src\containers\shstring.cpp(363): warning C4018: '<': signed/unsigned mismatch
+d:\workspace\shady\commons\src\containers\shstring.cpp(381): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(2254): note: see declaration of 'sscanf'
+d:\workspace\shady\commons\src\containers\shstring.cpp(388): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(2254): note: see declaration of 'sscanf'
+d:\workspace\shady\commons\src\containers\shstring.cpp(406): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
+  Commons.vcxproj -> D:\workspace\Shady\Debug\Commons.lib
