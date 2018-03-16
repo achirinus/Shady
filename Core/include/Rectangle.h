@@ -20,7 +20,7 @@ namespace Shady
 		Rectangle(f32 x, f32 y, f32 width, f32 height, b8 filled = false, b8 withBorder = false, 
 					Vec4f col = Vec4f(1.0f, 1.0f, 1.0f, 1.0f), f32 lineWidth = 2);
 		virtual ~Rectangle();
-		virtual void draw();
+		virtual void draw(Renderer2D* renderer);
 
 
 	};

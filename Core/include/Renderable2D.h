@@ -6,6 +6,7 @@
 #include "Commons.h"
 #include "ShArray.h"
 #include "Shader.h"
+#include "Renderer2D.h"
 
 namespace Shady
 {
@@ -26,13 +27,15 @@ namespace Shady
 		Vec3f mMoveAmount;
 		u32 mWidth;
 		u32 mHeight;
-		Array<Shader*> mShaders;
+		Shader* mShader;
 		f32 mLifeTime; //seconds
 		b8 mOwnShader;
 		Renderable2D(): mPos(),mModelMat(1), mMoveAmount(), mWidth(0),
-						mHeight(0), mShaders(), mLifeTime(0.0f), mOwnShader(false){}
-		virtual void draw() = 0;
+						mHeight(0), mShader(nullptr), mLifeTime(0.0f), mOwnShader(false){}
+		virtual void draw(Renderer2D*) = 0;
 		virtual void update() {}
+		
+
 		virtual ~Renderable2D() {};
 
 	};

@@ -90,6 +90,9 @@
     <ClInclude Include="include\ShObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\ColorVec.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Containers\ShString.cpp">
@@ -132,6 +135,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Commons.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utils\ColorVec.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

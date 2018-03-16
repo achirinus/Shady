@@ -68,7 +68,7 @@ namespace Shady
 		Font* currentFont;
 
 		Sprite* testSprite;
-		static ShadyApp* getInstance();
+		static ShadyApp* GetInstance();
 		void start();
 		void update(f32 dt);
 		void render(f32 dt);

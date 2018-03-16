@@ -144,6 +144,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\ColorVec.h" />
     <ClInclude Include="include\ComFuncs.h" />
     <ClInclude Include="include\Commons.h" />
     <ClInclude Include="include\ConsoleOut.h" />
@@ -184,6 +185,7 @@
     <ClCompile Include="src\Math\Vec4.cpp" />
     <ClCompile Include="src\MemUtils\MemUtils.cpp" />
     <ClCompile Include="src\StringUtils\StringUtils.cpp" />
+    <ClCompile Include="src\Utils\ColorVec.cpp" />
     <ClCompile Include="src\Utils\ComFuncs.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

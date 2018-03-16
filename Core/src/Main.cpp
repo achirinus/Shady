@@ -62,7 +62,7 @@ void func()
 int main(int argc, char* argv[])
 {
 	
-	ShadyApp* app = ShadyApp::getInstance();
+	ShadyApp* app = ShadyApp::GetInstance();
 	app->start();
 	
 	return 0;

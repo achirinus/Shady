@@ -6,7 +6,7 @@ namespace Shady
 {
 	ShadyApp* ShadyApp::sInstance = 0;
 
-	ShadyApp* ShadyApp::getInstance()
+	ShadyApp* ShadyApp::GetInstance()
 	{
 		if(!sInstance)
 		{
@@ -20,14 +20,14 @@ namespace Shady
 	void onSetCursorVisible()
 	{
 		DEBUG_OUT_INFO("Cursor set visible");
-		ShadyApp* app = ShadyApp::getInstance();
+		ShadyApp* app = ShadyApp::GetInstance();
 		app->mMainWindow->SetCursorVisibility(true);
 	}
 
 	void onSetCursorInVisible()
 	{
 		DEBUG_OUT_INFO("Cursor set invisible");
-		ShadyApp* app = ShadyApp::getInstance();
+		ShadyApp* app = ShadyApp::GetInstance();
 		app->mMainWindow->SetCursorVisibility(false);
 	}
 
@@ -111,8 +111,8 @@ namespace Shady
 		mFileObserver->Update();
 		mInputManager->Update(dt);
 		mTimerManager->Update(dt);
-
-		camera2d->update();
+		renderer2d->Update(dt);
+		
 		camera3d->Update(dt);
 		//testSprite->update();
 		
@@ -120,15 +120,17 @@ namespace Shady
 		//Fps display
 		
 		String title = String::FormatString("FPS:%d", mFps);
-		Text2D* fpsLabel = currentFont->getText({5.0f, 5.0f, -1.0f},
-												*title, 20.0f);
+		//Text2D* fpsLabel = currentFont->getText({5.0f, 5.0f, -1.0f}, *title, 20.0f);
+
+		Renderer2D::DrawText(*title, 20.0f, 5.0f, 5.0f);
+		Renderer2D::DrawRectangle(20.f, 20.f, 500.f, 500.f);
 		String CursorPosString = String::FormatString("Cursor Position: %v2", mMouse->GetCursorPosition());
 		Text2D* cursorPosText = currentFont->getText({5.0f, 30.0f, -1.0f}, *CursorPosString, 40.0f);
 		Text2D* testText = currentFont->getText({ 5.0f, 90.0f, -1.0f }, "Something something 112.50", 40.0f);
 
-		renderer2d->submit(testText);
-		renderer2d->submit(fpsLabel);
-		renderer2d->submit(cursorPosText);
+		renderer2d->Submit(testText);
+		//renderer2d->Submit(fpsLabel);
+		renderer2d->Submit(cursorPosText);
 		renderer3d->submit(cube);
 
 		//for now use mFds and limit only the render function because
@@ -144,7 +146,7 @@ namespace Shady
 		mFrameClock.Reset();
 		countFps(dt);
 		mMainWindow->Clear();
-		renderer2d->render(dt);
+		renderer2d->Render();
 		renderer3d->render(dt);
 		mMainWindow->SwapBuffers();
 
@@ -176,12 +178,11 @@ namespace Shady
 		mInputManager->bindAxis("mx", this, reinterpret_cast<AxisFunc>(&ShadyApp::testMAxis));
 		#endif
 
-		camera2d = new Camera2D(Vec3f(0, 0, 0.0f),
-								mMainWindow->mClientWidth, mMainWindow->mClientHeight, 2.0f);
-		renderer2d = new Renderer2D(camera2d);
+		
+		renderer2d = Renderer2D::GetInstance();
 		currentFont =new Font();
 		
-		renderer2d->submit(new Rectangle(0.0f, 0.0f, mMainWindow->mClientWidth,
+		renderer2d->Submit(new Rectangle(0.0f, 0.0f, mMainWindow->mClientWidth,
 													 mMainWindow->mClientHeight,
 													 false, false,
 													 Vec4f(1.0f, 0.0f, 1.0f, 1.0f), 3),

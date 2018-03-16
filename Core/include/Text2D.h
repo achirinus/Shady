@@ -16,12 +16,15 @@ namespace Shady
 		
 	public:
 		Text2D(Shader* shader);
-		virtual void draw();
+		virtual void draw(Renderer2D* renderer);
 		virtual ~Text2D();
 
 		void addGlyph(Glyph* glyph);
 		Glyph* operator[](u32 index) { return mGlyphs[index];}
 		u32 size() { return mGlyphs.Size();}
+
+		
+		void SetColor(const Vec4f& color);
 	};
 }
 

@@ -15,58 +15,54 @@ namespace Shady
 
 		if(isFilled) //Create the fill sprite
 		{
-			mShaders.Add(new Shader("basic", SH_FRAGMENT_SHADER | SH_VERTEX_SHADER));
-			fillArea = new Sprite({x, y, 0.0f}, width, height, nullptr, col, false, mShaders[0]);
+			fillArea = new Sprite({x, y, 0.0f}, width, height, nullptr, col, false);
 		}
 
 		if((isFilled && hasBorder) || !isFilled)
 		{
-			mShaders.Add(new Shader("basicLine", SH_FRAGMENT_SHADER | SH_VERTEX_SHADER));
-			Shader* tempShader = 0;
-			if(isFilled) 
-			{
-				tempShader = mShaders[1];
-			}
-			else
-			{
-				tempShader = mShaders[0];
-			}
-			topEdge = new Line2D(topLeft, topRight, col, lineWidth, tempShader);
-			rightEdge = new Line2D(topRight, botRight, col, lineWidth, tempShader);
-			botEdge = new Line2D(botLeft, botRight, col, lineWidth, tempShader);
-			leftEdge = new Line2D(topLeft, botLeft, col, lineWidth, tempShader);
+			Shader* lineShader = new Shader("basicLine", SH_FRAGMENT_SHADER | SH_VERTEX_SHADER);
+			
+			topEdge = new Line2D(topLeft, topRight, col, lineWidth, lineShader);
+			rightEdge = new Line2D(topRight, botRight, col, lineWidth, lineShader);
+			botEdge = new Line2D(botLeft, botRight, col, lineWidth, lineShader);
+			leftEdge = new Line2D(topLeft, botLeft, col, lineWidth, lineShader);
 		}
 	}
 
-	void Rectangle::draw()
+	void Rectangle::draw(Renderer2D* renderer)
 	{
 		if(isFilled)
 		{
-			fillArea->draw();
+			fillArea->draw(renderer);
 		}
 		if((isFilled && hasBorder) || !isFilled)
 		{
-			topEdge->draw();
-			leftEdge->draw();
-			botEdge->draw();
-			rightEdge->draw();
+			topEdge->draw(renderer);
+			leftEdge->draw(renderer);
+			botEdge->draw(renderer);
+			rightEdge->draw(renderer);
+			
 		}
 
 	}
 
 	Rectangle::~Rectangle()
 	{
-
 		if(isFilled)
 		{
 			delete fillArea;
 		}
 		if((isFilled && hasBorder) || !isFilled)
 		{
+			Shader* lineShader = topEdge->mShader;
 			delete topEdge;
 			delete rightEdge;
 			delete botEdge;
 			delete leftEdge;
+
+			
+			delete lineShader;
 		}
+		
 	}
 }

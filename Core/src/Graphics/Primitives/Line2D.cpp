@@ -12,11 +12,11 @@ namespace Shady
 		
 		if(shader)
 		{
-			mShaders.Add(shader);
+			mShader = shader;
 		}
 		else
 		{
-			mShaders.Add(new Shader("basicLine", SH_FRAGMENT_SHADER | SH_VERTEX_SHADER));
+			mShader = new Shader("basicLine", SH_FRAGMENT_SHADER | SH_VERTEX_SHADER);
 		}
 		
 		Vec3f vertices[2] = 
@@ -61,13 +61,17 @@ namespace Shady
 		
 	}
 
-	void Line2D::draw()
+	void Line2D::draw(Renderer2D* renderer)
 	{
-		//mShader->setUniformMat4("modelMat", getModelMat());
+		mShader->Enable();
+		mShader->SetUniformMat4("viewMat", renderer->mCamera->getViewMat());
+		mShader->SetUniformMat4("projMat", renderer->mCamera->getProjMat());
+
 		glBindVertexArray(mVAO);
 		//glLineWidth(mWidth);
 		glDrawArrays(GL_LINES, 0, 2);
 		glBindVertexArray(0);
+		mShader->Disable();
 	}
 
 	void Line2D::move(const Vec3f& vec)
@@ -94,9 +98,10 @@ namespace Shady
 	{
 		glDeleteBuffers(NUM_BUFFERS, mVBO);
 		glDeleteVertexArrays(1, &mVAO);
-		for(s32 index = 0; index < mShaders.Size(); index++)
+		if (mOwnShader && mShader)
 		{
-			delete mShaders[index];
+			delete mShader;
 		}
+		
 	}
 }

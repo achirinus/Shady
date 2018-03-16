@@ -102,12 +102,12 @@ namespace Shady
 		mRoll = 0.0f;
 		if(!shader)
 		{
-			mShaders.Add(new Shader("basic", SH_FRAGMENT_SHADER | SH_VERTEX_SHADER));
+			mShader = new Shader("basic", SH_FRAGMENT_SHADER | SH_VERTEX_SHADER);
 			mOwnShader = true;
 		}
 		else
 		{
-			mShaders.Add(shader);
+			mShader = shader;
 			mOwnShader = false;
 		}
 		initGlBuffers(mPos, mColor, posInCenter);
@@ -132,12 +132,12 @@ namespace Shady
 		
 		if(!shader)
 		{
-			mShaders.Add(new Shader("basic", SH_FRAGMENT_SHADER | SH_VERTEX_SHADER));
+			mShader = new Shader("basic", SH_FRAGMENT_SHADER | SH_VERTEX_SHADER);
 			mOwnShader = true;
 		}
 		else
 		{
-			mShaders.Add(shader);
+			mShader = shader;
 			mOwnShader = false;
 		}
 		initGlBuffers(mPos, mColor, posInCenter);
@@ -147,12 +147,9 @@ namespace Shady
 	{
 		glDeleteBuffers(NUM_BUFFERS, mVBO);
 		glDeleteVertexArrays(1, &mVAO);
-		if(mOwnShader)
+		if(mOwnShader && mShader)
 		{
-			for(s32 index = 0; index < mShaders.Size(); index++)
-			{
-				delete mShaders[index];
-			}
+			delete mShader;
 		}
 	}
 
@@ -243,21 +240,23 @@ namespace Shady
 		mScale = ClampToZero(mScale);
 	}
 
-	void Sprite::draw()
+	void Sprite::draw(Renderer2D* renderer)
 	{
 
 		if(mTexture) mTexture->bind(0);
-		for(s32 index = 0; index < mShaders.Size(); index++)
-		{
-			mShaders[index]->SetUniform1i("hasTexture", hasTexture());
-			mShaders[index]->SetUniformMat4("modelMat", getModelMat());
-			mShaders[index]->SetUniformMat4("totalMovedMat", Matrix4f::translation(getCurrentPos()));
-		}
+		mShader->Enable();
+		mShader->SetUniform1i("hasTexture", hasTexture());
+		mShader->SetUniformMat4("modelMat", getModelMat());
+		mShader->SetUniformMat4("totalMovedMat", Matrix4f::translation(getCurrentPos()));
+		mShader->SetUniformMat4("viewMat", renderer->mCamera->getViewMat());
+		mShader->SetUniformMat4("projMat", renderer->mCamera->getProjMat());
+		
 		glBindVertexArray(mVAO);
 				
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 		glBindVertexArray(0);
 		if(mTexture) mTexture->unbind(0);
+		mShader->Disable();
 	}
 
 }

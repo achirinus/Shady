@@ -14,7 +14,7 @@ namespace Shady
 										u32 width = 1,
 										Shader* shader = 0);
 		~Line2D();
-		virtual void draw();
+		virtual void draw(Renderer2D*);
 		void move(const Vec3f& vec);
 		void setWidth(u32 newWidth);
 		Matrix4f getModelMat();

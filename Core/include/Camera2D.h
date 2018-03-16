@@ -26,7 +26,7 @@ namespace Shady
 		Matrix4f getViewMat() { return mViewMat;}
 		Matrix4f getProjMat() {return mProjMat;}
 		Matrix4f getProjViewMat() { return mProjMat * mViewMat;}
-		void update();
+		void update(f32 dt);
 		void lockPosition();
 		void unlockPosition();
 	};

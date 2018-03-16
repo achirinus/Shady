@@ -41,7 +41,7 @@ namespace Shady
 		virtual void rotate(f32 pitch, f32 yaw, f32 roll);
 		virtual void scale(f32 scale);
 		virtual f32 getScale() {return mScale;}
-		virtual void draw();
+		virtual void draw(Renderer2D* renderer);
 	};
 }
 
