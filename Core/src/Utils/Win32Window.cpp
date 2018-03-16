@@ -5,6 +5,7 @@
 #include "ShKeyboard.h"
 #include "Windowsx.h"
 #include "Win32Utils.h"
+#include "Vec4.h"
 
 /*
 	Win32Window is mixed up win OpenGL. Take care of this somehow, sometime...
@@ -332,9 +333,13 @@ namespace Shady
 		return mIsOpen;
 	}
 
+	void Win32Window::SetBackgroundColor(const Vec4f& col)
+	{
+		glClearColor(col.r, col.g, col.b, col.a);
+	}
+
 	Win32Window::~Win32Window()
 	{
-	
 	
 	}
 

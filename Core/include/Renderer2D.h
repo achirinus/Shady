@@ -21,13 +21,14 @@ namespace Shady
 		static Renderer2D* mInstance;
 
 		void DrawSprite(Renderable2D* sprite);
-		void _DrawRectangle(u32 x, u32 y, u32 width, u32 height, Vec4f color = ColorVec::Red);
+		void _DrawRectangle(Vec3f pos, u32 width, u32 height, Vec4f color, b8 outlined, Vec4f lineCol);
 		void _DrawText(const char* text, u32 size, u32 x, u32 y, Vec4f color = ColorVec::White);
 	public:
 		Camera2D* mCamera;
 
 		static Renderer2D* GetInstance();
-		static void DrawRectangle(u32 x, u32 y, u32 width, u32 height, Vec4f color = ColorVec::Red);
+		static void DrawRectangle(u32 x, u32 y, u32 width, u32 height, Vec4f color = ColorVec::Red, b8 outlined = false, Vec4f lineColor = ColorVec::Black);
+		static void DrawRectangle(Vec3f pos, u32 width, u32 height, Vec4f color = ColorVec::Red, b8 outlined = false, Vec4f lineColor = ColorVec::Black);
 		static void DrawText(const c8* text, u32 size, u32 x, u32 y, Vec4f color = ColorVec::White);
 		void Submit(Renderable2D* sprite);
 		void Submit(Renderable2D* sprite, f32 lifeTime);

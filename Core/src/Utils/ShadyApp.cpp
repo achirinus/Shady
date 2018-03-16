@@ -39,6 +39,7 @@ namespace Shady
 		mInputManager = InputManager::GetInstance();
 		mFileObserver = FileChangeObserver::GetInstance();
 		mTimerManager = TimerManager::GetInstance();
+		mConsole = Console::GetInstance();
 		initGameState();
 		//Texture* b = win32GetGlyphTexture('A');
 		/*
@@ -119,19 +120,20 @@ namespace Shady
 
 		//Fps display
 		
-		String title = String::FormatString("FPS:%d", mFps);
-		//Text2D* fpsLabel = currentFont->getText({5.0f, 5.0f, -1.0f}, *title, 20.0f);
-
-		Renderer2D::DrawText(*title, 20.0f, 5.0f, 5.0f);
-		Renderer2D::DrawRectangle(20.f, 20.f, 500.f, 500.f);
+		String fpsText = String::FormatString("FPS:%d", mFps);
+		Renderer2D::DrawText(*fpsText, 20.0f, 5.0f, 5.0f);
+		
 		String CursorPosString = String::FormatString("Cursor Position: %v2", mMouse->GetCursorPosition());
-		Text2D* cursorPosText = currentFont->getText({5.0f, 30.0f, -1.0f}, *CursorPosString, 40.0f);
-		Text2D* testText = currentFont->getText({ 5.0f, 90.0f, -1.0f }, "Something something 112.50", 40.0f);
+		Text2D* cursorPosText = currentFont->getText({5.0f, 30.0f, 1.0f}, *CursorPosString, 40.0f);
+		Text2D* testText = currentFont->getText({ 5.0f, 90.0f, 1.0f }, "Something something 112.50", 40.0f);
 
 		renderer2d->Submit(testText);
-		//renderer2d->Submit(fpsLabel);
+		
 		renderer2d->Submit(cursorPosText);
 		renderer3d->submit(cube);
+
+
+		mConsole->Update(dt);
 
 		//for now use mFds and limit only the render function because
 		//the  ads from both limit() calls. we need separate threads
@@ -146,10 +148,13 @@ namespace Shady
 		mFrameClock.Reset();
 		countFps(dt);
 		mMainWindow->Clear();
+		
 		renderer2d->Render();
+		mConsole->Render();
 		renderer3d->render(dt);
-		mMainWindow->SwapBuffers();
 
+
+		mMainWindow->SwapBuffers();
 		//checkGlError();
 
 		limit(mFrameClock.GetElapsedTimeMS(), mFpsLimit);
@@ -159,8 +164,7 @@ namespace Shady
 
 	void ShadyApp::initGameState()
 	{
-		
-		//TODO put these in their arena and take care of cleanup
+		mMainWindow->SetBackgroundColor(ColorVec::Cyan);
 		mInputManager->MapAction("test", InputKey::MOUSE_LEFT);
 		mInputManager->MapAction("cameraLock", InputKey::MOUSE_RIGHT);
 		mInputManager->MapAction("ToggleConsole", InputKey::KEY_TILDA);
@@ -171,23 +175,11 @@ namespace Shady
 		mInputManager->MapAxis("yaw", InputKey::MOUSE_X, 1.0f);
 		mInputManager->MapAxis("pitch", InputKey::MOUSE_Y, 1.0f);
 		
-		#if 0
-		mInputManager->mapAxis("left", InputKey::KEY_A, -1.0f);
-		mInputManager->mapAxis("left", InputKey::KEY_D, 1.0f);
-		mInputManager->mapAxis("mx", InputKey::MOUSE_X, 1.0f);
-		mInputManager->bindAxis("left", this, reinterpret_cast<AxisFunc>(&ShadyApp::testKAxis));
-		mInputManager->bindAxis("mx", this, reinterpret_cast<AxisFunc>(&ShadyApp::testMAxis));
-		#endif
-
+		mConsole->Init();
 		
 		renderer2d = Renderer2D::GetInstance();
 		currentFont =new Font();
 		
-		renderer2d->Submit(new Rectangle(0.0f, 0.0f, mMainWindow->mClientWidth,
-													 mMainWindow->mClientHeight,
-													 false, false,
-													 Vec4f(1.0f, 0.0f, 1.0f, 1.0f), 3),
-													10000.0f);
 		camera3d = new Camera3D({(f32)mMainWindow->mClientWidth, (f32)mMainWindow->mClientHeight});
 		renderer3d = new Renderer3D(camera3d);
 

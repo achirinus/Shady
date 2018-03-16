@@ -25,7 +25,7 @@
 #include "Renderer3D.h"
 #include "ShBitset.h"
 #include "ShSArray.h"
-
+#include "Console.h"
 
 namespace Shady
 {
@@ -46,6 +46,7 @@ namespace Shady
 		InputManager* mInputManager;
 		FileChangeObserver* mFileObserver;
 		TimerManager* mTimerManager;
+		Console* mConsole;
 
 		Clock mFrameClock;
 		Clock mUpdateClock;

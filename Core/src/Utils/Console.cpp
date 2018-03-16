@@ -14,7 +14,7 @@ namespace Shady
 		return mInstance;
 	}
 
-	Console::Console() {}
+	Console::Console() :mIsOpen{ false }, mWidth{ 700 }, mHeight{500} {}
 
 	void Console::Open()
 	{
@@ -31,9 +31,17 @@ namespace Shady
 		FlipFlop(mIsOpen);
 	}
 
+	void Console::Init()
+	{
+		InputManager::GetInstance()->BindAction("ToggleConsole", ButtonAction::BA_RELEASED, this, IM_BFUNC(Console::Toggle));
+	}
+
 	void Console::Render()
 	{
-
+		if (mIsOpen)
+		{
+			Renderer2D::DrawRectangle({0.0f, 0.0f, 2.0f}, mWidth, mHeight, ColorVec::DarkGrey, true, ColorVec::Black);
+		}
 	}
 
 	void Console::Update(f32 dt)

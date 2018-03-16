@@ -70,6 +70,15 @@ typedef ptrdiff_t GLintptr;
 #define GL_LINES                          0x0001
 #define GL_TRIANGLES                      0x0004
 
+#define GL_NEVER                          0x0200
+#define GL_LESS                           0x0201
+#define GL_EQUAL                          0x0202
+#define GL_LEQUAL                         0x0203
+#define GL_GREATER                        0x0204
+#define GL_NOTEQUAL                       0x0205
+#define GL_GEQUAL                         0x0206
+#define GL_ALWAYS                         0x0207
+
 #define GL_DEPTH_BUFFER_BIT               0x00000100
 #define GL_STENCIL_BUFFER_BIT             0x00000400
 #define GL_COLOR_BUFFER_BIT               0x00004000
@@ -93,6 +102,7 @@ typedef ptrdiff_t GLintptr;
 #define GL_EXTENSIONS                     0x1F03
 
 #define GL_CULL_FACE                      0x0B44
+#define GL_DEPTH_TEST                     0x0B71
 #define GL_BLEND                          0x0BE2
 #define GL_LINE_SMOOTH                    0x0B20
 
@@ -261,7 +271,7 @@ typedef GLuint APIENTRY sh_glGetDebugMessageLog (GLuint count, GLsizei bufSize, 
 typedef void APIENTRY sh_glBlendFunc (GLenum sfactor, GLenum dfactor);
 typedef void APIENTRY sh_glViewport (GLint x, GLint y, GLsizei width, GLsizei height);
 typedef void APIENTRY sh_glTexParameterf (GLenum target, GLenum pname, GLfloat param);
-
+typedef void APIENTRY sh_glDepthFunc(GLenum func);
 #define OpenGlGlobalFuncEx(Name) sh_##Name* Name##_
 
 #ifdef GL_FUNCS_AS_MACROS
@@ -450,7 +460,8 @@ typedef void APIENTRY sh_glTexParameterf (GLenum target, GLenum pname, GLfloat p
 	OpenGlGlobalFunc(glTexParameterf);
 	#define glTexParameterf(...) GLFunctionWrap(glTexParameterf, __VA_ARGS__)
 
-
+	OpenGlGlobalFunc(glDepthFunc);
+	#define glDepthFunc(...) GLFunctionWrap(glDepthFunc, __VA_ARGS__)
 
 	#define ShGlGetProcAddress(Name, FallbackModule, Arr)	\
 	 	Name##_ = (sh_##Name*)wglGetProcAddress(#Name); \
@@ -520,7 +531,7 @@ typedef void APIENTRY sh_glTexParameterf (GLenum target, GLenum pname, GLfloat p
 	OpenGlGlobalFunc(glBlendFunc);
 	OpenGlGlobalFunc(glViewport);
 	OpenGlGlobalFunc(glTexParameterf);
-
+	OpenGlGlobalFunc(glDepthFunc);
 
 
 	#define ShGlGetProcAddress(Name, FallbackModule, Arr)	\

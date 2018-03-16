@@ -28,6 +28,7 @@ namespace Shady
 		virtual void SwapBuffers();
 		virtual void Clear();
 		virtual b8 IsOpen();
+		virtual void SetBackgroundColor(const Vec4f& col);
 		virtual void Show();
 		virtual void Hide();
 		virtual void Minimize();

@@ -4,6 +4,7 @@
 #include <Commons.h>
 #include "ShadyGL.h"
 #include "ShString.h"
+#include "Vec4.h"
 
 #define SH_DEFAULT_WINDOW_WIDTH 1280
 #define SH_DEFAULT_WINDOW_HEIGHT 720
@@ -11,6 +12,8 @@
 
 namespace Shady
 {
+	
+
 	struct SH_INTERFACE Window
 	{
 		Window(const c8* title = SH_DEFAULT_WINDOW_TITLE, 
@@ -34,6 +37,7 @@ namespace Shady
 		virtual void SwapBuffers() = 0;
 		virtual void Clear() = 0;
 		virtual b8 IsOpen() = 0;
+		virtual void SetBackgroundColor(const Vec4f& col) = 0;
 		virtual void Show() = 0;
 		virtual void Hide() = 0;
 		virtual void Minimize() = 0;

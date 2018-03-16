@@ -18,20 +18,25 @@ namespace Shady
 		return mInstance;
 	}
 
-	void Renderer2D::DrawRectangle(u32 x, u32 y, u32 width, u32 height, Vec4f color)
+	void Renderer2D::DrawRectangle(u32 x, u32 y, u32 width, u32 height, Vec4f color, b8 outlined, Vec4f lineCol)
 	{
-		Renderer2D::GetInstance()->_DrawRectangle(x, y, width, height, color);
+		Renderer2D::GetInstance()->_DrawRectangle({ (f32)x, (f32)y, 0.0f }, width, height, color, outlined, lineCol);
+	}
+
+	void Renderer2D::DrawRectangle(Vec3f pos, u32 width, u32 height, Vec4f color, b8 outlined, Vec4f lineCol)
+	{
+		Renderer2D::GetInstance()->_DrawRectangle(pos, width, height, color, outlined, lineCol);
+	}
+
+	void Renderer2D::_DrawRectangle(Vec3f pos, u32 width, u32 height, Vec4f color, b8 outlined, Vec4f lineCol)
+	{
+		Rectangle* rect = new Rectangle(pos, width, height, true, outlined, color,2, lineCol);
+		Submit(rect);
 	}
 
 	void Renderer2D::DrawText(const char* text, u32 size, u32 x, u32 y, Vec4f color)
 	{
 		Renderer2D::GetInstance()->_DrawText(text, size, x, y, color);
-	}
-
-	void Renderer2D::_DrawRectangle(u32 x, u32 y, u32 width, u32 height, Vec4f color)
-	{
-		Rectangle* rect = new Rectangle(x, y, width, height, true, true, color);
-		Submit(rect);
 	}
 
 	void Renderer2D::_DrawText(const c8* text, u32 size, u32 x, u32 y, Vec4f color)

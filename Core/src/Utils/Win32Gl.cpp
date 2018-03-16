@@ -64,6 +64,7 @@ OpenGlGlobalFuncEx(glGetDebugMessageLog);
 OpenGlGlobalFuncEx(glBlendFunc);
 OpenGlGlobalFuncEx(glViewport);
 OpenGlGlobalFuncEx(glTexParameterf);
+OpenGlGlobalFuncEx(glDepthFunc);
 
 namespace Shady
 {
@@ -251,7 +252,8 @@ namespace Shady
 					glEnable(GL_BLEND);
 					glEnable(GL_LINE_SMOOTH); //Antialiasing				
 					glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-				
+					glEnable(GL_DEPTH_TEST);
+					glDepthFunc(GL_LESS);
 					return result;
 				}
 				else
@@ -339,17 +341,9 @@ namespace Shady
 		ShGlGetProcAddress(glDebugMessageCallback, gldll, result);
 		ShGlGetProcAddress(glGetDebugMessageLog, gldll, result);
 		ShGlGetProcAddress(glBlendFunc, gldll, result);
-		//ShGlGetProcAddress(glViewport, gldll, result);
-		glViewport_ = (sh_glViewport*)wglGetProcAddress("glViewport"); 
-		if(!glViewport_) 
-		{
-			glViewport_ = (sh_glViewport*)GetProcAddress(gldll, "glViewport");
-		} 
-		if(!glViewport_)
-		{
-			result.Add("glViewport");
-		}
+		ShGlGetProcAddress(glViewport, gldll, result);
 		ShGlGetProcAddress(glTexParameterf, gldll, result);
+		ShGlGetProcAddress(glDepthFunc, gldll, result);
 		
 		FreeLibrary(gldll);
 		return result;

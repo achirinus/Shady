@@ -14,6 +14,6 @@ namespace Shady
 
 	bool FlipFlop(b8& prev)
 	{
-		return (prev != prev);
+		return (prev = !prev);
 	}
 }

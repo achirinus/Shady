@@ -9,6 +9,12 @@ namespace Shady
 	{
 		static Vec4f Red;
 		static Vec4f White;
+		static Vec4f Grey;
+		static Vec4f DarkGrey;
+		static Vec4f Black;
+		static Vec4f Cyan;
+		static Vec4f Pink;
+		static Vec4f Yellow;
 	};
 }
 
