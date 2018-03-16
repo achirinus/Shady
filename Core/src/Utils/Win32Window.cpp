@@ -181,9 +181,9 @@ namespace Shady
 	{
 		mInstance = GetModuleHandle(NULL);
 
-		mCurrentCursor = (HCURSOR)LoadImageA(NULL, "cursor.cur", IMAGE_CURSOR, 0, 0, LR_DEFAULTSIZE | LR_LOADFROMFILE | LR_SHARED);
+		//mCurrentCursor = (HCURSOR)LoadImageA(NULL, "cursor.cur", IMAGE_CURSOR, 0, 0, LR_DEFAULTSIZE | LR_LOADFROMFILE | LR_SHARED);
 		Win32::CheckLastError();
-		HICON NewIcon = (HICON)LoadImageA(NULL, "icon.ico", IMAGE_ICON, 0, 0, LR_DEFAULTSIZE | LR_LOADFROMFILE | LR_SHARED);
+		HICON NewIcon = (HICON)LoadImageA(NULL, "TestIcoFile.ico", IMAGE_ICON, 0, 0, LR_DEFAULTSIZE | LR_LOADFROMFILE | LR_SHARED);
 		Win32::CheckLastError();
 		WNDCLASS wc = {};
 		wc.style = CS_OWNDC;
@@ -191,7 +191,7 @@ namespace Shady
 		wc.hInstance = mInstance;
 		wc.lpszClassName = TEXT(WINDOW_CLASS_NAME);
 		wc.hIcon = NewIcon;
-		wc.hCursor = mCurrentCursor;
+		
 
 		if(RegisterClass(&wc))
 		{

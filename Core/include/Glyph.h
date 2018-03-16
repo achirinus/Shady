@@ -11,7 +11,7 @@ namespace Shady
 		Glyph(const Vec3f& pos, Texture* texture, Shader* shader = 0);
 		virtual ~Glyph();
 		//virtual void draw();
-		
+		char mChar;
 	};
 }
 

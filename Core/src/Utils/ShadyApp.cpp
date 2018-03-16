@@ -122,9 +122,11 @@ namespace Shady
 		String title = String::FormatString("FPS:%d", mFps);
 		Text2D* fpsLabel = currentFont->getText({5.0f, 5.0f, -1.0f},
 												*title, 20.0f);
-		String CursorPosString = String::FormatString("Cursor Position:%v2", mMouse->GetCursorPosition());
-		Text2D* cursorPosText = currentFont->getText({5.0f, 30.0f, -1.0f}, *CursorPosString, 20.0f);
+		String CursorPosString = String::FormatString("Cursor Position: %v2", mMouse->GetCursorPosition());
+		Text2D* cursorPosText = currentFont->getText({5.0f, 30.0f, -1.0f}, *CursorPosString, 40.0f);
+		Text2D* testText = currentFont->getText({ 5.0f, 90.0f, -1.0f }, "Something something 112.50", 40.0f);
 
+		renderer2d->submit(testText);
 		renderer2d->submit(fpsLabel);
 		renderer2d->submit(cursorPosText);
 		renderer3d->submit(cube);

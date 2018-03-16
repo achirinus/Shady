@@ -107,7 +107,15 @@ namespace Shady
 				}
 				if(lastGlyphData)
 				{
-					kernAdvance = stbtt_GetCodepointKernAdvance(&mFontInfo, lastChar,  *str);
+					if (lastGlyphData != data)
+					{
+						kernAdvance = stbtt_GetCodepointKernAdvance(&mFontInfo, lastChar, *str);
+					}
+					else
+					{
+						kernAdvance = 0.f;
+					}
+					
 					thisPos.x += lastGlyphData->mAdvanceWidth * scale
 					 + kernAdvance * scale - scale * lastGlyphData->mLeftSideBearing; 
 				}
@@ -120,6 +128,7 @@ namespace Shady
 				{
 
 					Glyph* glyph = new Glyph(thisPos, data->texture, mShader);
+					glyph->mChar = *str;
 					glyph->scale(scale);
 					result->addGlyph(glyph);
 				}
