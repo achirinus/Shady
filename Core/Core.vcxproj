@@ -176,6 +176,7 @@
     <ClCompile Include="src\Input\ShKeyboard.cpp" />
     <ClCompile Include="src\Input\ShMouse.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\Utils\Console.cpp" />
     <ClCompile Include="src\Utils\CPUInstructionSet.cpp" />
     <ClCompile Include="src\Utils\ModelLoader.cpp" />
     <ClCompile Include="src\Utils\ShadyApp.cpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="include\Bitmap.h" />
     <ClInclude Include="include\Camera2D.h" />
     <ClInclude Include="include\Camera3D.h" />
+    <ClInclude Include="include\Console.h" />
     <ClInclude Include="include\CPUInstructionSet.h" />
     <ClInclude Include="include\Cube.h" />
     <ClInclude Include="include\Glyph.h" />

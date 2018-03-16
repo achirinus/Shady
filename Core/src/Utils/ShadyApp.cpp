@@ -163,6 +163,7 @@ namespace Shady
 		//TODO put these in their arena and take care of cleanup
 		mInputManager->MapAction("test", InputKey::MOUSE_LEFT);
 		mInputManager->MapAction("cameraLock", InputKey::MOUSE_RIGHT);
+		mInputManager->MapAction("ToggleConsole", InputKey::KEY_TILDA);
 		mInputManager->MapAxis("moveX", InputKey::KEY_A, -1.0f);
 		mInputManager->MapAxis("moveX", InputKey::KEY_D, 1.0f);
 		mInputManager->MapAxis("moveY", InputKey::KEY_W, -1.0f);

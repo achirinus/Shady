@@ -36,10 +36,13 @@ namespace Shady
 
 	void ClearMem(void* mem, u64 size);
 
-	u64 operator "" _KB(u64 in);
-	u64 operator "" _MB(u64 in);
-	u64 operator "" _GB(u64 in);
+
+	//template<typename Bytes, typename LeftShiftBits>
+	//auto _BytesToMoreBytes() { return Bytes << LeftShiftBits; }
 	
+#define MegaBytes(InBytes) (InBytes << 20)
+
+	bool FlipFlop(b8& prev);
 }
 
 #endif
