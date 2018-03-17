@@ -39,9 +39,22 @@ namespace Shady
 		Renderer2D::GetInstance()->_DrawText(text, size, x, y, color);
 	}
 
+	void Renderer2D::DrawText(const char* text, u32 size, Vec3f pos, Vec4f color)
+	{
+		Renderer2D::GetInstance()->_DrawText(text, size, pos, color);
+	}
+
 	void Renderer2D::_DrawText(const c8* text, u32 size, u32 x, u32 y, Vec4f color)
 	{
-		Text2D* sprite = ShadyApp::GetInstance()->currentFont->getText(Vec3f(x, y, -1.0f), text, size);
+		Text2D* sprite = ShadyApp::GetInstance()->currentFont->GetText(Vec3f(x, y, 0.0f), text, size);
+		sprite->SetColor(color);
+		Submit(sprite);
+	}
+
+	void Renderer2D::_DrawText(const c8* text, u32 size, Vec3f pos, Vec4f color)
+	{
+		Text2D* sprite = ShadyApp::GetInstance()->currentFont->GetText(pos, text, size);
+		sprite->SetColor(color);
 		Submit(sprite);
 	}
 
@@ -53,7 +66,10 @@ namespace Shady
 	void Renderer2D::Submit(Renderable2D* sprite, f32 lifeTime)
 	{
 		sprite->mLifeTime = lifeTime;
-		mLifeTimeSprites.Add(sprite);
+		if (lifeTime > 0.f)
+		{
+			mLifeTimeSprites.Add(sprite);
+		}
 	}
 
 	void Renderer2D::Render()

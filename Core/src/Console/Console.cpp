@@ -40,11 +40,16 @@ namespace Shady
 	{
 		if (mIsOpen)
 		{
-			Renderer2D::DrawRectangle({0.0f, 0.0f, 2.0f}, mWidth, mHeight, ColorVec::DarkGrey, true, ColorVec::Black);
+			Renderer2D::DrawRectangle({0.0f, 0.0f, 2.0f}, mWidth, mHeight, ColorVec::DarkGrey, true, ColorVec::Pink);
 		}
 	}
 
 	void Console::Update(f32 dt)
+	{
+
+	}
+
+	void Console::Log(const c8* str)
 	{
 
 	}

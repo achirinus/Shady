@@ -23,13 +23,14 @@ namespace Shady
 		GLuint mVBO[NUM_BUFFERS];
 		GLuint mVAO;
 		Texture* mTexture;
-		
+		b8 mIsTransparent;
 		
 		Sprite(const Vec3f& pos, u32 width, u32 height, Texture* texture = nullptr,  
 				const Vec4f& color = {1.0f, 1.0f, 1.0f, 1.0f}, b8 posInCenter = true, Shader* shader = 0);
 		Sprite(const Vec3f& pos, Texture* texture, b8 posInCenter = true, Shader* shader = 0);									 
 		virtual ~Sprite();
 
+		virtual void SetTransparency(b8 transparent);
 		virtual Matrix4f getModelMat();
 		virtual void initGlBuffers(const Vec3f& pos, const Vec4f& color, b8 posInCenter);
 		virtual void update();

@@ -5,6 +5,7 @@
 #include "stb_truetype.h"
 namespace Shady
 {
+#define DEFAULT_FONT_SIZE 40.0f
 
 	Font::~Font()
 	{
@@ -17,7 +18,7 @@ namespace Shady
 		delete mShader;
 	}
 
-	Font::Font(): mGlyphs(), mFontSize(40.0f)
+	Font::Font(): mGlyphs(), mFontSize(DEFAULT_FONT_SIZE)
 	{
 		mShader = new Shader("text", SH_FRAGMENT_SHADER | SH_VERTEX_SHADER);
 		STBloadSupportedGlyphs(mFontSize);
@@ -43,7 +44,7 @@ namespace Shady
 
 	void Font::STBloadSupportedGlyphs(f32 sizeInPixels)
 	{
-		BinaryFileContent fileResult = File::win32ReadBinaryFile("c:/windows/fonts/arial.ttf");
+		Win32BinaryFileContent fileResult = File::win32ReadBinaryFile("c:/windows/fonts/arial.ttf");
 		
 		stbtt_InitFont(&mFontInfo, (u8*)fileResult.contents, 
 						stbtt_GetFontOffsetForIndex((u8*)fileResult.contents, 0));
@@ -62,9 +63,10 @@ namespace Shady
 			stbtt_GetCodepointHMetrics(&mFontInfo, cp, &advanceW, &leftBearing);
 			mGlyphs.Add(cp,  {tex, advanceW * mScale, leftBearing * mScale, xOffset, yOffset});
 		}
+		fileResult.Clear();
 	}
 
-	Text2D* Font::getText(Vec3f pos, const c8* str, f32 size)
+	Text2D* Font::GetText(Vec3f pos, const c8* str, f32 size)
 	{
 		f32 baseLine = pos.y;
 		u32 numOfChars = 0;
@@ -130,6 +132,7 @@ namespace Shady
 					Glyph* glyph = new Glyph(thisPos, data->texture, mShader);
 					glyph->mChar = *str;
 					glyph->scale(scale);
+					glyph->SetTransparency(true);
 					result->addGlyph(glyph);
 				}
 			}
@@ -144,7 +147,7 @@ namespace Shady
 		return result;
 	}
 
-	Texture* Font::getGlyph(c8 codePoint)
+	Texture* Font::GetGlyph(c8 codePoint)
 	{
 		return mGlyphs[codePoint].texture;
 	}

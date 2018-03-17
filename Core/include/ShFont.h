@@ -38,8 +38,8 @@ namespace Shady
 		f32 mFontSize;
 		f32 mScale;
 
-		Text2D* getText(Vec3f pos, const c8* str, f32 size);
-		Texture* getGlyph(c8 codePoint);
+		Text2D* GetText(Vec3f pos, const c8* str, f32 size);
+		Texture* GetGlyph(c8 codePoint);
 
 	};
 }

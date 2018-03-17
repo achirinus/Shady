@@ -24,7 +24,7 @@ namespace Shady
 		u32 getHeight() {return mHeight;}
 	private:
 
-		void initGlTexture(Bitmap bmp);
+		
 		void initGlTexture(u8* imageData);
 
 		GLuint mTexture;

@@ -29,5 +29,6 @@ void main()
 	else
 	{
 		color = fs_in.vertColor;
+		
 	}
 }

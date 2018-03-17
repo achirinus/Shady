@@ -34,7 +34,7 @@ namespace Shady
 	s32 GetLine(c8* buffer, s32 bufferLength, c8* str);
 	b8 EndsWith(c8* str, c8* end);
 	b8 BeginsWith(const c8* str, const c8* strToFind);
-	void StrCopy(c8* buffer, const c8* str);
+	s32 StrCopy(c8* buffer, const c8* str);
 	void StrnCopy(c8* buffer, u32 num, const c8* str);
 	s32 StrCopyNoTerminator(c8* buffer, const c8* str);
 	void CustomFormat(c8* buffer, const c8* format ...);

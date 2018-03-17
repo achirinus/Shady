@@ -25,6 +25,7 @@ namespace Shady
 		void Init();
 		void Render();
 		void Update(f32 dt);
+		void Log(const c8* str);
 	};
 }
 

@@ -78,8 +78,8 @@ namespace Shady
 		
 		//END TEST ------------------------------------------
 		mMainWindow->DisableVSync();
-		setFpsLimit(60);
-		setUpdateFreq(60);
+		//setFpsLimit(60);
+		//setUpdateFreq(60);
 		while (mMainWindow->IsOpen())
 		{
 			
@@ -117,24 +117,28 @@ namespace Shady
 		camera3d->Update(dt);
 		//testSprite->update();
 		
+		String td("abcd");
+		td += "10";
+		td += "10";
+		td = td + "20";
+		td += "10";
 
 		//Fps display
 		
 		String fpsText = String::FormatString("FPS:%d", mFps);
-		Renderer2D::DrawText(*fpsText, 20.0f, 5.0f, 5.0f);
+		Renderer2D::DrawText(*fpsText, 20.0f, {mMainWindow->mWidth - 200.0f, 5.0f, 1.0f}, ColorVec::White);
 		
 		String CursorPosString = String::FormatString("Cursor Position: %v2", mMouse->GetCursorPosition());
-		Text2D* cursorPosText = currentFont->getText({5.0f, 30.0f, 1.0f}, *CursorPosString, 40.0f);
-		Text2D* testText = currentFont->getText({ 5.0f, 90.0f, 1.0f }, "Something something 112.50", 40.0f);
-
-		renderer2d->Submit(testText);
+		Text2D* cursorPosText = currentFont->GetText({5.0f, 30.0f, 1.0f}, *CursorPosString, 20.0f);
+		
+		Renderer2D::DrawText("Something something 112.50", 40.0f, { 5.0f, 130.0f, 1.0f }, ColorVec::Red);
 		
 		renderer2d->Submit(cursorPosText);
 		renderer3d->submit(cube);
-
-
+		
+		
 		mConsole->Update(dt);
-
+		
 		//for now use mFds and limit only the render function because
 		//the  ads from both limit() calls. we need separate threads
 		#if 0

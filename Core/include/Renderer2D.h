@@ -5,7 +5,7 @@
 #include "ShQueue.h"
 #include "Shader.h"
 #include "Camera2D.h"
-
+#include "ShList.h"
 #include "ColorVec.h"
 namespace Shady
 {
@@ -17,12 +17,14 @@ namespace Shady
 	private:
 		Queue<Renderable2D*> mSprites;
 		Array<Renderable2D*> mLifeTimeSprites;
+		
 		Renderer2D();
 		static Renderer2D* mInstance;
 
 		void DrawSprite(Renderable2D* sprite);
 		void _DrawRectangle(Vec3f pos, u32 width, u32 height, Vec4f color, b8 outlined, Vec4f lineCol);
 		void _DrawText(const char* text, u32 size, u32 x, u32 y, Vec4f color = ColorVec::White);
+		void _DrawText(const char* text, u32 size, Vec3f pos, Vec4f color = ColorVec::White);
 	public:
 		Camera2D* mCamera;
 
@@ -30,6 +32,7 @@ namespace Shady
 		static void DrawRectangle(u32 x, u32 y, u32 width, u32 height, Vec4f color = ColorVec::Red, b8 outlined = false, Vec4f lineColor = ColorVec::Black);
 		static void DrawRectangle(Vec3f pos, u32 width, u32 height, Vec4f color = ColorVec::Red, b8 outlined = false, Vec4f lineColor = ColorVec::Black);
 		static void DrawText(const c8* text, u32 size, u32 x, u32 y, Vec4f color = ColorVec::White);
+		static void DrawText(const c8* text, u32 size, Vec3f pos, Vec4f color = ColorVec::White);
 		void Submit(Renderable2D* sprite);
 		void Submit(Renderable2D* sprite, f32 lifeTime);
 		void Render();

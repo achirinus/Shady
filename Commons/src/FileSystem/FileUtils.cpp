@@ -87,7 +87,10 @@ namespace Shady
 				c8* str = new c8[fileSize + 1];
 				ReadFile(fileHandle, (void*)str, fileSize, &bytesRead, NULL);
 				str[fileSize] = '\0';
-				return String(str);
+				String result(str);
+				delete[] str;
+				CloseHandle(fileHandle);
+				return result;
 			}
 
 			String win32ReadTextFile(const String& fileName)
@@ -95,7 +98,7 @@ namespace Shady
 				return win32ReadTextFile(fileName.CStr());	
 			}
 
-			BinaryFileContent win32ReadBinaryFile(const char* fileName)
+			Win32BinaryFileContent win32ReadBinaryFile(const char* fileName)
 			{
 
 				void* resultMemory;
@@ -130,15 +133,15 @@ namespace Shady
 				return {resultMemory, bytesRead};
 			}
 
-			BinaryFileContent win32ReadBinaryFile(const String& fileName)
+			Win32BinaryFileContent win32ReadBinaryFile(const String& fileName)
 			{
 				return win32ReadBinaryFile(fileName.CStr());
 			}
 
-			BinaryFileContent readBinaryFile(const char* fileName)
+			Win32BinaryFileContent readBinaryFile(const char* fileName)
 			{
 				FILE* file;
-				BinaryFileContent result{};
+				Win32BinaryFileContent result{};
 				fopen_s(&file, fileName, "rb");
 				SH_ASSERT(file != nullptr);
 				fseek(file, 0, SEEK_END);

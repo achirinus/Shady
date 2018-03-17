@@ -9,10 +9,11 @@
 
 namespace Shady
 {
-	struct BinaryFileContent
+	struct Win32BinaryFileContent
 	{
 		void* contents;
 		u32 sizeInBytes;
+		void Clear() { VirtualFree(contents, sizeInBytes, MEM_RELEASE); }
 	};
 	namespace File
 	{
@@ -22,9 +23,9 @@ namespace Shady
 		void readObj2(const char* fileName);
 		String win32ReadTextFile(const char* fileName);
 		String win32ReadTextFile(const String& fileName);
-		BinaryFileContent win32ReadBinaryFile(const char* fileName);
-		BinaryFileContent win32ReadBinaryFile(const String& fileName);
-		BinaryFileContent readBinaryFile(const char* fileName);
+		Win32BinaryFileContent win32ReadBinaryFile(const char* fileName);
+		Win32BinaryFileContent win32ReadBinaryFile(const String& fileName);
+		Win32BinaryFileContent readBinaryFile(const char* fileName);
 		b8 win32WriteFile(const char* fileName, void* memory, u32 memSize);
 	}
 	

@@ -89,6 +89,7 @@ namespace Shady
 					 const Vec4f& color, b8 posInCenter, Shader* shader): 
 	mTexture(texture) 
 	{
+		mIsTransparent = false;
 		mOwnShader = false;
 		mModelMat = Matrix4f(1);
 		mColor = color;
@@ -117,7 +118,7 @@ namespace Shady
 	Sprite::Sprite(const Vec3f& pos, Texture* texture, b8 posInCenter, Shader* shader):
 	 mTexture(texture)
 	{
-		
+		mIsTransparent = false;
 		mOwnShader = false;
 		mModelMat = Matrix4f(1);
 		mColor = Vec4f(1.0f, 1.0f, 1.0f, 1.0f);
@@ -204,11 +205,18 @@ namespace Shady
 		}
 	}
 
+	void Sprite::SetTransparency(b8 transparent)
+	{
+		mIsTransparent = transparent;
+	}
+
 	void Sprite::setColor(const Vec4f& color)
 	{
 		mColor = color;
 		Vec4f colors[] = 
 		{
+			mColor,
+			mColor,
 			mColor,
 			mColor,
 			mColor,
@@ -242,6 +250,7 @@ namespace Shady
 
 	void Sprite::draw(Renderer2D* renderer)
 	{
+		if(mIsTransparent) glDepthMask(false);
 
 		if(mTexture) mTexture->bind(0);
 		mShader->Enable();
@@ -255,6 +264,8 @@ namespace Shady
 				
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 		glBindVertexArray(0);
+
+		if (mIsTransparent) glDepthMask(true);
 		if(mTexture) mTexture->unbind(0);
 		mShader->Disable();
 	}

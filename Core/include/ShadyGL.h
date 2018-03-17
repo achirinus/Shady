@@ -184,6 +184,9 @@ typedef ptrdiff_t GLintptr;
 #define GL_TEXTURE30                      0x84DE
 #define GL_TEXTURE31                      0x84DF
 
+#define GL_ACTIVE_TEXTURE                 0x84E0
+#define GL_MULTISAMPLE                    0x809D
+
 #define GL_ARRAY_BUFFER                   0x8892
 #define GL_ELEMENT_ARRAY_BUFFER           0x8893
 #define GL_DYNAMIC_DRAW                   0x88E8
@@ -272,6 +275,7 @@ typedef void APIENTRY sh_glBlendFunc (GLenum sfactor, GLenum dfactor);
 typedef void APIENTRY sh_glViewport (GLint x, GLint y, GLsizei width, GLsizei height);
 typedef void APIENTRY sh_glTexParameterf (GLenum target, GLenum pname, GLfloat param);
 typedef void APIENTRY sh_glDepthFunc(GLenum func);
+typedef void APIENTRY sh_glDepthMask(GLboolean flag);
 #define OpenGlGlobalFuncEx(Name) sh_##Name* Name##_
 
 #ifdef GL_FUNCS_AS_MACROS
@@ -463,6 +467,9 @@ typedef void APIENTRY sh_glDepthFunc(GLenum func);
 	OpenGlGlobalFunc(glDepthFunc);
 	#define glDepthFunc(...) GLFunctionWrap(glDepthFunc, __VA_ARGS__)
 
+	OpenGlGlobalFunc(glDepthMask);
+	#define glDepthMask(...) GLFunctionWrap(glDepthMask, __VA_ARGS__)
+
 	#define ShGlGetProcAddress(Name, FallbackModule, Arr)	\
 	 	Name##_ = (sh_##Name*)wglGetProcAddress(#Name); \
 		if(!Name##_) {Name##_ = (sh_##Name*)GetProcAddress(FallbackModule,#Name);} \
@@ -532,7 +539,7 @@ typedef void APIENTRY sh_glDepthFunc(GLenum func);
 	OpenGlGlobalFunc(glViewport);
 	OpenGlGlobalFunc(glTexParameterf);
 	OpenGlGlobalFunc(glDepthFunc);
-
+	OpenGlGlobalFunc(glDepthMask);
 
 	#define ShGlGetProcAddress(Name, FallbackModule, Arr)	\
 	 	Name = (sh_##Name*)wglGetProcAddress(#Name); \

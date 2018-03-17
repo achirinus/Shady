@@ -6,9 +6,11 @@
 
 namespace Shady
 {
-		
+	MultiMap<String, String> Shader::sChachedShaderFiles;
+	int Shader::CurrentObjects = 0;
 	Shader::Shader(const char* name, u32 flags): mAttribIndex(0), mIsLinked{false}, mShaderName{name}, mFlags{flags}
 	{
+		CurrentObjects++;
 		String basePath(SHADER_BASE_DIR);
 		basePath += mShaderName;
 		mVertFileName = basePath + ".vert";
@@ -97,19 +99,22 @@ namespace Shady
 			glDeleteProgram(prog);
 			delete[] log;
 		}
-		
 		else
 		{
 			result = true;
 			glValidateProgram(prog);
 			GLint logSize = 0;
 			glGetProgramiv(prog, GL_VALIDATE_STATUS, &logSize);
-			char* log2 = new char[logSize];
-			glGetProgramInfoLog(prog, logSize, &logSize, log2);
+			if (logSize > 1)
+			{
+				char* log2 = new char[logSize];
+				glGetProgramInfoLog(prog, logSize, &logSize, log2);
 
-			//Better log
-			DEBUG_OUT_INFO(log2);
-			delete[] log2;
+				//Better log
+				DEBUG_OUT_INFO(log2);
+				delete[] log2;
+			}
+				
 		}
 		return result;
 	}
@@ -123,10 +128,20 @@ namespace Shady
 	b8 Shader::CompileShader(String& fileName, GLuint shader)
 	{
 		b8 result = true;
-		String shsrc = File::win32ReadTextFile(fileName);
-		int shLen = shsrc.Size();
-		const c8* tempSrc = shsrc.CStr();
-		glShaderSource(shader, 1, &tempSrc, &shLen);
+		String ShaderSource;
+		if (sChachedShaderFiles.HasKey(fileName))
+		{
+			ShaderSource = sChachedShaderFiles[fileName];
+		}
+		else
+		{
+			ShaderSource = File::win32ReadTextFile(fileName);
+			sChachedShaderFiles.Add(fileName, ShaderSource);
+		}
+		
+		int ShaderLength = ShaderSource.Size();
+		const c8* tempSrc = ShaderSource.CStr();
+		glShaderSource(shader, 1, &tempSrc, &ShaderLength);
 		glCompileShader(shader);
 
 		GLint compiled = 0;
@@ -205,6 +220,7 @@ namespace Shady
 
 	Shader::~Shader()
 	{
+		CurrentObjects--;
 		glDeleteProgram(mProgram);
 		FileChangeObserver* obs = FileChangeObserver::GetInstance();
 			if(obs)

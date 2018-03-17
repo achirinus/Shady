@@ -8,7 +8,7 @@
 #include "Matrix4f.h"
 #include "ShString.h"
 #include "FileChangeObserver.h"
-
+#include "ShMultiMap.h"
 
 namespace Shady
 {
@@ -21,6 +21,7 @@ namespace Shady
 		SH_GEOMETRY_SHADER = 0x08
 	};
 
+	
 	class Shader : public Object
 	{
 	protected:
@@ -31,6 +32,8 @@ namespace Shady
 		b8 mIsLinked;
 		u32 mFlags;
 		u32 mAttribIndex;
+
+		static MultiMap<String, String> sChachedShaderFiles;
 
 		void BindAttrib(String& name, u32 location);
 		b8 CompileShader(String& fileName, GLuint shader);
@@ -51,6 +54,8 @@ namespace Shady
 		void SetUniform4f(const char* name, const Vec4f& vec4);
 		void SetUniformMat4(const char* name, Matrix4f& mat4);
 		void SetUniformMat4(const char* name, f32* mat4, b8 transpose);
+
+		static int CurrentObjects;
 	};
 
 }

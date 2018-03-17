@@ -65,6 +65,7 @@ OpenGlGlobalFuncEx(glBlendFunc);
 OpenGlGlobalFuncEx(glViewport);
 OpenGlGlobalFuncEx(glTexParameterf);
 OpenGlGlobalFuncEx(glDepthFunc);
+OpenGlGlobalFuncEx(glDepthMask);
 
 namespace Shady
 {
@@ -77,7 +78,7 @@ namespace Shady
 								 GLsizei length, const GLchar* message, const void* userParam)
 	{
 		DEBUG_OUT_ERR(message);
-		//SH_ASSERT(!message);
+		SH_ASSERT(!message);
 	}
 	
 
@@ -254,6 +255,7 @@ namespace Shady
 					glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 					glEnable(GL_DEPTH_TEST);
 					glDepthFunc(GL_LESS);
+					//glEnable(GL_MULTISAMPLE);
 					return result;
 				}
 				else
@@ -344,7 +346,8 @@ namespace Shady
 		ShGlGetProcAddress(glViewport, gldll, result);
 		ShGlGetProcAddress(glTexParameterf, gldll, result);
 		ShGlGetProcAddress(glDepthFunc, gldll, result);
-		
+		ShGlGetProcAddress(glDepthMask, gldll, result);
+
 		FreeLibrary(gldll);
 		return result;
 	}

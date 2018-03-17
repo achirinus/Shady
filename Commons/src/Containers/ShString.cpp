@@ -99,7 +99,8 @@ namespace Shady
 	String& String::operator=(const String& other)
 	{
 		mBufferSize = other.mBufferSize;
-		if(!mBuffer) mBuffer = new c8[mBufferSize];
+		if(mBuffer) delete[] mBuffer;
+		mBuffer = new c8[mBufferSize];
 		StrCopy(mBuffer, other.mBuffer);
 		return *this;
 	}
@@ -162,45 +163,35 @@ namespace Shady
 
 	String String::operator+(const c8* str)
 	{
-		u32 len = StrLength(str);
+		String result = *this;
+		result += str;
+		/*
 		if(len > 0)
 		{
-			String result;
 			result.InitBuffer(mBufferSize + len);
 
 			c8* tempBuffer = result.mBuffer;
-			c8* tempMBuffer = mBuffer;
-			while(*tempMBuffer) *tempBuffer++ = *tempMBuffer++;
-			while(*str) *tempBuffer++ = *str++;
+			s32 move = StrCopyNoTerminator(tempBuffer, mBuffer);
+			tempBuffer += move;
+			move = StrCopyNoTerminator(tempBuffer, str);
+			tempBuffer += move;
 			(*tempBuffer)	= '\0';
 			return result;
 		}
-		
-		return *this;
+		*/
+		return result;
 	}
 
 	String String::operator+(const c8 c)
 	{
-		String result;
-		if(mBuffer)
-		{
-			result.InitBuffer(mBufferSize + 1);
-			StrCopyNoTerminator(result.mBuffer, mBuffer);
-			*(result.mBuffer + result.mBufferSize - 2) = c;
-			*(result.mBuffer + result.mBufferSize - 1) = '\0';
-		}
-		else
-		{
-			result.InitBuffer(2);
-			result.mBuffer[0] = c;
-			result.mBuffer[1] = '\0';
-		}
+		String result = *this;
+		result += c;
 		return result;
 	}
 
 	String String::operator+(s32 num)
 	{
-		String result;
+		String result = *this;
 		c8* temp = S32ToStr(num);
 
 		result.InitBuffer(mBufferSize + StrLength(temp));
@@ -213,22 +204,9 @@ namespace Shady
 
 	String String::operator+(const String& other)
 	{
-		const c8* str = other.CStr();
-		u32 len = other.Size();
-		if(len > 0)
-		{
-			String result;
-			result.mBufferSize = mBufferSize + len;
-			result.mBuffer = new c8[result.mBufferSize];
-			c8* tempBuffer = result.mBuffer;
-			c8* tempMBuffer = mBuffer;
-			while(*tempMBuffer) *tempBuffer++ = *tempMBuffer++;
-			while(*str) *tempBuffer++ = *str++;
-			(*tempBuffer)	= '\0';
-			return result;
-		}
-		return *this;
-
+		String result = *this;
+		result += other;
+		return result;
 	}
 	String& String::operator+=(const c8* str)
 	{
@@ -241,8 +219,10 @@ namespace Shady
 				c8* temp = new c8[mBufferSize];
 				c8* tempBuffer = temp;
 				c8* tempMBuffer = mBuffer;
-				while(*tempMBuffer) *tempBuffer++ = *tempMBuffer++;
-				while(*str) *tempBuffer++ = *str++;
+				s32 move = StrCopyNoTerminator(tempBuffer, tempMBuffer);
+				tempBuffer += move;
+				move = StrCopyNoTerminator(tempBuffer, str);
+				tempBuffer += move;
 				(*tempBuffer)	= '\0';
 				delete[] mBuffer;
 				mBuffer = temp;

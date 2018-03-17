@@ -17,7 +17,7 @@ in VS_OUT
 
 void main()
 {
-	vec4 texColor = texture(texSampler, fs_in.texCoord);
-	color = fs_in.vertColor * texColor;
-	
+	//vec4 texColor = vec4(1, 1, 1, texture(texSampler, fs_in.texCoord).a);
+	//color = fs_in.vertColor * texColor;
+	color = vec4(1, 1, 1, texture(texSampler, fs_in.texCoord)) * fs_in.vertColor;
 }
