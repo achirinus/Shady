@@ -4,6 +4,7 @@
 #include <Commons.h>
 #include <ShIterator.h>
 #include <initializer_list>
+#include <new>
 
 namespace Shady
 {
@@ -209,14 +210,14 @@ namespace Shady
 		template<typename ...Args>
 		void Put(Args... vArgs)
 		{
-			if(mBufferSize)
+			if (mBufferSize)
 			{
-				if(mNumOfElem >= mBufferSize)
+				if (mNumOfElem >= mBufferSize)
 				{
 					mBufferSize *= 2;
 					T* temp = mBuffer;
 					mBuffer = new T[mBufferSize];
-					for(u32 i = 0; i < mNumOfElem; i++)
+					for (u32 i = 0; i < mNumOfElem; i++)
 					{
 						mBuffer[i] = temp[i];
 					}
@@ -328,6 +329,47 @@ namespace Shady
 			}
 			mNumOfElem--;
 			return *this;
+		}
+
+		b8 Has(T& elem)
+		{
+			b8 result = false;
+			for (T& itElem : *this)
+			{
+				if (elem == itElem)
+				{
+					result = true;
+				}
+			}
+			return result;
+		}
+
+		s32 FindFirstIndex(T& elem)
+		{
+			s32 result = -1;
+			for (u32 i = 0; i < mNumOfElem; i++)
+			{
+				if (elem == mBuffer[mNumOfElem])
+				{
+					result = i;
+					break;
+				}
+			}
+			return result;
+		}
+
+		s32 FindLastIndex(T& elem)
+		{
+			s32 result = -1;
+			for (u32 i = mNumOfElem - 1; i <= 0; i--)
+			{
+				if (elem == mBuffer[mNumOfElem])
+				{
+					result = i;
+					break;
+				}
+			}
+			return result;
 		}
 
 		Array<T>& Fit()

@@ -33,7 +33,7 @@ namespace Shady
 		u32 mFlags;
 		u32 mAttribIndex;
 
-		static MultiMap<String, String> sChachedShaderFiles;
+		
 
 		void BindAttrib(String& name, u32 location);
 		b8 CompileShader(String& fileName, GLuint shader);

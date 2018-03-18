@@ -1,5 +1,5 @@
 #include "Line2D.h"
-
+#include "ShaderManager.h"
 namespace Shady
 {
 	Line2D::Line2D(Vec3f posA, Vec3f posB, Vec4f col, u32 width, Shader* shader): Renderable2D()
@@ -16,7 +16,7 @@ namespace Shady
 		}
 		else
 		{
-			mShader = new Shader("basicLine", SH_FRAGMENT_SHADER | SH_VERTEX_SHADER);
+			mShader = ShaderManager::CreateShader("basicLine");
 		}
 		
 		Vec3f vertices[2] = 
@@ -98,10 +98,7 @@ namespace Shady
 	{
 		glDeleteBuffers(NUM_BUFFERS, mVBO);
 		glDeleteVertexArrays(1, &mVAO);
-		if (mOwnShader && mShader)
-		{
-			delete mShader;
-		}
+		
 		
 	}
 }

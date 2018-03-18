@@ -1,6 +1,9 @@
 #include "ShFont.h"
 #include "ShadyApp.h"
 #include "Line2D.h"
+#include "ShaderManager.h"
+
+
 #define STB_TRUETYPE_IMPLEMENTATION
 #include "stb_truetype.h"
 namespace Shady
@@ -14,13 +17,11 @@ namespace Shady
 			Texture* tex = mGlyphs[mGlyphs.GetKeyByIndex(index)].texture;
 			delete tex;
 		}
-
-		delete mShader;
 	}
 
 	Font::Font(): mGlyphs(), mFontSize(DEFAULT_FONT_SIZE)
 	{
-		mShader = new Shader("text", SH_FRAGMENT_SHADER | SH_VERTEX_SHADER);
+		mShader = ShaderManager::CreateShader("text");
 		STBloadSupportedGlyphs(mFontSize);
 	}
 

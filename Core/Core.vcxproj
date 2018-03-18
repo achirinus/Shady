@@ -168,6 +168,7 @@
     <ClCompile Include="src\Graphics\Renderer2D.cpp" />
     <ClCompile Include="src\Graphics\Renderer3D.cpp" />
     <ClCompile Include="src\Graphics\Shader.cpp" />
+    <ClCompile Include="src\Graphics\ShaderManager.cpp" />
     <ClCompile Include="src\Graphics\ShFont.cpp" />
     <ClCompile Include="src\Graphics\Sprite.cpp" />
     <ClCompile Include="src\Graphics\Text2D.cpp" />
@@ -208,6 +209,7 @@
     <ClInclude Include="include\Renderer2D.h" />
     <ClInclude Include="include\Renderer3D.h" />
     <ClInclude Include="include\Shader.h" />
+    <ClInclude Include="include\ShaderManager.h" />
     <ClInclude Include="include\ShadyApp.h" />
     <ClInclude Include="include\ShadyGL.h" />
     <ClInclude Include="include\ShClock.h" />

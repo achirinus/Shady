@@ -1,12 +1,11 @@
 #include "Shader.h"
 #include <FileUtils.h>
-#include <iostream>
-
+#include "ShaderManager.h"
 #define SHADER_BASE_DIR "src\\Shaders\\"
 
 namespace Shady
 {
-	MultiMap<String, String> Shader::sChachedShaderFiles;
+	
 	int Shader::CurrentObjects = 0;
 	Shader::Shader(const char* name, u32 flags): mAttribIndex(0), mIsLinked{false}, mShaderName{name}, mFlags{flags}
 	{
@@ -129,14 +128,14 @@ namespace Shady
 	{
 		b8 result = true;
 		String ShaderSource;
-		if (sChachedShaderFiles.HasKey(fileName))
+		if (ShaderManager::sChachedShaderFiles.HasKey(fileName))
 		{
-			ShaderSource = sChachedShaderFiles[fileName];
+			ShaderSource = ShaderManager::sChachedShaderFiles[fileName];
 		}
 		else
 		{
 			ShaderSource = File::win32ReadTextFile(fileName);
-			sChachedShaderFiles.Add(fileName, ShaderSource);
+			ShaderManager::sChachedShaderFiles.Add(fileName, ShaderSource);
 		}
 		
 		int ShaderLength = ShaderSource.Size();

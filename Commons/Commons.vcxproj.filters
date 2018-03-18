@@ -93,6 +93,9 @@
     <ClInclude Include="include\ColorVec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\ShHashMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Containers\ShString.cpp">

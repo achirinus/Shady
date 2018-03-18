@@ -1,5 +1,5 @@
 #include "Rectangle.h"
-
+#include "ShaderManager.h"
 #define ENABLE_LINES 1
 
 namespace Shady
@@ -8,7 +8,6 @@ namespace Shady
 	Rectangle::Rectangle(Vec3f pos, f32 width, f32 height, b8 filled, 
 						b8 withBorder, Vec4f col, f32 lineWidth, Vec4f lineCol): isFilled(filled), hasBorder(withBorder)
 	{
-		
 		if(isFilled) //Create the fill sprite
 		{
 			fillArea = new Sprite({ pos.x, pos.y, pos. z}, width, height, nullptr, col, false);
@@ -21,7 +20,7 @@ namespace Shady
 			Vec3f botRight(pos.x + width, pos.y + height, pos.z - 1.1f);
 			Vec3f botLeft(pos.x, pos.y + height, pos.z - 0.1f);
 
-			Shader* lineShader = new Shader("basicLine", SH_FRAGMENT_SHADER | SH_VERTEX_SHADER);
+			Shader* lineShader = ShaderManager::CreateShader("basicLine");
 			
 			topEdge = new Line2D(topLeft, topRight, lineCol, lineWidth, lineShader);
 			rightEdge = new Line2D(topRight, botRight, lineCol, lineWidth, lineShader);
@@ -50,7 +49,6 @@ namespace Shady
 
 	Rectangle::~Rectangle()
 	{
-		
 		if(isFilled)
 		{
 			delete fillArea;
@@ -58,14 +56,10 @@ namespace Shady
 #if ENABLE_LINES
 		if((isFilled && hasBorder) || !isFilled)
 		{
-			Shader* lineShader = topEdge->mShader;
 			delete topEdge;
 			delete rightEdge;
 			delete botEdge;
 			delete leftEdge;
-
-			
-			delete lineShader;
 		}
 #endif	
 	}

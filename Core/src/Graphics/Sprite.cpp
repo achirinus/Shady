@@ -1,5 +1,6 @@
 #include "Sprite.h"
 #include "Windows.h"
+#include "ShaderManager.h"
 
 namespace Shady
 {
@@ -103,13 +104,11 @@ namespace Shady
 		mRoll = 0.0f;
 		if(!shader)
 		{
-			mShader = new Shader("basic", SH_FRAGMENT_SHADER | SH_VERTEX_SHADER);
-			mOwnShader = true;
+			mShader = ShaderManager::CreateShader("basic");
 		}
 		else
 		{
 			mShader = shader;
-			mOwnShader = false;
 		}
 		initGlBuffers(mPos, mColor, posInCenter);
 		
@@ -148,10 +147,7 @@ namespace Shady
 	{
 		glDeleteBuffers(NUM_BUFFERS, mVBO);
 		glDeleteVertexArrays(1, &mVAO);
-		if(mOwnShader && mShader)
-		{
-			delete mShader;
-		}
+		
 	}
 
 	void Sprite::move(const Vec3f& vec)

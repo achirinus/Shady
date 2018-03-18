@@ -157,6 +157,7 @@
     <ClInclude Include="include\ShAssert.h" />
     <ClInclude Include="include\ShBiTree.h" />
     <ClInclude Include="include\ShBitset.h" />
+    <ClInclude Include="include\ShHashMap.h" />
     <ClInclude Include="include\ShIterator.h" />
     <ClInclude Include="include\ShList.h" />
     <ClInclude Include="include\ShMath.h" />
