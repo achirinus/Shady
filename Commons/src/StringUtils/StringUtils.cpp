@@ -499,7 +499,10 @@ namespace Shady
 				{
 					c8 tb[48];
 					c8* tbp = &tb[0];
-					f32 num = va_arg(args, f32);
+					// This is not wrong!!!!!! 
+					// 32 bit floats are saved as 64 bit in varargs, so if you get just 32 bits from that, 
+					// you brake it and everything after it
+					f64 num = va_arg(args, f64); 
 					sprintf_s(tb, 48, "%f", num);
 					u32 tbSize = StrLength(tb);
 					while(tbSize--)

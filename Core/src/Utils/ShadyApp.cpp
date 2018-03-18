@@ -152,13 +152,8 @@ namespace Shady
 		f32 InfoY = 100;
 		for (auto& FunctionInfo : DebugHelper::LastFrame.Functions)
 		{
-
-			//String temp = String::FormatString("AvgTimePerCall: %f, Calls: %d", FunctionInfo.AvgTimePerCall, FunctionInfo.NumOfCalls);
-			c8 tempbuf[256];
-			sprintf_s(tempbuf, 256, "%s: AvgTimePerCall: %f, Calls: %d", FunctionInfo.Name, FunctionInfo.AvgTimePerCall, FunctionInfo.NumOfCalls);
-			//DEBUG_OUT_INFO(tempbuf);
-			//
-			Renderer2D::DrawText(tempbuf, 20.0f, { 500.0f, InfoY, 0.0f });
+			String temp = String::FormatString("%s: AvgTimePerCall: %f, Calls: %d", FunctionInfo.Name, FunctionInfo.AvgTimePerCall, FunctionInfo.NumOfCalls);
+			Renderer2D::DrawText(*temp, 20.0f, { 500.0f, InfoY, 0.0f });
 			InfoY += 20.0f;
 		}
 		
