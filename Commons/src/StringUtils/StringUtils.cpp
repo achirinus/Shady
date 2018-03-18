@@ -499,7 +499,7 @@ namespace Shady
 				{
 					c8 tb[48];
 					c8* tbp = &tb[0];
-					f64 num = va_arg(args, f64);
+					f32 num = va_arg(args, f32);
 					sprintf_s(tb, 48, "%f", num);
 					u32 tbSize = StrLength(tb);
 					while(tbSize--)
@@ -616,7 +616,6 @@ namespace Shady
 				else if(BeginsWith(format+1, "s"))
 				{
 					c8* tempStr = va_arg(args, c8*);
-					
 					u32 tbSize = StrLength(tempStr);
 					while(tbSize--)
 					{

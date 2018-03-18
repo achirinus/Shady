@@ -1,6 +1,7 @@
 #include "Sprite.h"
 #include "Windows.h"
 #include "ShaderManager.h"
+#include "DebugHelper.h"
 
 namespace Shady
 {
@@ -246,6 +247,7 @@ namespace Shady
 
 	void Sprite::draw(Renderer2D* renderer)
 	{
+		AUTO_TIMED_FUNCTION();
 		if(mIsTransparent) glDepthMask(false);
 
 		if(mTexture) mTexture->bind(0);

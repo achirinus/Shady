@@ -1,6 +1,6 @@
 #include <ShadyApp.h>
 #include "Rectangle.h"
-
+#include "DebugHelper.h"
 
 namespace Shady
 {
@@ -33,6 +33,7 @@ namespace Shady
 
 	void ShadyApp::start()
 	{
+		AUTO_TIMED_FUNCTION();
 		mMainWindow = new Win32Window();
 		mMouse = Mouse::GetInstance();
 		mKeyboard = Keyboard::GetInstance();
@@ -80,17 +81,28 @@ namespace Shady
 		mMainWindow->DisableVSync();
 		//setFpsLimit(60);
 		//setUpdateFreq(60);
+		// 
+
 		while (mMainWindow->IsOpen())
 		{
-			
-			//IF WE LIMIT BOTH UPDAE() AND RENDER() THE TIME 
-			//WE SLEEP IS ADDED AND WE WILL SLEEP MORE THAN NEEDED
-			
-			update(mFdt);
-			
-			//Do not render if window is minimized
-			render(mFdt);
+			MainLoop();
 		}
+	}
+
+	void ShadyApp::MainLoop()
+	{
+		DebugHelper::StartFrame();
+		START_TIMED_BLOCK(MainLoop);
+		//IF WE LIMIT BOTH UPDAE() AND RENDER() THE TIME 
+		//WE SLEEP IS ADDED AND WE WILL SLEEP MORE THAN NEEDED
+
+		update(mFdt);
+
+		//Do not render if window is minimized
+		render(mFdt);
+
+		END_TIMED_BLOCK(MainLoop);
+		DebugHelper::EndFrame();
 	}
 
 	void ShadyApp::limit(f32 time, u32 freq)
@@ -106,6 +118,7 @@ namespace Shady
 
 	void ShadyApp::update(f32 dt)
 	{
+		AUTO_TIMED_FUNCTION();
 		mUpdateClock.Reset();
 
 		mMainWindow->Update();
@@ -136,6 +149,18 @@ namespace Shady
 		renderer2d->Submit(cursorPosText);
 		renderer3d->submit(cube);
 		
+		f32 InfoY = 100;
+		for (auto& FunctionInfo : DebugHelper::LastFrame.Functions)
+		{
+
+			//String temp = String::FormatString("AvgTimePerCall: %f, Calls: %d", FunctionInfo.AvgTimePerCall, FunctionInfo.NumOfCalls);
+			c8 tempbuf[256];
+			sprintf_s(tempbuf, 256, "%s: AvgTimePerCall: %f, Calls: %d", FunctionInfo.Name, FunctionInfo.AvgTimePerCall, FunctionInfo.NumOfCalls);
+			//DEBUG_OUT_INFO(tempbuf);
+			//
+			Renderer2D::DrawText(tempbuf, 20.0f, { 500.0f, InfoY, 0.0f });
+			InfoY += 20.0f;
+		}
 		
 		mConsole->Update(dt);
 		
@@ -149,25 +174,28 @@ namespace Shady
 
 	void ShadyApp::render(f32 dt)
 	{
+		AUTO_TIMED_FUNCTION();
 		mFrameClock.Reset();
 		countFps(dt);
 		mMainWindow->Clear();
 		
+		Renderer2D::DrawText("Time", 20.0f, { 500.0f, 10, 0.0f });
+
+		
 		renderer2d->Render();
 		mConsole->Render();
 		renderer3d->render(dt);
-
 
 		mMainWindow->SwapBuffers();
 		//checkGlError();
 
 		limit(mFrameClock.GetElapsedTimeMS(), mFpsLimit);
 		mFdt = mFrameClock.GetElapsedTimeMS();
-
 	}
 
 	void ShadyApp::initGameState()
 	{
+		AUTO_TIMED_FUNCTION();
 		mMainWindow->SetBackgroundColor(ColorVec::Cyan);
 		mInputManager->MapAction("test", InputKey::MOUSE_LEFT);
 		mInputManager->MapAction("cameraLock", InputKey::MOUSE_RIGHT);

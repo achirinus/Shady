@@ -3,6 +3,7 @@
 #include "Rectangle.h"
 #include "ShadyApp.h"
 #include "Renderable2D.h"
+#include "DebugHelper.h"
 namespace Shady
 {
 	Renderer2D* Renderer2D::mInstance = nullptr;
@@ -74,6 +75,7 @@ namespace Shady
 
 	void Renderer2D::Render()
 	{
+		AUTO_TIMED_FUNCTION();
 		while(mSprites.size())
 		{
 			Renderable2D* sprite = mSprites.pop();
@@ -89,6 +91,7 @@ namespace Shady
 
 	void Renderer2D::Update(f32 dt)
 	{
+		AUTO_TIMED_FUNCTION()
 		mCamera->update(dt);
 
 		for (u32 spriteIndex = 0; spriteIndex < mLifeTimeSprites.Size(); spriteIndex++)

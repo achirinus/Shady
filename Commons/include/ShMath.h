@@ -36,7 +36,7 @@ namespace Shady
 	f64 Clamp(f64 value, f64 upperLimit);
 	s32 Clamp(s32 value, s32 upperLimit);
 	f32 Clamp(f32 value, f32 lowerLimit, f32 upperLimit);
-	f64 Clamp(f64 value, f64 lowerLimit, f64 upperLimit);
+	
 	s32 Clamp(s32 value, s32 lowerLimit, s32 upperLimit);
 	f32 ClampToZero(f32 value);
 	f32 Ceil(f32 value);

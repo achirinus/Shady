@@ -2,7 +2,7 @@
 #include "ShadyApp.h"
 #include "Line2D.h"
 #include "ShaderManager.h"
-
+#include "DebugHelper.h"
 
 #define STB_TRUETYPE_IMPLEMENTATION
 #include "stb_truetype.h"
@@ -69,6 +69,7 @@ namespace Shady
 
 	Text2D* Font::GetText(Vec3f pos, const c8* str, f32 size)
 	{
+		AUTO_TIMED_FUNCTION();
 		f32 baseLine = pos.y;
 		u32 numOfChars = 0;
 
@@ -77,7 +78,7 @@ namespace Shady
 		Vec3f lastCharPos = initialRowPos;
 		Text2D* result = new Text2D(mShader);
 		c8 lastChar = 0;
-		s32 kernAdvance = 0;
+		f32 kernAdvance = 0;
 		GlyphData* lastGlyphData = 0;
 		while(*str)
 		{
@@ -110,14 +111,25 @@ namespace Shady
 				}
 				if(lastGlyphData)
 				{
+					/*
 					if (lastGlyphData != data)
 					{
-						kernAdvance = stbtt_GetCodepointKernAdvance(&mFontInfo, lastChar, *str);
+						if ((lastChar == 'T') && (*str == 'i'))
+						{
+							kernAdvance = 0.0f;
+						}
+						else
+						{
+							kernAdvance = stbtt_GetCodepointKernAdvance(&mFontInfo, lastChar, *str);
+							kernAdvance = Clamp(kernAdvance, -1.0f, 1.0f);
+						}
+						
 					}
 					else
 					{
 						kernAdvance = 0.f;
 					}
+					*/
 					
 					thisPos.x += lastGlyphData->mAdvanceWidth * scale
 					 + kernAdvance * scale - scale * lastGlyphData->mLeftSideBearing; 

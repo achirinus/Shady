@@ -71,6 +71,7 @@ namespace Shady
 		Sprite* testSprite;
 		static ShadyApp* GetInstance();
 		void start();
+		void MainLoop();
 		void update(f32 dt);
 		void render(f32 dt);
 		void limit(f32 time, u32 freq);

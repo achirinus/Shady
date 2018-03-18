@@ -157,6 +157,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Debug\DebugHelper.cpp" />
     <ClCompile Include="src\Graphics\Camera2D.cpp" />
     <ClCompile Include="src\Graphics\Camera3D.cpp" />
     <ClCompile Include="src\Graphics\Glyph.cpp" />
@@ -195,6 +196,7 @@
     <ClInclude Include="include\Console.h" />
     <ClInclude Include="include\CPUInstructionSet.h" />
     <ClInclude Include="include\Cube.h" />
+    <ClInclude Include="include\DebugHelper.h" />
     <ClInclude Include="include\Glyph.h" />
     <ClInclude Include="include\GlyphData.h" />
     <ClInclude Include="include\Graphics.h" />
