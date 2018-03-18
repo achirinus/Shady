@@ -11,7 +11,6 @@ namespace Shady
 	{
 	public:
 		//Shader files should not be cached any more if i cache the shaders..
-		static MultiMap<String, String> sChachedShaderFiles;
 		static MultiMap<String, Shader*> sCachedShaders;
 		static Shader* CreateShader(const String& filename);
 	};

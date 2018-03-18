@@ -2,7 +2,6 @@
 
 namespace Shady
 {
-	MultiMap<String, String> ShaderManager::sChachedShaderFiles;
 	MultiMap<String, Shader*> ShaderManager::sCachedShaders;
 
 	Shader* ShaderManager::CreateShader(const String& filename)

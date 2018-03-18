@@ -16,7 +16,6 @@ namespace Shady
 		return sInstance;
 	}
 
-	
 	void onSetCursorVisible()
 	{
 		DEBUG_OUT_INFO("Cursor set visible");
@@ -191,7 +190,7 @@ namespace Shady
 	void ShadyApp::initGameState()
 	{
 		AUTO_TIMED_FUNCTION();
-		mMainWindow->SetBackgroundColor(ColorVec::Cyan);
+		mMainWindow->SetBackgroundColor(ColorVec::PalePink);
 		mInputManager->MapAction("test", InputKey::MOUSE_LEFT);
 		mInputManager->MapAction("cameraLock", InputKey::MOUSE_RIGHT);
 		mInputManager->MapAction("ToggleConsole", InputKey::KEY_TILDA);

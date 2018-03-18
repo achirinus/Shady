@@ -127,16 +127,8 @@ namespace Shady
 	b8 Shader::CompileShader(String& fileName, GLuint shader)
 	{
 		b8 result = true;
-		String ShaderSource;
-		if (ShaderManager::sChachedShaderFiles.HasKey(fileName))
-		{
-			ShaderSource = ShaderManager::sChachedShaderFiles[fileName];
-		}
-		else
-		{
-			ShaderSource = File::win32ReadTextFile(fileName);
-			ShaderManager::sChachedShaderFiles.Add(fileName, ShaderSource);
-		}
+
+		String ShaderSource = File::win32ReadTextFile(fileName);
 		
 		int ShaderLength = ShaderSource.Size();
 		const c8* tempSrc = ShaderSource.CStr();
