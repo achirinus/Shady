@@ -5,6 +5,7 @@
 #include "ComFuncs.h"
 #include "ShObject.h"
 #include "Vec3.h"
+#include "Vec4.h"
 #include "ShKeyboard.h"
 #include "ShString.h"
 
@@ -14,7 +15,7 @@ namespace Shady
 	{
 		c8 mBuffer[MegaBytes(1)];
 		String mInputStr;
-		c8* mCaret;
+		u32 mCursor;
 		static Console* mInstance;
 		Console();
 	public:
@@ -24,8 +25,9 @@ namespace Shady
 		u32 mHeight;
 		Vec3f mPos;
 		Vec3f mEditTextPos;
+		Vec4f mCursorColor;
 		u32 mMarginBoundOff;
-
+		f32 mTimeSinceOpen; //For now only used for cursor blinking
 		static Console* GetInstance();
 
 		void Open();
@@ -35,7 +37,7 @@ namespace Shady
 		void Render();
 		void Update(f32 dt);
 		void Log(const c8* str);
-		void OnKeyPressed(InputKey key) override;
+		void OnKeyPressed(InputKey key, c8 c) override;
 		void OnKeyReleased(InputKey key) override;
 	};
 }

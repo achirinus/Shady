@@ -139,7 +139,7 @@ namespace Shady
 		
 		String fpsText = String::FormatString("FPS:%d", mFps);
 		Renderer2D::DrawText(*fpsText, 20.0f, {mMainWindow->mWidth - 200.0f, 5.0f, 1.0f}, ColorVec::White);
-		
+		Renderer2D::DrawText("Test text!", 20.0f, { (f32)(mMainWindow->mClientWidth - 20), 10.0f, 0.0f });
 		String CursorPosString = String::FormatString("Cursor Position: %v2", mMouse->GetCursorPosition());
 		Text2D* cursorPosText = currentFont->GetText({5.0f, 30.0f, 1.0f}, *CursorPosString, 20.0f);
 		

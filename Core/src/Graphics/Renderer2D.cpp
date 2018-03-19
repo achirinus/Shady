@@ -78,6 +78,20 @@ namespace Shady
 		
 	}
 
+	void Renderer2D::DrawLine(Vec3f pos1, Vec3f pos2, Vec4f color, u32 width)
+	{
+		Renderer2D::GetInstance()->_DrawLine(pos1, pos2, color, width);
+	}
+
+	void Renderer2D::_DrawLine(Vec3f pos1, Vec3f pos2, Vec4f color, u32 width)
+	{
+		Line2D* line = new Line2D(pos1, pos2, color, width);
+		if (line)
+		{
+			Submit(line);
+		}
+	}
+
 	void Renderer2D::Submit(Renderable2D* sprite)
 	{
 		mSprites.push(sprite);

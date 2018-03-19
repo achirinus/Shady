@@ -7,9 +7,11 @@
 #include "ShMouse.h"
 #include "ShKeyboard.h"
 #include "MemUtils.h"
+#include "ShMath.h"
+#include "ShFont.h"
 
-#define EDIT_TEXT_HEIGHT 30
-
+#define EDIT_TEXT_HEIGHT 25
+#define CONSOLE_TEXT_HEIGHT 20
 namespace Shady
 {
 	Console* Console::mInstance = nullptr;
@@ -24,9 +26,11 @@ namespace Shady
 		mPos = { 0.0f, 0.0f, -1.0f }; //World Space
 		mEditTextPos = { 2.0f, (f32)(mHeight - (EDIT_TEXT_HEIGHT + 4)), -0.2f }; // This is in console space
 		mEditTextPos += mPos;
+		mCursorColor = ColorVec::Cyan;
 		mMarginBoundOff = 5;
 		mBeginResize = false;
-
+		mCursor = 0;
+		mTimeSinceOpen = 0.0f;
 		
 		ZeroMem(mBuffer, MegaBytes(1));
 	}
@@ -56,11 +60,20 @@ namespace Shady
 	{
 		if (mIsOpen)
 		{
+			Vec3f cursorPos = mEditTextPos + Vec3f{ 2, 3, -0.3f };
 			Renderer2D::DrawRectangle(mPos, mWidth, mHeight, ColorVec::DarkGrey, true, ColorVec::Pink);
 			Renderer2D::DrawEmptyRectangle(mEditTextPos, mWidth - 6, EDIT_TEXT_HEIGHT, ColorVec::WhiteGrey);
 			if (mInputStr.Size())
 			{
-				Renderer2D::DrawText(mInputStr.CStr(), 25, { mEditTextPos.x + 3, mEditTextPos.y + 3, mEditTextPos.z }, ColorVec::White);
+				Text2D* text = ShadyApp::GetInstance()->currentFont->GetText({ mEditTextPos.x + 3, mEditTextPos.y + 5, mEditTextPos.z }, mInputStr.CStr(), CONSOLE_TEXT_HEIGHT);
+				Renderer2D::GetInstance()->Submit(text);
+				cursorPos.x += (f32)text->mWidth;
+				Renderer2D::DrawLine(cursorPos, cursorPos + Vec3f{0.0f , CONSOLE_TEXT_HEIGHT, 0.0f }, mCursorColor);
+			}
+			else
+			{
+				
+				Renderer2D::DrawLine(cursorPos, cursorPos + Vec3f{0.0f, CONSOLE_TEXT_HEIGHT, 0.0f}, mCursorColor);
 			}
 			
 		}
@@ -72,36 +85,37 @@ namespace Shady
 		Vec2f CursorPos = mouse->GetCursorPosition();
 		u32 Right = mPos.x + mWidth;
 		u32 Bot = mPos.y + mHeight;
-		
-		//Check If cursor in corner
-		if (!mBeginResize)
+		if (mIsOpen)
 		{
-			if ((CursorPos.x < Right) && (CursorPos.x > (Right - mMarginBoundOff)) &&
-				(CursorPos.y < Bot) && (CursorPos.y) > (Bot - mMarginBoundOff))
+			//Check If cursor in corner
+			if (!mBeginResize)
 			{
-				if (mouse->GetState(MOUSE_LEFT))
+				if ((CursorPos.x < Right) && (CursorPos.x > (Right - mMarginBoundOff)) &&
+					(CursorPos.y < Bot) && (CursorPos.y) > (Bot - mMarginBoundOff))
 				{
-					mBeginResize = true;
+					if (mouse->GetState(MOUSE_LEFT))
+					{
+						mBeginResize = true;
+					}
 				}
-			}
-		}
-		else
-		{
-			if (mouse->GetState(MOUSE_LEFT))
-			{
-				Vec2f newSize = mouse->GetCursorPosition();
-				mWidth = newSize.x;
-				mHeight = newSize.y;
-				mEditTextPos.y = mHeight - (EDIT_TEXT_HEIGHT + 2);
 			}
 			else
 			{
-				mBeginResize = false;
+				if (mouse->GetState(MOUSE_LEFT))
+				{
+					Vec2f newSize = mouse->GetCursorPosition();
+					mWidth = newSize.x;
+					mHeight = newSize.y;
+					mEditTextPos.y = mHeight - (EDIT_TEXT_HEIGHT + 2);
+				}
+				else
+				{
+					mBeginResize = false;
+				}
 			}
-		}
-
-		//For now i dont' care about focus, just get input for keyboard 
-		//if console is opened
+			mTimeSinceOpen += dt * 0.02;
+			mCursorColor.a = Sin(mTimeSinceOpen);
+		} // Is open
 		
 	}
 
@@ -110,13 +124,14 @@ namespace Shady
 
 	}
 
-	void Console::OnKeyPressed(InputKey key)
+	void Console::OnKeyPressed(InputKey key, c8 c)
 	{
 		if (mIsOpen)
 		{
 			if (Keyboard::GetInstance()->IsPrintable(key))
 			{
 				mInputStr += c8(key);
+				mCursor++;
 			}
 		}
 	}

@@ -12,7 +12,7 @@ namespace Shady
 	
 	struct KeyListener
 	{
-		virtual void OnKeyPressed(InputKey key) {}
+		virtual void OnKeyPressed(InputKey key, c8 c) {}
 		virtual void OnKeyReleased(InputKey key) {}
 	};
 

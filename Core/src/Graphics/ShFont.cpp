@@ -76,15 +76,16 @@ namespace Shady
 		u32 numOfChars = 0;
 
 		f32 scale = size / mFontSize;
-		Vec3f initialRowPos = pos;
-		Vec3f lastCharPos = initialRowPos;
 		Text2D* result = new Text2D(mShader);
+		result->mPos = pos;
+		Vec3f lastCharPos = result->mPos;
 		c8 lastChar = 0;
 		f32 kernAdvance = 0;
 		GlyphData* lastGlyphData = 0;
 		while (*str)
 		{
 			Vec3f thisPos = lastCharPos;
+			;
 			GlyphData* data = 0;
 			if (*str == '\n')
 			{

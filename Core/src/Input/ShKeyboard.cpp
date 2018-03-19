@@ -1,5 +1,8 @@
 #include "ShKeyboard.h"
 #include <initializer_list>
+#include "StringUtils.h"
+
+
 
 namespace Shady
 {
@@ -66,7 +69,16 @@ namespace Shady
 		{
 			if (value)
 			{
-				listener->OnKeyPressed(key);
+				c8 c = 0;
+				if (IsLetter((c8)key))
+				{
+					c = key;
+					if (!IsCaps())
+					{
+						c = key + 32;
+					}
+				}
+				listener->OnKeyPressed(key, c);
 			}
 			else
 			{

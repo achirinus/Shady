@@ -6,6 +6,8 @@ namespace Shady
 	Text2D::Text2D(Shader* shader)
 	{
 		mShader = shader;
+		mWidth = 0;
+		mHeight = 0;
 	}
 	void Text2D::draw(Renderer2D* renderer)
 	{
@@ -17,6 +19,8 @@ namespace Shady
 
 	void Text2D::addGlyph(Glyph* glyph)
 	{
+		mWidth += glyph->mTexture->getWidth() * glyph->getScale();
+		
 		mGlyphs.Add(glyph);
 	}
 
@@ -37,4 +41,12 @@ namespace Shady
 			glyph->setColor(color);
 		}
 	}
+	Vec2f Text2D::GetGlyphsOffset(u32 index)
+	{
+		Glyph* temp = mGlyphs[index];
+		Vec2f result = { temp->mPos.x - mPos.x, temp->mPos.y - mPos.y };
+
+		return result;
+	}
+
 }

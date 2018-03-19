@@ -8,6 +8,7 @@
 #include "Matrix3f.h"
 #include "Matrix4f.h"
 #include "math.h"
+#include <cmath>
 
 #define SH_PI 3.141592f
 namespace Shady
@@ -45,6 +46,8 @@ namespace Shady
 	f64 Floor(f64 value);
 	f32 Round(f32 value);
 	f64 Round(f64 value);
+	f32 Sin(f32 x);
+	f32 Cos(f32 x);
 	Vec3f Normalize(const Vec3f& vec);
 	f32 ToRadians(f32 angle);
 	void Transpose(f32* elem, u32 dim);

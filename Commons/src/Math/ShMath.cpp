@@ -183,4 +183,13 @@ namespace Shady
 		}
 		return result;
 	}
+
+	f32 Sin(f32 x)
+	{
+		return sin(x);
+	}
+	f32 Cos(f32 x)
+	{
+		return cos(x);
+	}
 }
