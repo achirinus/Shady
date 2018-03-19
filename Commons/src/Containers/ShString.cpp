@@ -143,7 +143,7 @@ namespace Shady
 
 	u32 String::Size() const 
 	{
-		return mBufferSize - 1;
+		return mBufferSize ? mBufferSize - 1 : mBufferSize;
 	}
 
 	c8& String::operator[](s32 index)

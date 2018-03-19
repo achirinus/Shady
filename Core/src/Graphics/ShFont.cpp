@@ -70,6 +70,8 @@ namespace Shady
 	Text2D* Font::GetText(Vec3f pos, const c8* str, f32 size)
 	{
 		AUTO_TIMED_FUNCTION();
+		if (!str) return nullptr;
+
 		f32 baseLine = pos.y;
 		u32 numOfChars = 0;
 
@@ -80,19 +82,19 @@ namespace Shady
 		c8 lastChar = 0;
 		f32 kernAdvance = 0;
 		GlyphData* lastGlyphData = 0;
-		while(*str)
+		while (*str)
 		{
 			Vec3f thisPos = lastCharPos;
 			GlyphData* data = 0;
-			if(*str == '\n')
+			if (*str == '\n')
 			{
 				thisPos.x = pos.x;
 				baseLine += (f32)mAscent* scale - (f32)mDescent * scale + (f32)mLineGap*scale - 10.0f;
 			}
 			else
 			{
-				
-				if(*str == ' ')
+
+				if (*str == ' ')
 				{
 					data = &mGlyphs['e'];
 				}
@@ -101,7 +103,7 @@ namespace Shady
 					data = &mGlyphs[*str];
 				}
 
-				if(!data) 
+				if (!data)
 				{
 					lastGlyphData = data;
 					lastChar = *str;
@@ -109,37 +111,37 @@ namespace Shady
 					str++;
 					continue;
 				}
-				if(lastGlyphData)
+				if (lastGlyphData)
 				{
 					/*
 					if (lastGlyphData != data)
 					{
-						if ((lastChar == 'T') && (*str == 'i'))
-						{
-							kernAdvance = 0.0f;
-						}
-						else
-						{
-							kernAdvance = stbtt_GetCodepointKernAdvance(&mFontInfo, lastChar, *str);
-							kernAdvance = Clamp(kernAdvance, -1.0f, 1.0f);
-						}
-						
+					if ((lastChar == 'T') && (*str == 'i'))
+					{
+					kernAdvance = 0.0f;
 					}
 					else
 					{
-						kernAdvance = 0.f;
+					kernAdvance = stbtt_GetCodepointKernAdvance(&mFontInfo, lastChar, *str);
+					kernAdvance = Clamp(kernAdvance, -1.0f, 1.0f);
+					}
+
+					}
+					else
+					{
+					kernAdvance = 0.f;
 					}
 					*/
-					
+
 					thisPos.x += lastGlyphData->mAdvanceWidth * scale
-					 + kernAdvance * scale - scale * lastGlyphData->mLeftSideBearing; 
+						+ kernAdvance * scale - scale * lastGlyphData->mLeftSideBearing;
 				}
-				
-				thisPos.y = baseLine - (f32)data->texture->getHeight() * scale + 
-									((f32)data->texture->getHeight() * scale
-									 + (f32)data->mYOff * scale);
-				thisPos.y +=  scale * (f32)mAscent + (f32)mDescent * scale;
-				if(*str != ' ')
+
+				thisPos.y = baseLine - (f32)data->texture->getHeight() * scale +
+					((f32)data->texture->getHeight() * scale
+						+ (f32)data->mYOff * scale);
+				thisPos.y += scale * (f32)mAscent + (f32)mDescent * scale;
+				if (*str != ' ')
 				{
 
 					Glyph* glyph = new Glyph(thisPos, data->texture, mShader);
@@ -152,11 +154,9 @@ namespace Shady
 			lastCharPos = thisPos;
 			lastChar = *str;
 			lastGlyphData = data;
-			str++;   
+			str++;
 			numOfChars++;
 		}
-
-		
 		return result;
 	}
 

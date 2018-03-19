@@ -190,7 +190,7 @@ namespace Shady
 	void ShadyApp::initGameState()
 	{
 		AUTO_TIMED_FUNCTION();
-		mMainWindow->SetBackgroundColor(ColorVec::PalePink);
+		mMainWindow->SetBackgroundColor(ColorVec::Pink);
 		mInputManager->MapAction("test", InputKey::MOUSE_LEFT);
 		mInputManager->MapAction("cameraLock", InputKey::MOUSE_RIGHT);
 		mInputManager->MapAction("ToggleConsole", InputKey::KEY_TILDA);

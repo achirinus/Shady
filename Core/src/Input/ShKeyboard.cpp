@@ -62,5 +62,45 @@ namespace Shady
 	void Keyboard::Set(InputKey key, bool value)
 	{
 		mKeyStates[key] = value;
+		for (KeyListener* listener : mListeners)
+		{
+			if (value)
+			{
+				listener->OnKeyPressed(key);
+			}
+			else
+			{
+				listener->OnKeyReleased(key);
+			}
+		}
+		
+	}
+
+	b8 Keyboard::IsPrintable(InputKey key)
+	{
+		if ((key > InputKey::KEY_0) && (key < InputKey::KEY_Z))
+		{
+			return true;
+		}
+		return false;
+	}
+
+	void Keyboard::Register(KeyListener* lis)
+	{
+		mListeners.Add(lis);
+	}
+
+	void Keyboard::UnRegister(KeyListener* lis)
+	{
+		u32 index = mListeners.FindFirstIndex(lis);
+		if (index >= 0)
+		{
+			mListeners.Remove(index);
+		}
+	}
+
+	b8 Keyboard::IsCaps()
+	{
+		return GetKeyState(VK_CAPITAL) && 0x0001;
 	}
 }

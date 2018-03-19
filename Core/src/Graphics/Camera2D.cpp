@@ -37,7 +37,7 @@ namespace Shady
 			}	
 		}
 		
-		mProjMat = Matrix4f::ortho(0.0f, (f32)mWidth, 0.0f, (f32)mHeight, -10.0f, 10.0f);
+		mProjMat = Matrix4f::ortho(0.0f, (f32)mWidth, 0.0f, (f32)mHeight, 10.0f, -10.0f);
 		//mProjMat = Matrix4f::perspective(0, (f32)mWidth, 0, (f32)mHeight, 0.1f, 2.0f);
 		
 		//mProjMat = Matrix4f::perspective(0.0f, (f32)mWidth, 0.0f,(f32)mHeight, 1.0f, -30.0f);

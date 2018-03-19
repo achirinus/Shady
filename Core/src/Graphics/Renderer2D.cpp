@@ -35,6 +35,17 @@ namespace Shady
 		Submit(rect);
 	}
 
+	void Renderer2D::DrawEmptyRectangle(Vec3f pos, u32 width, u32 height, Vec4f color)
+	{
+		Renderer2D::GetInstance()->_DrawEmptyRectangle(pos, width, height, color);
+	}
+
+	void Renderer2D::_DrawEmptyRectangle(Vec3f pos, u32 width, u32 height, Vec4f color)
+	{
+		Rectangle* rect = new Rectangle(pos, width, height, false, true, color, 2, color);
+		Submit(rect);
+	}
+
 	void Renderer2D::DrawText(const char* text, u32 size, u32 x, u32 y, Vec4f color)
 	{
 		Renderer2D::GetInstance()->_DrawText(text, size, x, y, color);
@@ -48,15 +59,23 @@ namespace Shady
 	void Renderer2D::_DrawText(const c8* text, u32 size, u32 x, u32 y, Vec4f color)
 	{
 		Text2D* sprite = ShadyApp::GetInstance()->currentFont->GetText(Vec3f(x, y, 0.0f), text, size);
-		sprite->SetColor(color);
-		Submit(sprite);
+		
+		if (sprite)
+		{
+			sprite->SetColor(color);
+			Submit(sprite);
+		}
 	}
 
 	void Renderer2D::_DrawText(const c8* text, u32 size, Vec3f pos, Vec4f color)
 	{
 		Text2D* sprite = ShadyApp::GetInstance()->currentFont->GetText(pos, text, size);
-		sprite->SetColor(color);
-		Submit(sprite);
+		if (sprite)
+		{
+			sprite->SetColor(color);
+			Submit(sprite);
+		}
+		
 	}
 
 	void Renderer2D::Submit(Renderable2D* sprite)
