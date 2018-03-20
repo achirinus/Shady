@@ -79,7 +79,7 @@ namespace Shady
 			b8 completed = false;
 			InputKey key = mBMappings[in.name];
 			b8 currentState = false;
-			if(key <= InputKey::MOUSE_MIDDLE)
+			if(key >= InputKey::MOUSE_X)
 			{
 				currentState = mMouse->GetState(key);
 			}

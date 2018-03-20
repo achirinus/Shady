@@ -20,15 +20,15 @@ namespace Shady
 		b8 result = false;
 		switch(key)
 		{
-			case MOUSE_LEFT:
+		case InputKey::MOUSE_LEFT:
 			{
 				result = (b8)m1;
 			}break;
-			case MOUSE_RIGHT:
+			case InputKey::MOUSE_RIGHT:
 			{
 				result = (b8)m2;
 			}break;
-			case MOUSE_MIDDLE:
+			case InputKey::MOUSE_MIDDLE:
 			{
 				result = (b8)m3;
 			}break;
@@ -41,11 +41,11 @@ namespace Shady
 		f32 result = 0.0f;
 		switch(key)
 		{
-			case MOUSE_X:
+			case InputKey::MOUSE_X:
 			{
 				result = (f32)xPos;
 			}break;
-			case MOUSE_Y:
+			case InputKey::MOUSE_Y:
 			{
 				result = (f32)yPos;
 			}break;

@@ -133,7 +133,7 @@ namespace Shady
 				mInputStr += c;
 				mCursor++;
 			}
-			else if ((int)InputKey::KEY_BACK)
+			else if (InputKey::KEY_BACK)
 			{
 				mInputStr--;
 				mCursor--;

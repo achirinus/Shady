@@ -160,15 +160,15 @@ namespace Shady
 			case WM_KEYDOWN:
 			{
 				Keyboard* keyboard = Keyboard::GetInstance();
-				
 				c8 scanCode = GetValueFromBitRange(lParam, 16, 23);
-				keyboard->Set((Shady::InputKey)wParam, true);
-				int a = scanCode - 1; // here jjust for debug
+				keyboard->Set((Shady::InputKey)scanCode, true);
+				
 			}break;
 			case WM_KEYUP:
 			{
 				Keyboard* keyboard = Keyboard::GetInstance();
-				keyboard->Set((Shady::InputKey)wParam, false);
+				c8 scanCode = GetValueFromBitRange(lParam, 16, 23);
+				keyboard->Set((Shady::InputKey)scanCode, false);
 			}break;
 			default:
 			{
