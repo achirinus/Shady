@@ -32,10 +32,11 @@ namespace Shady
 	f32 Pow(f32 base, u32 pow);
 	s32 Pow(s32 base, u32 pow);
 	u32 Pow(u32 base, u32 pow);
-	u32 Clamp(u32 value, u32 upperLimit);
-	f32 Clamp(f32 value, f32 upperLimit);
-	f64 Clamp(f64 value, f64 upperLimit);
-	s32 Clamp(s32 value, s32 upperLimit);
+	u32 ClampHigh(u32 value, u32 upperLimit);
+	f32 ClampHigh(f32 value, f32 upperLimit);
+	f64 ClampHigh(f64 value, f64 upperLimit);
+	s32 ClampHigh(s32 value, s32 upperLimit);
+	s32 ClampLow(s32 value, s32 lowerLimit);
 	f32 Clamp(f32 value, f32 lowerLimit, f32 upperLimit);
 	
 	s32 Clamp(s32 value, s32 lowerLimit, s32 upperLimit);

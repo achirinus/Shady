@@ -1,4 +1,5 @@
 #include "Text2D.h"
+#include "ShAssert.h"
 
 namespace Shady
 {
@@ -43,6 +44,8 @@ namespace Shady
 	}
 	Vec2f Text2D::GetGlyphsOffset(u32 index)
 	{
+		SH_ASSERT(index > 0);
+
 		Glyph* temp = mGlyphs[index];
 		Vec2f result = { temp->mPos.x - mPos.x, temp->mPos.y - mPos.y };
 

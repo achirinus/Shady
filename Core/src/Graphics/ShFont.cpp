@@ -124,7 +124,7 @@ namespace Shady
 					else
 					{
 					kernAdvance = stbtt_GetCodepointKernAdvance(&mFontInfo, lastChar, *str);
-					kernAdvance = Clamp(kernAdvance, -1.0f, 1.0f);
+					kernAdvance = Clamp(kernAdvance, -0.5f, 1.0f);
 					}
 
 					}
@@ -134,8 +134,7 @@ namespace Shady
 					}
 					*/
 
-					thisPos.x += lastGlyphData->mAdvanceWidth * scale
-						+ kernAdvance * scale - scale * lastGlyphData->mLeftSideBearing;
+					thisPos.x += (lastGlyphData->mAdvanceWidth + kernAdvance - lastGlyphData->mLeftSideBearing) * scale;
 				}
 
 				thisPos.y = baseLine - (f32)data->texture->getHeight() * scale +

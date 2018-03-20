@@ -208,6 +208,18 @@ namespace Shady
 		result += other;
 		return result;
 	}
+
+	String& String::operator--(int)
+	{
+		if (mBufferSize > 0)
+		{
+			mBufferSize--;
+			mBuffer[mBufferSize] = 0;
+		}
+		
+		return *this;
+	}
+
 	String& String::operator+=(const c8* str)
 	{
 		if(str)

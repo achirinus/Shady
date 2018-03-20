@@ -130,8 +130,14 @@ namespace Shady
 		{
 			if (Keyboard::GetInstance()->IsPrintable(key))
 			{
-				mInputStr += c8(key);
+				mInputStr += c;
 				mCursor++;
+			}
+			else if (InputKey::KEY_BACK)
+			{
+				mInputStr--;
+				mCursor--;
+				mCursor = ClampLow(mCursor, 0);
 			}
 		}
 	}

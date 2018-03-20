@@ -28,20 +28,20 @@ namespace Shady
 		return (angle * SH_PI)/180;
 	}
 
-	f32 Clamp(f32 value, f32 upperLimit)
+	f32 ClampHigh(f32 value, f32 upperLimit)
 	{
 		return (value > upperLimit) ? upperLimit : value;
 	}
-	f64 Clamp(f64 value, f64 upperLimit)
+	f64 ClampHigh(f64 value, f64 upperLimit)
 	{
 		return (value > upperLimit) ? upperLimit : value;
 	}
-	s32 Clamp(s32 value, s32 upperLimit)
+	s32 ClampHigh(s32 value, s32 upperLimit)
 	{
 		return (value > upperLimit) ? upperLimit : value;
 	}
 
-	u32 Clamp(u32 value, u32 upperLimit)
+	u32 ClampHigh(u32 value, u32 upperLimit)
 	{
 		return (value > upperLimit) ? upperLimit : value;
 	}
@@ -59,6 +59,13 @@ namespace Shady
 	{
 		s32 result = value;
 		if (result > upperLimit) result = upperLimit;
+		if (result < lowerLimit) result = lowerLimit;
+		return result;
+	}
+
+	s32 ClampLow(s32 value, s32 lowerLimit)
+	{
+		s32 result = value;
 		if (result < lowerLimit) result = lowerLimit;
 		return result;
 	}
