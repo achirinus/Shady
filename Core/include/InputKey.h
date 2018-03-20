@@ -6,6 +6,8 @@ namespace Shady
 	//Some of these(like KEY_TILDA) are only accurate for US layout
 	enum InputKey
 	{
+
+
 		MOUSE_X = 0x03,
 		MOUSE_Y = 0x04,
 		MOUSE_LEFT = 0x05,
@@ -102,6 +104,8 @@ namespace Shady
 
 		MAX_KEYS_SUPPORTED = 0xFF
 	};
+
+	
 }
 
 #endif

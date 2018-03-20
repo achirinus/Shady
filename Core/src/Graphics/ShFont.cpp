@@ -144,9 +144,9 @@ namespace Shady
 				if (*str != ' ')
 				{
 
-					Glyph* glyph = new Glyph(thisPos, data->texture, mShader);
+					Glyph* glyph = new Glyph(thisPos,data->texture->getWidth() * scale, data->texture->getHeight() * scale,  data->texture, mShader);
 					glyph->mChar = *str;
-					glyph->scale(scale);
+					//glyph->scale(scale);
 					glyph->SetTransparency(true);
 					result->addGlyph(glyph);
 				}

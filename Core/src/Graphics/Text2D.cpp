@@ -20,7 +20,7 @@ namespace Shady
 
 	void Text2D::addGlyph(Glyph* glyph)
 	{
-		mWidth += glyph->mTexture->getWidth() * glyph->getScale();
+		mWidth += glyph->mWidth;
 		
 		mGlyphs.Add(glyph);
 	}

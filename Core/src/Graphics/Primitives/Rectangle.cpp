@@ -10,7 +10,7 @@ namespace Shady
 	{
 		if(isFilled) //Create the fill sprite
 		{
-			fillArea = new Sprite({ pos.x, pos.y, pos. z}, width, height, nullptr, col, false);
+			fillArea = new Sprite({ pos.x, pos.y, pos. z}, width, height, nullptr, false, nullptr, col);
 		}
 #if ENABLE_LINES
 		if((isFilled && hasBorder) || !isFilled)

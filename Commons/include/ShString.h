@@ -37,7 +37,8 @@ namespace Shady
 		String operator+(const c8 c);
 		String operator+(s32 num);
 		String operator+(const String& other);
-		String& operator--(int);
+		String operator--(int);
+		String& operator--();
 		String& operator+=(const c8* str);
 		String& operator+=(const c8 c);
 		String& operator+=(const String& other);

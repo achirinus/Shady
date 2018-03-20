@@ -88,7 +88,7 @@ namespace Shady
 	}
 
 	Sprite::Sprite(const Vec3f& pos, u32 width, u32 height, Texture* texture,
-					 const Vec4f& color, b8 posInCenter, Shader* shader): 
+					b8 posInCenter, Shader* shader, const Vec4f& color):
 	mTexture(texture) 
 	{
 		mIsTransparent = false;

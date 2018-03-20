@@ -21,8 +21,8 @@ namespace Shady
 	private:
 		static Keyboard* sInstance;
 		Array<KeyListener*> mListeners;
-		bool mKeyStates[MAX_KEYS_SUPPORTED];
-		Keyboard() { for(s32 index = 0; index < MAX_KEYS_SUPPORTED; index++) mKeyStates[index] = false;}
+		bool mKeyStates[InputKey::MAX_KEYS_SUPPORTED];
+		Keyboard() { for(s32 index = 0; index < InputKey::MAX_KEYS_SUPPORTED; index++) mKeyStates[index] = false;}
 	public:
 		static Keyboard* GetInstance();
 		void Set(InputKey key, bool value);

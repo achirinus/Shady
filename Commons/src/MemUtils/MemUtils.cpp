@@ -38,4 +38,15 @@ namespace Shady
 		result |= (SizeInBigEndian & 0x00FF) << 8;
 		return result;
 	}	
+
+	u32 GetValueFromBitRange(u32 num, c8 bit1, c8 bit2)
+	{
+		u32 val = 0;
+		for (c8 i = 0; i <= (bit2 - bit1); i++)
+		{
+			val |= 1 << i;
+		}
+		u32 Temp = num >> bit1;
+		return (Temp & val);
+	}
 }

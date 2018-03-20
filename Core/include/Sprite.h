@@ -26,7 +26,7 @@ namespace Shady
 		b8 mIsTransparent;
 		
 		Sprite(const Vec3f& pos, u32 width, u32 height, Texture* texture = nullptr,  
-				const Vec4f& color = {1.0f, 1.0f, 1.0f, 1.0f}, b8 posInCenter = true, Shader* shader = 0);
+				b8 posInCenter = true, Shader* shader = 0, const Vec4f& color = { 1.0f, 1.0f, 1.0f, 1.0f });
 		Sprite(const Vec3f& pos, Texture* texture, b8 posInCenter = true, Shader* shader = 0);									 
 		virtual ~Sprite();
 

@@ -8,7 +8,7 @@ namespace Shady
 	class Glyph : public Sprite
 	{
 	public:
-		Glyph(const Vec3f& pos, Texture* texture, Shader* shader = 0);
+		Glyph(const Vec3f& pos, u32 width, u32 height, Texture* texture, Shader* shader = 0);
 		virtual ~Glyph();
 		//virtual void draw();
 		char mChar;

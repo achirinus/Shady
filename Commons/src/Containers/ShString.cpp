@@ -209,14 +209,24 @@ namespace Shady
 		return result;
 	}
 
-	String& String::operator--(int)
+	String String::operator--(int)
+	{
+		String result = *this;
+		if (mBufferSize > 0)
+		{
+			mBufferSize--;
+			mBuffer[mBufferSize-1] = 0;
+		}
+		return result;
+	}
+
+	String& String::operator--()
 	{
 		if (mBufferSize > 0)
 		{
 			mBufferSize--;
-			mBuffer[mBufferSize] = 0;
+			mBuffer[mBufferSize - 1] = 0;
 		}
-		
 		return *this;
 	}
 

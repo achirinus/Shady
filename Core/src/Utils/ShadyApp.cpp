@@ -210,8 +210,7 @@ namespace Shady
 		renderer3d = new Renderer3D(camera3d);
 
 		cube = new Cube(200.0f, {0.0f, 0.0f, -50});
-		testSprite = new Sprite({200.0f, 200.0f, -0.2f}, 500.0f, 500.0f, nullptr, {1.0f, 1.0f, 0.0f, 1.0f}, false);
-		//renderer2d->submit(testSprite, 10000.0f);
+		
 	}
 
 	void ShadyApp::countFps(f32 dt)

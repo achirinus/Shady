@@ -10,6 +10,7 @@ namespace Shady
 	s64 SwapEndian(s64 SizeInBigEndian);
 	s32 SwapEndian(s32 SizeInBigEndian);
 	s16 SwapEndian(s16 SizeInBigEndian);
+	u32 GetValueFromBitRange(u32 num, c8 bit1, c8 bit2);
 }
 
 #endif

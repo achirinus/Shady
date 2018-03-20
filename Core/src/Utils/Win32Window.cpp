@@ -6,6 +6,7 @@
 #include "Windowsx.h"
 #include "Win32Utils.h"
 #include "Vec4.h"
+#include "MemUtils.h"
 
 /*
 	Win32Window is mixed up win OpenGL. Take care of this somehow, sometime...
@@ -159,7 +160,10 @@ namespace Shady
 			case WM_KEYDOWN:
 			{
 				Keyboard* keyboard = Keyboard::GetInstance();
+				
+				c8 scanCode = GetValueFromBitRange(lParam, 16, 23);
 				keyboard->Set((Shady::InputKey)wParam, true);
+				int a = scanCode - 1; // here jjust for debug
 			}break;
 			case WM_KEYUP:
 			{

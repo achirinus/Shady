@@ -93,7 +93,7 @@ namespace Shady
 				if ((CursorPos.x < Right) && (CursorPos.x > (Right - mMarginBoundOff)) &&
 					(CursorPos.y < Bot) && (CursorPos.y) > (Bot - mMarginBoundOff))
 				{
-					if (mouse->GetState(MOUSE_LEFT))
+					if (mouse->GetState(InputKey::MOUSE_LEFT))
 					{
 						mBeginResize = true;
 					}
@@ -101,7 +101,7 @@ namespace Shady
 			}
 			else
 			{
-				if (mouse->GetState(MOUSE_LEFT))
+				if (mouse->GetState(InputKey::MOUSE_LEFT))
 				{
 					Vec2f newSize = mouse->GetCursorPosition();
 					mWidth = newSize.x;
@@ -133,7 +133,7 @@ namespace Shady
 				mInputStr += c;
 				mCursor++;
 			}
-			else if (InputKey::KEY_BACK)
+			else if ((int)InputKey::KEY_BACK)
 			{
 				mInputStr--;
 				mCursor--;

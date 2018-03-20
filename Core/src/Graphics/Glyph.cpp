@@ -2,8 +2,8 @@
 
 namespace Shady
 {
-	Glyph::Glyph(const Vec3f& pos, Texture* texture, Shader* shader):
-	 Sprite(pos, texture, false, shader)
+	Glyph::Glyph(const Vec3f& pos, u32 width, u32 height, Texture* texture, Shader* shader):
+	 Sprite(pos, width, height, texture, false, shader)
 	{
 
 	}
