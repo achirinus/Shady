@@ -29,6 +29,9 @@ namespace Shady
 		bool IsPressed(InputKey key);
 		bool IsCombo(s32 numOfKeys ...);
 		bool IsCombo(std::initializer_list<s32>);
+		c8 InputKeyToAscii(InputKey key);
+		b8 IsShiftPressed();
+		b8 IsCursorControl(InputKey key); //TAB, SPACE, ENTER, BACKSPACE, LEFT, RIGHT, UP, DOWN, DEL, INS, HOME, END
 		bool IsPrintable(InputKey key);
 		void Register(KeyListener* lis);
 		void UnRegister(KeyListener* lis);

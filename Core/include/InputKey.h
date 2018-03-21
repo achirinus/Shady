@@ -18,7 +18,7 @@ namespace Shady
 		KEY_5 = 6,				//%
 		KEY_6 = 7,				//^
 		KEY_7 = 8,				//&
-		KEY_8 = 8,				//*
+		KEY_8 = 9,				//*
 		KEY_9 = 10,				//(
 		KEY_0 = 11,				//)
 		KEY_UNDERSCORE = 12,	//-_

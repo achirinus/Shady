@@ -128,12 +128,12 @@ namespace Shady
 	{
 		if (mIsOpen)
 		{
-			if (Keyboard::GetInstance()->IsPrintable(key))
+			if (c)
 			{
 				mInputStr += c;
 				mCursor++;
 			}
-			else if (InputKey::KEY_BACK)
+			else if (key == InputKey::KEY_BACK)
 			{
 				mInputStr--;
 				mCursor--;
