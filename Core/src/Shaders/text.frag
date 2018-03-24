@@ -19,6 +19,8 @@ void main()
 {
 	//vec4 texColor = vec4(1, 1, 1, texture(texSampler, fs_in.texCoord).a);
 	//color = fs_in.vertColor * texColor;
-	color = vec4(1, 1, 1, texture(texSampler, fs_in.texCoord)) * fs_in.vertColor;
+	vec4 Texel = texture(texSampler, fs_in.texCoord);
+	if(Texel.a <= 0) discard;
+	color = Texel * fs_in.vertColor;
 
 }

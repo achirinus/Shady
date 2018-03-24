@@ -47,8 +47,10 @@ namespace Shady
 	{
 		Win32BinaryFileContent fileResult = File::win32ReadBinaryFile("c:/windows/fonts/arial.ttf");
 		
-		stbtt_InitFont(&mFontInfo, (u8*)fileResult.contents, 
-						stbtt_GetFontOffsetForIndex((u8*)fileResult.contents, 0));
+		if (!stbtt_InitFont(&mFontInfo, (u8*)fileResult.contents, stbtt_GetFontOffsetForIndex((u8*)fileResult.contents, 0)))
+		{
+			DEBUG_OUT_ERR("Failed to Initialize font!");
+		}
 		mScale = stbtt_ScaleForPixelHeight(&mFontInfo, sizeInPixels);
 
 		//Advance v position by (ascent - descent + linegap)
@@ -114,26 +116,9 @@ namespace Shady
 				}
 				if (lastGlyphData)
 				{
-					/*
-					if (lastGlyphData != data)
-					{
-					if ((lastChar == 'T') && (*str == 'i'))
-					{
-					kernAdvance = 0.0f;
-					}
-					else
-					{
 					kernAdvance = stbtt_GetCodepointKernAdvance(&mFontInfo, lastChar, *str);
-					kernAdvance = Clamp(kernAdvance, -0.5f, 1.0f);
-					}
-
-					}
-					else
-					{
-					kernAdvance = 0.f;
-					}
-					*/
-
+					kernAdvance *= mScale;
+					
 					thisPos.x += (lastGlyphData->mAdvanceWidth + kernAdvance - lastGlyphData->mLeftSideBearing) * scale;
 				}
 

@@ -23,7 +23,8 @@ namespace Shady
 		Glyph* operator[](u32 index) { return mGlyphs[index];}
 		u32 size() { return mGlyphs.Size();}
 		Vec2f GetGlyphsOffset(u32 index);
-		
+		Vec2f GetGlyphBeginPos(u32 index);
+		Vec2f GetGlyphEndPos(u32 index);
 		void SetColor(const Vec4f& color);
 	};
 }

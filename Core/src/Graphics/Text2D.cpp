@@ -44,7 +44,7 @@ namespace Shady
 	}
 	Vec2f Text2D::GetGlyphsOffset(u32 index)
 	{
-		SH_ASSERT(index > 0);
+		SH_ASSERT(index >= 0);
 
 		Glyph* temp = mGlyphs[index];
 		Vec2f result = { temp->mPos.x - mPos.x, temp->mPos.y - mPos.y };
@@ -52,4 +52,38 @@ namespace Shady
 		return result;
 	}
 
+	Vec2f Text2D::GetGlyphBeginPos(u32 index)
+	{
+		SH_ASSERT(index >= 0);
+		Vec2f result;
+		if (index >= mGlyphs.Size())
+		{
+			result = mGlyphs[mGlyphs.Size() - 1]->mPos.xy;
+		}
+		else
+		{
+			result = mGlyphs[index]->mPos.xy;
+		}
+		
+		return result;
+	}
+
+	Vec2f Text2D::GetGlyphEndPos(u32 index)
+	{
+		SH_ASSERT(index >= 0);
+		Vec2f result;
+		
+		if (index >= mGlyphs.Size())
+		{
+			result = mGlyphs[mGlyphs.Size() - 1]->mPos.xy;
+			result.x += mGlyphs[mGlyphs.Size() - 1]->mWidth;
+		}
+		else
+		{
+			result = mGlyphs[index]->mPos.xy;
+			result.x += mGlyphs[index]->mWidth;
+		}
+		
+		return result;
+	}
 }

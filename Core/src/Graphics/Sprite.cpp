@@ -248,7 +248,7 @@ namespace Shady
 	void Sprite::draw(Renderer2D* renderer)
 	{
 		AUTO_TIMED_FUNCTION();
-	//	if(mIsTransparent) glDepthMask(false);
+		if(mIsTransparent) glDepthMask(false);
 
 		if(mTexture) mTexture->bind(0);
 		mShader->Enable();
@@ -263,7 +263,7 @@ namespace Shady
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 		glBindVertexArray(0);
 
-	//	if (mIsTransparent) glDepthMask(true);
+		if (mIsTransparent) glDepthMask(true);
 		if(mTexture) mTexture->unbind(0);
 		mShader->Disable();
 	}

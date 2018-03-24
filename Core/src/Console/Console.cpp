@@ -67,7 +67,7 @@ namespace Shady
 			{
 				Text2D* text = ShadyApp::GetInstance()->currentFont->GetText({ mEditTextPos.x + 3, mEditTextPos.y + 5, mEditTextPos.z }, mInputStr.CStr(), CONSOLE_TEXT_HEIGHT);
 				Renderer2D::GetInstance()->Submit(text);
-				cursorPos.x += (f32)text->mWidth;
+				cursorPos.x = text->GetGlyphEndPos(mCursor - 1).x;
 				Renderer2D::DrawLine(cursorPos, cursorPos + Vec3f{0.0f , CONSOLE_TEXT_HEIGHT, 0.0f }, mCursorColor);
 			}
 			else
