@@ -21,11 +21,12 @@ namespace Shady
 	{
 	private:
 		MultiMap<c8, GlyphData> mGlyphs;
+		MultiMap<u32, MultiMap<c8, GlyphData>> mCachedGlyphs;
 		stbtt_fontinfo mFontInfo;
 
 		Texture* STBgetGlyphTexture(stbtt_fontinfo* fontInfo, c8 cp,
-									s32* xOffset, s32* yOffset);
-		void STBloadSupportedGlyphs(f32 sizeInPixels);
+									s32* xOffset, s32* yOffset, f32 scale);
+		void STBloadSupportedGlyphs(u32 sizeInPixels);
 
 	public:
 		~Font();
@@ -35,11 +36,9 @@ namespace Shady
 		s32 mAscent;
 		s32 mDescent;
 		s32 mLineGap;
-		f32 mFontSize;
-		f32 mScale;
-
-		Text2D* GetText(Vec3f pos, const c8* str, f32 size);
-		Texture* GetGlyph(c8 codePoint);
+		
+		Text2D* GetText(Vec3f pos, const c8* str, u32 size);
+		Texture* GetGlyphTexture(c8 codePoint, u32 size);
 
 	};
 }

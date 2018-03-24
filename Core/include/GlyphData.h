@@ -13,6 +13,8 @@ namespace Shady
 		f32 mLeftSideBearing;
 		s32 mXOff;
 		s32 mYOff;
+		f32 mScale;
+		c8 mChar;
 	};
 }
 

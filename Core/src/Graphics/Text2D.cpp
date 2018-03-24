@@ -85,9 +85,9 @@ namespace Shady
 		if (temp)
 		{
 			result = temp->mPos.xy;
-			if (temp->mChar == ' ') //Special case for space for now
+			if (temp->mData.mChar == ' ') //Special case for space for now
 			{
-				result.x += temp->mAdvanceWidth;
+				result.x += temp->mData.mAdvanceWidth;
 			}
 			else
 			{

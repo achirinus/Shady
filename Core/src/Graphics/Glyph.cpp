@@ -7,6 +7,11 @@ namespace Shady
 	{
 
 	}
+	Glyph::Glyph(const Vec3f& pos, GlyphData data, Shader* shader) :
+		Sprite(pos, data.texture->getWidth(), data.texture->getHeight(), data.texture, false, shader)
+	{
+		mData = data;
+	}
 #if 0
 	void Glyph::draw()
 	{

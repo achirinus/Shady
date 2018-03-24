@@ -3,16 +3,17 @@
 
 #include <ShadyGL.h>
 #include "Sprite.h"
+#include "GlyphData.h"
 namespace Shady
 {
 	class Glyph : public Sprite
 	{
 	public:
 		Glyph(const Vec3f& pos, u32 width, u32 height, Texture* texture, Shader* shader = 0);
+		Glyph(const Vec3f& pos, GlyphData data, Shader* shader);
 		virtual ~Glyph();
-		//virtual void draw();
-		char mChar;
-		f32 mAdvanceWidth;
+		
+		GlyphData mData;
 	};
 }
 

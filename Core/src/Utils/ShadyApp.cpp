@@ -141,9 +141,9 @@ namespace Shady
 		Renderer2D::DrawText(*fpsText, 20.0f, {mMainWindow->mWidth - 200.0f, 5.0f, 1.0f}, ColorVec::White);
 		Renderer2D::DrawText("Test text!", 20.0f, { (f32)(mMainWindow->mClientWidth - 20), 10.0f, 0.0f });
 		String CursorPosString = String::FormatString("Cursor Position: %v2", mMouse->GetCursorPosition());
-		Text2D* cursorPosText = currentFont->GetText({5.0f, 30.0f, 1.0f}, *CursorPosString, 20.0f);
+		Text2D* cursorPosText = currentFont->GetText({5.0f, 30.0f, 1.0f}, *CursorPosString, 20);
 		
-		Renderer2D::DrawText("Something something\n 112.50", 40.0f, { 5.0f, 130.0f, 1.0f }, ColorVec::Red);
+		Renderer2D::DrawText("Something something\nfqwfqcn112.50", 20.0f, { 5.0f, 130.0f, 1.0f });
 		
 		renderer2d->Submit(cursorPosText);
 		renderer3d->submit(cube);
