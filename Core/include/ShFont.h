@@ -10,7 +10,7 @@
 #include "Vec3.h"
 
 
-#define MIN_ASCII_CODEPOINT 33 // !
+#define MIN_ASCII_CODEPOINT 32 // Space
 #define MAX_ASCII_CODEPOINT 126 // ~
 #define NUM_OF_SUPPORTED_GLYPHS (MAX_ASCII_GLYPH - MIN_ASCII_GLYPH)
 

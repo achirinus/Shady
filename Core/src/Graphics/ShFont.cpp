@@ -96,16 +96,17 @@ namespace Shady
 			}
 			else
 			{
-
+				data = &mGlyphs[*str];
+				/*
 				if (*str == ' ')
 				{
 					data = &mGlyphs['e'];
 				}
 				else
 				{
-					data = &mGlyphs[*str];
+					
 				}
-
+				*/
 				if (!data)
 				{
 					lastGlyphData = data;
@@ -126,15 +127,14 @@ namespace Shady
 					((f32)data->texture->getHeight() * scale
 						+ (f32)data->mYOff * scale);
 				thisPos.y += scale * (f32)mAscent + (f32)mDescent * scale;
-				if (*str != ' ')
-				{
-
+				
 					Glyph* glyph = new Glyph(thisPos,data->texture->getWidth() * scale, data->texture->getHeight() * scale,  data->texture, mShader);
 					glyph->mChar = *str;
+					glyph->mAdvanceWidth = data->mAdvanceWidth * scale;
 					//glyph->scale(scale);
 					glyph->SetTransparency(true);
 					result->addGlyph(glyph);
-				}
+				
 			}
 			lastCharPos = thisPos;
 			lastChar = *str;

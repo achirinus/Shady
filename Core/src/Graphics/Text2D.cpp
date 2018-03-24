@@ -71,19 +71,29 @@ namespace Shady
 	Vec2f Text2D::GetGlyphEndPos(u32 index)
 	{
 		SH_ASSERT(index >= 0);
-		Vec2f result;
-		
+		Vec2f result = {};
+		Glyph* temp = nullptr;
 		if (index >= mGlyphs.Size())
 		{
-			result = mGlyphs[mGlyphs.Size() - 1]->mPos.xy;
-			result.x += mGlyphs[mGlyphs.Size() - 1]->mWidth;
+			temp = mGlyphs[mGlyphs.Size() - 1];
 		}
 		else
 		{
-			result = mGlyphs[index]->mPos.xy;
-			result.x += mGlyphs[index]->mWidth;
+			temp = mGlyphs[index];
 		}
-		
+
+		if (temp)
+		{
+			result = temp->mPos.xy;
+			if (temp->mChar == ' ') //Special case for space for now
+			{
+				result.x += temp->mAdvanceWidth;
+			}
+			else
+			{
+				result.x += temp->mWidth;
+			}
+		}
 		return result;
 	}
 }

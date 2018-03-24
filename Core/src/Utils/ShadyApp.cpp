@@ -143,7 +143,7 @@ namespace Shady
 		String CursorPosString = String::FormatString("Cursor Position: %v2", mMouse->GetCursorPosition());
 		Text2D* cursorPosText = currentFont->GetText({5.0f, 30.0f, 1.0f}, *CursorPosString, 20.0f);
 		
-		Renderer2D::DrawText("Something something 112.50", 40.0f, { 5.0f, 130.0f, 1.0f }, ColorVec::Red);
+		Renderer2D::DrawText("Something something\n 112.50", 40.0f, { 5.0f, 130.0f, 1.0f }, ColorVec::Red);
 		
 		renderer2d->Submit(cursorPosText);
 		renderer3d->submit(cube);

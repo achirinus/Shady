@@ -19,7 +19,7 @@ namespace Shady
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, mWidth, mHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData);
 	}
 
-	Texture::Texture(const char* fileName)
+	Texture::Texture(const char* fileName): mWidth(0), mHeight(0), mTexture(0)
 	{
 		SH_ASSERT(fileName);
 		int width, height, numComponents;
@@ -39,7 +39,7 @@ namespace Shady
 		stbi_image_free(imageData);
 	}
 
-	Texture::Texture(Bitmap bmp): mWidth(0), mHeight(0)
+	Texture::Texture(Bitmap bmp): mWidth(0), mHeight(0), mTexture(0)
 	{
 		if (bmp.contents)
 		{

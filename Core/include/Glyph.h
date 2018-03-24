@@ -12,6 +12,7 @@ namespace Shady
 		virtual ~Glyph();
 		//virtual void draw();
 		char mChar;
+		f32 mAdvanceWidth;
 	};
 }
 

@@ -23,7 +23,7 @@ namespace Shady
 		Bitmap result{};
 
 		u32 size = width * height * bpp;
-		SH_ASSERT(size);
+		if (!size) return result;
 		result.contents = new u32[size];
 		result.bpp = bpp;
 		result.totalSize = size;

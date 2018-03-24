@@ -54,6 +54,7 @@ namespace Shady
 		String GetLine();
 		b8 BeginsWith(c8 character);
 		b8 BeginsWith(const char* str);
+		void Insert(c8 c, u32 index);
 		static String FormatString(const char* format, ...);
 		static String FormatString(String format, ...);
 	};

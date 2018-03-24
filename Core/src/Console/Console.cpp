@@ -67,7 +67,15 @@ namespace Shady
 			{
 				Text2D* text = ShadyApp::GetInstance()->currentFont->GetText({ mEditTextPos.x + 3, mEditTextPos.y + 5, mEditTextPos.z }, mInputStr.CStr(), CONSOLE_TEXT_HEIGHT);
 				Renderer2D::GetInstance()->Submit(text);
-				cursorPos.x = text->GetGlyphEndPos(mCursor - 1).x;
+				if (mCursor > 0)
+				{
+					cursorPos.x = text->GetGlyphEndPos(mCursor - 1).x;
+				}
+				else
+				{
+					cursorPos.x = text->GetGlyphBeginPos(mCursor).x;
+				}
+				
 				Renderer2D::DrawLine(cursorPos, cursorPos + Vec3f{0.0f , CONSOLE_TEXT_HEIGHT, 0.0f }, mCursorColor);
 			}
 			else
@@ -126,19 +134,49 @@ namespace Shady
 
 	void Console::OnKeyPressed(InputKey key, c8 c)
 	{
-		if (mIsOpen)
+		if (!mIsOpen) return;
+		
+		if (c)
 		{
-			if (c)
+			if (mCursor < mInputStr.Size() && mInputStr.Size())
+			{
+				mInputStr.Insert(c, mCursor);
+			}
+			else
 			{
 				mInputStr += c;
-				mCursor++;
 			}
-			else if (key == InputKey::KEY_BACK)
+			
+			mCursor++;
+		}
+		else
+		{
+			switch (key)
 			{
-				mInputStr--;
-				mCursor--;
-				mCursor = ClampLow(mCursor, 0);
+				case InputKey::KEY_BACK:
+				{
+					mInputStr--;
+					mCursor = ClampLow(--mCursor, 0);
+				}break;
+				case InputKey::KEY_LEFT:
+				{
+					mCursor = ClampLow(--mCursor, 0);
+					
+				}break;
+				case InputKey::KEY_RIGHT:
+				{
+					mCursor = ClampHigh(++mCursor, mInputStr.Size());
+					
+				}break;
+				case InputKey::KEY_ENTER:
+				{
+					mCursor = 0;
+					Log(mInputStr.CStr());
+					mInputStr = {};
+				}break;
+				
 			}
+			
 		}
 	}
 

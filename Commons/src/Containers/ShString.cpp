@@ -106,12 +106,24 @@ namespace Shady
 	}
 	String& String::operator=(const c8* str)
 	{
-		SH_ASSERT(str);
-		s32 size = StrLength(str);
+		if (str)
+		{
+			s32 size = StrLength(str);
+
+			mBufferSize = size + 1;
+			mBuffer = new c8[mBufferSize];
+			StrCopy(mBuffer, str);
+		}
+		else
+		{
+			if (mBuffer)
+			{
+				delete[] mBuffer;
+				mBuffer = 0;
+			}
+			mBufferSize = 0;
+		}
 		
-		mBufferSize = size + 1;
-		mBuffer = new c8[mBufferSize];	
-		strcpy(mBuffer, str);
 		
 		return *this;
 	}
@@ -441,6 +453,43 @@ namespace Shady
 			}
 		}
 		return result;
+	}
+
+	void String::Insert(c8 c, u32 index)
+	{
+		if (!mBufferSize)
+		{
+			mBufferSize = 2;
+			if (mBuffer) delete[] mBuffer;
+			mBuffer = new c8[mBufferSize];
+			mBuffer[0] = c;
+			mBuffer[1] = 0;
+		}
+		else
+		{
+			if (index < Size())
+			{
+				
+				c8* newBuffer = new c8[mBufferSize + 1];
+				c8* tempBuffer = newBuffer;
+				c8* tempMBuffer = mBuffer;
+				StrnCopy(tempBuffer, index, tempMBuffer);
+				tempBuffer += index;
+				*tempBuffer++ = c;
+				tempMBuffer += index;
+				u32 remainingChars = Size() - index;
+				StrnCopy(tempBuffer, remainingChars, tempMBuffer);
+				tempBuffer += remainingChars;
+				*tempBuffer = 0;
+				delete[] mBuffer;
+				mBuffer = newBuffer;
+				mBufferSize++;
+			}
+			else
+			{
+				(*this) += c;
+			}
+		}
 	}
 
 	String::~String()

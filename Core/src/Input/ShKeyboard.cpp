@@ -99,10 +99,10 @@ namespace Shady
 		case InputKey::KEY_END:
 		case InputKey::KEY_INS:
 		case InputKey::KEY_DEL:
-			return false;
+			return true;
 			break;
 		default:
-			return true;
+			return false;
 		}
 		return true;
 	}
@@ -118,7 +118,6 @@ namespace Shady
 		case InputKey::KEY_LSHIFT:
 		case InputKey::KEY_RSHIFT: 
 		case InputKey::KEY_ALT: 
-		case InputKey::KEY_SPACE:
 		case InputKey::KEY_CAPS: 
 		case InputKey::KEY_HOME:
 		case InputKey::KEY_UP: 
@@ -1050,6 +1049,10 @@ namespace Shady
 			{
 				result = '/';
 			}
+		}break;
+		case InputKey::KEY_SPACE:
+		{
+			result = ' ';
 		}break;
 		default:
 			result = 0;
