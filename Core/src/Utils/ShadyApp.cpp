@@ -1,6 +1,7 @@
 #include <ShadyApp.h>
 #include "Rectangle.h"
 #include "DebugHelper.h"
+#include "ShQueue.h"
 
 namespace Shady
 {
@@ -52,10 +53,7 @@ namespace Shady
 		}
 		*/
 		//TEST STUFF!!------------------------------------
-		mInputManager->MapAction("ShowCursor", InputKey::KEY_B);
-		mInputManager->MapAction("HideCursor", InputKey::KEY_N);
-		mInputManager->BindAction("ShowCursor", BA_RELEASED, onSetCursorVisible);
-		mInputManager->BindAction("HideCursor", BA_RELEASED, onSetCursorInVisible);
+		
 		struct TestS
 		{
 			int a;
@@ -200,11 +198,11 @@ namespace Shady
 		mInputManager->MapAxis("moveY", InputKey::KEY_S, 1.0f);
 		mInputManager->MapAxis("yaw", InputKey::MOUSE_X, 1.0f);
 		mInputManager->MapAxis("pitch", InputKey::MOUSE_Y, 1.0f);
+		currentFont =new Font();
 		
 		mConsole->Init();
 		
 		renderer2d = Renderer2D::GetInstance();
-		currentFont =new Font();
 		
 		camera3d = new Camera3D({(f32)mMainWindow->mClientWidth, (f32)mMainWindow->mClientHeight});
 		renderer3d = new Renderer3D(camera3d);

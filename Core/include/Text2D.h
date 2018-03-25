@@ -26,6 +26,7 @@ namespace Shady
 		Vec2f GetGlyphBeginPos(u32 index);
 		Vec2f GetGlyphEndPos(u32 index);
 		void SetColor(const Vec4f& color);
+		f32 GetHeight();
 	};
 }
 

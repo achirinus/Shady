@@ -8,7 +8,7 @@
 #include "GlyphData.h"
 #include "Text2D.h"
 #include "Vec3.h"
-
+#include "ShMath.h"
 
 #define MIN_ASCII_CODEPOINT 32 // Space
 #define MAX_ASCII_CODEPOINT 126 // ~
@@ -39,7 +39,7 @@ namespace Shady
 		
 		Text2D* GetText(Vec3f pos, const c8* str, u32 size);
 		Texture* GetGlyphTexture(c8 codePoint, u32 size);
-
+		Vec2f GetTextDim(const c8* str, u32 size);
 	};
 }
 

@@ -492,6 +492,16 @@ namespace Shady
 		}
 	}
 
+	u32 String::GetNumberOfLines()
+	{
+		u32 result = 0;
+		for (u32 i = 0; i < mBufferSize; i++)
+		{
+			if (mBuffer[i] == '\n') result++;
+		}
+		return result;
+	}
+
 	String::~String()
 	{
 		if(mBuffer)

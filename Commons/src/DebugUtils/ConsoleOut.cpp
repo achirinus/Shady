@@ -1,4 +1,6 @@
 #include "ConsoleOut.h"
+#include "ShTypes.h"
+#include "StringUtils.h"
 #include <Windows.h>
 #include <cstdio>
 namespace Shady
@@ -36,7 +38,10 @@ namespace Shady
 				FOREGROUND_RED);
 			break;
 		}
-		vprintf(str, args);
+		//vprintf(str, args);
+		c8 tempBuf[512];
+		CustomFormatVar(tempBuf, str, args);
+		printf(tempBuf);
 		printf("\n");
 		SetConsoleTextAttribute(hConsole, currentColor);
 		

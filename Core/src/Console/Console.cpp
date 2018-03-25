@@ -8,10 +8,11 @@
 #include "ShKeyboard.h"
 #include "MemUtils.h"
 #include "ShMath.h"
-#include "ShFont.h"
+
 
 #define EDIT_TEXT_HEIGHT 25
 #define CONSOLE_TEXT_HEIGHT 20
+#define CONSOLE_LINE_SPACING 2
 namespace Shady
 {
 	Console* Console::mInstance = nullptr;
@@ -52,6 +53,7 @@ namespace Shady
 
 	void Console::Init()
 	{
+		mFont = ShadyApp::GetInstance()->currentFont;
 		InputManager::GetInstance()->BindAction("ToggleConsole", ButtonAction::BA_RELEASED, &Console::Toggle);
 		Keyboard::GetInstance()->Register(this);
 	}
@@ -65,7 +67,7 @@ namespace Shady
 			Renderer2D::DrawEmptyRectangle(mEditTextPos, mWidth - 6, EDIT_TEXT_HEIGHT, ColorVec::WhiteGrey);
 			if (mInputStr.Size())
 			{
-				Text2D* text = ShadyApp::GetInstance()->currentFont->GetText({ mEditTextPos.x + 3, mEditTextPos.y + 5, mEditTextPos.z }, mInputStr.CStr(), CONSOLE_TEXT_HEIGHT);
+				Text2D* text = mFont->GetText({ mEditTextPos.x + 3, mEditTextPos.y + 5, mEditTextPos.z }, mInputStr.CStr(), CONSOLE_TEXT_HEIGHT);
 				Renderer2D::GetInstance()->Submit(text);
 				if (mCursor > 0)
 				{
@@ -80,10 +82,22 @@ namespace Shady
 			}
 			else
 			{
-				
 				Renderer2D::DrawLine(cursorPos, cursorPos + Vec3f{0.0f, CONSOLE_TEXT_HEIGHT, 0.0f}, mCursorColor);
 			}
 			
+			if (mLines.Size())
+			{
+				Vec3f DrawPos = mEditTextPos - Vec3f{0.f, CONSOLE_TEXT_HEIGHT + CONSOLE_LINE_SPACING, 0.0f};
+				for (String& line : mLines)
+				{
+					if (u32 newLines = line.GetNumberOfLines())
+					{
+						DrawPos.y -= (newLines * (CONSOLE_TEXT_HEIGHT + CONSOLE_LINE_SPACING));
+					}
+					Renderer2D::DrawText(line.CStr(), CONSOLE_TEXT_HEIGHT, DrawPos);
+					DrawPos.y -= CONSOLE_TEXT_HEIGHT + CONSOLE_LINE_SPACING;
+				}
+			}
 		}
 	}
 
@@ -129,7 +143,13 @@ namespace Shady
 
 	void Console::Log(const c8* str)
 	{
+		Vec2f TextDim = mFont->GetTextDim(str, CONSOLE_TEXT_HEIGHT);
+		u32 MaxLines = mEditTextPos.y / (CONSOLE_TEXT_HEIGHT + CONSOLE_LINE_SPACING);
+		String temp = str;
 
+		//TODO Implement wrapping
+		mLines.Push(temp);
+		if (mLines.Size() > MaxLines) mLines.Pop(); //Maybe add this to the buffer
 	}
 
 	void Console::OnKeyPressed(InputKey key, c8 c)
@@ -138,6 +158,11 @@ namespace Shady
 		
 		if (c)
 		{
+			if (c == '`' || c == '~') return;
+
+			Vec2f TextDim = mFont->GetTextDim(mInputStr.CStr(), CONSOLE_TEXT_HEIGHT);
+			if (TextDim.x > (mWidth - CONSOLE_TEXT_HEIGHT)) return;
+
 			if (mCursor < mInputStr.Size() && mInputStr.Size())
 			{
 				mInputStr.Insert(c, mCursor);
@@ -146,8 +171,8 @@ namespace Shady
 			{
 				mInputStr += c;
 			}
-			
 			mCursor++;
+			
 		}
 		else
 		{

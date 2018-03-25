@@ -378,7 +378,10 @@ namespace Shady
 	s32 StrCopy(c8* buffer, const c8* str)
 	{
 		s32 result = 0;
-		while (*buffer++ = *str++) { result++; }
+		if (str)
+		{
+			while (*buffer++ = *str++) { result++; }
+		}
 		return result;
 	}
 	void StrnCopy(c8* buffer, u32 num, const c8* str)

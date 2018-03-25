@@ -96,4 +96,20 @@ namespace Shady
 		}
 		return result;
 	}
+
+	f32 Text2D::GetHeight()
+	{
+		f32 result = 0.f;
+		u32 ElCount = mGlyphs.Size();
+		if (ElCount)
+		{
+			result = mGlyphs[ElCount - 1]->mPos.y + mGlyphs[ElCount - 1]->mHeight;
+			result -= mPos.y;
+		}
+		else
+		{
+			result = 0.f;
+		}
+		return result;
+	}
 }

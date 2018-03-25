@@ -8,14 +8,18 @@
 #include "Vec4.h"
 #include "ShKeyboard.h"
 #include "ShString.h"
+#include "ShQueue.h"
+#include "ShFont.h"
 
 namespace Shady
 {
 	class Console : public KeyListener
 	{
 		c8 mBuffer[MegaBytes(1)];
+		Queue<String> mLines;
 		String mInputStr;
 		u32 mCursor;
+		Font* mFont;
 		static Console* mInstance;
 		Console();
 	public:

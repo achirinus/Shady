@@ -140,6 +140,89 @@ namespace Shady
 		return result;
 	}
 
+	Vec2f Font::GetTextDim(const c8* str, u32 size)
+	{
+		AUTO_TIMED_FUNCTION();
+		Vec2f result{};
+		if (!str) return result;
+
+		f32 baseLine = 0;
+		u32 numOfChars = 0;
+		
+		Vec3f lastCharPos{};
+		c8 lastChar = 0;
+		f32 kernAdvance = 0;
+		GlyphData* lastGlyphData = 0;
+
+		if (!mCachedGlyphs.HasKey(size))
+		{
+			STBloadSupportedGlyphs(size);
+		}
+
+		MultiMap<c8, GlyphData>& Glyphs = mCachedGlyphs[size];
+
+		GlyphData& TempGlyph = Glyphs['a'];
+
+		f32 SizedAscent = mAscent * TempGlyph.mScale;
+		f32 SizedDescent = mDescent * TempGlyph.mScale;
+		f32 SizedLineGap = mLineGap * TempGlyph.mScale;
+
+		f32 MaxWidth = 0.f;
+		f32 WidthThisLine = 0.f;
+		f32 Height = 0.f;
+		while (*str)
+		{
+			Vec3f thisPos = lastCharPos;
+
+			GlyphData* data = 0;
+			if (*str == '\n')
+			{
+				if (WidthThisLine > MaxWidth) MaxWidth = WidthThisLine;
+				thisPos.x = 0;
+				baseLine += SizedAscent - SizedDescent + SizedLineGap;
+			}
+			else
+			{
+				data = &Glyphs[*str];
+
+				if (!data)
+				{
+					lastGlyphData = data;
+					lastChar = *str;
+					str++;
+					continue;
+				}
+				if (lastGlyphData)
+				{
+					kernAdvance = stbtt_GetCodepointKernAdvance(&mFontInfo, lastChar, *str);
+					kernAdvance *= data->mScale;
+
+					thisPos.x += lastGlyphData->mAdvanceWidth + kernAdvance - lastGlyphData->mLeftSideBearing + data->mXOff;
+					
+				}
+				WidthThisLine = thisPos.x + data->texture->getWidth();
+				thisPos.y = baseLine - (f32)data->texture->getHeight() + (f32)data->texture->getHeight() + (f32)data->mYOff;
+				thisPos.y += SizedAscent + SizedDescent;
+				Height = thisPos.y + data->texture->getHeight();
+			}
+			lastCharPos = thisPos;
+			lastChar = *str;
+			lastGlyphData = data;
+			str++;
+			numOfChars++;
+		}
+		if (MaxWidth > 0.f)
+		{
+			result.x += MaxWidth;
+		}
+		else
+		{
+			result.x += WidthThisLine;
+		}
+		
+		result.y += Height;
+		return result;
+	}
 	Texture* Font::GetGlyphTexture(c8 codePoint, u32 size)
 	{
 		return mGlyphs[codePoint].texture;

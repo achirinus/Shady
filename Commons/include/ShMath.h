@@ -55,6 +55,14 @@ namespace Shady
 	f32 SquareRoot(f32 val);
 	s32 Compare(f32 left, f32 right, f32 err);
 
+	struct Rect
+	{
+		u32 Left;
+		u32 Right;
+		u32 Top;
+		u32 Bottom;
+	};
+
 }
 
 #endif

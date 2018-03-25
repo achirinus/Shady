@@ -94,7 +94,7 @@ namespace Shady
 
 	void Renderer2D::Submit(Renderable2D* sprite)
 	{
-		mSprites.push(sprite);
+		mSprites.Push(sprite);
 	}
 
 	void Renderer2D::Submit(Renderable2D* sprite, f32 lifeTime)
@@ -109,9 +109,9 @@ namespace Shady
 	void Renderer2D::Render()
 	{
 		AUTO_TIMED_FUNCTION();
-		while(mSprites.size())
+		while(mSprites.Size())
 		{
-			Renderable2D* sprite = mSprites.pop();
+			Renderable2D* sprite = mSprites.Pop();
 			sprite->draw(this);
 			delete sprite;
 		}

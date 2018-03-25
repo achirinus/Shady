@@ -34,14 +34,14 @@ namespace Shady
 
 	void Renderer3D::submit(Renderable3D* rend)
 	{
-		mRenderQueue.push(rend);
+		mRenderQueue.Push(rend);
 	}
 
 	void Renderer3D::render(f32 dt)
 	{
-		while(mRenderQueue.size())
+		while(mRenderQueue.Size())
 		{
-			Renderable3D* model = mRenderQueue.pop();
+			Renderable3D* model = mRenderQueue.Pop();
 			model->mShader->Enable();
 			model->mShader->SetUniformMat4("viewMat", mCam->GetViewMat());
 			model->mShader->SetUniformMat4("projMat", mCam->GetProjMat());
