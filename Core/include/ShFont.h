@@ -40,6 +40,7 @@ namespace Shady
 		Text2D* GetText(Vec3f pos, const c8* str, u32 size);
 		Texture* GetGlyphTexture(c8 codePoint, u32 size);
 		Vec2f GetTextDim(const c8* str, u32 size);
+		Text2D* GetTextWrappedToBounds(Vec3f pos, const c8* str, u32 size, Rect bounds);
 	};
 }
 

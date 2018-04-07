@@ -15,6 +15,9 @@ namespace Shady
 		Array<Glyph*> mGlyphs;
 		
 	public:
+
+		u32 mNumOfLines;
+		
 		Text2D(Shader* shader);
 		virtual void draw(Renderer2D* renderer);
 		virtual ~Text2D();
@@ -26,6 +29,7 @@ namespace Shady
 		Vec2f GetGlyphBeginPos(u32 index);
 		Vec2f GetGlyphEndPos(u32 index);
 		void SetColor(const Vec4f& color);
+		void SetPosition(const Vec2f& newPos);
 		f32 GetHeight();
 	};
 }

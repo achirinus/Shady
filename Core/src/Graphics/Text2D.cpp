@@ -42,6 +42,20 @@ namespace Shady
 			glyph->setColor(color);
 		}
 	}
+
+	void Text2D::SetPosition(const Vec2f& newPos)
+	{
+		for (Glyph* glyph : mGlyphs)
+		{
+			/*For now I have to do this because i am not keeping the glyphs is text space 
+			 *Change this as soon as I use a model matrix to change the space and keep glyph mPos to text space
+			 **/
+			glyph->mPos -= mPos;
+			glyph->mPos += newPos;
+		}
+		mPos = newPos;
+	}
+
 	Vec2f Text2D::GetGlyphsOffset(u32 index)
 	{
 		SH_ASSERT(index >= 0);

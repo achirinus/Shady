@@ -223,6 +223,15 @@ namespace Shady
 		result.y += Height;
 		return result;
 	}
+
+	Text2D* Font::GetTextWrappedToBounds(Vec3f pos, const c8* str, u32 size, Rect bounds)
+	{
+		Text2D* result = nullptr;
+		//TODO: not leave this blank
+
+		return result;
+	}
+
 	Texture* Font::GetGlyphTexture(c8 codePoint, u32 size)
 	{
 		return mGlyphs[codePoint].texture;

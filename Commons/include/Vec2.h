@@ -30,14 +30,14 @@ namespace Shady
 		T dot(Vec2<T> other);
 		T dot(T x_, T y_);
 		Vec2<T>& operator=(const Vec2<T>& other);
-		Vec2<T>& operator+=(Vec2<T> other);
-		Vec2<T>& operator-=(Vec2<T> other);
-		Vec2<T>& operator*=(Vec2<T> other);
-		Vec2<T>& operator/=(Vec2<T> other);
-		Vec2<T> operator+(Vec2<T> other);
-		Vec2<T> operator-(Vec2<T> other);
-		Vec2<T> operator*(Vec2<T> other);
-		Vec2<T> operator/(Vec2<T> other);
+		Vec2<T>& operator+=(const Vec2<T>& other);
+		Vec2<T>& operator-=(const Vec2<T>& other);
+		Vec2<T>& operator*=(const Vec2<T>& other);
+		Vec2<T>& operator/=(const Vec2<T>& other);
+		Vec2<T> operator+(const Vec2<T>& other);
+		Vec2<T> operator-(const Vec2<T>& other);
+		Vec2<T> operator*(const Vec2<T>& other);
+		Vec2<T> operator/(const Vec2<T>& other);
 		Vec2<T> operator*(T scalar);
 		Vec2<T> operator/(T scalar);
 		Vec2<T>& operator*=(T scalar);
@@ -45,7 +45,7 @@ namespace Shady
 		T& operator[](int index);
 	};
 	template <typename T>
-	Vec2<T> operator*(T scalar, Vec2<T> vec);
+	Vec2<T> operator*(T scalar, const Vec2<T>& other);
 
 	typedef Vec2<float> Vec2f;
 	typedef Vec2<int> Vec2i;

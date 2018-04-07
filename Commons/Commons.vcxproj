@@ -165,6 +165,7 @@
     <ClInclude Include="include\ShObject.h" />
     <ClInclude Include="include\ShQueue.h" />
     <ClInclude Include="include\ShSArray.h" />
+    <ClInclude Include="include\ShStack.h" />
     <ClInclude Include="include\ShString.h" />
     <ClInclude Include="include\ShTypes.h" />
     <ClInclude Include="include\StringUtils.h" />

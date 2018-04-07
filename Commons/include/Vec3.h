@@ -36,6 +36,14 @@ namespace Shady
 			y = y_;
 			z = z_;
 		}
+
+		Vec3(const Vec2<T>& xy_)
+		{
+			x = xy_.x;
+			y = xy_.y;
+			z = 0;
+		}
+
 		Vec3(Vec2<T> xy_, T z_)
 		{
 			x = xy_.x;

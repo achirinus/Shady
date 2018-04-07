@@ -13,7 +13,7 @@ namespace Shady
 		QNode* front;
 		QNode* back;
 		QNode() = default;
-		QNode(T e, QNode<T>* b = nullptr, QNode<T>* f = nullptr): elem{e}, front{f}, back{b} {}
+		QNode(const T& e, QNode<T>* b = nullptr, QNode<T>* f = nullptr): elem{e}, front{f}, back{b} {}
 	};
 	template<typename T>
 	class Queue
@@ -24,6 +24,128 @@ namespace Shady
 		Node* mHead;
 		u32 mSize;
 	public:
+		template <typename T> struct QueueIterator;
+		
+		Queue(): mTail(nullptr), mHead(nullptr), mSize(0) {}
+
+		Queue(const Queue<T>& Other): Queue()
+		{
+			for (T& el: Other)
+			{
+				Push(el);
+			}
+		}
+
+		Queue(Queue<T>&& Other)
+		{
+			mSize = Other.mSize;
+			mTail = Other.mTail;
+			mHead = Other.mHead;
+
+			Other.mHead = 0;
+			Other.mTail = 0;
+			Other.mSize = 0;
+		}
+
+		Queue<T>& operator=(Queue<T>&& Other)
+		{
+			mSize = Other.mSize;
+			mTail = Other.mTail;
+			mHead = Other.mHead;
+
+			Other.mHead = 0;
+			Other.mTail = 0;
+			Other.mSize = 0;
+			return *this;
+		}
+
+		Queue<T>& operator=(const Queue<T>& Other) 
+		{
+			Clear();
+			for (T& el : Other)
+			{
+				Push(el);
+			}
+			return *this;
+		}
+
+		~Queue()
+		{
+			Clear();
+		} 
+
+		void Push(const T& elem)
+		{
+			if(!mTail)
+			{
+				mTail = new Node(elem);
+				mHead = mTail;
+			}
+			else
+			{
+				if (mHead == mTail)
+				{
+					Node* temp = new Node(elem, mTail);
+					mTail->front = temp;
+					mHead = temp;
+				}
+				else
+				{
+					Node* temp = new Node(elem, mHead);
+					mHead->front = temp;
+					mHead = temp;
+				}
+			}
+			mSize++;
+		}
+
+		T Pop()
+		{
+			SH_ASSERT(mSize > 0);
+
+			T result = mTail->elem;
+			
+			Node* temp = mTail; 
+			mTail = temp->front;
+			if(mTail)
+			{
+				mTail->back = nullptr;
+			}
+			else
+			{
+				mHead = mTail;
+			} 
+			delete temp;
+
+			mSize--;
+			return result;
+		}
+
+		u32 Size() const { return mSize;}
+
+		void Clear()
+		{
+			Node* last = mTail;
+			while (last)
+			{
+				Node* temp = last;
+				last = last->front;
+				delete temp;
+			}
+		}
+
+		QueueIterator<T> begin()
+		{
+			return QueueIterator<T>(this, IteratorPosition::BEGIN);
+		}
+
+		QueueIterator<T> end()
+		{
+			return QueueIterator<T>(this, IteratorPosition::END);
+		}
+
+
+
 
 		//Iterator - Begin//////////////////////////////////////////////////////////////////////////
 		template <typename T>
@@ -204,76 +326,6 @@ namespace Shady
 		};
 
 		//Iterator - End//////////////////////////////////////////////////////////////////////////
-		Queue(): mTail(nullptr), mHead(nullptr), mSize(0) {}
-		~Queue()
-		{
-			Node* last = mTail;
-			while(last)
-			{
-				Node* temp = last;
-				last = last->front;
-				delete temp;
-			}
-		} 
-
-		void Push(T elem)
-		{
-			if(!mTail)
-			{
-				mTail = new Node(elem);
-				mHead = mTail;
-			}
-			else
-			{
-				if (mHead == mTail)
-				{
-					Node* temp = new Node(elem, mTail);
-					mTail->front = temp;
-					mHead = temp;
-				}
-				else
-				{
-					Node* temp = new Node(elem, mHead);
-					mHead->front = temp;
-					mHead = temp;
-				}
-			}
-			mSize++;
-		}
-
-		T Pop()
-		{
-			SH_ASSERT(mSize > 0);
-
-			T result = mTail->elem;
-			
-			Node* temp = mTail; 
-			mTail = temp->front;
-			if(mTail)
-			{
-				mTail->back = nullptr;
-			}
-			else
-			{
-				mHead = mTail;
-			} 
-			delete temp;
-
-			mSize--;
-			return result;
-		}
-
-		u32 Size() const { return mSize;}
-
-		QueueIterator<T> begin()
-		{
-			return QueueIterator<T>(this, IteratorPosition::BEGIN);
-		}
-
-		QueueIterator<T> end()
-		{
-			return QueueIterator<T>(this, IteratorPosition::END);
-		}
 		
 	};
 }

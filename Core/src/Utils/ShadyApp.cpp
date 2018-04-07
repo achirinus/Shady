@@ -2,6 +2,7 @@
 #include "Rectangle.h"
 #include "DebugHelper.h"
 #include "ShQueue.h"
+#include "ShStack.h"
 
 namespace Shady
 {
@@ -73,7 +74,7 @@ namespace Shady
 		bits.Flip();
 		String bitsStr = bits.ToString();
 
-		
+
 		//END TEST ------------------------------------------
 		mMainWindow->DisableVSync();
 		//setFpsLimit(60);

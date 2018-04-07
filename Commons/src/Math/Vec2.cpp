@@ -28,28 +28,28 @@ namespace Shady
 		return x * x_ + y * y_;
 	}
 	template <typename T>
-	Vec2<T>& Vec2<T>::operator+=(Vec2<T> other)
+	Vec2<T>& Vec2<T>::operator+=(const Vec2<T>& other)
 	{
 		x += other.x;
 		y += other.y;
 		return *this;
 	}
 	template <typename T>
-	Vec2<T>& Vec2<T>::operator-=(Vec2<T> other)
+	Vec2<T>& Vec2<T>::operator-=(const Vec2<T>& other)
 	{
 		x -= other.x;
 		y -= other.y;
 		return *this;
 	}
 	template <typename T>
-	Vec2<T>& Vec2<T>::operator*=(Vec2<T> other)
+	Vec2<T>& Vec2<T>::operator*=(const Vec2<T>& other)
 	{
 		x *= other.x;
 		y *= other.y;
 		return *this;
 	}
 	template <typename T>
-	Vec2<T>& Vec2<T>::operator/=(Vec2<T> other)
+	Vec2<T>& Vec2<T>::operator/=(const Vec2<T>& other)
 	{
 		x /= other.x;
 		y /= other.y;
@@ -70,22 +70,22 @@ namespace Shady
 		return *this;
 	}
 	template <typename T>
-	Vec2<T> Vec2<T>::operator+(Vec2<T> other)
+	Vec2<T> Vec2<T>::operator+(const Vec2<T>& other)
 	{
 		return{ x + other.x, y + other.y };
 	}
 	template <typename T>
-	Vec2<T> Vec2<T>::operator-(Vec2<T> other)
+	Vec2<T> Vec2<T>::operator-(const Vec2<T>& other)
 	{
 		return{ x - other.x, y - other.y };
 	}
 	template <typename T>
-	Vec2<T> Vec2<T>::operator*(Vec2<T> other)
+	Vec2<T> Vec2<T>::operator*(const Vec2<T>& other)
 	{
 		return{ x * other.x, y * other.y };
 	}
 	template <typename T>
-	Vec2<T> Vec2<T>::operator/(Vec2<T> other)
+	Vec2<T> Vec2<T>::operator/(const Vec2<T>& other)
 	{
 		return{ x / other.x, y / other.y };
 	}
@@ -101,7 +101,7 @@ namespace Shady
 	}
 
 	template <typename T>
-	Vec2<T> operator*(T scalar, Vec2<T> vec)
+	Vec2<T> operator*(T scalar, const Vec2<T>& vec)
 	{
 		return{ x * scalar, y * scalar };
 	}

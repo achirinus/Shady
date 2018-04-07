@@ -10,6 +10,12 @@ namespace Shady
 	#define RCAST(expr, type) reinterpret_cast<type>(expr)
 	#define CCAST(expr, type) const_cast<type>(expr)
 	
+	template<typename T>
+	T&& Move(T& obj)
+	{
+		return static_cast<T&&>(obj);
+	}
+
 	template <typename T>
 	void Swap(T& left, T& right)
 	{
@@ -19,9 +25,11 @@ namespace Shady
 	}
 
 	template<typename T>
-	T&& Move(T& obj)
+	void MoveSwap(T& left, T& right)
 	{
-		return static_cast<T&&>(obj);
+		T temp = Move(left);
+		left = Move(right);
+		right = Move(temp);
 	}
 
 	//TODO decide on this.
