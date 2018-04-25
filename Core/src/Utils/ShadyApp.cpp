@@ -3,6 +3,7 @@
 #include "DebugHelper.h"
 #include "ShQueue.h"
 #include "ShStack.h"
+#include "ShBiSearchTree.h"
 
 namespace Shady
 {
@@ -74,6 +75,19 @@ namespace Shady
 		bits.Flip();
 		String bitsStr = bits.ToString();
 
+
+		BiSearchTree<s32> tSearchTree;
+		tSearchTree.Add(14);
+		tSearchTree.Add(10);
+		tSearchTree.Add(9); 
+		//tSearchTree.Add(-2); 
+		tSearchTree.Add(12);
+		tSearchTree.Add(13);
+		tSearchTree.Add(2);
+		tSearchTree.Add(-2);
+
+		s32 H = tSearchTree.GetHeight();
+		tSearchTree.Remove(2);
 
 		//END TEST ------------------------------------------
 		mMainWindow->DisableVSync();

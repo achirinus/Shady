@@ -27,6 +27,12 @@ namespace Shady
 	{
 		return (first + alpha * (second - first));
 	}
+
+	template<typename T>
+	T Max(const T& left, const T& right)
+	{
+		return left > right ? left : right;
+	}
 	s32 Absolute(s32 a);
 	f32 Absolute(f32 a);	
 	f32 Pow(f32 base, u32 pow);

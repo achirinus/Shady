@@ -45,9 +45,6 @@
     <ClInclude Include="include\ShAssert.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\ShBiTree.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\ShBitset.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -97,6 +94,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\ShStack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ShBiSearchTree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

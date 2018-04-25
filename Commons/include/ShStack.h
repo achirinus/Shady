@@ -104,6 +104,22 @@ namespace Shady
 			return mBuffer[mIndex--];
 		}
 
+		b8 Pop(T* OutElem)
+		{
+			if (!OutElem) return false;
+			if (!mIndex) return false;
+
+			*OutElem = mBuffer[mIndex--];
+
+			return true;
+		}
+
+		T& Peek()
+		{
+			SH_ASSERT(mIndex > SH_INVALID_STACK_INDEX);
+			return mBuffer[mIndex];
+		}
+
 		u32 Size() const
 		{
 			return mIndex + 1;

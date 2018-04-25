@@ -37,8 +37,8 @@ namespace Shady
 	template<typename T>
 	s32 Compare(const T& left, const T& right)
 	{
-		if(left > right) return -1;
 		if(left < right) return 1;
+		if(right < left) return -1;
 		return 0;
 	}
 

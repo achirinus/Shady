@@ -27,9 +27,9 @@ namespace Shady
 			mBufferSize = size;
 			mBuffer = new T[mBufferSize];
 		}
-		explicit Array(u32 size): mBufferSize(size), mNumOfElem(0)
+		explicit Array(u32 size): mBufferSize(size), mNumOfElem(0), mBuffer(nullptr)
 		{
-			mBuffer = new T[mBufferSize];
+			if(mBufferSize) mBuffer = new T[mBufferSize];
 		}
 		Array(T* first, u32 num): mBufferSize{0}, mNumOfElem{0}, mBuffer{nullptr}
 		{
