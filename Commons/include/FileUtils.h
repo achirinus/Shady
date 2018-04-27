@@ -2,31 +2,26 @@
 #define FILE_UTILS_H
 
 #include <Commons.h>
-#include <fstream>
-#include <cstdio>
-#include <Windows.h>
 #include "ShString.h"
 
 namespace Shady
 {
-	struct Win32BinaryFileContent
+	struct BinaryFileContent
 	{
-		void* contents;
-		u32 sizeInBytes;
-		void Clear() { VirtualFree(contents, sizeInBytes, MEM_RELEASE); }
+		void* Data;
+		u32 Size;
 	};
 	namespace File
 	{
-		void setCwd(const char* path);
-		uint64 getSize(const char* fileName);
-		char* readTextFile(const char* fileName);
-		void readObj2(const char* fileName);
-		String win32ReadTextFile(const char* fileName);
-		String win32ReadTextFile(const String& fileName);
-		Win32BinaryFileContent win32ReadBinaryFile(const char* fileName);
-		Win32BinaryFileContent win32ReadBinaryFile(const String& fileName);
-		Win32BinaryFileContent readBinaryFile(const char* fileName);
-		b8 win32WriteFile(const char* fileName, void* memory, u32 memSize);
+		void ClearContent(BinaryFileContent* fileContent);
+		void SetCwd(const c8* path);
+		u64 GetSize(const c8* fileName);
+		
+		String ReadTextFile(const c8* fileName);
+		String ReadTextFile(const String& fileName);
+		BinaryFileContent ReadBinaryFile(const char* fileName);
+		BinaryFileContent ReadBinaryFile(const String& fileName);
+		b8 CreateAndWriteFile(const char* fileName, void* memory, u32 memSize);
 	}
 	
 }

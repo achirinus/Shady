@@ -22,12 +22,12 @@ namespace Shady
 	Font::Font(): mGlyphs()
 	{
 		mShader = ShaderManager::CreateShader("text");
-		Win32BinaryFileContent fileResult = File::win32ReadBinaryFile("c:/windows/fonts/arial.ttf");
-		if (!stbtt_InitFont(&mFontInfo, (u8*)fileResult.contents, stbtt_GetFontOffsetForIndex((u8*)fileResult.contents, 0)))
+		BinaryFileContent fileResult = File::ReadBinaryFile("c:/windows/fonts/arial.ttf");
+		if (!stbtt_InitFont(&mFontInfo, (u8*)fileResult.Data, stbtt_GetFontOffsetForIndex((u8*)fileResult.Data, 0)))
 		{
 			DEBUG_OUT_ERR("Failed to Initialize font!");
 		}
-		fileResult.Clear();
+		File::ClearContent(&fileResult);
 		STBloadSupportedGlyphs(DEFAULT_FONT_SIZE);
 	}
 

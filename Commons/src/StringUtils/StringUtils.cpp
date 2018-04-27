@@ -33,7 +33,7 @@ namespace Shady
 		return nullptr;
 	}
 
-	c8* FindStr(c8* str, c8* strToFind)
+	c8* FindStr(c8* str, const c8* strToFind)
 	{
 		bool found = false;
 		c8* value = nullptr;
@@ -45,7 +45,7 @@ namespace Shady
 			{
 				found = true;
 				c8* potetialWinner = tempStr;
-				c8* tempStrToFind = strToFind;
+				const c8* tempStrToFind = strToFind;
 				while (*tempStrToFind != '\0')
 				{
 					if (*tempStr == '\0') return value;
@@ -387,9 +387,20 @@ namespace Shady
 	}
 	void StrnCopy(c8* buffer, u32 num, const c8* str)
 	{
-		SH_ASSERT(buffer);
+		if (!buffer) return;
+		if (!num) return;
+		if (!str) return;
 		while(num-- && (*buffer++ = *str++)) {}
 		*buffer = 0;
+	}
+
+	void StrnCopyNoTerminator(c8* buffer, u32 num, const c8* str)
+	{
+		if (!buffer) return;
+		if (!num) return;
+		if (!str) return;
+		while (num-- && (*buffer++ = *str++)) {}
+		
 	}
 
 	s32 StrCopyNoTerminator(c8* buffer, const c8* str)

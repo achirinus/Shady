@@ -128,7 +128,7 @@ namespace Shady
 	{
 		b8 result = true;
 
-		String ShaderSource = File::win32ReadTextFile(fileName);
+		String ShaderSource = File::ReadTextFile(fileName);
 		
 		int ShaderLength = ShaderSource.Size();
 		const c8* tempSrc = ShaderSource.CStr();

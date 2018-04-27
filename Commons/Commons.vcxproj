@@ -179,7 +179,7 @@
     <ClCompile Include="src\DebugUtils\ConsoleOut.cpp" />
     <ClCompile Include="src\DebugUtils\ShAssert.cpp" />
     <ClCompile Include="src\FileSystem\FileChangeObserver.cpp" />
-    <ClCompile Include="src\FileSystem\FileUtils.cpp" />
+    <ClCompile Include="src\FileSystem\Win32FileUtils.cpp" />
     <ClCompile Include="src\Math\Matrix3f.cpp" />
     <ClCompile Include="src\Math\Matrix4f.cpp" />
     <ClCompile Include="src\Math\ShMath.cpp" />

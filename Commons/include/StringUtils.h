@@ -9,7 +9,7 @@ namespace Shady
 {
 	c8* SkipChars(c8* str, c8 c);
 	c8* FindChar(c8* str, c8 c);
-	c8* FindStr(c8* str, c8* strToFind);
+	c8* FindStr(c8* str, const c8* strToFind);
 	const c8* FindFirstDigit(const c8* str);
 	c8* FindFirstDigit(c8* str);
 	c8* StrConcat(const c8* first, const c8* second);
@@ -36,6 +36,7 @@ namespace Shady
 	b8 BeginsWith(const c8* str, const c8* strToFind);
 	s32 StrCopy(c8* buffer, const c8* str);
 	void StrnCopy(c8* buffer, u32 num, const c8* str);
+	void StrnCopyNoTerminator(c8* buffer, u32 num, const c8* str);
 	s32 StrCopyNoTerminator(c8* buffer, const c8* str);
 	void CustomFormat(c8* buffer, const c8* format ...);
 	void CustomFormatVar(c8* buffer, const c8* format, va_list args);

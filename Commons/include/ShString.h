@@ -56,6 +56,8 @@ namespace Shady
 		b8 BeginsWith(const char* str);
 		void Insert(c8 c, u32 index);
 		u32 GetNumberOfLines();
+		b8 Replace(const c8* strToReplace, const c8* replaceWith);
+		void Trim();
 		static String FormatString(const char* format, ...);
 		static String FormatString(String format, ...);
 	};

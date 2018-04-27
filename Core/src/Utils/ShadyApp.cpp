@@ -50,6 +50,8 @@ namespace Shady
 		bits.Flip();
 		String bitsStr = bits.ToString();
 
+		String ola = " dad mom  siste r ";
+		ola.Trim();
 
 		//END TEST ------------------------------------------
 		mMainWindow->DisableVSync();

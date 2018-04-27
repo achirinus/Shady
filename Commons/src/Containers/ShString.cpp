@@ -501,6 +501,74 @@ namespace Shady
 		}
 		return result;
 	}
+	
+	b8 String::Replace(const c8* strToReplace, const c8* replaceWith)
+	{
+		b8 Result = 0;
+		if (StrCompare(strToReplace, replaceWith)) return false;
+
+		if (mBuffer)
+		{
+			u32 SizeOfStrToReplace = StrLength(strToReplace);
+			u32 SizeOfReplaceWith = StrLength(replaceWith);
+			c8* FoundStr = mBuffer;
+			
+			while (FoundStr = FindStr(FoundStr, strToReplace))
+			{
+				c8* OnePastFoundStr = FoundStr + SizeOfStrToReplace;
+				u32 BufferGrow = SizeOfReplaceWith - SizeOfStrToReplace;
+				u32 NewMBufferSize = mBufferSize + BufferGrow;
+				c8* NewBuffer = new c8[NewMBufferSize];
+				c8* NewTempBuffer = NewBuffer;
+				c8* TempMBuffer = mBuffer;
+				u32 DeltaFromBegining = FoundStr - mBuffer;
+				StrnCopyNoTerminator(NewTempBuffer, DeltaFromBegining, mBuffer);
+				NewTempBuffer += DeltaFromBegining;
+				TempMBuffer += DeltaFromBegining + SizeOfStrToReplace;
+				s32 Copied = StrCopyNoTerminator(NewTempBuffer, replaceWith);
+				NewTempBuffer += Copied;
+				StrCopy(NewTempBuffer, TempMBuffer);
+				
+				delete[] mBuffer;
+				mBuffer = NewBuffer;
+				mBufferSize = NewMBufferSize;
+				FoundStr = mBuffer;
+				Result = true;
+			}
+		}
+		return Result;
+	}
+
+	void String::Trim()
+	{
+		if (mBuffer)
+		{
+			c8* Temp = mBuffer;
+			s32 SpacesFound = 0;
+			while (Temp = FindStr(Temp, " "))
+			{
+				++SpacesFound;
+				Temp++;
+			}
+			u32 NewMBufferSize = mBufferSize - SpacesFound;
+			c8* NewBuffer = new c8[NewMBufferSize];
+			c8* NewTempBuffer = NewBuffer;
+			c8* AnotherMBuffer = mBuffer;
+			while (*AnotherMBuffer)
+			{
+				if (*AnotherMBuffer == ' ')
+				{
+					AnotherMBuffer++;
+					continue;
+				}
+				*NewTempBuffer++ = *AnotherMBuffer++;
+			}
+			*NewTempBuffer = 0;
+			delete[] mBuffer;
+			mBuffer = NewBuffer;
+			mBufferSize = NewMBufferSize;
+		}
+	}
 
 	String::~String()
 	{

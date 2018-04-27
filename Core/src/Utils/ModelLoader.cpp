@@ -6,7 +6,7 @@ namespace Shady
 	Mesh* ModelLoader::loadObj(const char* fileName)
 	{
 		
-		String fileContent = File::win32ReadTextFile(fileName);
+		String fileContent = File::ReadTextFile(fileName);
 		String line;
 		Array<Vertex> vertices{};
 		Array<Vec4f> pos{};
