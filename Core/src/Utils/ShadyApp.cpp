@@ -19,24 +19,14 @@ namespace Shady
 		return sInstance;
 	}
 
-	void onSetCursorVisible()
-	{
-		DEBUG_OUT_INFO("Cursor set visible");
-		ShadyApp* app = ShadyApp::GetInstance();
-		app->mMainWindow->SetCursorVisibility(true);
-	}
-
-	void onSetCursorInVisible()
-	{
-		DEBUG_OUT_INFO("Cursor set invisible");
-		ShadyApp* app = ShadyApp::GetInstance();
-		app->mMainWindow->SetCursorVisibility(false);
-	}
 
 	void ShadyApp::start()
 	{
 		AUTO_TIMED_FUNCTION();
-		mMainWindow = new Win32Window();
+
+		
+		
+		mMainWindow = new Window();
 		mMouse = Mouse::GetInstance();
 		mKeyboard = Keyboard::GetInstance();
 		mInputManager = InputManager::GetInstance();
@@ -56,38 +46,10 @@ namespace Shady
 		*/
 		//TEST STUFF!!------------------------------------
 		
-		struct TestS
-		{
-			int a;
-			int b;
-			TestS(): a(0), b(0) {DEBUG_OUT_INFO("Test default constructed");}
-			TestS(int aa , int bb): a(aa), b(bb) {DEBUG_OUT_INFO("Test args constructed\n");}
-			TestS(const TestS& other): a{other.a}, b{other.b} {DEBUG_OUT_INFO("Test Copied\n");}
-			TestS(TestS&& other): a{other.a}, b{other.b} {DEBUG_OUT_INFO("Test Moved\n");}
-			TestS& operator=(const TestS& other) {DEBUG_OUT_INFO("Test = copied"); return *this;}
-		};
-		Array<u32> tInts{};
-		u32 ss[] = { 1, 2, 3, 4, 5};
-		tInts.Add(ss, ss + 5);
-
-		tInts.RemoveFirst();
 		Bitset<4> bits = "0101";
 		bits.Flip();
 		String bitsStr = bits.ToString();
 
-
-		BiSearchTree<s32> tSearchTree;
-		tSearchTree.Add(14);
-		tSearchTree.Add(10);
-		tSearchTree.Add(9); 
-		//tSearchTree.Add(-2); 
-		tSearchTree.Add(12);
-		tSearchTree.Add(13);
-		tSearchTree.Add(2);
-		tSearchTree.Add(-2);
-
-		s32 H = tSearchTree.GetHeight();
-		tSearchTree.Remove(2);
 
 		//END TEST ------------------------------------------
 		mMainWindow->DisableVSync();

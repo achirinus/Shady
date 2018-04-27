@@ -553,9 +553,10 @@ typedef void APIENTRY sh_glDepthMask(GLboolean flag);
 #endif
 namespace Shady
 {
-	void initGl();
-	struct OpenglInfo
+	
+	struct Opengl
 	{
+		b8 ValidInfo;
 		u32 majorGlVersion;
 		u32 minorGlVersion;
 		u32 majorShaderVersion;
@@ -566,12 +567,12 @@ namespace Shady
 	};
 
 	#ifdef _WIN32
-		HGLRC Win32GlInit(HDC dc, OpenglInfo* info = 0);
+		HGLRC Win32GetGLContext(HDC dc);
+		
 	#endif
 
-	
-	void GetGlInfo(OpenglInfo* info);
-	OpenglInfo GetGlInfo();
+	void GetGlInfo(Opengl* info);
+	Opengl* GetGlInfo();
 	void CheckGlError(const char* func, const char* file, int line);
 	void ClearGlErrors();
 

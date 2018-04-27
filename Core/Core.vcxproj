@@ -179,6 +179,7 @@
     <ClCompile Include="src\Input\ShMouse.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Console\Console.cpp" />
+    <ClCompile Include="src\OpenGL\ShadyGL.cpp" />
     <ClCompile Include="src\Utils\CPUInstructionSet.cpp" />
     <ClCompile Include="src\Utils\ModelLoader.cpp" />
     <ClCompile Include="src\Utils\ShadyApp.cpp" />
@@ -225,7 +226,6 @@
     <ClInclude Include="include\TimerManager.h" />
     <ClInclude Include="include\Vertex.h" />
     <ClInclude Include="include\Win32Utils.h" />
-    <ClInclude Include="include\Win32Window.h" />
     <ClInclude Include="include\Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

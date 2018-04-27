@@ -44,6 +44,13 @@ namespace Shady
 
 	void ClearMem(void* mem, u64 size);
 
+	b8 IsBitSet(u32 num, u8 bit);
+	void SetBit(u32* num, u8 bit);
+	void UnSetBit(u32* num, u8 bit);
+	
+	b8 IsBitSet(u64 num, u8 bit);
+	void SetBit(u64* num, u8 bit);
+	void UnSetBit(u64* num, u8 bit);
 
 	//template<typename Bytes, typename LeftShiftBits>
 	//auto _BytesToMoreBytes() { return Bytes << LeftShiftBits; }

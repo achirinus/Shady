@@ -108,6 +108,9 @@
     <ClCompile Include="src\Debug\DebugHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\OpenGL\ShadyGL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Bitmap.h">
@@ -206,12 +209,6 @@
     <ClInclude Include="include\Win32Utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Win32Window.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Window.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\Console.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -219,6 +216,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\DebugHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

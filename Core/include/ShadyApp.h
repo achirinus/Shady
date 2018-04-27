@@ -1,7 +1,7 @@
 #ifndef SHADY_APP_H
 #define SHADY_APP_H
 
-#include "Win32Window.h"
+#include "Window.h"
 #include "Commons.h"
 #include "ShMouse.h"
 #include "FileUtils.h"
