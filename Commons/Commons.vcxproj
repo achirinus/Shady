@@ -149,7 +149,7 @@
     <ClInclude Include="include\Commons.h" />
     <ClInclude Include="include\ConsoleOut.h" />
     <ClInclude Include="include\FIleChangeObserver.h" />
-    <ClInclude Include="include\FileUtils.h" />
+    <ClInclude Include="include\ShFile.h" />
     <ClInclude Include="include\Matrix3f.h" />
     <ClInclude Include="include\Matrix4f.h" />
     <ClInclude Include="include\MemUtils.h" />
@@ -168,10 +168,12 @@
     <ClInclude Include="include\ShStack.h" />
     <ClInclude Include="include\ShString.h" />
     <ClInclude Include="include\ShTypes.h" />
+    <ClInclude Include="include\ShWindows.h" />
     <ClInclude Include="include\StringUtils.h" />
     <ClInclude Include="include\Vec2.h" />
     <ClInclude Include="include\Vec3.h" />
     <ClInclude Include="include\Vec4.h" />
+    <ClInclude Include="include\Win32Utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Commons.cpp" />
@@ -179,7 +181,7 @@
     <ClCompile Include="src\DebugUtils\ConsoleOut.cpp" />
     <ClCompile Include="src\DebugUtils\ShAssert.cpp" />
     <ClCompile Include="src\FileSystem\FileChangeObserver.cpp" />
-    <ClCompile Include="src\FileSystem\Win32FileUtils.cpp" />
+    <ClCompile Include="src\FileSystem\Win32ShFile.cpp" />
     <ClCompile Include="src\Math\Matrix3f.cpp" />
     <ClCompile Include="src\Math\Matrix4f.cpp" />
     <ClCompile Include="src\Math\ShMath.cpp" />
@@ -189,6 +191,7 @@
     <ClCompile Include="src\StringUtils\StringUtils.cpp" />
     <ClCompile Include="src\Utils\ColorVec.cpp" />
     <ClCompile Include="src\Utils\ComFuncs.cpp" />
+    <ClCompile Include="src\Utils\Win32Utils.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

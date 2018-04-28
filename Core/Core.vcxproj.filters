@@ -87,9 +87,6 @@
     <ClCompile Include="src\Utils\TimerManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Utils\Win32Utils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Utils\Win32Window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -204,9 +201,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Vertex.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Win32Utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Console.h">

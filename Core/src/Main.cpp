@@ -3,7 +3,6 @@
 #include <ShadyGL.h>
 #include "ShadyApp.h"
 #include "ShString.h"
-#include "FileUtils.h"
 #include "ModelLoader.h"
 #include "StringUtils.h"
 #include "ShMath.h"

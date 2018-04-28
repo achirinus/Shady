@@ -52,6 +52,9 @@ namespace Shady
 	void SetBit(u64* num, u8 bit);
 	void UnSetBit(u64* num, u8 bit);
 
+	u32 GetHighFrom64(u64 val);
+	u32 GetLowFrom64(u64 val);
+
 	//template<typename Bytes, typename LeftShiftBits>
 	//auto _BytesToMoreBytes() { return Bytes << LeftShiftBits; }
 	

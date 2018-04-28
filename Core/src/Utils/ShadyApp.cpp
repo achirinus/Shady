@@ -46,6 +46,21 @@ namespace Shady
 		*/
 		//TEST STUFF!!------------------------------------
 		
+		File TextFile("test.txt");
+		if (TextFile.Open(FileType::TEXT_FILE))
+		{
+			String FileText = TextFile.ReadAllText();
+			String FirstLine = TextFile.ReadLine(); // Maybe accept a line number to read
+			String SecondLine = TextFile.ReadLine(); // Maybe accept a line number to read
+			String AppText = ".ALIN";
+			String InsertText = "!!!HELLO!!!";
+			TextFile.SetWriteCursor(FileCursorPos::BEGIN);
+			TextFile.WriteText(InsertText);
+			TextFile.SetWriteCursor(5);
+			TextFile.WriteText(AppText);
+			TextFile.Close();
+		}
+
 		Bitset<4> bits = "0101";
 		bits.Flip();
 		String bitsStr = bits.ToString();

@@ -187,7 +187,6 @@
     <ClCompile Include="src\Utils\Timer.cpp" />
     <ClCompile Include="src\Utils\TimerManager.cpp" />
     <ClCompile Include="src\OpenGL\Win32Gl.cpp" />
-    <ClCompile Include="src\Utils\Win32Utils.cpp" />
     <ClCompile Include="src\Utils\Win32Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -225,7 +224,6 @@
     <ClInclude Include="include\Timer.h" />
     <ClInclude Include="include\TimerManager.h" />
     <ClInclude Include="include\Vertex.h" />
-    <ClInclude Include="include\Win32Utils.h" />
     <ClInclude Include="include\Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

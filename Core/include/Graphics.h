@@ -3,7 +3,7 @@
 
 
 #include "ShTypes.h"
-#include "FileUtils.h"
+#include "ShFile.h"
 #include "Bitmap.h"
 #include "Texture.h"
 

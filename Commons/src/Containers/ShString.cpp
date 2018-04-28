@@ -50,6 +50,13 @@ namespace Shady
 		mBuffer = new c8[mBufferSize];
 		StrCopy(mBuffer, str);
 	}
+	String::String(const c8* str, u32 num)
+	{
+		u32 StrSize = StrLength(str);
+		mBufferSize = StrSize > num ? (num + 1) : (StrSize + 1);
+		mBuffer = new c8[mBufferSize];
+		StrnCopy(mBuffer, num, str);
+	}
 	String::String(const String& other): mBufferSize(other.mBufferSize), mBuffer(0)
 	{
 		if(mBufferSize > 0)
@@ -109,7 +116,6 @@ namespace Shady
 		if (str)
 		{
 			s32 size = StrLength(str);
-
 			mBufferSize = size + 1;
 			mBuffer = new c8[mBufferSize];
 			StrCopy(mBuffer, str);
@@ -123,10 +129,9 @@ namespace Shady
 			}
 			mBufferSize = 0;
 		}
-		
-		
 		return *this;
 	}
+
 	const c8* String::CStr() const
 	{
 		return mBuffer;
@@ -570,6 +575,11 @@ namespace Shady
 		}
 	}
 
+	b8 String::IsEmpty()
+	{
+		return (!mBuffer || !mBufferSize);
+	}
+
 	String::~String()
 	{
 		if(mBuffer)
@@ -597,4 +607,18 @@ namespace Shady
 		va_end(args);
 		return String(tempBuffer);
 	}
+	String String::FromAlocatedCStr(c8* str)
+	{
+		String Result;
+		Result.mBufferSize = StrLength(str) + 1;
+		Result.mBuffer = str;
+		return Move(Result);
+	}
+
+	String String::FromLimitedStr(const c8* str, u32 num)
+	{
+		String Result(str, num);
+		return Move(Result);
+	}
+
 }

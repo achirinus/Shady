@@ -27,9 +27,6 @@
     <ClInclude Include="include\FIleChangeObserver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\FileUtils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\Matrix3f.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -99,6 +96,15 @@
     <ClInclude Include="include\ShBiSearchTree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\ShFile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ShWindows.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Win32Utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Containers\ShString.cpp">
@@ -143,7 +149,10 @@
     <ClCompile Include="src\Utils\ColorVec.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\FileSystem\Win32FileUtils.cpp">
+    <ClCompile Include="src\FileSystem\Win32ShFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utils\Win32Utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

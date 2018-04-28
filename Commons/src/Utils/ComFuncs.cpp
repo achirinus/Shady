@@ -46,4 +46,14 @@ namespace Shady
 	{
 		if (num) (*num) &= ~(1 << (bit - 1));
 	}
+
+	u32 GetHighFrom64(u64 val)
+	{
+		return (u32)(val >> 32ULL);
+	}
+
+	u32 GetLowFrom64(u64 val)
+	{
+		return (u32)val;
+	}
 }

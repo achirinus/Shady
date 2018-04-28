@@ -21,6 +21,7 @@ namespace Shady
 		String(std::initializer_list<const char*> list);
 		String(u32 integer);
 		String(const c8* str);
+		String(const c8* str, u32 num);
 		String(const String& other);
 		String(String&& other);
 		String(s32 numOfStrings, ...);
@@ -58,8 +59,11 @@ namespace Shady
 		u32 GetNumberOfLines();
 		b8 Replace(const c8* strToReplace, const c8* replaceWith);
 		void Trim();
+		b8 IsEmpty();
 		static String FormatString(const char* format, ...);
 		static String FormatString(String format, ...);
+		static String FromAlocatedCStr(c8* str);
+		static String FromLimitedStr(const c8* str, u32 num);
 	};
 	
 }

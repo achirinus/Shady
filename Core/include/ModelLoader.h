@@ -2,7 +2,7 @@
 #define MODEL_LOADER_H
 
 #include "Mesh.h"
-#include "FileUtils.h"
+#include "ShFile.h"
 namespace Shady
 {
 	class ModelLoader
