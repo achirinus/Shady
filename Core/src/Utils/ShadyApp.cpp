@@ -4,6 +4,7 @@
 #include "ShQueue.h"
 #include "ShStack.h"
 #include "ShBiSearchTree.h"
+#include "ShHashTable.h"
 
 namespace Shady
 {
@@ -19,6 +20,10 @@ namespace Shady
 		return sInstance;
 	}
 
+	u32 HashInt(const s32& num)
+	{
+		return num;
+	}
 
 	void ShadyApp::start()
 	{
@@ -46,20 +51,13 @@ namespace Shady
 		*/
 		//TEST STUFF!!------------------------------------
 		
-		File TextFile("test.txt");
-		if (TextFile.Open(FileType::TEXT_FILE))
-		{
-			String FileText = TextFile.ReadAllText();
-			String FirstLine = TextFile.ReadLine(); // Maybe accept a line number to read
-			String SecondLine = TextFile.ReadLine(); // Maybe accept a line number to read
-			String AppText = ".ALIN";
-			String InsertText = "!!!HELLO!!!";
-			TextFile.SetWriteCursor(FileCursorPos::BEGIN);
-			TextFile.WriteText(InsertText);
-			TextFile.SetWriteCursor(5);
-			TextFile.WriteText(AppText);
-			TextFile.Close();
-		}
+		HashTable<s32> HashT{ 13, HashInt};
+		HashT.Add(1);
+		HashT.Add(15);
+		HashT.Add(14);
+		HashT.Add(5);
+		HashT.Add(90);
+		
 
 		Bitset<4> bits = "0101";
 		bits.Flip();

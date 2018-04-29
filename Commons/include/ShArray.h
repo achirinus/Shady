@@ -428,13 +428,13 @@ namespace Shady
 		
 		T& operator[](u32 index)
 		{
-			SH_ASSERT(index < mNumOfElem);
+			SH_ASSERT(index < mBufferSize);
 			return mBuffer[index];
 		}
 
 		const T& operator[](u32 index) const
 		{
-			SH_ASSERT(index < mNumOfElem);
+			SH_ASSERT(index < mBufferSize);
 			return mBuffer[index];
 		}
 

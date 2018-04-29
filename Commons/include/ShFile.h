@@ -60,7 +60,9 @@ namespace Shady
 		void AdvanceWriteCursor(u32 offset);
 		String ReadAllText();
 		String ReadLine();
+		u32 ReadData(void* data, u32 size);
 		void WriteText(const String& text);
+		u32 WriteData(void* data, u32 size);
 
 		static void SetCwd(const c8* path);
 		static void ClearContent(BinaryFileContent* fileContent);

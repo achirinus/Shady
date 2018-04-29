@@ -192,6 +192,24 @@ namespace Shady
 		return Move(Result);
 	}
 
+	u32 File::ReadData(void* data, u32 size)
+	{
+		LARGE_INTEGER LargeReadCursor;
+		LARGE_INTEGER NewReadCursor;
+		LargeReadCursor.QuadPart = ReadCursor;
+		SetFilePointerEx(Handle, LargeReadCursor, &NewReadCursor, FILE_BEGIN);
+		u32 Result = 0;
+		if (!ReadFile(Handle, data, size, (LPDWORD)&Result, NULL))
+		{
+			Win32::CheckLastError();
+			return 0;
+		}
+		WriteCursor += Result;
+
+		return Result;
+	}
+
+
 	void File::WriteText(const String& text)
 	{
 		if (!Handle || !IsOpen) return;
@@ -207,6 +225,25 @@ namespace Shady
 		}
 		WriteCursor += BytesWritten;
 	}
+
+	u32 File::WriteData(void* data, u32 size)
+	{
+		if (!Handle || !IsOpen) return 0;
+		LARGE_INTEGER LargeWriteCursor;
+		LARGE_INTEGER NewWriteCursor;
+		LargeWriteCursor.QuadPart = WriteCursor;
+		SetFilePointerEx(Handle, LargeWriteCursor, &NewWriteCursor, FILE_BEGIN);
+		u32 Result = 0;
+		if (!WriteFile(Handle, data, size, (LPDWORD)&Result, NULL))
+		{
+			Win32::CheckLastError();
+			return 0;
+		}
+		
+		WriteCursor += Result;
+		return Result;
+	}
+
 
 
 	//-------------Statics------------------//
