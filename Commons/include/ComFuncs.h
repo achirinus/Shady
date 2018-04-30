@@ -9,6 +9,8 @@ namespace Shady
 	#define DCAST(expr, type) dynamic_cast<type>(expr)
 	#define RCAST(expr, type) reinterpret_cast<type>(expr)
 	#define CCAST(expr, type) const_cast<type>(expr)
+
+	#define C_ARRAY_SIZE(Arr) sizeof(Arr) / sizeof(Arr[0])
 	
 	template<typename T>
 	T&& Move(T& obj)
@@ -54,6 +56,9 @@ namespace Shady
 
 	u32 GetHighFrom64(u64 val);
 	u32 GetLowFrom64(u64 val);
+
+	
+	b8 MemoryCompare(const c8* Left, const c8* Right, u32 Size);
 
 	//template<typename Bytes, typename LeftShiftBits>
 	//auto _BytesToMoreBytes() { return Bytes << LeftShiftBits; }

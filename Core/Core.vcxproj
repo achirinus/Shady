@@ -190,7 +190,6 @@
     <ClCompile Include="src\Utils\Win32Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Bitmap.h" />
     <ClInclude Include="include\Camera2D.h" />
     <ClInclude Include="include\Camera3D.h" />
     <ClInclude Include="include\Console.h" />

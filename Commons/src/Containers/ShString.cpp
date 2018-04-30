@@ -460,6 +460,14 @@ namespace Shady
 		return result;
 	}
 
+	b8 String::EndsWith(const c8* str)
+	{
+		u32 StrSize = StrLength(str);
+		if (StrSize >= mBufferSize) return false;
+		u32 IndexToCheck = mBufferSize - (StrSize + 1);
+		return StrCompare(mBuffer + IndexToCheck, str);
+	}
+
 	void String::Insert(c8 c, u32 index)
 	{
 		if (!mBufferSize)

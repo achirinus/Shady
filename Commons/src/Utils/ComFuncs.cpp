@@ -56,4 +56,21 @@ namespace Shady
 	{
 		return (u32)val;
 	}
+	
+
+	b8 MemoryCompare(const c8* Left, const c8* Right, u32 Size)
+	{
+		if (!Left || !Right || !Size) return false;
+		b8 Result = true;
+		while (Size--)
+		{
+			if (*Left++ != *Right++)
+			{
+				Result = false;
+				break;
+			}
+		}
+		return Result;
+	}
+
 }

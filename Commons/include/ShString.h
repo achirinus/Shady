@@ -55,6 +55,7 @@ namespace Shady
 		String GetLine();
 		b8 BeginsWith(c8 character);
 		b8 BeginsWith(const char* str);
+		b8 EndsWith(const c8* str);
 		void Insert(c8 c, u32 index);
 		u32 GetNumberOfLines();
 		b8 Replace(const c8* strToReplace, const c8* replaceWith);

@@ -1,6 +1,8 @@
 #ifndef SH_BITMAP_H
 #define SH_BITMAP_H
 
+#include "Commons.h"
+
 namespace Shady
 {
 	struct Bitmap

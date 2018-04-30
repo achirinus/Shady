@@ -108,6 +108,15 @@
     <ClInclude Include="include\ShHashTable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\ImageLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Bitmap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PngImage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Containers\ShString.cpp">
@@ -156,6 +165,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Utils\Win32Utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utils\ImageLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utils\PngImage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

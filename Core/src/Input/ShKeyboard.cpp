@@ -79,8 +79,6 @@ namespace Shady
 		
 	}
 
-	
-
 	b8 Keyboard::IsShiftPressed()
 	{
 		return ((mKeyStates[InputKey::KEY_LSHIFT]) || (mKeyStates[InputKey::KEY_RSHIFT]));

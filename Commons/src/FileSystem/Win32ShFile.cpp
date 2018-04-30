@@ -130,6 +130,21 @@ namespace Shady
 		return String::FromAlocatedCStr(TempBuffer);
 	}
 
+	BinaryFileContent File::ReadAllData()
+	{
+		BinaryFileContent Result{};
+		if (!Handle || !IsOpen) return Result;
+		Result.Size = (u32)GetSize();
+		Result.Data = new c8[Result.Size];
+		SetFilePointer(Handle, 0, 0, FILE_BEGIN);
+		if (!ReadFile(Handle, Result.Data, Result.Size, NULL, NULL))
+		{
+			Win32::CheckLastError();
+		}
+		SetFilePointer(Handle, 0, 0, FILE_BEGIN);
+		return Result;
+	}
+
 	String File::ReadLine()
 	{
 		if (!Handle || !IsOpen) return String{};

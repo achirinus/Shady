@@ -5,6 +5,7 @@
 #include "ShStack.h"
 #include "ShBiSearchTree.h"
 #include "ShHashTable.h"
+#include "PngImage.h"
 
 namespace Shady
 {
@@ -57,7 +58,12 @@ namespace Shady
 		HashT.Add(14);
 		HashT.Add(5);
 		HashT.Add(90);
-		
+
+		File TestPng{ "image.png" };
+		TestPng.Open(FileType::BINARY_FILE);
+		BinaryFileContent Content = TestPng.ReadAllData();
+		PngImage TestPngImage{};
+		TestPngImage.InitFromData(Content);
 
 		Bitset<4> bits = "0101";
 		bits.Flip();

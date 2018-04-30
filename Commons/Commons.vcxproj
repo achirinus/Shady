@@ -144,11 +144,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\Bitmap.h" />
     <ClInclude Include="include\ColorVec.h" />
     <ClInclude Include="include\ComFuncs.h" />
     <ClInclude Include="include\Commons.h" />
     <ClInclude Include="include\ConsoleOut.h" />
     <ClInclude Include="include\FIleChangeObserver.h" />
+    <ClInclude Include="include\ImageLoader.h" />
+    <ClInclude Include="include\PngImage.h" />
     <ClInclude Include="include\ShFile.h" />
     <ClInclude Include="include\Matrix3f.h" />
     <ClInclude Include="include\Matrix4f.h" />
@@ -177,6 +180,7 @@
     <ClInclude Include="include\Win32Utils.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Utils\PngImage.cpp" />
     <ClCompile Include="src\Commons.cpp" />
     <ClCompile Include="src\Containers\ShString.cpp" />
     <ClCompile Include="src\DebugUtils\ConsoleOut.cpp" />
@@ -192,6 +196,7 @@
     <ClCompile Include="src\StringUtils\StringUtils.cpp" />
     <ClCompile Include="src\Utils\ColorVec.cpp" />
     <ClCompile Include="src\Utils\ComFuncs.cpp" />
+    <ClCompile Include="src\Utils\ImageLoader.cpp" />
     <ClCompile Include="src\Utils\Win32Utils.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
