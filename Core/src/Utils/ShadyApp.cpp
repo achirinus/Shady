@@ -6,6 +6,8 @@
 #include "ShBiSearchTree.h"
 #include "ShHashTable.h"
 #include "PngImage.h"
+#include "ShRandom.h"
+
 
 namespace Shady
 {
@@ -58,6 +60,13 @@ namespace Shady
 		HashT.Add(14);
 		HashT.Add(5);
 		HashT.Add(90);
+
+		Random testRng;
+		while (true)
+		{
+			u32 Num = testRng.Get(0, 10);
+			DEBUG_OUT_INFO("%u32", Num);
+		}
 
 		File TestPng{ "image.png" };
 		TestPng.Open(FileType::BINARY_FILE);

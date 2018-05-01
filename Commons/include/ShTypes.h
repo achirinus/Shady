@@ -47,7 +47,7 @@ namespace Shady
 			#define S8_MAX (127)
 			#define S16_MIN (-32768)
 			#define S16_MAX (32767)
-			#define S32_MIN (-2147483648)
+			#define S32_MIN (-2147483647 - 1)
 			#define S32_MAX (2147483647)
 			#define S64_MIN (-9223372036854775808)
 			#define S64_MAX (9223372036854775807)

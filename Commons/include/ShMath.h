@@ -33,6 +33,16 @@ namespace Shady
 	{
 		return left > right ? left : right;
 	}
+
+	template<typename T>
+	T Clamp(T value, T minValue, T maxValue)
+	{
+		T result = value;
+		if (result > maxValue) result = maxValue;
+		if (result < minValue) result = minValue;
+		return result;
+	}
+
 	s32 Absolute(s32 a);
 	f32 Absolute(f32 a);	
 	f32 Pow(f32 base, u32 pow);
@@ -43,9 +53,6 @@ namespace Shady
 	f64 ClampHigh(f64 value, f64 upperLimit);
 	s32 ClampHigh(s32 value, s32 upperLimit);
 	s32 ClampLow(s32 value, s32 lowerLimit);
-	f32 Clamp(f32 value, f32 lowerLimit, f32 upperLimit);
-	
-	s32 Clamp(s32 value, s32 lowerLimit, s32 upperLimit);
 	f32 ClampToZero(f32 value);
 	f32 Ceil(f32 value);
 	f64 Ceil(f64 value);

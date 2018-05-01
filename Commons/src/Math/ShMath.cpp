@@ -46,23 +46,6 @@ namespace Shady
 		return (value > upperLimit) ? upperLimit : value;
 	}
 
-	f32 Clamp(f32 value, f32 lowerLimit, f32 upperLimit)
-	{
-		f32 result = value;
-		if (result > upperLimit) result = upperLimit;
-		if (result < lowerLimit) result = lowerLimit;
-		return result;
-	}
-	
-
-	s32 Clamp(s32 value, s32 lowerLimit, s32 upperLimit)
-	{
-		s32 result = value;
-		if (result > upperLimit) result = upperLimit;
-		if (result < lowerLimit) result = lowerLimit;
-		return result;
-	}
-
 	s32 ClampLow(s32 value, s32 lowerLimit)
 	{
 		s32 result = value;

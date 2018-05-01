@@ -168,6 +168,7 @@
     <ClInclude Include="include\ShMultiMap.h" />
     <ClInclude Include="include\ShObject.h" />
     <ClInclude Include="include\ShQueue.h" />
+    <ClInclude Include="include\ShRandom.h" />
     <ClInclude Include="include\ShSArray.h" />
     <ClInclude Include="include\ShStack.h" />
     <ClInclude Include="include\ShString.h" />
@@ -197,6 +198,7 @@
     <ClCompile Include="src\Utils\ColorVec.cpp" />
     <ClCompile Include="src\Utils\ComFuncs.cpp" />
     <ClCompile Include="src\Utils\ImageLoader.cpp" />
+    <ClCompile Include="src\Utils\ShRandom.cpp" />
     <ClCompile Include="src\Utils\Win32Utils.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
