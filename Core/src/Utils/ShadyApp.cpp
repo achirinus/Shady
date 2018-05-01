@@ -54,19 +54,6 @@ namespace Shady
 		*/
 		//TEST STUFF!!------------------------------------
 		
-		HashTable<s32> HashT{ 13, HashInt};
-		HashT.Add(1);
-		HashT.Add(15);
-		HashT.Add(14);
-		HashT.Add(5);
-		HashT.Add(90);
-
-		Random testRng;
-		while (true)
-		{
-			u32 Num = testRng.Get(0, 10);
-			DEBUG_OUT_INFO("%u32", Num);
-		}
 
 		File TestPng{ "image.png" };
 		TestPng.Open(FileType::BINARY_FILE);

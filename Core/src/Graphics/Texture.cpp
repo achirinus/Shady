@@ -1,6 +1,6 @@
 #include "Texture.h"
 #include <cstdio>
-#include "stb_image.c"
+#include "ImageLoader.h"
 
 
 namespace Shady
@@ -22,21 +22,21 @@ namespace Shady
 	Texture::Texture(const char* fileName): mWidth(0), mHeight(0), mTexture(0)
 	{
 		SH_ASSERT(fileName);
-		int width, height, numComponents;
+		
 		//TODO write my own image loader
-		unsigned char* imageData = stbi_load(fileName, &width, &height, &numComponents, 4);
+		Bitmap bmp = ImageLoader::LoadFromFile(fileName);
 
-		if (!imageData)
+		if (!bmp.contents)
 		{
 			//TODO better log
 			DEBUG_OUT_ERR("Failed to load texture");
 		}
-		mWidth = width;
-		mHeight = height;
+		mWidth = bmp.width;
+		mHeight = bmp.height;
 		
-		initGlTexture(imageData);
+		initGlTexture((u8*)bmp.contents);
 
-		stbi_image_free(imageData);
+		ImageLoader::FreeImage(&bmp);
 	}
 
 	Texture::Texture(Bitmap bmp): mWidth(0), mHeight(0), mTexture(0)

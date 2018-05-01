@@ -8,7 +8,9 @@ namespace Shady
 {
 	namespace ImageLoader
 	{
-		Bitmap LoadFromFile(String& FileName);
+		Bitmap LoadFromFile(const String& FileName);
+
+		void FreeImage(Bitmap* image);
 	}
 }
 
