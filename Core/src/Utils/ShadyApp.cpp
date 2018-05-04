@@ -7,6 +7,7 @@
 #include "ShHashTable.h"
 #include "PngImage.h"
 #include "ShRandom.h"
+#include "MemUtils.h"
 
 
 namespace Shady
@@ -26,6 +27,20 @@ namespace Shady
 	u32 HashInt(const s32& num)
 	{
 		return num;
+	}
+
+	void BlitRectInBitmap(u32* sBuf, u32 sWidth, u32 sHeight, u32 dx, u32 dy, u32* dBuf, u32 dWidth, u32 dHeight)
+	{
+		u32 tempX = dx;
+		for (u32 ys = 0; ys < sHeight; ++ys)
+		{
+			for (u32 xs = 0; xs < sWidth; ++xs)
+			{
+				dBuf[dy * dWidth + dx++] = sBuf[ys * sWidth + xs];
+			}
+			dx = tempX;
+			++dy;
+		}
 	}
 
 	void ShadyApp::start()
@@ -54,20 +69,23 @@ namespace Shady
 		*/
 		//TEST STUFF!!------------------------------------
 		
+		u32 BigMem[6][6];
+		u32 SmallMem[3][2];
+		for (u32 y = 0; y < 3; y++)
+		{
+			for (u32 x = 0; x < 2; x++)
+			{
+				SmallMem[y][x] = 4;
+			}
+		}
+		BlitRectInBitmap(SmallMem[0], 2, 3, 3, 2, BigMem[0], 6, 6);
 
 		File TestPng{ "image.png" };
 		TestPng.Open(FileType::BINARY_FILE);
 		BinaryFileContent Content = TestPng.ReadAllData();
 		PngImage TestPngImage{};
 		TestPngImage.InitFromData(Content);
-
-		Bitset<4> bits = "0101";
-		bits.Flip();
-		String bitsStr = bits.ToString();
-
-		String ola = " dad mom  siste r ";
-		ola.Trim();
-
+		
 		//END TEST ------------------------------------------
 		mMainWindow->DisableVSync();
 		//setFpsLimit(60);

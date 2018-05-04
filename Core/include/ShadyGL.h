@@ -106,6 +106,8 @@ typedef ptrdiff_t GLintptr;
 #define GL_BLEND                          0x0BE2
 #define GL_LINE_SMOOTH                    0x0B20
 
+#define GL_UNPACK_ALIGNMENT               0x0CF5
+
 #define GL_NO_ERROR                       0
 #define GL_INVALID_ENUM                   0x0500
 #define GL_INVALID_VALUE                  0x0501
@@ -134,6 +136,8 @@ typedef ptrdiff_t GLintptr;
 #define GL_REPEAT                         0x2901
 
 #define GL_CLAMP_TO_EDGE                  0x812F
+
+#define GL_MULTISAMPLE                    0x809D
 
 #define GL_DEBUG_SOURCE_API_ARB           0x8246
 #define GL_DEBUG_SOURCE_WINDOW_SYSTEM_ARB 0x8247
@@ -210,6 +214,9 @@ typedef ptrdiff_t GLintptr;
 #define GL_UNSIGNED_INT                   0x1405
 #define GL_FLOAT                          0x1406
 
+#define GL_R8                             0x8229
+#define GL_RED                            0x1903
+
 typedef void (APIENTRY  *GLDEBUGPROCARB)(GLenum source,GLenum type,GLuint id,GLenum severity,GLsizei length,const GLchar *message,const void *userParam);
 typedef void (APIENTRY  *GLDEBUGPROC)(GLenum source,GLenum type,GLuint id,GLenum severity,GLsizei length,const GLchar *message,const void *userParam);
 
@@ -276,6 +283,8 @@ typedef void APIENTRY sh_glViewport (GLint x, GLint y, GLsizei width, GLsizei he
 typedef void APIENTRY sh_glTexParameterf (GLenum target, GLenum pname, GLfloat param);
 typedef void APIENTRY sh_glDepthFunc(GLenum func);
 typedef void APIENTRY sh_glDepthMask(GLboolean flag);
+typedef void APIENTRY sh_glPixelStorei (GLenum pname, GLint param);
+
 #define OpenGlGlobalFuncEx(Name) sh_##Name* Name##_
 
 #ifdef GL_FUNCS_AS_MACROS
@@ -470,6 +479,9 @@ typedef void APIENTRY sh_glDepthMask(GLboolean flag);
 	OpenGlGlobalFunc(glDepthMask);
 	#define glDepthMask(...) GLFunctionWrap(glDepthMask, __VA_ARGS__)
 
+	OpenGlGlobalFunc(glPixelStorei);
+	#define glPixelStorei(...) GLFunctionWrap(glPixelStorei, __VA_ARGS__)
+
 	#define ShGlGetProcAddress(Name, FallbackModule, Arr)	\
 	 	Name##_ = (sh_##Name*)wglGetProcAddress(#Name); \
 		if(!Name##_) {Name##_ = (sh_##Name*)GetProcAddress(FallbackModule,#Name);} \
@@ -540,6 +552,7 @@ typedef void APIENTRY sh_glDepthMask(GLboolean flag);
 	OpenGlGlobalFunc(glTexParameterf);
 	OpenGlGlobalFunc(glDepthFunc);
 	OpenGlGlobalFunc(glDepthMask);
+	OpenGlGlobalFunc(glPixelStorei);
 
 	#define ShGlGetProcAddress(Name, FallbackModule, Arr)	\
 	 	Name = (sh_##Name*)wglGetProcAddress(#Name); \

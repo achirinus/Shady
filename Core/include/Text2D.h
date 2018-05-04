@@ -14,6 +14,7 @@ namespace Shady
 	private:
 		Array<Glyph*> mGlyphs;
 		
+
 	public:
 
 		u32 mNumOfLines;

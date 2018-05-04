@@ -4,8 +4,12 @@
 #include "ShaderManager.h"
 #include "DebugHelper.h"
 
+
 #define STB_TRUETYPE_IMPLEMENTATION
+#define STB_RECT_PACK_IMPLEMENTATION
+#include "stb_rect_pack.h"
 #include "stb_truetype.h"
+
 namespace Shady
 {
 #define DEFAULT_FONT_SIZE 20
@@ -19,7 +23,7 @@ namespace Shady
 		}
 	}
 
-	Font::Font(): mGlyphs()
+	Font::Font(): mGlyphs(), FontAtlas{nullptr}
 	{
 		mShader = ShaderManager::CreateShader("text");
 		BinaryFileContent fileResult = File::ReadBinaryFile("c:/windows/fonts/arial.ttf");
@@ -29,7 +33,10 @@ namespace Shady
 		}
 		File::ClearContent(&fileResult);
 		STBloadSupportedGlyphs(DEFAULT_FONT_SIZE);
+		
 	}
+
+
 
 	//TODO Codepoint glyphs are for now stored in video memory,
 	//decide where to keep them.
@@ -41,7 +48,7 @@ namespace Shady
 													&width, &height, xOffset, yOffset);
 		
 		Bitmap goodBmp = get32bppBitmapFrom8bpp(monoBitmap, width, height);
-
+		
 		Texture* result = new Texture(goodBmp);
 		freeBitmap(goodBmp);
 		stbtt_FreeBitmap(monoBitmap, 0);
@@ -65,6 +72,41 @@ namespace Shady
 		}
 		mCachedGlyphs.Add(sizeInPixels, GlyphsToCache);
 		
+	}
+
+	
+
+	void Font::STBLoadAtlasData(u32 size)
+	{
+		f32 scale = stbtt_ScaleForPixelHeight(&mFontInfo, size);
+		stbtt_GetFontVMetrics(&mFontInfo, &mAscent, &mDescent, &mLineGap);
+		u32 NumOFChars = MAX_ASCII_CODEPOINT - MIN_ASCII_CODEPOINT;
+		Array<Bitmap> AllBitmaps{NumOFChars};
+
+		MultiMap<c8, GlyphData> GlyphsToCache;
+		for (c8 cp = MIN_ASCII_CODEPOINT; cp <= MAX_ASCII_CODEPOINT; cp++)
+		{
+			s32 advanceW, leftBearing, xOffset, yOffset;
+
+			s32 width, height;
+			u8* monoBitmap = stbtt_GetCodepointBitmap(&mFontInfo, 0, scale, cp,
+				&width, &height, &xOffset, &yOffset);
+
+			Bitmap goodBmp = get32bppBitmapFrom8bpp(monoBitmap, width, height);
+			AllBitmaps.Add(goodBmp);
+			stbtt_FreeBitmap(monoBitmap, 0);
+			stbtt_GetCodepointHMetrics(&mFontInfo, cp, &advanceW, &leftBearing);
+			GlyphsToCache.Add(cp, { nullptr, advanceW * scale, leftBearing * scale, xOffset, yOffset, scale, cp, {} });
+		}
+		u32* AtlasPixels = new u32[10 * 10 * size];
+
+		for (c8 cp = MIN_ASCII_CODEPOINT; cp <= MAX_ASCII_CODEPOINT; cp++)
+		{
+
+		}
+
+		mCachedGlyphs.Add(size, GlyphsToCache);
+
 	}
 
 	Text2D* Font::GetText(Vec3f pos, const c8* str, u32 size)

@@ -91,7 +91,7 @@ namespace Shady
 					b8 posInCenter, Shader* shader, const Vec4f& color):
 	mTexture(texture) 
 	{
-		mIsTransparent = false;
+		mIsTransparent = true;
 		mOwnShader = false;
 		mModelMat = Matrix4f(1);
 		mColor = color;
@@ -118,7 +118,7 @@ namespace Shady
 	Sprite::Sprite(const Vec3f& pos, Texture* texture, b8 posInCenter, Shader* shader):
 	 mTexture(texture)
 	{
-		mIsTransparent = false;
+		mIsTransparent = true;
 		mOwnShader = false;
 		mModelMat = Matrix4f(1);
 		mColor = Vec4f(1.0f, 1.0f, 1.0f, 1.0f);

@@ -15,6 +15,7 @@ namespace Shady
 		s32 mYOff;
 		f32 mScale;
 		c8 mChar;
+		Vec2f mAtlasCoords;
 	};
 }
 

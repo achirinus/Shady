@@ -66,6 +66,7 @@ OpenGlGlobalFuncEx(glViewport);
 OpenGlGlobalFuncEx(glTexParameterf);
 OpenGlGlobalFuncEx(glDepthFunc);
 OpenGlGlobalFuncEx(glDepthMask);
+OpenGlGlobalFuncEx(glPixelStorei);
 
 namespace Shady
 {
@@ -260,6 +261,7 @@ namespace Shady
 		ShGlGetProcAddress(glTexParameterf, gldll, result);
 		ShGlGetProcAddress(glDepthFunc, gldll, result);
 		ShGlGetProcAddress(glDepthMask, gldll, result);
+		ShGlGetProcAddress(glPixelStorei, gldll, result);
 
 		FreeLibrary(gldll);
 		return result;

@@ -25,11 +25,12 @@ namespace Shady
 	private:
 
 		
-		void initGlTexture(u8* imageData);
+		void initGlTexture(u8* imageData, u32 bpp);
 
 		GLuint mTexture;
 		u32 mWidth;
 		u32 mHeight;
+		
 	};
 
 }

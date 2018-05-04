@@ -16,17 +16,24 @@
 
 namespace Shady
 {
-	
+	struct AtlasedGlyphData
+	{
+		Texture* Atlas;
+		MultiMap<u32, MultiMap<c8, GlyphData>> mCachedGlyphs;
+	};
 	class Font
 	{
 	private:
 		MultiMap<c8, GlyphData> mGlyphs;
 		MultiMap<u32, MultiMap<c8, GlyphData>> mCachedGlyphs;
+		AtlasedGlyphData mAtlasData;
 		stbtt_fontinfo mFontInfo;
-
+		Texture* FontAtlas;
 		Texture* STBgetGlyphTexture(stbtt_fontinfo* fontInfo, c8 cp,
 									s32* xOffset, s32* yOffset, f32 scale);
 		void STBloadSupportedGlyphs(u32 sizeInPixels);
+		
+		void STBLoadAtlasData(u32 size);
 
 	public:
 		~Font();

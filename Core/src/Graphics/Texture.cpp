@@ -6,17 +6,25 @@
 namespace Shady
 {
 	
-	void Texture::initGlTexture(u8* imageData)
+	void Texture::initGlTexture(u8* imageData, u32 bpp)
 	{
 		glGenTextures(1, &mTexture);
 		glBindTexture(GL_TEXTURE_2D, mTexture);
-
+		
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, mWidth, mHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData);
+		if (bpp == 4)
+		{
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, mWidth, mHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData);
+		}
+		else if (bpp == 1)
+		{
+			glPixelStorei(GL_UNPACK_ALIGNMENT, 1); //Maybe we should just align istead of using this
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_R8, mWidth, mHeight, 0, GL_RED, GL_UNSIGNED_BYTE, imageData);
+		}
+		
 	}
 
 	Texture::Texture(const char* fileName): mWidth(0), mHeight(0), mTexture(0)
@@ -34,7 +42,7 @@ namespace Shady
 		mWidth = bmp.width;
 		mHeight = bmp.height;
 		
-		initGlTexture((u8*)bmp.contents);
+		initGlTexture((u8*)bmp.contents, bmp.bpp);
 
 		ImageLoader::FreeImage(&bmp);
 	}
@@ -45,7 +53,7 @@ namespace Shady
 		{
 			mWidth = bmp.width;
 			mHeight = bmp.height;
-			initGlTexture((u8*)bmp.contents);
+			initGlTexture((u8*)bmp.contents, bmp.bpp);
 		}
 	}
 

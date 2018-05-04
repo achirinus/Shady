@@ -80,7 +80,7 @@
 //
 //   Include this file in whatever places neeed to refer to it. In ONE C/C++
 //   file, write:
-//      #define STB_TRUETYPE_IMPLEMENTATION
+//      #define TRUETYPE_IMPLEMENTATION
 //   before the #include of this file. This expands out the actual
 //   implementation into that C/C++ file.
 //
