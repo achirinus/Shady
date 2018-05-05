@@ -193,9 +193,21 @@ typedef ptrdiff_t GLintptr;
 
 #define GL_ARRAY_BUFFER                   0x8892
 #define GL_ELEMENT_ARRAY_BUFFER           0x8893
-#define GL_DYNAMIC_DRAW                   0x88E8
-#define GL_STATIC_DRAW                    0x88E4
+#define GL_READ_ONLY                      0x88B8
+#define GL_WRITE_ONLY                     0x88B9
+#define GL_READ_WRITE                     0x88BA
+#define GL_BUFFER_ACCESS                  0x88BB
+#define GL_BUFFER_MAPPED                  0x88BC
+#define GL_BUFFER_MAP_POINTER             0x88BD
 #define GL_STREAM_DRAW                    0x88E0
+#define GL_STREAM_READ                    0x88E1
+#define GL_STREAM_COPY                    0x88E2
+#define GL_STATIC_DRAW                    0x88E4
+#define GL_STATIC_READ                    0x88E5
+#define GL_STATIC_COPY                    0x88E6
+#define GL_DYNAMIC_DRAW                   0x88E8
+#define GL_DYNAMIC_READ                   0x88E9
+#define GL_DYNAMIC_COPY                   0x88EA
 
 #define GL_FRAGMENT_SHADER                0x8B30
 #define GL_VERTEX_SHADER                  0x8B31
@@ -284,6 +296,8 @@ typedef void APIENTRY sh_glTexParameterf (GLenum target, GLenum pname, GLfloat p
 typedef void APIENTRY sh_glDepthFunc(GLenum func);
 typedef void APIENTRY sh_glDepthMask(GLboolean flag);
 typedef void APIENTRY sh_glPixelStorei (GLenum pname, GLint param);
+typedef void* APIENTRY sh_glMapBuffer (GLenum target, GLenum access);
+typedef GLboolean APIENTRY sh_glUnmapBuffer(GLenum target);
 
 #define OpenGlGlobalFuncEx(Name) sh_##Name* Name##_
 
@@ -482,6 +496,12 @@ typedef void APIENTRY sh_glPixelStorei (GLenum pname, GLint param);
 	OpenGlGlobalFunc(glPixelStorei);
 	#define glPixelStorei(...) GLFunctionWrap(glPixelStorei, __VA_ARGS__)
 
+	OpenGlGlobalFunc(glMapBuffer);
+	#define glMapBuffer(...) GLFunctionWrap(glMapBuffer, __VA_ARGS__)
+
+	OpenGlGlobalFunc(glUnmapBuffer);
+	#define glUnmapBuffer(...) GLFunctionWrap(glUnmapBuffer, __VA_ARGS__)
+
 	#define ShGlGetProcAddress(Name, FallbackModule, Arr)	\
 	 	Name##_ = (sh_##Name*)wglGetProcAddress(#Name); \
 		if(!Name##_) {Name##_ = (sh_##Name*)GetProcAddress(FallbackModule,#Name);} \
@@ -553,6 +573,8 @@ typedef void APIENTRY sh_glPixelStorei (GLenum pname, GLint param);
 	OpenGlGlobalFunc(glDepthFunc);
 	OpenGlGlobalFunc(glDepthMask);
 	OpenGlGlobalFunc(glPixelStorei);
+	OpenGlGlobalFunc(glMapBuffer);
+	OpenGlGlobalFunc(glUnmapBuffer);
 
 	#define ShGlGetProcAddress(Name, FallbackModule, Arr)	\
 	 	Name = (sh_##Name*)wglGetProcAddress(#Name); \

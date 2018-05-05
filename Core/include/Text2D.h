@@ -9,16 +9,28 @@
 
 namespace Shady
 {
+	struct TextGlBuffer
+	{
+		Vec3f Pos;
+		Vec2f TexCoord;
+		Vec4f Color;
+	};
+	
+
 	class Text2D : public Renderable2D
 	{
 	private:
 		Array<Glyph*> mGlyphs;
 		
+		TextGlBuffer* mGlBuffer;
+		Texture* mTextureAtlas;
 
+		u32 mVAO;
+		u32 mVBO;
 	public:
 
 		u32 mNumOfLines;
-		
+		Vec4f mColor;
 		Text2D(Shader* shader);
 		virtual void draw(Renderer2D* renderer);
 		virtual ~Text2D();
@@ -31,6 +43,7 @@ namespace Shady
 		Vec2f GetGlyphEndPos(u32 index);
 		void SetColor(const Vec4f& color);
 		void SetPosition(const Vec2f& newPos);
+		void SetTextureAtlas(Texture* atlas);
 		f32 GetHeight();
 	};
 }

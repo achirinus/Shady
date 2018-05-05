@@ -38,6 +38,23 @@ namespace Shady
 		return result;
 	}
 
+	void BlitRectInBitmap(u32* sBuf, u32 sWidth, u32 sHeight, u32 dx, u32 dy, u32* dBuf, u32 dWidth, u32 dHeight)
+	{
+		if (!sBuf || !sWidth || !sHeight) return;
+		if ((dx + sWidth) > dWidth) return;
+		if ((dy + sHeight) > dHeight) return;
+		u32 tempX = dx;
+		for (u32 ys = 0; ys < sHeight; ++ys)
+		{
+			for (u32 xs = 0; xs < sWidth; ++xs)
+			{
+				dBuf[dy * dWidth + dx++] = sBuf[ys * sWidth + xs];
+			}
+			dx = tempX;
+			++dy;
+		}
+	}
+
 	void freeBitmap(Bitmap bitmap)
 	{
 		delete[] bitmap.contents;

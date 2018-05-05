@@ -8,14 +8,16 @@ namespace Shady
 {
 	struct GlyphData
 	{
-		Texture* texture;
 		f32 mAdvanceWidth;
 		f32 mLeftSideBearing;
 		s32 mXOff;
 		s32 mYOff;
 		f32 mScale;
 		c8 mChar;
-		Vec2f mAtlasCoords;
+		Vec2f mAtlasCoordsTopLeft;
+		Vec2f mAtlasCoordsBotRight;
+		u32 mWidth;
+		u32 mHeight;
 	};
 }
 

@@ -22,5 +22,5 @@ void main()
 	vec4 Texel = texture(texSampler, fs_in.texCoord);
 	//if(Texel.a <= 0.3) discard;
 	color = vec4(1, 1, 1, Texel.r) * fs_in.vertColor;
-	
+	//color = vec4(1,1,1,1);
 }

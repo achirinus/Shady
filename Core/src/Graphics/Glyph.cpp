@@ -2,16 +2,14 @@
 
 namespace Shady
 {
-	Glyph::Glyph(const Vec3f& pos, u32 width, u32 height, Texture* texture, Shader* shader):
-	 Sprite(pos, width, height, texture, false, shader)
-	{
 
-	}
-	Glyph::Glyph(const Vec3f& pos, GlyphData data, Shader* shader) :
-		Sprite(pos, data.texture->getWidth(), data.texture->getHeight(), data.texture, false, shader)
+	Glyph::Glyph(const Vec3f& pos, GlyphData data)
 	{
+		mPos = pos;
 		mData = data;
 	}
+
+
 #if 0
 	void Glyph::draw()
 	{
@@ -28,7 +26,6 @@ namespace Shady
 #endif
 	Glyph::~Glyph()
 	{
-		glDeleteBuffers(NUM_BUFFERS, mVBO);
-		glDeleteVertexArrays(1, &mVAO);
+		
 	}
 }

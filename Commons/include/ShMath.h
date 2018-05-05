@@ -43,6 +43,8 @@ namespace Shady
 		return result;
 	}
 
+	f32 Get01FromRange(s32 pos, s32 min, s32 max);
+
 	s32 Absolute(s32 a);
 	f32 Absolute(f32 a);	
 	f32 Pow(f32 base, u32 pow);

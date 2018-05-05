@@ -3,6 +3,7 @@
 #include "Line2D.h"
 #include "ShaderManager.h"
 #include "DebugHelper.h"
+#include "MemUtils.h"
 
 
 #define STB_TRUETYPE_IMPLEMENTATION
@@ -16,14 +17,13 @@ namespace Shady
 
 	Font::~Font()
 	{
-		for(u32 index = 0; index < mGlyphs.Size(); index++)
+		for (u32 i = 0; i < mAtlasGlyphs.Size(); ++i)
 		{
-			Texture* tex = mGlyphs[mGlyphs.GetKeyByIndex(index)].texture;
-			delete tex;
+			delete mAtlasGlyphs[mAtlasGlyphs.GetKeyByIndex(i)].Atlas;
 		}
 	}
 
-	Font::Font(): mGlyphs(), FontAtlas{nullptr}
+	Font::Font()
 	{
 		mShader = ShaderManager::CreateShader("text");
 		BinaryFileContent fileResult = File::ReadBinaryFile("c:/windows/fonts/arial.ttf");
@@ -32,8 +32,7 @@ namespace Shady
 			DEBUG_OUT_ERR("Failed to Initialize font!");
 		}
 		File::ClearContent(&fileResult);
-		STBloadSupportedGlyphs(DEFAULT_FONT_SIZE);
-		
+		STBLoadAtlasData(DEFAULT_FONT_SIZE);
 	}
 
 
@@ -55,27 +54,6 @@ namespace Shady
 		return result;
 	}
 
-	void Font::STBloadSupportedGlyphs(u32 sizeInPixels)
-	{
-		f32 scale = stbtt_ScaleForPixelHeight(&mFontInfo, sizeInPixels);
-
-		//Advance v position by (ascent - descent + linegap)
-		stbtt_GetFontVMetrics(&mFontInfo, &mAscent, &mDescent, &mLineGap);
-		
-		MultiMap<c8, GlyphData> GlyphsToCache;
-		for(c8 cp = MIN_ASCII_CODEPOINT; cp <= MAX_ASCII_CODEPOINT; cp++)
-		{
-			s32 advanceW, leftBearing, xOffset, yOffset;
-			Texture* tex = STBgetGlyphTexture(&mFontInfo, cp, &xOffset, &yOffset, scale);
-			stbtt_GetCodepointHMetrics(&mFontInfo, cp, &advanceW, &leftBearing);
-			GlyphsToCache.Add(cp,  {tex, advanceW * scale, leftBearing * scale, xOffset, yOffset, scale, cp});
-		}
-		mCachedGlyphs.Add(sizeInPixels, GlyphsToCache);
-		
-	}
-
-	
-
 	void Font::STBLoadAtlasData(u32 size)
 	{
 		f32 scale = stbtt_ScaleForPixelHeight(&mFontInfo, size);
@@ -96,17 +74,43 @@ namespace Shady
 			AllBitmaps.Add(goodBmp);
 			stbtt_FreeBitmap(monoBitmap, 0);
 			stbtt_GetCodepointHMetrics(&mFontInfo, cp, &advanceW, &leftBearing);
-			GlyphsToCache.Add(cp, { nullptr, advanceW * scale, leftBearing * scale, xOffset, yOffset, scale, cp, {} });
+			GlyphsToCache.Add(cp, { advanceW * scale, leftBearing * scale, xOffset, yOffset, scale, cp, {}, {}, (u32)width, (u32)height });
 		}
-		u32* AtlasPixels = new u32[10 * 10 * size];
-
+		u32 Padding = 5;
+		u32 GlyphsPerLine = 10;
+		u32 LineSize = GlyphsPerLine * (size + Padding);
+		u32* AtlasPixels = new u32[LineSize * LineSize];
+		ZeroMem(AtlasPixels, LineSize * LineSize * sizeof(u32));
+		Bitmap AtlasBmp{};
+		AtlasBmp.bpp = 4;
+		AtlasBmp.contents = AtlasPixels;
+		AtlasBmp.width = LineSize;
+		AtlasBmp.height = LineSize;
+		u32 LastX = 0;
+		u32 LastY = 0;
+		u32 BitMapIndex = 0;
+		
 		for (c8 cp = MIN_ASCII_CODEPOINT; cp <= MAX_ASCII_CODEPOINT; cp++)
 		{
 
+			Bitmap Bmp = AllBitmaps[BitMapIndex++];
+			if (!Bmp.width || !Bmp.height) continue;
+			if (BitMapIndex % GlyphsPerLine == 0)
+			{
+				LastY += size + Padding;
+				LastX = 0;
+			}
+			Vec2f TopLeftCoords{ Get01FromRange(LastX, 0, LineSize), Get01FromRange(LastY, 0, LineSize) };
+			Vec2f BotRightCoords{ Get01FromRange(LastX + Bmp.width, 0, LineSize), Get01FromRange(LastY + Bmp.width, 0, LineSize) };
+			BlitRectInBitmap(Bmp.contents, Bmp.width, Bmp.height, LastX, LastY, AtlasPixels, LineSize, LineSize);
+			GlyphsToCache[cp].mAtlasCoordsTopLeft = TopLeftCoords;
+			GlyphsToCache[cp].mAtlasCoordsBotRight = BotRightCoords;
+			LastX += Bmp.width + Padding;
 		}
+		Texture* AtlasTex = new Texture(AtlasBmp);
 
-		mCachedGlyphs.Add(size, GlyphsToCache);
-
+		mAtlasGlyphs.Add(size, {AtlasTex, GlyphsToCache });
+		
 	}
 
 	Text2D* Font::GetText(Vec3f pos, const c8* str, u32 size)
@@ -124,13 +128,14 @@ namespace Shady
 		f32 kernAdvance = 0;
 		GlyphData* lastGlyphData = 0;
 
-		if (!mCachedGlyphs.HasKey(size))
+		if (!mAtlasGlyphs.HasKey(size))
 		{
-			STBloadSupportedGlyphs(size);
+			STBLoadAtlasData(size);
 		}
 
-		MultiMap<c8, GlyphData>& Glyphs = mCachedGlyphs[size];
-
+		MultiMap<c8, GlyphData>& Glyphs = mAtlasGlyphs[size].mCachedGlyphs;
+		Texture* Atlas = mAtlasGlyphs[size].Atlas;
+		result->SetTextureAtlas(Atlas);
 		GlyphData& TempGlyph = Glyphs['a'];
 
 		f32 SizedAscent = mAscent * TempGlyph.mScale;
@@ -166,10 +171,10 @@ namespace Shady
 					thisPos.x += lastGlyphData->mAdvanceWidth + kernAdvance - lastGlyphData->mLeftSideBearing +data->mXOff;
 				}
 
-				thisPos.y = baseLine - (f32)data->texture->getHeight() + (f32)data->texture->getHeight() + (f32)data->mYOff;
+				thisPos.y = baseLine - (f32)data->mHeight + (f32)data->mHeight + (f32)data->mYOff;
 				thisPos.y += SizedAscent + SizedDescent;
 				
-				Glyph* glyph = new Glyph(thisPos, *data, mShader);
+				Glyph* glyph = new Glyph(thisPos, *data);
 				//glyph->SetTransparency(true);
 				result->addGlyph(glyph);
 			}
@@ -196,12 +201,12 @@ namespace Shady
 		f32 kernAdvance = 0;
 		GlyphData* lastGlyphData = 0;
 
-		if (!mCachedGlyphs.HasKey(size))
+		if (!mAtlasGlyphs.HasKey(size))
 		{
-			STBloadSupportedGlyphs(size);
+			STBLoadAtlasData(size);
 		}
 
-		MultiMap<c8, GlyphData>& Glyphs = mCachedGlyphs[size];
+		MultiMap<c8, GlyphData>& Glyphs = mAtlasGlyphs[size].mCachedGlyphs;
 
 		GlyphData& TempGlyph = Glyphs['a'];
 
@@ -242,10 +247,10 @@ namespace Shady
 					thisPos.x += lastGlyphData->mAdvanceWidth + kernAdvance - lastGlyphData->mLeftSideBearing + data->mXOff;
 					
 				}
-				WidthThisLine = thisPos.x + data->texture->getWidth();
-				thisPos.y = baseLine - (f32)data->texture->getHeight() + (f32)data->texture->getHeight() + (f32)data->mYOff;
+				WidthThisLine = thisPos.x + data->mWidth;
+				thisPos.y = baseLine - (f32)data->mHeight + (f32)data->mHeight + (f32)data->mYOff;
 				thisPos.y += SizedAscent + SizedDescent;
-				Height = thisPos.y + data->texture->getHeight();
+				Height = thisPos.y + data->mHeight;
 			}
 			lastCharPos = thisPos;
 			lastChar = *str;
@@ -274,8 +279,4 @@ namespace Shady
 		return result;
 	}
 
-	Texture* Font::GetGlyphTexture(c8 codePoint, u32 size)
-	{
-		return mGlyphs[codePoint].texture;
-	}
 }

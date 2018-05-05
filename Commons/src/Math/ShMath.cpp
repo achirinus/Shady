@@ -5,6 +5,13 @@
 namespace Shady
 {
 
+	f32 Get01FromRange(s32 pos, s32 min, s32 max)
+	{
+		f32 Sum = (f32)(min + max);
+		f32 Result = SafeRatio((f32)pos, Sum);
+		return Result;
+	}
+
 	s32 Absolute(s32 a)
 	{
 		if (a < 0)

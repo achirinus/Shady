@@ -29,26 +29,12 @@ namespace Shady
 		return num;
 	}
 
-	void BlitRectInBitmap(u32* sBuf, u32 sWidth, u32 sHeight, u32 dx, u32 dy, u32* dBuf, u32 dWidth, u32 dHeight)
-	{
-		u32 tempX = dx;
-		for (u32 ys = 0; ys < sHeight; ++ys)
-		{
-			for (u32 xs = 0; xs < sWidth; ++xs)
-			{
-				dBuf[dy * dWidth + dx++] = sBuf[ys * sWidth + xs];
-			}
-			dx = tempX;
-			++dy;
-		}
-	}
+	
 
 	void ShadyApp::start()
 	{
 		AUTO_TIMED_FUNCTION();
 
-		
-		
 		mMainWindow = new Window();
 		mMouse = Mouse::GetInstance();
 		mKeyboard = Keyboard::GetInstance();
@@ -79,6 +65,8 @@ namespace Shady
 			}
 		}
 		BlitRectInBitmap(SmallMem[0], 2, 3, 3, 2, BigMem[0], 6, 6);
+
+		
 
 		File TestPng{ "image.png" };
 		TestPng.Open(FileType::BINARY_FILE);
@@ -218,7 +206,9 @@ namespace Shady
 		
 		camera3d = new Camera3D({(f32)mMainWindow->mClientWidth, (f32)mMainWindow->mClientHeight});
 		renderer3d = new Renderer3D(camera3d);
-
+		Texture* Atlas = currentFont->mAtlasGlyphs[20].Atlas;
+		Sprite* TestAtlas = new Sprite(Vec3f{ 400, 400, 0 }, Atlas);
+		renderer2d->Submit(TestAtlas, 20.0f);
 		cube = new Cube(200.0f, {0.0f, 0.0f, -50});
 		
 	}
