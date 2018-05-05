@@ -101,7 +101,7 @@ namespace Shady
 				LastX = 0;
 			}
 			Vec2f TopLeftCoords{ Get01FromRange(LastX, 0, LineSize), Get01FromRange(LastY, 0, LineSize) };
-			Vec2f BotRightCoords{ Get01FromRange(LastX + Bmp.width, 0, LineSize), Get01FromRange(LastY + Bmp.width, 0, LineSize) };
+			Vec2f BotRightCoords{ Get01FromRange(LastX + Bmp.width, 0, LineSize), Get01FromRange(LastY + Bmp.height, 0, LineSize) };
 			BlitRectInBitmap(Bmp.contents, Bmp.width, Bmp.height, LastX, LastY, AtlasPixels, LineSize, LineSize);
 			GlyphsToCache[cp].mAtlasCoordsTopLeft = TopLeftCoords;
 			GlyphsToCache[cp].mAtlasCoordsBotRight = BotRightCoords;
