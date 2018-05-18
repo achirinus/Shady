@@ -8,7 +8,8 @@
 #include "PngImage.h"
 #include "ShRandom.h"
 #include "MemUtils.h"
-
+#include "ShMinHeap.h"
+#include "ShMaxHeap.h"
 
 namespace Shady
 {
@@ -55,19 +56,24 @@ namespace Shady
 		*/
 		//TEST STUFF!!------------------------------------
 		
-		u32 BigMem[6][6];
-		u32 SmallMem[3][2];
-		for (u32 y = 0; y < 3; y++)
-		{
-			for (u32 x = 0; x < 2; x++)
-			{
-				SmallMem[y][x] = 4;
-			}
-		}
-		BlitRectInBitmap(SmallMem[0], 2, 3, 3, 2, BigMem[0], 6, 6);
-
 		
+		s32 InsertSortTest[] = { 54, 23, 72, 1, 234, 10, 39, 2 };
+		MaxHeap<s32> TestHeap;
+		TestHeap.Insert(29);
+		TestHeap.Insert(10);
+		TestHeap.Insert(30);
+		TestHeap.Insert(13);
+		TestHeap.Insert(2);
+		TestHeap.Insert(1);
 
+		u32 Smaller1 = TestHeap.GetMin();
+		u32 Smaller2 = TestHeap.GetMin();
+ 		u32 Smaller3 = TestHeap.GetMin();
+		u32 Smaller4 = TestHeap.GetMin();
+		u32 Smaller5 = TestHeap.GetMin();
+
+		//InsertionSort(InsertSortTest, C_ARRAY_SIZE(InsertSortTest));
+		InsertionSort(InsertSortTest, InsertSortTest + C_ARRAY_SIZE(InsertSortTest), [](s32 a, s32 b) {if (a == b) return 0; return a > b ? -1 : 1; });
 		File TestPng{ "image.png" };
 		TestPng.Open(FileType::BINARY_FILE);
 		BinaryFileContent Content = TestPng.ReadAllData();
@@ -149,7 +155,7 @@ namespace Shady
 		f32 InfoY = 100;
 		for (auto& FunctionInfo : DebugHelper::LastFrame.Functions)
 		{
-			String temp = String::FormatString("%s: AvgTimePerCall: %f, Calls: %d", FunctionInfo.Name, FunctionInfo.AvgTimePerCall, FunctionInfo.NumOfCalls);
+			String temp = String::FormatString("%s: AvgTimePerCall: %f, Calls: %d", FunctionInfo.Name, FunctionInfo.AvgTimePerCall, FunctionInfo.NumOfCalls );
 			Renderer2D::DrawText(*temp, 20.0f, { 500.0f, InfoY, 0.0f });
 			InfoY += 20.0f;
 		}

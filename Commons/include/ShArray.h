@@ -301,6 +301,18 @@ namespace Shady
 			other.mNumOfElem = tNum;
 		}
 
+		b8 Swap(u32 firstIndex, u32 secondIndex)
+		{
+			b8 Result = false;
+			u32 maxAvailableIndex = mBufferSize - 1;
+			if (maxAvailableIndex < firstIndex) return Result;
+			if (maxAvailableIndex < secondIndex) return Result;
+			T Temp = Move(mBuffer[firstIndex]);
+			mBuffer[firstIndex] = Move(mBuffer[secondIndex]);
+			mBuffer[secondIndex] = Move(Temp);
+			return Result;
+		}
+
 		Array<T>& RemoveFirst()
 		{
 			if(mNumOfElem)
@@ -320,15 +332,16 @@ namespace Shady
 			return *this;
 		}
 
-		Array<T>& Remove(u32 index)
+		T Remove(u32 index)
 		{
 			SH_ASSERT((index >= 0) && (index  < mNumOfElem));
+			T Result = Move(mBuffer[index]);
 			for(u32 firstIndex = index; firstIndex < mNumOfElem-1; firstIndex++)
 			{
 				mBuffer[firstIndex] = mBuffer[firstIndex + 1];
 			}
 			mNumOfElem--;
-			return *this;
+			return Result;
 		}
 
 		b8 Has(T& elem)

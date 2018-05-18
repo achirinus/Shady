@@ -44,6 +44,36 @@ namespace Shady
 		return 0;
 	}
 
+	template<typename T>
+	void InsertionSort(T* arr, s32 count)
+	{
+		for (int i = 0; i < count; ++i)
+		{
+			T temp = Move(arr[i]);
+			int j = i;
+			for (;(j > 0) && (arr[j - 1] > temp); --j)
+			{
+				arr[j] = Move(arr[j-1]);
+			}
+			arr[j] = Move(temp);
+		}
+	}
+
+	template<typename Iterator, typename Comp>
+	void InsertionSort(Iterator begin, Iterator end, Comp comparator)
+	{
+		for (Iterator it = begin; it != end; ++it)
+		{
+			Iterator it2 = it;
+			auto temp = Move(*it);
+			for (; (it2 != begin) && (comparator(*(it2 - 1), temp) < 0); it2--)
+			{
+				*it2 = Move(*(it2 - 1));
+			}
+			*it2 = Move(temp);
+		}
+	}
+
 	void ClearMem(void* mem, u64 size);
 
 	b8 IsBitSet(u32 num, u8 bit);
@@ -60,8 +90,7 @@ namespace Shady
 	
 	b8 MemoryCompare(const c8* Left, const c8* Right, u32 Size);
 
-	//template<typename Bytes, typename LeftShiftBits>
-	//auto _BytesToMoreBytes() { return Bytes << LeftShiftBits; }
+	
 	
 #define MegaBytes(InBytes) (InBytes << 20)
 

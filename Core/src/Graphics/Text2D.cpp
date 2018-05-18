@@ -4,8 +4,8 @@
 
 namespace Shady
 {
-#define MAX_TEXT_GL_BUFFER_SIZE 2048 * 24
-	Text2D::Text2D(Shader* shader): mGlBuffer{0}
+#define MAX_TEXT_GL_BUFFER_SIZE 2048 * 24 //TODO Figure out what to do about this
+	Text2D::Text2D(Shader* shader): mGlBuffer{0}, mColor{1., 1., 1., 1.}
 	{
 		mShader = shader;
 		mWidth = 0;
@@ -75,7 +75,7 @@ namespace Shady
 		}
 		glUnmapBuffer(GL_ARRAY_BUFFER);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		glDepthMask(false);
+		//glDepthMask(false);
 
 		if (mTextureAtlas) mTextureAtlas->bind(0);
 		mShader->Enable();
@@ -87,7 +87,7 @@ namespace Shady
 
 		glBindVertexArray(0);
 		
-		glDepthMask(true);
+		//glDepthMask(true);
 		if (mTextureAtlas) mTextureAtlas->unbind(0);
 		mShader->Disable();
 	}

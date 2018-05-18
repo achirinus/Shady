@@ -6,13 +6,14 @@
 #include "Win32Utils.h"
 #include "StringUtils.h"
 #include "MemUtils.h"
+#include "DebugHelper.h"
 
 
 namespace Shady
 {
 	LRESULT CALLBACK Window::WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	{
-		
+		AUTO_TIMED_FUNCTION();
 		Window* window = reinterpret_cast<Window*>(GetWindowLongPtr(hwnd, GWLP_USERDATA));
 		LRESULT result = 0;
 		switch(uMsg)
@@ -191,7 +192,7 @@ namespace Shady
 		
 		if(RegisterClass(&wc))
 		{
-			mHwnd = CreateWindowExA(0, WINDOW_CLASS_NAME, title,  
+			mHwnd = CreateWindowExA(0, WINDOW_CLASS_NAME, title,
 									WS_OVERLAPPEDWINDOW|WS_VISIBLE,
 									 CW_USEDEFAULT, CW_USEDEFAULT,SH_DEFAULT_WINDOW_WIDTH, 
 									 SH_DEFAULT_WINDOW_HEIGHT, NULL, NULL, mInstance, this);
@@ -311,6 +312,7 @@ namespace Shady
 	}
 	void Window::Update()
 	{
+		AUTO_TIMED_FUNCTION();
 		while(PeekMessage(&mMessage, mHwnd, 0, 0, PM_REMOVE))
 		{
 			TranslateMessage(&mMessage);

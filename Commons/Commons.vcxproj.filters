@@ -120,6 +120,12 @@
     <ClInclude Include="include\ShRandom.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\ShMinHeap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ShMaxHeap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Containers\ShString.cpp">

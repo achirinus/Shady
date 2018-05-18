@@ -67,7 +67,7 @@ namespace Shady
 			Renderer2D::DrawEmptyRectangle(mEditTextPos, mWidth - 6, EDIT_TEXT_HEIGHT, ColorVec::WhiteGrey);
 			if (mInputStr.Size())
 			{
-				Text2D* text = mFont->GetText({ mEditTextPos.x + 3, mEditTextPos.y + 5, mEditTextPos.z }, mInputStr.CStr(), CONSOLE_TEXT_HEIGHT);
+				Text2D* text = mFont->GetText({ mEditTextPos.x + 3, mEditTextPos.y + 5, mEditTextPos.z}, mInputStr.CStr(), CONSOLE_TEXT_HEIGHT);
 				Renderer2D::GetInstance()->Submit(text);
 				if (mCursor > 0)
 				{

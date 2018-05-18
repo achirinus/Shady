@@ -166,7 +166,7 @@ namespace Shady
 
 					
 					glEnable(GL_CULL_FACE);
-					glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+					glClearColor(0.2f, 0.2f, 0.2f, 0.2f);
 					glEnable(GL_BLEND);
 					glEnable(GL_LINE_SMOOTH); //Antialiasing				
 					glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

@@ -20,7 +20,8 @@ void main()
 	//vec4 texColor = vec4(1, 1, 1, texture(texSampler, fs_in.texCoord).a);
 	//color = fs_in.vertColor * texColor;
 	vec4 Texel = texture(texSampler, fs_in.texCoord);
-	//if(Texel.a <= 0.3) discard;
+	if(Texel.r <= 0.3) discard;
+	
 	color = vec4(1, 1, 1, Texel.r) * fs_in.vertColor;
 	//color = vec4(1,1,1,1);
 }

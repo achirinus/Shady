@@ -162,6 +162,8 @@
     <ClInclude Include="include\ShBitset.h" />
     <ClInclude Include="include\ShHashMap.h" />
     <ClInclude Include="include\ShHashTable.h" />
+    <ClInclude Include="include\ShMaxHeap.h" />
+    <ClInclude Include="include\ShMinHeap.h" />
     <ClInclude Include="include\ShIterator.h" />
     <ClInclude Include="include\ShList.h" />
     <ClInclude Include="include\ShMath.h" />
