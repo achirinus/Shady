@@ -103,10 +103,13 @@ typedef ptrdiff_t GLintptr;
 
 #define GL_CULL_FACE                      0x0B44
 #define GL_DEPTH_TEST                     0x0B71
+#define GL_SCISSOR_TEST                   0x0C11
 #define GL_BLEND                          0x0BE2
 #define GL_LINE_SMOOTH                    0x0B20
 
 #define GL_UNPACK_ALIGNMENT               0x0CF5
+
+
 
 #define GL_NO_ERROR                       0
 #define GL_INVALID_ENUM                   0x0500
@@ -298,6 +301,7 @@ typedef void APIENTRY sh_glDepthMask(GLboolean flag);
 typedef void APIENTRY sh_glPixelStorei (GLenum pname, GLint param);
 typedef void* APIENTRY sh_glMapBuffer (GLenum target, GLenum access);
 typedef GLboolean APIENTRY sh_glUnmapBuffer(GLenum target);
+typedef void APIENTRY sh_glScissor(GLint x, GLint y, GLsizei width, GLsizei height);
 
 #define OpenGlGlobalFuncEx(Name) sh_##Name* Name##_
 
@@ -502,6 +506,9 @@ typedef GLboolean APIENTRY sh_glUnmapBuffer(GLenum target);
 	OpenGlGlobalFunc(glUnmapBuffer);
 	#define glUnmapBuffer(...) GLFunctionWrap(glUnmapBuffer, __VA_ARGS__)
 
+	OpenGlGlobalFunc(glScissor);
+	#define glScissor(...) GLFunctionWrap(glScissor, __VA_ARGS__)
+
 	#define ShGlGetProcAddress(Name, FallbackModule, Arr)	\
 	 	Name##_ = (sh_##Name*)wglGetProcAddress(#Name); \
 		if(!Name##_) {Name##_ = (sh_##Name*)GetProcAddress(FallbackModule,#Name);} \
@@ -575,6 +582,7 @@ typedef GLboolean APIENTRY sh_glUnmapBuffer(GLenum target);
 	OpenGlGlobalFunc(glPixelStorei);
 	OpenGlGlobalFunc(glMapBuffer);
 	OpenGlGlobalFunc(glUnmapBuffer);
+	OpenGlGlobalFunc(glScissor);
 
 	#define ShGlGetProcAddress(Name, FallbackModule, Arr)	\
 	 	Name = (sh_##Name*)wglGetProcAddress(#Name); \

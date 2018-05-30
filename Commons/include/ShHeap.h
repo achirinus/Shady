@@ -8,25 +8,57 @@
 namespace Shady
 {
 	template<typename T>
-	struct MinHeap
+	bool HeapMinProc(const T& left, const T& right)
+	{
+		return left < right;
+	}
+
+	template<typename T>
+	bool HeapMaxProc(const T& left, const T& right)
+	{
+		return left > right;
+	}
+
+	template<typename T>
+	using HeapCompProc = bool (const T&, const T&);
+
+	template<typename T, HeapCompProc<T>* HeapProc = HeapMinProc<T>>
+	struct Heap
 	{
 		Array<T> mElem;
 		u32 mSize;
 
-		MinHeap():mSize{0}, mElem{} {}
-		MinHeap(const MinHeap<T>& other): mSize{other.mSize}, mElem{other.mElem} {}
-		MinHeap(MinHeap<T>&& other)
+		Heap():mSize{0}, mElem{} {}
+		Heap(const Heap<T>& other): mSize{other.mSize}, mElem{other.mElem} {}
+
+		Heap(T* buffer, u32 num): mSize{ 0 }, mElem{}
+		{
+			for (u32 i = 0; i < num; i++)
+			{
+				Insert(buffer[i]);
+			}
+		}
+
+		Heap(Array<T> arr) : mSize{ 0 }, mElem{}
+		{
+			for (T& elem : arr)
+			{
+				Insert(elem);
+			}
+		}
+
+		Heap(Heap<T>&& other)
 		{
 			mSize = other.mSize;
 			mElem = Move(other.mElem);
 		}
-		MinHeap<T>& operator=(const MinHeap<T>& other)
+		Heap<T>& operator=(const Heap<T>& other)
 		{
 			mSize = other.mSize;
 			mElem = other.mElem;
 			return *this;
 		}
-		MinHeap<T>& operator=(MinHeap<T>&& other)
+		Heap<T>& operator=(Heap<T>&& other)
 		{
 			mSize = other.mSize;
 			mElem = Move(other.mElem);
@@ -44,7 +76,7 @@ namespace Shady
 			}
 		}
 
-		T GetMin()
+		T Get()
 		{
 			SH_ASSERT(mSize > 0);
 
@@ -71,7 +103,7 @@ namespace Shady
 				{
 					if (HasRightChild(index))
 					{
-						if (mElem[LeftChildIndex] < mElem[RightChildIndex])
+						if (HeapProc(mElem[LeftChildIndex], mElem[RightChildIndex]))
 						{
 							mElem.Swap(index, LeftChildIndex);
 							index = LeftChildIndex;
@@ -86,7 +118,7 @@ namespace Shady
 					}
 					else
 					{
-						if (mElem[LeftChildIndex] < mElem[index])
+						if (HeapProc(mElem[LeftChildIndex], mElem[index]))
 						{
 							mElem.Swap(index, LeftChildIndex);
 							index = LeftChildIndex;
@@ -103,7 +135,7 @@ namespace Shady
 			u32 Parent = ParentIndex(index);
 			while (Parent)
 			{
-				if (mElem[Parent] > mElem[index])
+				if (HeapProc(mElem[index], mElem[Parent]))
 				{
 					mElem.Swap(Parent, index);
 					index = Parent;
@@ -148,5 +180,10 @@ namespace Shady
 			return index / 2;
 		}
 	};
+
+	template<typename T> using MaxHeap = Heap<T, HeapMaxProc<T>>;
+	
+	template<typename T> using MinHeap = Heap<T, HeapMinProc<T>>;
+	
 }
 #endif

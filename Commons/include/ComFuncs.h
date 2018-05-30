@@ -74,6 +74,24 @@ namespace Shady
 		}
 	}
 
+	template<typename T>
+	void ShellSort(T* arr, s32 count)
+	{
+		for (s32 gap = count / 2; gap > 0; gap /= 2)
+		{
+			for (s32 i = gap; i < count; i++)
+			{
+				T temp = Move(arr[i]);
+				s32 j = i;
+				for (; j >= gap && temp < arr[j - gap]; j -= gap)
+				{
+					arr[j] = Move(arr[j - gap]);
+				}
+				arr[j] = Move(temp);
+			}
+		}
+	}
+
 	void ClearMem(void* mem, u64 size);
 
 	b8 IsBitSet(u32 num, u8 bit);
