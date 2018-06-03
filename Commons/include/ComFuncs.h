@@ -2,6 +2,7 @@
 #define SH_COM_FUNCS_H
 
 #include "ShTypes.h"
+#include "ShHeap.h"
 
 namespace Shady
 {
@@ -45,7 +46,7 @@ namespace Shady
 	}
 
 	template<typename T>
-	void InsertionSort(T* arr, s32 count)
+	void InsertionSort(T* arr, u32 count)
 	{
 		for (int i = 0; i < count; ++i)
 		{
@@ -75,7 +76,7 @@ namespace Shady
 	}
 
 	template<typename T>
-	void ShellSort(T* arr, s32 count)
+	void ShellSort(T* arr, u32 count)
 	{
 		for (s32 gap = count / 2; gap > 0; gap /= 2)
 		{
@@ -89,6 +90,16 @@ namespace Shady
 				}
 				arr[j] = Move(temp);
 			}
+		}
+	}
+
+	template<typename T>
+	void HeapSort(T* arr, u32 count)
+	{
+		MinHeap<T> TempHeap{ arr, count };
+		for (s32 i = 0; i < count; i++)
+		{
+			arr[i] = TempHeap.Get();
 		}
 	}
 

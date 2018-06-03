@@ -3,6 +3,7 @@
 
 #include <StringUtils.h>
 #include <Commons.h>
+
 #include <ShArray.h>
 #include <initializer_list>
 

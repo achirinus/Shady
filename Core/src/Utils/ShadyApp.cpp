@@ -8,6 +8,7 @@
 #include "PngImage.h"
 #include "ShRandom.h"
 #include "MemUtils.h"
+#include "ShArray.h"
 #include "ShHeap.h"
 
 namespace Shady
@@ -57,6 +58,7 @@ namespace Shady
 		
 		
 		s32 InsertSortTest[] = { 54, 23, 72, 1, 234, 10, 39, 2 };
+		HeapSort(InsertSortTest, C_ARRAY_SIZE(InsertSortTest));
 		MinHeap<s32> tMinHeap(InsertSortTest, C_ARRAY_SIZE(InsertSortTest));
 		
 		u32 res = tMinHeap.Get();

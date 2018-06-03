@@ -1,7 +1,7 @@
-#ifndef SH_MIN_HEAP_H
-#define SH_MIN_HEAP_H
+#ifndef SH_HEAP_H
+#define SH_HEAP_H
 
-#include <ShArray.h>
+#include "ShArray.h"
 #include <ShAssert.h>
 #include <Commons.h>
 

@@ -1,7 +1,8 @@
 #ifndef SHADY_ARRAY_H
 #define SHADY_ARRAY_H
 
-#include <Commons.h>
+#include "ShTypes.h"
+#include "ShAssert.h"
 #include <ShIterator.h>
 #include <initializer_list>
 #include <new>
@@ -391,7 +392,7 @@ namespace Shady
 			{
 				T* temp = mBuffer;
 				mBufferSize = mNumOfElem;
-				mBufer = new T[mBufferSize];
+				mBuffer = new T[mBufferSize];
 				for(u32 i = 0; i < mNumOfElem; i++)
 				{
 					mBuffer[i] = temp[i];
